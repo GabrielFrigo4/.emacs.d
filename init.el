@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(tsdh-dark))
  '(inhibit-startup-screen t)
- '(package-selected-packages '(rust-mode lua-mode))
+ '(package-selected-packages '(nasm-mode rust-mode lua-mode))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
