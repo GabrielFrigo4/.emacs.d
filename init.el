@@ -8,7 +8,7 @@
  '(custom-enabled-themes '(tsdh-dark))
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-screen t)
- '(package-selected-packages '(ergoemacs-mode ace-window try))
+ '(package-selected-packages '(ace-window try))
  '(show-paren-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces
