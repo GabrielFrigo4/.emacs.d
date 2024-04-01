@@ -49,3 +49,4 @@
 (global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "C-x c") 'kill-current-buffer)
+(global-set-key (kbd "<f9>") ctl-x-map)
