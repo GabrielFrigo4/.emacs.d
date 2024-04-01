@@ -20,8 +20,6 @@
   :ensure t)
 (use-package lua-mode
   :ensure t)
-(use-package all-the-icons
-  :if (display-graphic-p))
 (use-package neotree
   :ensure t
   :config (setq neo-theme (if (display-graphic-p) 'arrow))
