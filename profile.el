@@ -42,6 +42,9 @@
   :ensure t
   :bind (("M-o" . ace-window)))
 
+;; Settings Packages
+(setq-default neo-show-hidden-files t)
+
 ;; Shortcut
 (global-set-key (kbd "C-<tab>") 'other-window)
 (global-set-key (kbd "C-M-<up>") 'enlarge-window)
