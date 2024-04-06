@@ -1,5 +1,13 @@
+;;################
+;; Settings
+;;################
+
 ;; Remove Backup Files
 (setq make-backup-files nil)
+
+;;################
+;; Packages
+;;################
 
 ;; Setup Packages (MELPA)
 (require 'package)
@@ -45,11 +53,20 @@
 ;; Settings Packages
 (setq-default neo-show-hidden-files t)
 
+;;################
 ;; Shortcut
+;;################
+
+;; Window
 (global-set-key (kbd "C-<tab>") 'other-window)
 (global-set-key (kbd "C-M-<up>") 'enlarge-window)
 (global-set-key (kbd "C-M-<down>") 'shrink-window)
 (global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
+
+;; Buffer
 (global-set-key (kbd "C-x c") 'kill-current-buffer)
+
+;; Command
+(global-set-key (kbd "<apps>") 'execute-extended-command)
 (global-set-key (kbd "<f9>") ctl-x-map)
