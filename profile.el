@@ -69,4 +69,11 @@
 
 ;; Command
 (global-set-key (kbd "<apps>") 'execute-extended-command)
+
+;; Function Keys (not used by default)
+(global-set-key (kbd "<f5>") ctl-x-map)
+(global-set-key (kbd "<f6>") ctl-x-map)
+(global-set-key (kbd "<f7>") ctl-x-map)
+(global-set-key (kbd "<f8>") ctl-x-map)
 (global-set-key (kbd "<f9>") ctl-x-map)
+(global-set-key (kbd "<f12>") ctl-x-map)
