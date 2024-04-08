@@ -19,7 +19,8 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    '(which-key auto-complete neotree lua-mode rust-mode nasm-mode ace-window try))
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(xterm-mouse-mode 1))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
