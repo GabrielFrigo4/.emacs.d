@@ -1,12 +1,12 @@
-;; Minimize garbage collection during startup
+;; #############################################
+;; # Minimize garbage collection during startup
 (setq gc-cons-threshold most-positive-fixnum)
+;; #############################################
 
-;; Lower threshold back to 8 MiB (default is 800kB)
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (setq gc-cons-threshold (expt 2 23))))
+;; ########################
+;; # EMACS auto-options
+;; ########################
 
-;; EMACS Auto-Options
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -28,18 +28,23 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "RobotoMono Nerd Font Mono" :foundry "outline" :slant normal :weight regular :height 108 :width normal)))))
 
-(defconst dot-emacs (concat (getenv "HOME") "/.emacs.d/" "profile.el")
-    "My dot emacs file")
- 
-(require 'bytecomp)
-(setq compiled-dot-emacs (byte-compile-dest-file dot-emacs))
- 
-(if (or (not (file-exists-p compiled-dot-emacs))
-	(file-newer-than-file-p dot-emacs compiled-dot-emacs)
-        (equal (nth 4 (file-attributes dot-emacs)) (list 0 0)))
-    (load dot-emacs)
-  (load compiled-dot-emacs))
- 
-(add-hook 'kill-emacs-hook
-          '(lambda () (and (file-newer-than-file-p dot-emacs compiled-dot-emacs)
-                           (byte-compile-file dot-emacs))))
+
+;; ########################
+;; # EMACS setup-options
+;; ########################
+
+;; Compile all ".el" files to ".elc"
+(byte-recompile-directory (expand-file-name (concat (getenv "HOME") "/.emacs.d")) 0)
+
+;; Add load-path "Emacs-Lisp"
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/Emacs-Lisp") load-path))
+
+;; Load ".el" and ".elc" files
+(load "startup.elc")
+(load "package.elc")
+(load "profile.elc")
+
+;; ##################################
+;; # Default garbage collection
+(setq gc-cons-threshold (expt 2 20))
+;; ##################################

@@ -1,8 +1,12 @@
+# emacs default
 /all-the-fonts
 /auto-save-list
 /eln-cache
 /elpa
 
+# emacs packages
 /ac-comphist.dat
 /recentf
-/*.elc
+
+# emacs compile
+*.elc
