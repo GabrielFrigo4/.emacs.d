@@ -12,7 +12,6 @@
 (setq initial-major-mode 'fundamental-mode)
 
 ;; Remove message
-(setq inhibit-startup-message 't)
 (setq initial-scratch-message 'nil)
 
 
@@ -32,6 +31,7 @@
  '(display-time-mode t)
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-screen t)
+ '(inhibit-startup-message t)
  '(package-selected-packages
    '(which-key auto-complete neotree lua-mode rust-mode nasm-mode ace-window try))
  '(size-indication-mode t)
