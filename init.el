@@ -3,6 +3,19 @@
 (setq gc-cons-threshold most-positive-fixnum)
 ;; #############################################
 
+
+;;################
+;; Startup
+;;################
+
+;; Set to 'fundamental-mode
+(setq initial-major-mode 'fundamental-mode)
+
+;; Remove message
+(setq inhibit-startup-message 't)
+(setq initial-scratch-message 'nil)
+
+
 ;; ########################
 ;; # EMACS auto-options
 ;; ########################
@@ -40,9 +53,10 @@
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/Emacs-Lisp") load-path))
 
 ;; Load ".el" and ".elc" files
-(load "startup.elc")
-(load "package.elc")
-(load "profile.elc")
+(load "package")
+(load "settings")
+(load "shortcut")
+
 
 ;; ##################################
 ;; # Default garbage collection
