@@ -27,11 +27,14 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(custom-enabled-themes '(tsdh-dark))
+ '(display-battery-mode t)
  '(display-line-numbers-type 'relative)
+ '(display-time-mode t)
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-screen t)
  '(package-selected-packages
    '(which-key auto-complete neotree lua-mode rust-mode nasm-mode ace-window try))
+ '(size-indication-mode t)
  '(tool-bar-mode nil)
  '(xterm-mouse-mode 1))
 (custom-set-faces
