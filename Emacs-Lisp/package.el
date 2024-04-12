@@ -2,16 +2,6 @@
 ;; Packages
 ;;################
 
-;; Setup Packages (MELPA)
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives
-	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(package-initialize)
-(unless (package-installed-p 'use-package)
-  (package-resfresh-contents)
-  (package-install 'use-package))
-
 ;; Install Packages
 (use-package try
   :ensure t)

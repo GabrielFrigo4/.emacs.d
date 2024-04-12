@@ -49,6 +49,16 @@
 ;; # EMACS setup-options
 ;; ########################
 
+;; Setup Packages (MELPA)
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives
+	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
+(unless (package-installed-p 'use-package)
+  (package-resfresh-contents)
+  (package-install 'use-package))
+
 ;; Compile all ".el" files to ".elc"
 (byte-recompile-directory (expand-file-name (concat (getenv "HOME") "/.emacs.d")) 0)
 
