@@ -33,13 +33,13 @@
 	:ensure t)
   (use-package neotree
     :ensure t
-    :config (setq neo-theme (if (display-graphic-p) 'arrow))
+    :config (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
     :bind ("C-\\" . 'neotree-toggle))
 )
 (when (eq system-type 'windows-nt)
   (use-package neotree
     :ensure t
-    :config (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+    :config (setq neo-theme (if (display-graphic-p) 'arrow))
     :bind ("C-\\" . 'neotree-toggle))
 )
 
