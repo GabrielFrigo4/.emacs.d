@@ -18,3 +18,9 @@
 
 ;; Set tab on sgml-mode
 (defvaralias 'sgml-basic-offset 'tab-width)
+
+;; Set tab on bash-mode
+(defvaralias 'sh-basic-offset 'tab-width)
+
+;; Set tab on python-mode
+(defvaralias 'python-indent-offset 'tab-width)
