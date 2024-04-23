@@ -29,13 +29,14 @@
   :ensure t
   :bind (("M-o" . ace-window)))
 (when (eq system-type 'gnu/linux)
-
-)
-(if (eq system-type 'windows-nt)
+  (use-package all-the-icons
+	:ensure t)
   (use-package neotree
     :ensure t
     :config (setq neo-theme (if (display-graphic-p) 'arrow))
     :bind ("C-\\" . 'neotree-toggle))
+)
+(when (eq system-type 'windows-nt)
   (use-package neotree
     :ensure t
     :config (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
