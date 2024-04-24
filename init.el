@@ -34,7 +34,7 @@
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-screen t)
  '(package-selected-packages
-   '(treesit-auto which-key auto-complete neotree lua-mode rust-mode nasm-mode ace-window try))
+   '(treesit-auto which-key auto-complete neotree lua-mode rust-mode nasm-mode ace-window))
  '(size-indication-mode t)
  '(tool-bar-mode nil)
  '(xterm-mouse-mode 1))
