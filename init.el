@@ -8,6 +8,7 @@
 ;; Startup
 ;;################
 
+
 ;; Set to 'fundamental-mode
 (setq initial-major-mode 'fundamental-mode)
 
@@ -18,6 +19,7 @@
 ;; ########################
 ;; # EMACS auto-options
 ;; ########################
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -31,9 +33,8 @@
  '(display-time-mode t)
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-screen t)
- '(inhibit-startup-message t)
  '(package-selected-packages
-   '(which-key auto-complete neotree lua-mode rust-mode nasm-mode ace-window try))
+   '(treesit-auto which-key auto-complete neotree lua-mode rust-mode nasm-mode ace-window try))
  '(size-indication-mode t)
  '(tool-bar-mode nil)
  '(xterm-mouse-mode 1))
@@ -48,6 +49,7 @@
 ;; ########################
 ;; # EMACS setup-options
 ;; ########################
+
 
 ;; Setup Packages (MELPA)
 (require 'package)
@@ -66,9 +68,9 @@
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/Emacs-Lisp") load-path))
 
 ;; Load ".el" and ".elc" files
-(load "package")
-(load "settings")
-(load "shortcut")
+(load "package-init")
+(load "settings-init")
+(load "shortcut-init")
 
 
 ;; ##################################
