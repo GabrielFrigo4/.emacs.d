@@ -14,6 +14,12 @@
   :ensure t)
 (use-package lua-mode
   :ensure t)
+(use-package all-the-icons
+  :ensure t)
+(use-package neotree
+  :ensure t
+  :config (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  :bind ("C-\\" . 'neotree-toggle))
 (use-package treesit-auto
   :custom
   (treesit-auto-install 't)
@@ -37,24 +43,6 @@
 (use-package ace-window
   :ensure t
   :bind (("M-o" . ace-window)))
-
-;; Install Linux Packages
-(when (eq system-type 'gnu/linux)
-  (use-package all-the-icons
-	:ensure t)
-  (use-package neotree
-    :ensure t
-    :config (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-    :bind ("C-\\" . 'neotree-toggle))
-  )
-
-;; Install Windows Packages
-(when (eq system-type 'windows-nt)
-  (use-package neotree
-    :ensure t
-    :config (setq neo-theme (if (display-graphic-p) 'arrow))
-    :bind ("C-\\" . 'neotree-toggle))
-)
 
 ;; Settings Packages
 (setq-default neo-show-hidden-files t)
