@@ -57,6 +57,8 @@
 (add-to-list 'package-archives
 	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
+
+;; Install Use-Package
 (unless (package-installed-p 'use-package)
   (package-resfresh-contents)
   (package-install 'use-package))
