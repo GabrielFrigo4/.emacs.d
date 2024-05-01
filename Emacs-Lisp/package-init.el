@@ -3,6 +3,11 @@
 ;;################
 
 
+;; Install Treesit-Auto
+(unless (package-installed-p 'treesit-auto)
+  (package-resfresh-contents)
+  (package-install 'treesit-auto))
+
 ;; Install Global Packages
 (use-package nasm-mode
   :ensure t)
