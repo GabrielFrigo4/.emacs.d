@@ -6,6 +6,7 @@
 
 # emacs packages
 /ac-comphist.dat
+/tree-sitter
 /recentf
 
 # emacs compile
