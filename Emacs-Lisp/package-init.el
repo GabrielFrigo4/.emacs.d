@@ -5,7 +5,8 @@
 
 ;; Install Treesit-Auto
 (unless (package-installed-p 'treesit-auto)
-  (package-install 'treesit-auto))
+  (package-install 'treesit-auto)
+  (treesit-auto-install-all))
 
 ;; Install Global Packages
 (use-package nasm-mode
