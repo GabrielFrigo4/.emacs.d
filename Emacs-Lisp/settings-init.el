@@ -9,19 +9,23 @@
 ;; Set default tab-wight
 (setq-default tab-width 4)
 
-;; Set tab on cc-mode
+;; Set tab default
 (setq-default indent-tabs-mode t)
-(defvaralias 'c-basic-offset 'tab-width)
+(setq-default ruby-indent-tabs-mode t)
+
+;; Set tab on cc-mode
+(setq-default c-basic-offset tab-width)
 
 ;; Set tab on ruby-mode
-(setq ruby-indent-tabs-mode t)
-(defvaralias 'ruby-indent-level 'tab-width)
+(setq-default ruby-indent-level tab-width)
 
 ;; Set tab on sgml-mode
-(defvaralias 'sgml-basic-offset 'tab-width)
+(setq-default sgml-basic-offset tab-width)
 
 ;; Set tab on bash-mode
-(defvaralias 'sh-basic-offset 'tab-width)
+(setq-default sh-basic-offset tab-width)
 
 ;; Set tab on python-mode
-(defvaralias 'python-indent-offset 'tab-width)
+(setq-default python-indent-guess-indent-offset t)  
+(setq-default python-indent-guess-indent-offset-verbose nil)
+(setq-default python-indent-offset tab-width)
