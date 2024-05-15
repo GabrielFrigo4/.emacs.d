@@ -6,13 +6,14 @@
 ;; Remove backup files
 (setq-default make-backup-files nil)
 
-;; Set default tab-wight
+;; Set default tab-width
 (setq-default tab-width 4)
 
 ;; Set tab on cc-mode
 (setq-default indent-tabs-mode t)
-(setq-default c-ts-mode-indent-offset 4)
-(setq-default c-basic-offset 4)
+(setq-default c-ts-mode-indent-offset tab-width)
+(setq-default c-basic-offset tab-width)
+(setq-default c-default-style "linux")
 
 ;; Set tab on ruby-mode
 (setq-default ruby-indent-tabs-mode t)
@@ -23,6 +24,9 @@
 
 ;; Set tab on bash-mode
 (setq-default sh-basic-offset tab-width)
+
+;; Set tab on perl-mode
+(setq-default cperl-indent-level tab-width)
 
 ;; Set tab on python-mode
 (setq-default python-indent-guess-indent-offset t)
