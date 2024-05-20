@@ -24,4 +24,7 @@
 (global-set-key (kbd "<f7>") ctl-x-x-map)
 (global-set-key (kbd "<f8>") ctl-x-r-map)
 (global-set-key (kbd "<f9>") ctl-x-4-map)
-(global-set-key (kbd "<f12>") ctl-x-5-map)
+(global-set-key (kbd "<f12>") 'rust-format-buffer)
+
+;; Rust Buffer
+(global-set-key (kbd "C-c C-f") 'rust-format-buffer)

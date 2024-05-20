@@ -12,6 +12,7 @@
 ;; Set *cc-mode*
 (setq-default indent-tabs-mode t)
 (setq-default c-ts-mode-indent-offset tab-width)
+(setq-default c-ts-mode-indent-style "linux")
 (setq-default c-basic-offset tab-width)
 (setq-default c-default-style "linux")
 
@@ -29,6 +30,7 @@
 (setq-default cperl-indent-level tab-width)
 
 ;; Set *rust-mode*
+(setq-default rust-ident-offset tab-width)
 (setq-default rust-format-on-save t)
 (add-hook 'rust-mode-hook 
   (lambda () (setq indent-tabs-mode t)))
