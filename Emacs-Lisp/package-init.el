@@ -10,8 +10,6 @@
 ;; Install Global Packages
 (use-package nasm-mode
   :ensure t)
-(use-package rust-mode
-  :ensure t)
 (use-package lua-mode
   :ensure t)
 (use-package all-the-icons
@@ -26,6 +24,10 @@
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
+(use-package rust-mode
+  :ensure t
+  :init
+  (setq rust-mode-treesitter-derive t))
 (use-package auto-complete
   :ensure t
   :init
