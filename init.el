@@ -4,9 +4,9 @@
 ;; #############################################
 
 
-;;################
-;; Startup
-;;################
+;; ################
+;; # Startup
+;; ################
 
 
 ;; Set to 'fundamental-mode
@@ -67,12 +67,16 @@
 (byte-recompile-directory (expand-file-name (concat (getenv "HOME") "/.emacs.d")) 0)
 
 ;; Add load-path "Emacs-Lisp"
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/Emacs-Lisp") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/Emacs-Lisp/Startup") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/Emacs-Lisp/Custom") load-path))
 
-;; Load ".el" and ".elc" files
-(load "package-init")
-(load "settings-init")
-(load "shortcut-init")
+;; Load ".el" or ".elc" files in Startup
+(load "package")
+(load "settings")
+(load "shortcut")
+
+;; Load ".elc" files in Custom
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/Emacs-Lisp/Custom/*.elc")))
 
 
 ;; ##################################
