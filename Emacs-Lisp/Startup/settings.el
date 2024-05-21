@@ -9,6 +9,12 @@
 ;; Set default tab-width
 (setq-default tab-width 4)
 
+
+;; ################
+;; # Languages
+;; ################
+
+
 ;; Set *cc-mode*
 (setq-default indent-tabs-mode t)
 (setq-default c-ts-mode-indent-offset tab-width)
@@ -32,12 +38,28 @@
 ;; Set *rust-mode*
 (setq-default rust-ident-offset tab-width)
 (setq-default rust-format-on-save t)
-(add-hook 'rust-mode-hook 
-  (lambda () (setq indent-tabs-mode t)))
+
+;; Set *asm-mode*
+(add-to-list 'auto-mode-alist '("\\.s\\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.i\\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.S\\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.I\\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.fasm\\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.finc\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.masm\\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.minc\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.x86\\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.x64\\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.xinc\\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.riscv\\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.rinc\\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.arm\\'" . asm-mode))
+(add-to-list 'auto-mode-alist '("\\.ainc\\'" . asm-mode))
+
+;; Set *nasm-mode*
+(setq-default nasm-basic-offset tab-width)
 
 ;; Set *python-mode*
 (setq-default python-indent-guess-indent-offset t)
 (setq-default python-indent-guess-indent-offset-verbose nil)
 (setq-default python-indent-offset tab-width)
-(add-hook 'python-mode-hook
-  (lambda () (setq indent-tabs-mode t)))
