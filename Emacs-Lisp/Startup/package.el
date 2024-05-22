@@ -18,13 +18,9 @@
 (use-package lua-mode
   :ensure t)
 
-;; Install NeoTree
-(use-package all-the-icons
+;; Install Highlight-Numbers
+(use-package highlight-numbers
   :ensure t)
-(use-package neotree
-  :ensure t
-  :init (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-  :bind ("C-\\" . 'neotree-toggle))
 
 ;; Install Treesit-Auto
 (unless (package-installed-p 'treesit-auto)
@@ -35,6 +31,14 @@
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
+
+;; Install NeoTree
+(use-package all-the-icons
+  :ensure t)
+(use-package neotree
+  :ensure t
+  :init (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  :bind ("C-\\" . 'neotree-toggle))
 
 ;; Emacs Tools
 (use-package auto-complete

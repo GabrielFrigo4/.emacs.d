@@ -9,6 +9,9 @@
 ;; Set default tab-width
 (setq-default tab-width 4)
 
+;; Set font-lock to maximun decoration
+(setq-default font-lock-maximum-decoration t)
+
 
 ;; ################
 ;; # Languages
@@ -18,9 +21,9 @@
 ;; Set *cc-mode*
 (setq-default indent-tabs-mode t)
 (setq-default c-ts-mode-indent-offset tab-width)
-(setq-default c-ts-mode-indent-style "linux")
+(setq-default c-ts-mode-indent-style 'bsd)
 (setq-default c-basic-offset tab-width)
-(setq-default c-default-style "linux")
+(setq-default c-default-style "bsd")
 
 ;; Set *ruby-mode*
 (setq-default ruby-indent-tabs-mode t)

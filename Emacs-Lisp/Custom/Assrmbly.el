@@ -4,8 +4,10 @@
 
 (defun custom-asm-mode-hook ()
   (local-unset-key (vector asm-comment-char))
+  (setq tab-always-indent (default-value 'tab-always-indent))
   (electric-indent-local-mode)
 
+  ;; Comments Style
   (modify-syntax-entry ?\# "<")
   (modify-syntax-entry ?\n ">")
   (modify-syntax-entry ?\; "<")
@@ -13,6 +15,12 @@
   (modify-syntax-entry ?\/ ". 12")
   (modify-syntax-entry ?\n ">")
 
+  ;; String Style
+  (modify-syntax-entry ?\" "\"")
+  (modify-syntax-entry ?\' "\"")
+  (modify-syntax-entry ?\` "\"")
+
+  ;; Indentation Style
   (defun asm-calculate-indentation ()
   (or
    ;; Flush labels goes to the left margin.
