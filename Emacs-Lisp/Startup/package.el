@@ -25,12 +25,15 @@
 ;; Install Treesit-Auto
 (unless (package-installed-p 'treesit-auto)
   (package-install 'treesit-auto))
-(use-package treesit-auto
-  :custom
-  (treesit-auto-install 't)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
+
+;; Vou aprender melhor como o treesitter funciona antes
+;; de tentar usar... [:(]
+;;(use-package treesit-auto
+;;  :custom
+;;  (treesit-auto-install 't)
+;;  :config
+;;  (treesit-auto-add-to-auto-mode-alist 'all)
+;;  (global-treesit-auto-mode))
 
 ;; Install NeoTree
 (use-package all-the-icons
