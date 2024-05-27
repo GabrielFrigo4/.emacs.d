@@ -22,12 +22,19 @@
 (use-package highlight-numbers
   :ensure t)
 
-;; Install Treesit-Auto
-(unless (package-installed-p 'treesit-auto)
-  (package-install 'treesit-auto))
+;; Install Color-Indentifiers-Mode
+;;(use-package color-identifiers-mode
+;;  :ensure t
+;;  :init
+;;  (add-hook 'after-init-hook 'global-color-identifiers-mode))
 
+;;;; ERROR!
 ;; Vou aprender melhor como o treesitter funciona antes
 ;; de tentar usar... [:(]
+;;;; ERROR!
+;; Install Treesit-Auto
+;;(unless (package-installed-p 'treesit-auto)
+;;  (package-install 'treesit-auto))
 ;;(use-package treesit-auto
 ;;  :custom
 ;;  (treesit-auto-install 't)

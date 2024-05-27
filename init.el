@@ -68,6 +68,7 @@
 
 ;; Add load-path "Emacs-Lisp"
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/Emacs-Lisp/Startup") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/Emacs-Lisp/External") load-path))
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/Emacs-Lisp/Custom") load-path))
 
 ;; Load ".el" or ".elc" files in Startup
@@ -77,6 +78,9 @@
 
 ;; Load ".elc" files in Custom
 (mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/Emacs-Lisp/Custom/*.elc")))
+
+;; Load ".elc" files in External
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/Emacs-Lisp/External/*.elc")))
 
 
 ;; ##################################
