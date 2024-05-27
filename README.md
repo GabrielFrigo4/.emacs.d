@@ -8,6 +8,9 @@ This repository is the configuration of the Emacs code editor that Gabriel Frigo
 Configurar o TreeSitter
 -- Indentação do Python (TAB)
 -- Brilho dos Numeros
+Atualizar Brilho dos Numeros
+Atualizar NASM
+Atualizar Elisp (add funcções)
 ```
 
 ## Using on LINUX
