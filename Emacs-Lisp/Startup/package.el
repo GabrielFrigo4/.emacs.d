@@ -4,13 +4,13 @@
 
 
 ;; Install Lang-Mode
-(use-package nasm-mode
-  :ensure t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.nasm\\'" . nasm-mode))
-  (add-to-list 'auto-mode-alist '("\\.ninc\\'" . nasm-mode))
-  (add-to-list 'auto-mode-alist '("\\.asm\\'" . nasm-mode))
-  (add-to-list 'auto-mode-alist '("\\.inc\\'" . nasm-mode)))
+;;(use-package nasm-mode
+;;  :ensure t
+;;  :config
+;;  (add-to-list 'auto-mode-alist '("\\.nasm\\'" . nasm-mode))
+;;  (add-to-list 'auto-mode-alist '("\\.ninc\\'" . nasm-mode))
+;;  (add-to-list 'auto-mode-alist '("\\.asm\\'" . nasm-mode))
+;;  (add-to-list 'auto-mode-alist '("\\.inc\\'" . nasm-mode)))
 (use-package rust-mode
   :ensure t
   :init
@@ -19,8 +19,8 @@
   :ensure t)
 
 ;; Install Highlight-Numbers
-(use-package highlight-numbers
-  :ensure t)
+;;(use-package highlight-numbers
+;;  :ensure t)
 
 ;; Install Color-Indentifiers-Mode
 ;;(use-package color-identifiers-mode
