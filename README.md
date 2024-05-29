@@ -6,10 +6,10 @@ This repository is the configuration of the Emacs code editor that Gabriel Frigo
 ## TODO
 Melhorar
 ```
-Atualizar Emacs-Lisp
-Atualizar C/C++
 Atualizar Python
 Atualizar Lua
+Atualizar C/C++
+Atualizar Elisp
 ```
 
 Fazer
@@ -18,6 +18,28 @@ Atualizar Brilho dos Numeros
 Atualizar NASM
 Atualizar FASM
 Atualizar ASM
+```
+
+
+## Elisp Symbols
+Show Functions
+``` elisp
+(let ((xbuff (generate-new-buffer "*output-functions*")))
+  (with-output-to-temp-buffer xbuff
+    (dolist (f function-names)
+      (prin1 f)
+      (prin1 "\n"))
+    ))
+```
+
+Show Variables
+``` elisp
+(let ((xbuff (generate-new-buffer "*output-variables*")))
+  (with-output-to-temp-buffer xbuff
+    (dolist (v variable-names)
+      (prin1 v)
+      (prin1 "\n"))
+    ))
 ```
 
 ## Add TreeSitter

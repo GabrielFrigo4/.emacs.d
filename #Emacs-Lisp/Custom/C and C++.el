@@ -2,7 +2,7 @@
 ;; # C and C++
 ;; ################
 
-(setq custom-c-and-c++-keywords
+(setq-local custom-c-and-c++-keywords
 	  '(("\\<\\(stdin\\|stdout\\|stderr\\)\\>" . font-lock-variable-name-face)
 		("\\<\\(STDIN_FILENO\\|STDOUT_FILENO\\|STDERR_FILENO\\)\\>" . font-lock-constant-face)
 		("\\<\\(int8_t\\|int16_t\\|int32_t\\|int64_t\\)\\>" . font-lock-type-face)
