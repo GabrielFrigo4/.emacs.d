@@ -28,6 +28,7 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(custom-enabled-themes '(tsdh-dark))
+ '(package-selected-packages nil)
  '(display-battery-mode t)
  '(display-line-numbers-type 'relative)
  '(display-time-mode t)
