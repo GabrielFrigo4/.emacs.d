@@ -3,10 +3,12 @@
 ;; ################
 
 (setq static-elisp-keywords
-	  '(("setq-default" . font-lock-keyword-face)
+	  '(;; Keywords
+		("setq-default" . font-lock-keyword-face)
 		("setq-local" . font-lock-keyword-face)
 		("setq" . font-lock-keyword-face)
 
+		;; Emacs Variables
 		("\\<\\(t\\|nil\\)\\>" . font-lock-variable-name-face)
 		("gc-cons-threshold" . font-lock-variable-name-face)
 		("most-positive-fixnum" . font-lock-variable-name-face)
@@ -17,15 +19,35 @@
 		("package-enable-at-startup" . font-lock-variable-name-face)
 		("package-archives" . font-lock-variable-name-face)
 		("load-path" . font-lock-variable-name-face)
+		("tab-width" . font-lock-variable-name-face)
+		("python-indent" . font-lock-variable-name-face)
+		("indent-tabs-mode" . font-lock-variable-name-face)
 
+		;; Emacs Style Variables
+		("font-lock-keyword-face" . font-lock-variable-name-face)
+		("font-lock-variable-name-face" . font-lock-variable-name-face)
+		("font-lock-function-name-face" . font-lock-variable-name-face)
+		("font-lock-constant-face" . font-lock-variable-name-face)
+		("font-lock-type-face" . font-lock-variable-name-face)
+
+		;; Emacs Functions
+
+		;; Emacs Mode
 		("emacs-lisp-mode" . font-lock-variable-name-face)
 		("c-mode" . font-lock-variable-name-face)
 		("c\\+\\+-mode" . font-lock-variable-name-face)
 		("asm-mode" . font-lock-variable-name-face)
 
+		;; Emacs Mode Hook
+		("prog-mode-hook" . font-lock-variable-name-face)
+		("python-mode-hook" . font-lock-variable-name-face)
+
+	    ;; Basic Functions
 		("\\<\\(concat\\|getenv\\|cons\\)\\>" . font-lock-function-name-face)
 		("\\<\\(default\\|load\\|mapc\\|expt\\)\\>" . font-lock-function-name-face)
 		("\\<\\(add-hook\\|add-to-list\\)\\>" . font-lock-function-name-face)
+
+		;; Emacs Functions
 		("font-lock-add-keywords" . font-lock-function-name-face)
 		("file-expand-wildcards" . font-lock-function-name-face)
 		("byte-recompile-directory" . font-lock-function-name-face)
@@ -49,7 +71,22 @@
 		("xterm-mouse-mode" . font-lock-function-name-face)))
 
 (setq custom-elisp-keywords
-	  '(("treesit-auto" . font-lock-function-name-face)
+	  '(;; Custom Keywords Variables
+		("static-elisp-keywords" . font-lock-variable-name-face)
+		("custom-elisp-keywords" . font-lock-variable-name-face)
+		("custom-c-and-c\\+\\+-keywords" . font-lock-variable-name-face)
+
+		;; Custom Mode Hook
+		("custom-prog-mode-hook" . font-lock-function-name-face)
+		("custom-python-mode-hook" . font-lock-function-name-face)
+
+		;; TreeSitter Auto
+		("treesit-auto" . font-lock-function-name-face)
+		("treesit-auto-install" . font-lock-function-name-face)
+		("treesit-auto-add-to-auto-mode-alist" . font-lock-function-name-face)
+		("global-treesit-auto-mode" . font-lock-function-name-face)
+
+		;; Highlight Numbers
 		("highlight-numbers-mode" . font-lock-function-name-face)))
 
 (font-lock-add-keywords

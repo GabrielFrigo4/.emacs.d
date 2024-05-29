@@ -61,6 +61,10 @@
 
 ;; Set *nasm-mode*
 (setq-default nasm-basic-offset tab-width)
+(add-to-list 'auto-mode-alist '("\\.nasm\\'" . nasm-mode))
+(add-to-list 'auto-mode-alist '("\\.ninc\\'" . nasm-mode))
+(add-to-list 'auto-mode-alist '("\\.asm\\'" . nasm-mode))
+(add-to-list 'auto-mode-alist '("\\.inc\\'" . nasm-mode))
 
 ;; Set *python-mode*
 (setq-default python-indent-guess-indent-offset t)

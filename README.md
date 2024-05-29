@@ -4,18 +4,46 @@ Emacs config
 This repository is the configuration of the Emacs code editor that Gabriel Frigo uses
 
 ## TODO
+Melhorar
 ```
 Atualizar Emacs-Lisp
-
 Atualizar C/C++
+Atualizar Python
+Atualizar Lua
+```
 
+Fazer
+```
 Atualizar Brilho dos Numeros
-
 Atualizar NASM
+Atualizar FASM
+Atualizar ASM
+```
 
-Configurar o TreeSitter
--- Indentação do Python (TAB)
--- Brilho dos Numeros
+## Add TreeSitter
+Eu decidi parar de usar TreeSitter no Emacs. Já que apesar de ser nativo
+O style do Emacs e o do TreeSitter no momento são incompatíveis e isso
+atrapalhava para eu padronizar o meu emacs...
+
+Add in settings.el
+``` elisp
+;; Install Treesit-Auto
+(unless (package-installed-p 'treesit-auto)
+  (package-install 'treesit-auto))
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 't)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+```
+
+Add in init.el
+``` elisp
+(custom-set-variables
+ '(package-selected-packages
+   '(treesit-auto))
+)
 ```
 
 ## Using on LINUX

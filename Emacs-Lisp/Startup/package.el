@@ -2,45 +2,17 @@
 ;; # Packages
 ;; ################
 
+;; Install Emacs Libs
+(use-package parent-mode
+  :ensure t)
 
 ;; Install Lang-Mode
-;;(use-package nasm-mode
-;;  :ensure t
-;;  :config
-;;  (add-to-list 'auto-mode-alist '("\\.nasm\\'" . nasm-mode))
-;;  (add-to-list 'auto-mode-alist '("\\.ninc\\'" . nasm-mode))
-;;  (add-to-list 'auto-mode-alist '("\\.asm\\'" . nasm-mode))
-;;  (add-to-list 'auto-mode-alist '("\\.inc\\'" . nasm-mode)))
 (use-package rust-mode
   :ensure t
   :init
   (setq rust-mode-treesitter-derive t))
 (use-package lua-mode
   :ensure t)
-
-;; Install Highlight-Numbers
-;;(use-package highlight-numbers
-;;  :ensure t)
-
-;; Install Color-Indentifiers-Mode
-;;(use-package color-identifiers-mode
-;;  :ensure t
-;;  :init
-;;  (add-hook 'after-init-hook 'global-color-identifiers-mode))
-
-;;;; ERROR!
-;; Vou aprender melhor como o treesitter funciona antes
-;; de tentar usar... [:(]
-;;;; ERROR!
-;; Install Treesit-Auto
-;;(unless (package-installed-p 'treesit-auto)
-;;  (package-install 'treesit-auto))
-;;(use-package treesit-auto
-;;  :custom
-;;  (treesit-auto-install 't)
-;;  :config
-;;  (treesit-auto-add-to-auto-mode-alist 'all)
-;;  (global-treesit-auto-mode))
 
 ;; Install NeoTree
 (use-package all-the-icons
@@ -50,7 +22,7 @@
   :init (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   :bind ("C-\\" . 'neotree-toggle))
 
-;; Emacs Tools
+;; Install Emacs Tools
 (use-package auto-complete
   :ensure t
   :init
