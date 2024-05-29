@@ -1,5 +1,5 @@
 ;; ################
-;; # High Elisp
+;; # Sort Function
 ;; ################
 
 
@@ -15,105 +15,115 @@
 
 
 ;; ################
-;; # Get Symbols
+;; # High Elisp
 ;; ################
 
 
-(setq-local function-names '())
-(setq-local functions '())
-
-(setq-local variable-names '())
-(setq-local variables '())
-
-(setq-local macro-names '())
-(setq-local macros '())
-
-(setq-local group-names '())
-(setq-local groups '())
+(defun custom-hight-elisp-mode-hook ()
+  ;; ################
+  ;; # Define Locals
+  ;; ################
 
 
-;; ################
-;; # Get Symbols
-;; ################
+  (setq-local function-names '())
+  (setq-local functions '())
 
-(mapatoms (lambda (symbol)
-			(setq-local is-gruop t)
-            (when (functionp symbol)
-       		  (push (format "\\<\\(%s\\)\\>" (symbol-name symbol)) function-names)
-			  (setq-local is-group nil))
-            (when (boundp symbol)
-			  (push (format "\\<\\(%s\\)\\>" (symbol-name symbol)) variable-names)
-			  (setq-local is-group nil))
-			(when (macrop symbol)
-			  (push (format "\\<\\(%s\\)\\>" (symbol-name symbol)) macro-names)
-			  (setq-local is-group nil))
-			(when is-group
-			  (push (format "\\<\\(%s\\)\\>" (symbol-name symbol)) group-names))
-		  ))
+  (setq-local variable-names '())
+  (setq-local variables '())
+
+  (setq-local macro-names '())
+  (setq-local macros '())
+
+  (setq-local group-names '())
+  (setq-local groups '())
 
 
-;; ################
-;; # Functions
-;; ################
+  ;; ################
+  ;; # Get Symbols
+  ;; ################
 
 
-(setq-local functions '(
-  ("(\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>" 1 'font-lock-function-name-face)
-))
+  (mapatoms (lambda (symbol)
+			        (setq-local is-gruop t)
+              (when (functionp symbol)
+       		      (push (format "\\<\\(%s\\)\\>" (symbol-name symbol)) function-names)
+			          (setq-local is-group nil))
+              (when (boundp symbol)
+			          (push (format "\\<\\(%s\\)\\>" (symbol-name symbol)) variable-names)
+			          (setq-local is-group nil))
+			        (when (macrop symbol)
+			          (push (format "\\<\\(%s\\)\\>" (symbol-name symbol)) macro-names)
+			          (setq-local is-group nil))
+			        (when is-group
+			          (push (format "\\<\\(%s\\)\\>" (symbol-name symbol)) group-names))
+		          ))
 
 
-;; ################
-;; # Variables
-;; ################
+  ;; ################
+  ;; # Functions
+  ;; ################
 
 
-(setq-local variable-names (sort-encreasing-length variable-names))
-
-(dolist (v variable-names)
-  (push (cons v 'font-lock-variable-name-face) variables))
-
-
-;; ################
-;; # Macros
-;; ################
+  (setq-local functions '(
+    ("(\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>" 1 'font-lock-function-name-face)
+  ))
 
 
-(push (format "\\<\\(%s\\)\\>" "setq") macro-names)
-(setq-local macro-names (sort-encreasing-length macro-names))
-
-(dolist (m macro-names)
-  (push (cons m 'font-lock-keyword-face) macros))
+  ;; ################
+  ;; # Variables
+  ;; ################
 
 
-;; ################
-;; # Groups
-;; ################
+  (setq-local variable-names (sort-encreasing-length variable-names))
+
+  (dolist (v variable-names)
+    (push (cons v 'font-lock-variable-name-face) variables))
 
 
-(push (format "\\<\\(%s\\)\\>" "setqq") group-names)
-(setq-local group-names (sort-encreasing-length group-names))
-
-(dolist (g group-names)
-  (push (cons g 'font-lock-type-face) groups))
+  ;; ################
+  ;; # Macros
+  ;; ################
 
 
-;; ################
-;; # Font Lock
-;; ################
+  (push (format "\\<\\(%s\\)\\>" "setq") macro-names)
+  (setq-local macro-names (sort-encreasing-length macro-names))
+
+  (dolist (m macro-names)
+    (push (cons m 'font-lock-keyword-face) macros))
 
 
-(font-lock-add-keywords
- 'emacs-lisp-mode
- variables)
+  ;; ################
+  ;; # Groups
+  ;; ################
 
-(font-lock-add-keywords 
- 'emacs-lisp-mode
- functions)
 
-(font-lock-add-keywords
- 'emacs-lisp-mode
- macros)
+  (push (format "\\<\\(%s\\)\\>" "setqq") group-names)
+  (setq-local group-names (sort-encreasing-length group-names))
 
-(font-lock-add-keywords
- 'emacs-lisp-mode
- groups)
+  (dolist (g group-names)
+    (push (cons g 'font-lock-type-face) groups))
+
+
+  ;; ################
+  ;; # Font Lock
+  ;; ################
+
+
+  (font-lock-add-keywords
+   'emacs-lisp-mode
+   variables)
+
+  (font-lock-add-keywords
+   'emacs-lisp-mode
+   functions)
+
+  (font-lock-add-keywords
+   'emacs-lisp-mode
+   macros)
+
+  (font-lock-add-keywords
+   'emacs-lisp-mode
+   groups)
+)
+
+(custom-hight-elisp-mode-hook)
