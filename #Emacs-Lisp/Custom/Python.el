@@ -4,7 +4,19 @@
 
 
 (setq-local custom-python-keywords
-	  '(("\\<\\(__file__\\)\\>" . font-lock-variable-name-face)))
+            '(
+              ;;("\\B\\s_\\s_\\(?:\\sw\\)+\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_doc\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_file\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_init\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_main\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_name\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_debug\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_future\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_import\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_package\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_builtins\\s_\\s_\\B" . font-lock-builtin-face)
+              ))
 
 (font-lock-add-keywords
  'python-mode

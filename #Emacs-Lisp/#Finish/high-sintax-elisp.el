@@ -25,20 +25,12 @@
   ;; ################
 
 
-  (setq-local defaults-names '())
   (setq-local defaults '())
-
-  (setq-local variable-names '())
   (setq-local variables '())
-
-  (setq-local function-names '())
+  (setq-local constants '())
   (setq-local functions '())
-
-  (setq-local macro-names '())
-  (setq-local macros '())
-
-  (setq-local group-names '())
   (setq-local groups '())
+  (setq-local macros '())
 
 
   ;; ################
@@ -46,19 +38,17 @@
   ;; ################
 
 
+  (setq-local variable-names '())
+  (setq-local function-names '())
+  (setq-local macro-names '())
+
   (mapatoms (lambda (symbol)
-			        (setq-local is-gruop t)
               (when (boundp symbol)
-			          (push (symbol-name symbol) variable-names)
-			          (setq-local is-group nil))
+			          (push (symbol-name symbol) variable-names))
               (when (functionp symbol)
-       		      (push (symbol-name symbol) function-names)
-			          (setq-local is-group nil))
+       		      (push (symbol-name symbol) function-names))
 			        (when (macrop symbol)
-			          (push (symbol-name symbol) macro-names)
-			          (setq-local is-group nil))
-			        (when is-group
-			          (push (symbol-name symbol) group-names))
+			          (push (symbol-name symbol) macro-names))
 		          ))
 
 
@@ -81,6 +71,16 @@
   (push (list (format "(\\s-*%s\\s-*(\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" "dotimes") 1 'font-lock-variable-name-face) variables)
   (push (list (format "(\\s-*%s\\s-*(\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" "let") 1 'font-lock-variable-name-face) variables)
   (push (list (format "(\\s-*%s\\s-*.*\\s-*(\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" "defun") 1 'font-lock-variable-name-face) variables)
+  (push (list (format "(\\s-*%s\\s-*.*\\s-*(\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" "defmacro") 1 'font-lock-variable-name-face) variables)
+  (push (list (format "(\\s-*%s\\s-*.*\\s-*(\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" "defgroup") 1 'font-lock-variable-name-face) variables)
+
+
+  ;; ################
+  ;; # Constants
+  ;; ################
+
+
+  (push (list (format "(\\s-*%s\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" "defconst") 1 'font-lock-constant-face) constants)
 
 
   ;; ################
@@ -89,6 +89,14 @@
 
 
   (push (list (format "(\\s-*%s\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" "defun") 1 'font-lock-function-name-face) functions)
+
+
+  ;; ################
+  ;; # Groups
+  ;; ################
+
+
+  (push (list (format "(\\s-*%s\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" "defgroup") 1 'font-lock-type-face) functions)
 
 
   ;; ################
@@ -101,17 +109,6 @@
 
   (dolist (m macro-names)
     (push (cons (format "\\<\\(%s\\)\\>" m) 'font-lock-keyword-face) macros))
-
-
-  ;; ################
-  ;; # Groups
-  ;; ################
-
-
-  (setq-local group-names (sort-encreasing-length group-names))
-
-  (dolist (g group-names)
-    (push (cons (format "\\<\\(%s\\)\\>" g) 'font-lock-type-face) groups))
 
 
   ;; ################
@@ -129,15 +126,19 @@
 
   (font-lock-add-keywords
    'emacs-lisp-mode
+   constants)
+
+  (font-lock-add-keywords
+   'emacs-lisp-mode
    functions)
 
   (font-lock-add-keywords
    'emacs-lisp-mode
-   macros)
+   groups)
 
   (font-lock-add-keywords
    'emacs-lisp-mode
-   groups)
+   macros)
   )
 
 (custom-hight-elisp-mode-hook)
