@@ -9,7 +9,6 @@ Melhorar
 Atualizar Python
 Atualizar Lua
 Atualizar C/C++
-Atualizar Elisp
 ```
 
 Fazer
@@ -18,6 +17,7 @@ Atualizar Brilho dos Numeros
 Atualizar NASM
 Atualizar FASM
 Atualizar ASM
+Atualizar Lisp
 ```
 
 
