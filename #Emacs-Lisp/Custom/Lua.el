@@ -4,7 +4,10 @@
 
 
 (setq-local custom-lua-keywords
-            '(("\\<\\(\<w\>\\)\\>" . font-lock-type-name-face)))
+            '(
+              ;;("\\<\\(?:love\\)\\>" . font-lock-builtin-face)
+              ("<\\(?:\\sw\\)+>" . font-lock-builtin-face)
+              ))
 
 (font-lock-add-keywords
  'lua-mode

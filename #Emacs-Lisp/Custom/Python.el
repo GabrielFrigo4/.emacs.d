@@ -5,7 +5,10 @@
 
 (setq-local custom-python-keywords
             '(
+              ;; Do for any "__word__"
               ;;("\\B\\s_\\s_\\(?:\\sw\\)+\\s_\\s_\\B" . font-lock-builtin-face)
+
+              ;; Builtin "__word__"
               ("\\B\\s_\\s_doc\\s_\\s_\\B" . font-lock-builtin-face)
               ("\\B\\s_\\s_file\\s_\\s_\\B" . font-lock-builtin-face)
               ("\\B\\s_\\s_init\\s_\\s_\\B" . font-lock-builtin-face)
