@@ -34,25 +34,6 @@
 
 
   ;; ################
-  ;; # Get Symbols
-  ;; ################
-
-
-  (setq-local variable-names '())
-  (setq-local function-names '())
-  (setq-local macro-names '())
-
-  (mapatoms (lambda (symbol)
-              (when (boundp symbol)
-			          (push (symbol-name symbol) variable-names))
-              (when (functionp symbol)
-       		      (push (symbol-name symbol) function-names))
-			        (when (macrop symbol)
-			          (push (symbol-name symbol) macro-names))
-		          ))
-
-
-  ;; ################
   ;; # Defaults
   ;; ################
 
@@ -104,11 +85,21 @@
   ;; ################
 
 
-  (push "setq" macro-names)
+  (setq-local macro-names
+              (list
+               "push" "lambda" "progn" "quote" "case"
+               "let" "setq" "setq-local" "setq-default"
+               "defun" "defmacro" "defgroup" "defconst" "defparameter"
+               "loop" "dotimes" "dolist"
+               "macroexpand" "cond"
+               ))
+
   (setq-local macro-names (sort-encreasing-length macro-names))
 
   (dolist (m macro-names)
     (push (cons (format "\\<\\(%s\\)\\>" m) 'font-lock-keyword-face) macros))
+
+  (push (list (format "(\\s-*%s\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" "defmacro") 1 'font-lock-keyword-face) macros)
 
 
   ;; ################

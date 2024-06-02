@@ -1,6 +1,7 @@
 # emacs default
 /all-the-fonts
 /auto-save-list
+/org-persist
 /eln-cache
 /elpa
 

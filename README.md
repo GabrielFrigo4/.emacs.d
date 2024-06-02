@@ -19,28 +19,6 @@ Atualizar ASM
 Atualizar Lisp
 ```
 
-
-## Elisp Symbols
-Show Functions
-``` elisp
-(let ((xbuff (generate-new-buffer "*output-functions*")))
-  (with-output-to-temp-buffer xbuff
-    (dolist (f function-names)
-      (prin1 f)
-      (prin1 "\n"))
-    ))
-```
-
-Show Variables
-``` elisp
-(let ((xbuff (generate-new-buffer "*output-variables*")))
-  (with-output-to-temp-buffer xbuff
-    (dolist (v variable-names)
-      (prin1 v)
-      (prin1 "\n"))
-    ))
-```
-
 ## Add TreeSitter
 Eu decidi parar de usar TreeSitter no Emacs. Já que apesar de ser nativo
 O style do Emacs e o do TreeSitter no momento são incompatíveis e isso
@@ -65,6 +43,43 @@ Add in init.el
  '(package-selected-packages
    '(treesit-auto))
 )
+```
+
+## Elisp Symbols
+Get Symbols
+``` elisp
+setq-local variable-names '())
+(setq-local function-names '())
+(setq-local macro-names '())
+
+(mapatoms (lambda (symbol)
+            (when (boundp symbol)
+              (push (symbol-name symbol) variable-names))
+            (when (functionp symbol)
+              (push (symbol-name symbol) function-names))
+            (when (macrop symbol)
+              (push (symbol-name symbol) macro-names))
+            ))
+```
+
+Show Functions
+``` elisp
+(let ((xbuff (generate-new-buffer "*output-functions*")))
+  (with-output-to-temp-buffer xbuff
+    (dolist (f function-names)
+      (prin1 f)
+      (prin1 "\n"))
+    ))
+```
+
+Show Variables
+``` elisp
+(let ((xbuff (generate-new-buffer "*output-variables*")))
+  (with-output-to-temp-buffer xbuff
+    (dolist (v variable-names)
+      (prin1 v)
+      (prin1 "\n"))
+    ))
 ```
 
 ## Using on LINUX
