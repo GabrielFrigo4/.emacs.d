@@ -48,7 +48,7 @@ Add in init.el
 ## Elisp Symbols
 Get Symbols
 ``` elisp
-setq-local variable-names '())
+(setq-local variable-names '())
 (setq-local function-names '())
 (setq-local macro-names '())
 
@@ -60,16 +60,10 @@ setq-local variable-names '())
             (when (macrop symbol)
               (push (symbol-name symbol) macro-names))
             ))
-```
 
-Show Functions
-``` elisp
-(let ((xbuff (generate-new-buffer "*output-functions*")))
-  (with-output-to-temp-buffer xbuff
-    (dolist (f function-names)
-      (prin1 f)
-      (prin1 "\n"))
-    ))
+(setq variable-names (cl-sort variable-names 'string-lessp :key 'downcase))
+(setq function-names (cl-sort function-names 'string-lessp :key 'downcase))
+(setq macro-names (cl-sort macro-names 'string-lessp :key 'downcase))
 ```
 
 Show Variables
@@ -77,8 +71,25 @@ Show Variables
 (let ((xbuff (generate-new-buffer "*output-variables*")))
   (with-output-to-temp-buffer xbuff
     (dolist (v variable-names)
-      (prin1 v)
-      (prin1 "\n"))
+      (print v))
+    ))
+```
+
+Show Functions
+``` elisp
+(let ((xbuff (generate-new-buffer "*output-functions*")))
+  (with-output-to-temp-buffer xbuff
+    (dolist (f function-names)
+      (print f))
+    ))
+```
+
+Show Macros
+``` elisp
+(let ((xbuff (generate-new-buffer "*output-macros*")))
+  (with-output-to-temp-buffer xbuff
+    (dolist (m macro-names)
+      (print m))
     ))
 ```
 
