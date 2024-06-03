@@ -403,6 +403,7 @@
                ))
 
   (push "setq" macro-names)
+  (push "cond" macro-names)
   (push "if" macro-names)
   (setq-local macro-names (sort-encreasing-length macro-names))
 
