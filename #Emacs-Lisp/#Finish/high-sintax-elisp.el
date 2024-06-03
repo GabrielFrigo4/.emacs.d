@@ -334,7 +334,6 @@
                "seq-setq"
                "setf"
                "setopt"
-               "setq"
                "setq-connection-local"
                "setq-default"
                "setq-local"
@@ -403,6 +402,8 @@
                "without-restriction"
                ))
 
+  (push "setq" macro-names)
+  (push "if" macro-names)
   (setq-local macro-names (sort-encreasing-length macro-names))
 
   (dolist (m macro-names)
