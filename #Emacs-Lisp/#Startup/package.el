@@ -2,6 +2,7 @@
 ;; # Packages
 ;; ################
 
+
 ;; Install Emacs Libs
 (use-package parent-mode
   :ensure t)
@@ -19,17 +20,33 @@
   :ensure t)
 (use-package neotree
   :ensure t
-  :init (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-  :bind ("C-\\" . 'neotree-toggle))
-
-;; Install Emacs Tools
-(use-package auto-complete
-  :ensure t
+  :bind ("C-\\" . 'neotree-toggle)
   :init
   (progn
-    (ac-config-default)
-    (global-auto-complete-mode t)
+    (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+    (setq-default neo-show-hidden-files t)
     ))
+
+;; Install Emacs Theme
+;; Não tem nenhum tema bom... :(
+
+;; Install Emacs Auto-Completion
+(use-package company
+  :ensure t
+  :hook (after-init . global-company-mode)
+  :custom
+  (company-idle-delay 0))
+(use-package vertico
+  :ensure t
+  :custom
+  (vertico-cycle t)
+  (read-buffer-completion-ignore-case t)
+  (read-file-name-completion-ignore-case t)
+  (completion-styles '(basic substring partial-completion flex))
+  :init
+  (vertico-mode))
+
+;; Install Emacs Tools
 (use-package which-key
   :ensure t
   :config
@@ -40,6 +57,3 @@
 (use-package ace-window
   :ensure t
   :bind (("M-o" . ace-window)))
-
-;; Settings Packages
-(setq-default neo-show-hidden-files t)

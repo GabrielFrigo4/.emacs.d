@@ -1,7 +1,42 @@
 ;; #############################################
 ;; # Minimize garbage collection during startup
 (setq gc-cons-threshold most-positive-fixnum)
+(setq read-process-output-max (* 1024 1024))
 ;; #############################################
+
+
+;; ################
+;; # Macros
+;; ################
+
+
+(defmacro if-system (type &rest body)
+  (declare (indent defun))
+  `(when (eq system-type ',type) ,@body))
+
+(defmacro if-gnu (&rest body)
+  `(if-system gnu
+       (progn ,@body)))
+
+(defmacro if-linux (&rest body)
+  `(if-system gnu/linux
+       (progn ,@body)))
+
+(defmacro if-darwin (&rest body)
+  `(if-system darwin
+       (progn ,@body)))
+
+(defmacro if-msdos (&rest body)
+  `(if-system ms-dos
+       (progn ,@body)))
+
+(defmacro if-windows (&rest body)
+  `(if-system windows-nt
+       (progn ,@body)))
+
+(defmacro if-cygwin (&rest body)
+  `(if-system cygwin
+       (progn ,@body)))
 
 
 ;; ################
@@ -14,6 +49,9 @@
 
 ;; Remove message
 (setq initial-scratch-message 'nil)
+
+;; Unique Buffer Names for Matching Files
+(require 'uniquify)
 
 
 ;; ########################
@@ -74,6 +112,7 @@
 
 ;; Load ".el" or ".elc" files in #Startup
 (load "package")
+(load "function")
 (load "settings")
 (load "shortcut")
 
@@ -88,6 +127,10 @@
 
 ;; Load ".el" or ".elc" files in #Finish
 (load "high-sintax-elisp")
+
+;; Use emacsclient to open files in an already-running Emacs process
+(require 'server)
+(unless (server-running-p) (server-start))
 
 
 ;; ##################################

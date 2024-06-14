@@ -18,6 +18,12 @@
 (set-language-environment 'utf-8)
 (set-selection-coding-system 'utf-8)
 
+;; On OSX, swap Meta and Super
+;; For Better Keyboard Ergonomics
+(if-darwin
+ (setq mac-command-modifier 'meta)
+ (setq mac-option-modifier 'super))
+
 
 ;; ################
 ;; # Languages

@@ -1,20 +1,4 @@
 ;; ################
-;; # Sort Function
-;; ################
-
-
-(defun sort-decreasing-length (list)
-  (sort list
-        (lambda (a b)
-          (> (length a) (length b)))))
-
-(defun sort-encreasing-length (list)
-  (sort list
-        (lambda (a b)
-          (< (length a) (length b)))))
-
-
-;; ################
 ;; # High Elisp
 ;; ################
 
@@ -40,7 +24,12 @@
 
   (push (list "\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" 1 'font-lock-variable-name-face) defaults)
   (push (list "(\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>" 1 'font-lock-function-name-face) defaults)
-
+  (push (list (format "(\\<\\(%s\\)\\>" "require") 1 'font-lock-keyword-face) defaults)
+  (push (list (format "(\\<\\(%s\\)\\>" "provide") 1 'font-lock-keyword-face) defaults)
+  (push (list (format "(\\<\\(%s\\)\\>" "load") 1 'font-lock-keyword-face) defaults)
+  (push (list (format "(\\<\\(%s\\)\\>" "setq") 1 'font-lock-keyword-face) defaults)
+  (push (list (format "(\\<\\(%s\\)\\>" "cond") 1 'font-lock-keyword-face) defaults)
+  (push (list (format "(\\<\\(%s\\)\\>" "if") 1 'font-lock-keyword-face) defaults)
 
   ;; ################
   ;; # Variables
@@ -85,6 +74,7 @@
   ;; ################
 
 
+  ;; Standard Macros
   (setq-local macro-names
               (list
                "1value"
@@ -402,14 +392,23 @@
                "without-restriction"
                ))
 
-  (push "setq" macro-names)
-  (push "cond" macro-names)
-  (push "if" macro-names)
+  ;; Custom Macros
+  (push "if-system" macro-names)
+  (push "if-gnu" macro-names)
+  (push "if-linux" macro-names)
+  (push "if-darwin" macro-names)
+  (push "if-msdos" macro-names)
+  (push "if-windows" macro-names)
+  (push "if-cygwin" macro-names)
+
+  ;; Sort "macro-names"
   (setq-local macro-names (sort-encreasing-length macro-names))
 
+  ;; Add "macro-names" to "macros"
   (dolist (m macro-names)
-    (push (cons (format "\\<\\(%s\\)\\>" m) 'font-lock-keyword-face) macros))
+    (push (list (format "(\\<\\(%s\\)\\>" m) 1 'font-lock-keyword-face) macros))
 
+  ;; Add "defmacro" style to "macros"
   (push (list (format "(\\s-*%s\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" "defmacro") 1 'font-lock-keyword-face) macros)
 
 
