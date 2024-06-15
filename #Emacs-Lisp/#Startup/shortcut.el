@@ -3,6 +3,9 @@
 ;; ################
 
 
+;; Quit
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
 ;; Window
 (global-set-key (kbd "C-<tab>") 'other-window)
 (global-set-key (kbd "C-M-<up>") 'enlarge-window)
@@ -21,13 +24,13 @@
 ;; Function keys (not used by default)
 (global-set-key (kbd "<f5>") 'find-file)
 (global-set-key (kbd "<f6>") 'dired)
-(global-set-key (kbd "<f7>") ctl-x-x-map)
-(global-set-key (kbd "<f8>") ctl-x-r-map)
-(global-set-key (kbd "<f9>") ctl-x-4-map)
-(global-set-key (kbd "<f12>") 'rust-format-buffer)
+(global-set-key (kbd "<f7>") 'execute-extended-command)
+(global-set-key (kbd "<f8>") ctl-x-map)
+(global-set-key (kbd "<f9>") ctl-x-x-map)
+(global-set-key (kbd "<f12>") 'eval-buffer)
 
 ;; Rust Buffer
-(global-set-key (kbd "C-c C-f") 'rust-format-buffer)
+(global-set-key (kbd "C-c r f") 'rust-format-buffer)
 
 
 ;; ################
