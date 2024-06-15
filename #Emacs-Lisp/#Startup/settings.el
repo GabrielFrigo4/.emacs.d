@@ -3,6 +3,9 @@
 ;; ################
 
 
+;; Disable the beep on Windows
+(setq-default visible-bell t)
+
 ;; Remove backup files
 (setq-default make-backup-files nil)
 
