@@ -70,6 +70,10 @@
 (global-set-key (kbd "C-8") 'dired)
 (global-set-key (kbd "C-9") 'execute-extended-command)
 
+;; String
+(global-set-key (kbd "M-s q") 'replace-regexp)
+(global-set-key (kbd "M-s r") 'replace-string)
+
 
 ;; ################
 ;; # Languages
