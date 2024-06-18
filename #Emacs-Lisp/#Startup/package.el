@@ -7,6 +7,10 @@
 (use-package parent-mode
   :ensure t)
 
+;; Install Numbers
+(use-package highlight-numbers
+  :ensure t)
+
 ;; Install Lang-Mode
 (use-package rust-mode
   :ensure t
@@ -28,7 +32,8 @@
     ))
 
 ;; Install Emacs Theme
-;; Não tem nenhum tema bom... :(
+(use-package dracula-theme
+  :ensure t)
 
 ;; Install Emacs Auto-Completion
 (use-package company

@@ -2,6 +2,12 @@
 ;; # C and C++
 ;; ################
 
+
+(setq-local custom-c-and-c++-defaults
+	          '(
+              ()
+              ))
+
 (setq-local custom-c-and-c++-keywords
 	          '(
               ("\\<\\(stdin\\|stdout\\|stderr\\)\\>" . font-lock-variable-name-face)
@@ -12,10 +18,27 @@
               ("\\<\\(cin\\|wcin\\|cout\\|wcout\\|cerr\\|wcerr\\)\\>" . font-lock-builtin-face)
               ))
 
+(setq-local custom-c-and-c++-functions
+            '(
+              ("\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>\\s-*(" 1 font-lock-function-name-face)
+              ))
+
+(font-lock-add-keywords
+ 'c-mode
+ custom-c-and-c++-defaults)
+
 (font-lock-add-keywords
  'c-mode
  custom-c-and-c++-keywords)
 
 (font-lock-add-keywords
+ 'c-mode
+ custom-c-and-c++-functions)
+
+(font-lock-add-keywords
  'c++-mode
  custom-c-and-c++-keywords)
+
+(font-lock-add-keywords
+ 'c++-mode
+ custom-c-and-c++-functions)

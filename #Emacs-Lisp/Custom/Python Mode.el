@@ -3,10 +3,23 @@
 ;; ################
 
 
+(setq-local custom-python-startup
+            '(
+              ("\\(\\_<[a-z]\\(?:\\sw\\|\\s_\\)?+\\)\\_>" . font-lock-variable-name-face)
+              ))
+
 (setq-local custom-python-keywords
             '(
+              ;; Python Keywords
+              ("\\<\\(False\\|True\\|None\\)\\>" . font-lock-builtin-face)
+              ("\\<\\(and\\|as\\|assert\\|async\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(await\\|break\\|class\\|continue\\|def\\|del\\|elif\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(else\\|except\\|finally\\|for\\|from\\|global\\|if\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(import\\|in\\|is\\|lambda\\|nonlocal\\|not\\|or\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(pass\\|raise\\|return\\|try\\|while\\|with\\|yield\\)\\>" . font-lock-keyword-face)
+
               ;; Do for any "__word__"
-              ;;("\\B\\s_\\s_\\(?:\\sw\\)+\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_\\(?:\\sw\\)+\\s_\\s_\\B" . font-lock-builtin-face)
 
               ;; Builtin "__word__"
               ("\\B\\s_\\s_doc\\s_\\s_\\B" . font-lock-builtin-face)
@@ -21,9 +34,45 @@
               ("\\B\\s_\\s_builtins\\s_\\s_\\B" . font-lock-builtin-face)
               ))
 
+(setq-local custom-python-defaults
+            '(
+              ("\\(\\_<[A-Z]\\(?:\\sw\\|\\s_\\)?+\\)\\_>" . font-lock-type-face)
+              ("\\(\\_<[A-Z]\\(?:[A-Z]\\|\\s_\\|[0-9]\\)?+\\)\\_>" . font-lock-constant-face)
+              ))
+
+(setq-local custom-python-classes
+            '(
+              ("\\(\\_<[A-Z]\\(?:\\sw\\|\\s_\\)?+\\)\\_>\\s-*(" 1 font-lock-type-face)
+              ("\\<class\\s-*\\(\\_<[A-Z]\\(?:\\sw\\|\\s_\\)?+\\)" 1 font-lock-type-face)
+              ))
+
+(setq-local custom-python-functions
+            '(
+              ("\\(\\_<[a-z]\\(?:\\sw\\|\\s_\\)?+\\)\\_>\\s-*(" 1 font-lock-function-name-face)
+              ("\\(\\_<[A-Z]\\(?:[A-Z]\\|\\s_\\|[0-9]\\)?+\\)\\_>\\s-*(" 1 font-lock-function-name-face)
+              ("\\<def\\s-*\\(\\_<[a-z]\\(?:\\sw\\|\\s_\\)?+\\)" 1 font-lock-function-name-face)
+              ("\\<def\\s-*\\(\\_<[A-Z]\\(?:[A-Z]\\|\\s_\\|[0-9]\\)?+\\)" 1 font-lock-function-name-face)
+              ))
+
+(font-lock-add-keywords
+ 'python-mode
+ custom-python-startup)
+
 (font-lock-add-keywords
  'python-mode
  custom-python-keywords)
+
+(font-lock-add-keywords
+ 'python-mode
+ custom-python-defaults)
+
+(font-lock-add-keywords
+ 'python-mode
+ custom-python-classes)
+
+(font-lock-add-keywords
+ 'python-mode
+ custom-python-functions)
 
 (with-eval-after-load 'python
   (setf (nth 7 python-font-lock-keywords-maximum-decoration)

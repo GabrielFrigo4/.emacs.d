@@ -1,7 +1,7 @@
 ;; #############################################
 ;; # Minimize garbage collection during startup
 (setq gc-cons-threshold most-positive-fixnum)
-(setq read-process-output-max (* 1024 1024))
+(setq read-process-output-max (expt 2 20))
 ;; #############################################
 
 
@@ -106,7 +106,6 @@
 ;; Add load-path "Emacs-Lisp"
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#Startup") load-path))
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#Finish") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Extension") load-path))
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Modes") load-path))
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Custom") load-path))
 
@@ -118,9 +117,6 @@
 
 ;; Load ".elc" files in Custom
 (mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Custom/*.elc")))
-
-;; Load ".elc" files in Extension
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Extension/*.elc")))
 
 ;; Load ".elc" files in Modes
 (mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Modes/*.elc")))

@@ -6,14 +6,11 @@ This repository is the configuration of the Emacs code editor that Gabriel Frigo
 ## TODO
 Melhorar
 ```
-Atualizar Python (sintax)
-Atualizar Lua (sintax / tab)
-Atualizar C/C++ (sintax)
+Atualizar C/C++ (sintax / company)
 ```
 
 Fazer
 ```
-Atualizar Brilho dos Numeros ('=' & sintax)
 Atualizar NASM (sintax)
 Atualizar FASM (sintax)
 Atualizar ASM (sintax)
