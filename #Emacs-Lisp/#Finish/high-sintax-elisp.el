@@ -25,20 +25,20 @@
   (push (list "\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" 1 'font-lock-variable-name-face) defaults)
   (push (list "(\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>" 1 'font-lock-function-name-face) defaults)
 
-  (push (list (format "(\\<\\(%s\\)\\>" "if") 1 'font-lock-keyword-face) defaults)
-  (push (list (format "(\\<\\(%s\\)\\>" "cond") 1 'font-lock-keyword-face) defaults)
-  (push (list (format "(\\<\\(%s\\)\\>" "setq") 1 'font-lock-keyword-face) defaults)
-  (push (list (format "(\\<\\(%s\\)\\>" "provide") 1 'font-lock-keyword-face) defaults)
-  (push (list (format "(\\<\\(%s\\)\\>" "require") 1 'font-lock-keyword-face) defaults)
+  (push (list (regex-elisp-keyword "if") 1 'font-lock-keyword-face) defaults)
+  (push (list (regex-elisp-keyword "cond") 1 'font-lock-keyword-face) defaults)
+  (push (list (regex-elisp-keyword "setq") 1 'font-lock-keyword-face) defaults)
+  (push (list (regex-elisp-keyword "provide") 1 'font-lock-keyword-face) defaults)
+  (push (list (regex-elisp-keyword "require") 1 'font-lock-keyword-face) defaults)
 
-  (push (list (format "(\\<\\(%s\\)\\>" "load") 1 'font-lock-keyword-face) defaults)
-  (push (list (format "(\\<\\(%s\\)\\>" "load-file") 1 'font-lock-keyword-face) defaults)
-  (push (list (format "(\\<\\(%s\\)\\>" "load-theme") 1 'font-lock-keyword-face) defaults)
-  (push (list (format "(\\<\\(%s\\)\\>" "load-library") 1 'font-lock-keyword-face) defaults)
-  (push (list (format "(\\<\\(%s\\)\\>" "load-average") 1 'font-lock-keyword-face) defaults)
-  (push (list (format "(\\<\\(%s\\)\\>" "load-history-regexp") 1 'font-lock-function-name-face) defaults)
-  (push (list (format "(\\<\\(%s\\)\\>" "load-with-code-conversion") 1 'font-lock-function-name-face) defaults)
-  (push (list (format "(\\<\\(%s\\)\\>" "load-history-filename-element") 1 'font-lock-function-name-face) defaults)
+  (push (list (regex-elisp-keyword "load") 1 'font-lock-keyword-face) defaults)
+  (push (list (regex-elisp-keyword "load-file") 1 'font-lock-keyword-face) defaults)
+  (push (list (regex-elisp-keyword "load-theme") 1 'font-lock-keyword-face) defaults)
+  (push (list (regex-elisp-keyword "load-library") 1 'font-lock-keyword-face) defaults)
+  (push (list (regex-elisp-keyword "load-average") 1 'font-lock-keyword-face) defaults)
+  (push (list (regex-elisp-keyword "load-history-regexp") 1 'font-lock-function-name-face) defaults)
+  (push (list (regex-elisp-keyword "load-with-code-conversion") 1 'font-lock-function-name-face) defaults)
+  (push (list (regex-elisp-keyword "load-history-filename-element") 1 'font-lock-function-name-face) defaults)
 
 
   ;; ################
@@ -419,7 +419,7 @@
 
   ;; Add "macro-names" to "macros"
   (dolist (m macro-names)
-    (push (list (format "(\\<\\(%s\\)\\>" m) 1 'font-lock-keyword-face) macros))
+    (push (list (regex-elisp-keyword m) 1 'font-lock-keyword-face) macros))
 
   ;; Add "defmacro" style to "macros"
   (push (list (format "(\\s-*%s\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" "defmacro") 1 'font-lock-keyword-face) macros)
