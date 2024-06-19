@@ -6,7 +6,7 @@ This repository is the configuration of the Emacs code editor that Gabriel Frigo
 ## TODO
 Melhorar
 ```
-Atualizar C/C++ (sintax / company)
+Atualizar C/C++ (sintax)
 ```
 
 Fazer

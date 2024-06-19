@@ -14,7 +14,7 @@
 ;; Install Lang-Mode
 (use-package rust-mode
   :ensure t
-  :init
+  :config
   (setq rust-mode-treesitter-derive t))
 (use-package lua-mode
   :ensure t)
@@ -22,7 +22,7 @@
 ;; Install SLIME IDE
 (use-package slime
   :ensure t
-  :init
+  :config
   (setq inferior-lisp-program "sbcl"))
 
 ;; Install NeoTree
@@ -52,8 +52,13 @@
 (use-package company
   :ensure t
   :hook (after-init . global-company-mode)
-  :custom
-  (company-idle-delay 0))
+  :config
+  (progn
+    (setq company-minimum-prefix-length 3)
+    (setq company-dabbrev-downcase 0)
+    (setq company-idle-delay
+      (lambda () (if (company-in-string-or-comment) nil 0.9)))
+    ))
 (use-package vertico
   :ensure t
   :custom

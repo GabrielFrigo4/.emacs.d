@@ -28,6 +28,7 @@
   (push (list (regex-elisp-keyword "if") 1 'font-lock-keyword-face) defaults)
   (push (list (regex-elisp-keyword "cond") 1 'font-lock-keyword-face) defaults)
   (push (list (regex-elisp-keyword "setq") 1 'font-lock-keyword-face) defaults)
+  (push (list (regex-elisp-keyword "progn") 1 'font-lock-keyword-face) defaults)
   (push (list (regex-elisp-keyword "provide") 1 'font-lock-keyword-face) defaults)
   (push (list (regex-elisp-keyword "require") 1 'font-lock-keyword-face) defaults)
 
