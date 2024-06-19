@@ -45,7 +45,6 @@
 (use-package doom-themes
   :ensure t)
 (unless (package-installed-p 'spacemacs-theme)
-  (package-resfresh-contents)
   (package-install 'spacemacs-theme))
 
 ;; Install Emacs Auto-Completion
