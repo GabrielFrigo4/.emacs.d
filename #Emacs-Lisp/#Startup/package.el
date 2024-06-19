@@ -19,6 +19,12 @@
 (use-package lua-mode
   :ensure t)
 
+;; Install SLIME IDE
+(use-package slime
+  :ensure t
+  :init
+  (setq inferior-lisp-program "sbcl"))
+
 ;; Install NeoTree
 (use-package all-the-icons
   :ensure t)
@@ -34,6 +40,13 @@
 ;; Install Emacs Theme
 (use-package dracula-theme
   :ensure t)
+(use-package zenburn-theme
+  :ensure t)
+(use-package doom-themes
+  :ensure t)
+(unless (package-installed-p 'spacemacs-theme)
+  (package-resfresh-contents)
+  (package-install 'spacemacs-theme))
 
 ;; Install Emacs Auto-Completion
 (use-package company
