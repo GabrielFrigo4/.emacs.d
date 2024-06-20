@@ -18,6 +18,8 @@
   (setq rust-mode-treesitter-derive t))
 (use-package lua-mode
   :ensure t)
+(use-package riscv-mode
+  :ensure t)
 
 ;; Install SLIME IDE
 (use-package slime

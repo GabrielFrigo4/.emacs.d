@@ -16,27 +16,27 @@
 
 (defmacro if-gnu (&rest body)
   `(if-system gnu
-       (progn ,@body)))
+     (progn ,@body)))
 
 (defmacro if-linux (&rest body)
   `(if-system gnu/linux
-       (progn ,@body)))
+     (progn ,@body)))
 
 (defmacro if-darwin (&rest body)
   `(if-system darwin
-       (progn ,@body)))
+     (progn ,@body)))
 
 (defmacro if-msdos (&rest body)
   `(if-system ms-dos
-       (progn ,@body)))
+     (progn ,@body)))
 
 (defmacro if-windows (&rest body)
   `(if-system windows-nt
-       (progn ,@body)))
+     (progn ,@body)))
 
 (defmacro if-cygwin (&rest body)
   `(if-system cygwin
-       (progn ,@body)))
+     (progn ,@body)))
 
 
 ;; ################
@@ -94,8 +94,20 @@
 ;; Setup Packages (MELPA)
 (require 'package)
 (setq package-enable-at-startup nil)
-(add-to-list 'package-archives
-	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(setq package-archives
+      '(
+        ("gnu" . "https://elpa.gnu.org/packages/")
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")
+        ))
+(setq package-archive-priorities
+      '(
+        ("gnu" . 15)
+        ("nongnu" . 10)
+        ("melpa-stable" . 5)
+        ("melpa" . 0)
+        ))
 (package-initialize)
 
 ;; Install Use-Package

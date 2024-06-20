@@ -69,8 +69,6 @@
 (add-to-list 'auto-mode-alist '("\\.x86\\'" . asm-mode))
 (add-to-list 'auto-mode-alist '("\\.x64\\'" . asm-mode))
 (add-to-list 'auto-mode-alist '("\\.xinc\\'" . asm-mode))
-(add-to-list 'auto-mode-alist '("\\.riscv\\'" . asm-mode))
-(add-to-list 'auto-mode-alist '("\\.rinc\\'" . asm-mode))
 (add-to-list 'auto-mode-alist '("\\.arm\\'" . asm-mode))
 (add-to-list 'auto-mode-alist '("\\.ainc\\'" . asm-mode))
 
@@ -80,6 +78,10 @@
 (add-to-list 'auto-mode-alist '("\\.ninc\\'" . nasm-mode))
 (add-to-list 'auto-mode-alist '("\\.asm\\'" . nasm-mode))
 (add-to-list 'auto-mode-alist '("\\.inc\\'" . nasm-mode))
+
+;; Set *riscv-mode*
+(add-to-list 'auto-mode-alist '("\\.riscv\\'" . riscv-mode))
+(add-to-list 'auto-mode-alist '("\\.rinc\\'" . riscv-mode))
 
 ;; Set *python-mode*
 (setq-default python-indent-guess-indent-offset t)
