@@ -4,11 +4,6 @@ Emacs config
 This repository is the configuration of the Emacs code editor that Gabriel Frigo uses
 
 ## TODO
-Melhorar
-```
-Atualizar C/C++ (sintax)
-```
-
 Fazer
 ```
 Atualizar NASM (sintax)
