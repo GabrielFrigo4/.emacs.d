@@ -5,7 +5,7 @@
 
 (setq-local custom-c-and-c++-defaults
 	          '(
-              ("\\(\\_<\\s_*[A-Z]\\(?:[A-Z0-9_]\\)?+\\)\\_>" . font-lock-constant-face)
+              ("\\(\\_<\\s_*[A-Z_]\\(?:[A-Z0-9_]\\)?+\\)\\_>" . font-lock-constant-face)
               ))
 
 (setq-local custom-c-and-c++-keywords
