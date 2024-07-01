@@ -39,6 +39,7 @@
 
 ;; Shell
 (global-set-key (kbd "C-c s") 'shell)
+(global-set-key (kbd "C-c e") 'eshell)
 (global-set-key (kbd "C-c C-s") 'shell-other-window)
 (global-set-key (kbd "C-c C-c") 'shell-command)
 
