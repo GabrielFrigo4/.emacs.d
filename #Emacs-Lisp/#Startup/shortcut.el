@@ -33,6 +33,15 @@
 (global-set-key (kbd "C-M-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "C-M-<left>") 'shrink-window-horizontally)
 
+;; Terminal
+(global-set-key (kbd "C-c t") 'term)
+(global-set-key (kbd "C-c C-t") 'default-term-other-window)
+
+;; Shell
+(global-set-key (kbd "C-c s") 'shell)
+(global-set-key (kbd "C-c C-s") 'shell-other-window)
+(global-set-key (kbd "C-c C-c") 'shell-command)
+
 ;; Buffer
 (global-set-key (kbd "C-c b e") 'eval-buffer)
 (global-set-key (kbd "C-c b k") 'kill-current-buffer)
