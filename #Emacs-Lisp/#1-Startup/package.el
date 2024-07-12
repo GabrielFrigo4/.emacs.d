@@ -16,7 +16,11 @@
   :ensure t
   :config
   (setq rust-mode-treesitter-derive t))
+(use-package zig-mode
+  :ensure t)
 (use-package lua-mode
+  :ensure t)
+  (use-package nasm-mode
   :ensure t)
 (use-package riscv-mode
   :ensure t)

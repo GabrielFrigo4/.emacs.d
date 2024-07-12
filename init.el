@@ -118,11 +118,12 @@
 ;; Compile all ".el" files to ".elc"
 (byte-recompile-directory (expand-file-name (concat (getenv "HOME") "/.emacs.d")) 0)
 
-;; Add load-path "Emacs-Lisp"
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#Startup") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#Finish") load-path))
+;; Add load-path "#Emacs-Lisp/...d"
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#1-Startup") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Modes") load-path))
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Custom") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Modes") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Configuration") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Sintax") load-path))
 
 ;; Load ".el" or ".elc" files in #Startup
 (load "package")
@@ -133,11 +134,11 @@
 ;; Load ".elc" files in Custom
 (mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Custom/*.elc")))
 
-;; Load ".elc" files in Modes
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Modes/*.elc")))
+;; Load ".elc" files in Configuration
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Configuration/*.elc")))
 
-;; Load ".el" or ".elc" files in #Finish
-(load "high-sintax-elisp")
+;; Load ".elc" files in Sintax
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Sintax/*.elc")))
 
 ;; Use emacsclient to open files in an already-running Emacs process
 (require 'server)
