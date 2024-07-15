@@ -9,7 +9,9 @@
 
 ;; Install Numbers
 (use-package highlight-numbers
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 
 ;; Install Lang-Mode
 (use-package rust-mode

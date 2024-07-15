@@ -121,7 +121,6 @@
 ;; Add load-path "#Emacs-Lisp/...d"
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#1-Startup") load-path))
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Modes") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Custom") load-path))
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Configuration") load-path))
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Sintax") load-path))
 
@@ -130,9 +129,6 @@
 (load "function")
 (load "settings")
 (load "shortcut")
-
-;; Load ".elc" files in Custom
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Custom/*.elc")))
 
 ;; Load ".elc" files in Configuration
 (mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Configuration/*.elc")))

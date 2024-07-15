@@ -2,11 +2,8 @@
 ;; # Assembly
 ;; ################
 
-(defun custom-asm-mode-hook ()
-  (local-unset-key (vector asm-comment-char))
-  (setq tab-always-indent (default-value 'tab-always-indent))
-  (electric-indent-local-mode)
 
+(defun sintax-asm-mode-hook ()
   ;; Comments Style
   (modify-syntax-entry ?\# "<")
   (modify-syntax-entry ?\n ">")
@@ -41,4 +38,4 @@
    (or tab-width)))
   )
 
-(add-hook 'asm-mode-hook #'custom-asm-mode-hook)
+(add-hook 'asm-mode-hook #'sintax-asm-mode-hook)

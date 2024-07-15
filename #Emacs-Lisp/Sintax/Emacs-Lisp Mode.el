@@ -3,20 +3,7 @@
 ;; ################
 
 
-(defun custom-emacs-lisp-mode-hook ()
-  (setq indent-tabs-mode nil)
-  (setq tab-width 2)
- )
-
-(add-hook 'emacs-lisp-mode-hook #'custom-emacs-lisp-mode-hook)
-
-
-;; ################
-;; # High Elisp
-;; ################
-
-
-(defun custom-hight-elisp-mode-hook ()
+(defun sintax-emacs-lisp-mode-hook ()
   ;; ################
   ;; # Define Locals
   ;; ################
@@ -469,4 +456,4 @@
    macros)
   )
 
-(custom-hight-elisp-mode-hook)
+(sintax-emacs-lisp-mode-hook)
