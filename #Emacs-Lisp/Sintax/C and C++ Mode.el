@@ -48,8 +48,20 @@
               ("\\<\\(int_fast64_t\\|uint_fast64_t\\)\\>" . font-lock-type-face)
               ("\\<\\(intptr_t\\|uintptr_t\\)\\>" . font-lock-type-face)
 
-              ;; Standard Keyword
-              ("\\<\\(const\\|return\\)\\>" . font-lock-keyword-face)
+              ;; Standard Keyword C
+              ("\\<\\(auto\\|break\\|case\\|const\\|continue\\|default\\|do\\|else\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(auto\\|enum\\|extern\\|for\\|goto\\|if\\|register\\|return\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(static\\|struct\\|switch\\|union\\|volatile\\|while\\|typedef\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(sizeof\\)\\>" . font-lock-keyword-face)
+
+              ;; Standard Keyword C++
+              ("\\<\\(auto\\|break\\|case\\|const\\|continue\\|default\\|do\\|else\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(auto\\|enum\\|extern\\|for\\|goto\\|if\\|register\\|return\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(static\\|struct\\|switch\\|union\\|volatile\\|while\\|typedef\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(asm\\|catch\\|delete\\|friend\\|inline\\|new\\|operator\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(private\\|protected\\|public\\|register\\|static\\|template\\|this\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(throw\\|try\\|virtual\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(sizeof\\)\\>" . font-lock-keyword-face)
 
               ;; Constants CLIMITS
               ("\\<\\(CHAR_BIT\\|MB_LEN_MAX\\)\\>" . font-lock-builtin-face)
