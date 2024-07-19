@@ -3,13 +3,16 @@
 /auto-save-list
 /org-persist
 /eln-cache
-/eshell
 /elpa
 
 # emacs packages
 /ac-comphist.dat
 /tree-sitter
 /recentf
+
+# emacs eshell
+/eshell/history
+/eshell/lastdir
 
 # emacs compile
 *.elc

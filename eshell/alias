@@ -1,0 +1,3 @@
+alias clr (eshell/clear-scrollback) $*
+alias cls (eshell/clear-scrollback) $*
+alias clear (eshell/clear-scrollback) $*

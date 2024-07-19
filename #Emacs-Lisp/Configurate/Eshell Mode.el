@@ -3,8 +3,14 @@
 ;; ################
 
 
-(defun eshell/cls ()
-  (eshell/clear 1))
+(setq eshell-prompt-function (lambda () "] "))
 
-(defun eshell/clr ()
-  (eshell/clear 1))
+
+;; ################
+;; # Functions
+;; ################
+
+
+(defalias 'clear 'eshell/clear-scrollback)
+(defalias 'cls 'eshell/clear-scrollback)
+(defalias 'clr 'eshell/clear-scrollback)

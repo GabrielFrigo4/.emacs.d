@@ -3,8 +3,15 @@
 ;; ################
 
 
+(setq-local custom-c-and-c++-startup
+            '(
+              ;; Define Variables
+              ("\\w" . font-lock-variable-name-face)
+              ))
+
 (setq-local custom-c-and-c++-defaults
 	          '(
+              ;; Constants
               ("\\(\\_<[_]*[A-Z]\\(?:[A-Z0-9_]\\)?+\\)\\_>" . font-lock-constant-face)
               ))
 
@@ -14,6 +21,12 @@
               ("\\<\\(stdin\\|stdout\\|stderr\\)\\>" . font-lock-variable-name-face)
 		          ("\\<\\(STDIN_FILENO\\|STDOUT_FILENO\\|STDERR_FILENO\\)\\>" . font-lock-builtin-face)
               ("\\<\\(FILE\\)\\>" . font-lock-type-face)
+
+              ;; Standard Types
+              ("\\<\\(float\\|double\\|int\\)\\>" . font-lock-type-face)
+              ("\\<\\(char\\|bool\\|void\\)\\>" . font-lock-type-face)
+              ("\\<\\(short\\|long\\)\\>" . font-lock-type-face)
+              ("\\<\\(signed\\|unsigned\\)\\>" . font-lock-type-face)
 
               ;; Types C/C++
               ("\\<\\(size_t\\|ptrdiff_t\\|sig_atomic_t\\)\\>" . font-lock-type-face)
@@ -34,6 +47,9 @@
               ("\\<\\(int_fast32_t\\|uint_fast32_t\\)\\>" . font-lock-type-face)
               ("\\<\\(int_fast64_t\\|uint_fast64_t\\)\\>" . font-lock-type-face)
               ("\\<\\(intptr_t\\|uintptr_t\\)\\>" . font-lock-type-face)
+
+              ;; Standard Keyword
+              ("\\<\\(const\\|return\\)\\>" . font-lock-keyword-face)
 
               ;; Constants CLIMITS
               ("\\<\\(CHAR_BIT\\|MB_LEN_MAX\\)\\>" . font-lock-builtin-face)
@@ -89,7 +105,7 @@
 (setq-local custom-c-and-c++-functions
             '(
               ;; Define Functions
-              ("\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>\\s-*(" 1 font-lock-function-name-face)
+              ("\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>\\s-*(" . font-lock-function-name-face)
               ))
 
 
@@ -97,6 +113,10 @@
 ;; # C
 ;; ################
 
+
+(font-lock-add-keywords
+ 'c-mode
+ custom-c-and-c++-startup)
 
 (font-lock-add-keywords
  'c-mode
@@ -115,6 +135,10 @@
 ;; # C++
 ;; ################
 
+
+(font-lock-add-keywords
+ 'c++-mode
+ custom-c-and-c++-startup)
 
 (font-lock-add-keywords
  'c++-mode

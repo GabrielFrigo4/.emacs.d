@@ -74,7 +74,7 @@
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-screen t)
  '(package-selected-packages
-   '(spacemacs-theme doom-themes zenburn-theme slime which-key vertico rust-mode neotree lua-mode highlight-numbers dracula-theme company all-the-icons ace-window))
+   '(riscv-mode nasm-mode zig-mode parent-mode spacemacs-theme doom-themes zenburn-theme slime which-key vertico rust-mode neotree lua-mode highlight-numbers dracula-theme company all-the-icons ace-window))
  '(size-indication-mode t)
  '(tool-bar-mode nil)
  '(xterm-mouse-mode 1))
@@ -105,8 +105,8 @@
       '(
         ("gnu" . 15)
         ("nongnu" . 10)
-        ("melpa-stable" . 5)
-        ("melpa" . 0)
+        ("melpa-stable" . 0)
+        ("melpa" . 5)
         ))
 (package-initialize)
 
@@ -115,13 +115,15 @@
   (package-resfresh-contents)
   (package-install 'use-package))
 
+;; !!! EMACS WORK BETTER WITHOUT COMPILER !!!
 ;; Compile all ".el" files to ".elc"
-(byte-recompile-directory (expand-file-name (concat (getenv "HOME") "/.emacs.d")) 0)
+;; (byte-recompile-directory (expand-file-name (concat (getenv "HOME") "/.emacs.d")) 0)
+;; !!! EMACS WORK BETTER WITHOUT COMPILER !!!
 
 ;; Add load-path "#Emacs-Lisp/...d"
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#1-Startup") load-path))
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Modes") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Configuration") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Configurate") load-path))
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Sintax") load-path))
 
 ;; Load ".el" or ".elc" files in #Startup
@@ -131,10 +133,10 @@
 (load "shortcut")
 
 ;; Load ".elc" files in Configuration
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Configuration/*.elc")))
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Configurate/*.el")))
 
 ;; Load ".elc" files in Sintax
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Sintax/*.elc")))
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Sintax/*.el")))
 
 ;; Use emacsclient to open files in an already-running Emacs process
 (require 'server)

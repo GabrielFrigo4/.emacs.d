@@ -203,6 +203,7 @@
                "declare-function"
                "def-edebug-spec"
                "defadvice"
+               "defalias"
                "defclass"
                "defcustom"
                "defface"
