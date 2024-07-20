@@ -135,7 +135,7 @@
 (setq-local custom-c-and-c++-functions
             '(
               ;; Define Functions
-              ("\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>\\s-*(" . font-lock-function-name-face)
+              ("\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>\\s-*(" 1 font-lock-function-name-face)
               ))
 
 (setq-local custom-c-and-c++-keywords
