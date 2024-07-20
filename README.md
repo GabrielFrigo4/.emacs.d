@@ -6,8 +6,7 @@ This repository is the configuration of the Emacs code editor that Gabriel Frigo
 ## TODO
 Fazer
 ```
-Atualizar NASM (sintax)
-Atualizar FASM (sintax)
+Atualizar Eshell
 Atualizar ASM (sintax)
 Atualizar Lisp (sintax)
 ```

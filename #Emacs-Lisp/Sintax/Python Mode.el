@@ -8,30 +8,6 @@
               ("\\(\\_<[a-z_]\\(?:\\sw\\|\\s_\\)?+\\)\\_>" . font-lock-variable-name-face)
               ))
 
-(setq-local custom-python-keywords
-            '(
-              ;; Python Keywords
-              ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(and\\|as\\|assert\\|async\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-keyword-face)
-              ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(await\\|break\\|class\\|continue\\|def\\|del\\|elif\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-keyword-face)
-              ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(else\\|except\\|finally\\|for\\|from\\|global\\|if\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-keyword-face)
-              ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(import\\|in\\|is\\|lambda\\|nonlocal\\|not\\|or\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-keyword-face)
-              ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(pass\\|raise\\|return\\|try\\|while\\|with\\|yield\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-keyword-face)
-
-              ;; Generic Keywords "__word__"
-              ("\\B\\s_\\s_\\(?:\\sw\\)+\\s_\\s_\\B" . font-lock-builtin-face)
-
-              ;; Builtin Keywords "__word__"
-              ("\\B\\s_\\s_doc\\s_\\s_\\B" . font-lock-builtin-face)
-              ("\\B\\s_\\s_file\\s_\\s_\\B" . font-lock-builtin-face)
-              ("\\B\\s_\\s_init\\s_\\s_\\B" . font-lock-builtin-face)
-              ("\\B\\s_\\s_main\\s_\\s_\\B" . font-lock-builtin-face)
-              ("\\B\\s_\\s_name\\s_\\s_\\B" . font-lock-builtin-face)
-              ("\\B\\s_\\s_debug\\s_\\s_\\B" . font-lock-builtin-face)
-              ("\\B\\s_\\s_future\\s_\\s_\\B" . font-lock-builtin-face)
-              ("\\B\\s_\\s_package\\s_\\s_\\B" . font-lock-builtin-face)
-              ("\\B\\s_\\s_builtins\\s_\\s_\\B" . font-lock-builtin-face)
-              ))
-
 (setq-local custom-python-defaults
             '(
               ("\\(\\_<\\s_*[A-Z]\\(?:[A-Z0-9_]\\)?+\\)\\_>" . font-lock-constant-face)
@@ -75,6 +51,30 @@
               ("\\<def\\s-*\\(\\_<\\s_*[A-Z]\\(?:[A-Z]\\|\\s_\\|[0-9]\\)?+\\)" 1 font-lock-function-name-face)
               ))
 
+(setq-local custom-python-keywords
+            '(
+              ;; Python Keywords
+              ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(and\\|as\\|assert\\|async\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-keyword-face)
+              ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(await\\|break\\|class\\|continue\\|def\\|del\\|elif\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-keyword-face)
+              ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(else\\|except\\|finally\\|for\\|from\\|global\\|if\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-keyword-face)
+              ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(import\\|in\\|is\\|lambda\\|nonlocal\\|not\\|or\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-keyword-face)
+              ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(pass\\|raise\\|return\\|try\\|while\\|with\\|yield\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-keyword-face)
+
+              ;; Generic Keywords "__word__"
+              ("\\B\\s_\\s_\\(?:\\sw\\)+\\s_\\s_\\B" . font-lock-builtin-face)
+
+              ;; Builtin Keywords "__word__"
+              ("\\B\\s_\\s_doc\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_file\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_init\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_main\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_name\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_debug\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_future\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_package\\s_\\s_\\B" . font-lock-builtin-face)
+              ("\\B\\s_\\s_builtins\\s_\\s_\\B" . font-lock-builtin-face)
+              ))
+
 (setq-local custom-python-values
             '(
               ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(False\\|True\\|None\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-constant-face)
@@ -83,10 +83,6 @@
 (font-lock-add-keywords
  'python-mode
  custom-python-startup)
-
-(font-lock-add-keywords
- 'python-mode
- custom-python-keywords)
 
 (font-lock-add-keywords
  'python-mode
@@ -99,6 +95,10 @@
 (font-lock-add-keywords
  'python-mode
  custom-python-functions)
+
+(font-lock-add-keywords
+ 'python-mode
+ custom-python-keywords)
 
 (font-lock-add-keywords
  'python-mode
