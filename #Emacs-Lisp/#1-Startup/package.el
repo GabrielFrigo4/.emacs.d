@@ -39,6 +39,7 @@
 (use-package neotree
   :ensure t
   :bind ("C-\\" . 'neotree-toggle)
+  :bind ("M-[" . 'neotree-toggle)
   :init
   (progn
     (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
