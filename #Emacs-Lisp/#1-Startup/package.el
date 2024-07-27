@@ -38,6 +38,7 @@
   :ensure t)
 (use-package neotree
   :ensure t
+  :bind ("C-," . 'neotree-toggle)
   :bind ("C-\\" . 'neotree-toggle)
   :bind ("M-[" . 'neotree-toggle)
   :init

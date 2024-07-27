@@ -28,6 +28,7 @@
 
 ;; Window
 (global-set-key (kbd "M-]") 'other-window)
+(global-set-key (kbd "C-;") 'other-window)
 (global-set-key (kbd "C-<tab>") 'other-window)
 (global-set-key (kbd "C-M-<up>") 'enlarge-window)
 (global-set-key (kbd "C-M-<down>") 'shrink-window)
