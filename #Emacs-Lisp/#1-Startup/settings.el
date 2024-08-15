@@ -3,6 +3,9 @@
 ;; ################
 
 
+;; Set cursor blink time
+(setq blink-cursor-interval 0.6)
+
 ;; Disable the beep on Windows
 (setq-default visible-bell t)
 
