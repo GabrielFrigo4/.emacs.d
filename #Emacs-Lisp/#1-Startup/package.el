@@ -89,3 +89,5 @@
 (use-package ace-window
   :ensure t
   :bind (("M-o" . ace-window)))
+(use-package multiple-cursors
+  :ensure t)

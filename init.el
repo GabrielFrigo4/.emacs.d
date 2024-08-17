@@ -73,11 +73,11 @@
  '(display-time-mode t)
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-screen t)
+ '(menu-bar-mode nil)
  '(package-selected-packages
-   '(riscv-mode nasm-mode zig-mode parent-mode spacemacs-theme doom-themes zenburn-theme slime which-key vertico rust-mode neotree lua-mode highlight-numbers dracula-theme company all-the-icons ace-window))
+   '(multiple-cursors riscv-mode nasm-mode zig-mode parent-mode spacemacs-theme doom-themes zenburn-theme slime which-key vertico rust-mode neotree lua-mode highlight-numbers dracula-theme company all-the-icons ace-window))
  '(size-indication-mode t)
  '(tool-bar-mode nil)
- '(menu-bar-mode nil)
  '(xterm-mouse-mode 1))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

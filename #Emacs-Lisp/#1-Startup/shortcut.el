@@ -111,3 +111,14 @@
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
+
+
+;; ################
+;; # MC-PKG
+;; ################
+
+
+(global-set-key (kbd "C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C-S-a") 'mc/mark-all-like-this)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
