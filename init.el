@@ -75,7 +75,7 @@
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(multiple-cursors riscv-mode nasm-mode zig-mode parent-mode spacemacs-theme doom-themes zenburn-theme slime which-key vertico rust-mode neotree lua-mode highlight-numbers dracula-theme company all-the-icons ace-window))
+   '(eshell-prompt-extras abc-mode quelpa-use-package aweshell vterm xterm-color multiple-cursors riscv-mode nasm-mode zig-mode parent-mode spacemacs-theme doom-themes zenburn-theme slime which-key vertico rust-mode neotree lua-mode highlight-numbers dracula-theme company all-the-icons ace-window))
  '(size-indication-mode t)
  '(tool-bar-mode nil)
  '(xterm-mouse-mode 1))
@@ -109,12 +109,24 @@
         ("melpa-stable" . 0)
         ("melpa" . 5)
         ))
+
+;; Setup Packages (QUELPA)
+(unless (package-installed-p 'quelpa)
+  (with-temp-buffer
+    (url-insert-file-contents "https://raw.githubusercontent.com/quelpa/quelpa/master/quelpa.el")
+    (eval-buffer)
+    (quelpa-self-upgrade)))
 (package-initialize)
 
 ;; Install Use-Package
 (unless (package-installed-p 'use-package)
+  (quelpa
+   '(quelpa-use-package
+     :fetcher git
+     :url "https://github.com/quelpa/quelpa-use-package.git"))
   (package-resfresh-contents)
   (package-install 'use-package))
+(require 'quelpa-use-package)
 
 ;; !!! EMACS WORK BETTER WITHOUT COMPILER !!!
 ;; Compile all ".el" files to ".elc"

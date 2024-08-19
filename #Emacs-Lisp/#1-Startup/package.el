@@ -78,6 +78,18 @@
   :init
   (vertico-mode))
 
+;; Install Term Tools
+(use-package xterm-color
+  :ensure t)
+(use-package eshell-prompt-extras
+  :ensure t)
+(use-package aweshell
+  :quelpa (abc-mode :fetcher github :repo "manateelazycat/aweshell"))
+(if-linux
+ (use-package vterm
+   :ensure t)
+)
+
 ;; Install Emacs Tools
 (use-package which-key
   :ensure t

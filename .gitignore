@@ -5,6 +5,9 @@
 /eln-cache
 /elpa
 
+# emacs quelpa
+/quelpa
+
 # emacs packages
 /ac-comphist.dat
 /tree-sitter
