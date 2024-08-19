@@ -118,14 +118,16 @@
     (quelpa-self-upgrade)))
 (package-initialize)
 
-;; Install Use-Package
+;; Install Use-Package MELPA
 (unless (package-installed-p 'use-package)
-  (quelpa
-   '(quelpa-use-package
-     :fetcher git
-     :url "https://github.com/quelpa/quelpa-use-package.git"))
   (package-resfresh-contents)
   (package-install 'use-package))
+
+;; Install Use-Package QUELPA
+(quelpa
+ '(quelpa-use-package
+   :fetcher git
+   :url "https://github.com/quelpa/quelpa-use-package.git"))
 (require 'quelpa-use-package)
 
 ;; !!! EMACS WORK BETTER WITHOUT COMPILER !!!
