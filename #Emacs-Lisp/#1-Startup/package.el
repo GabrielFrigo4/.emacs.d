@@ -13,6 +13,12 @@
   :config
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 
+;; Install Delimiters
+(use-package rainbow-delimiters
+  :ensure
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
 ;; Install Lang-Mode
 (use-package rust-mode
   :ensure t
