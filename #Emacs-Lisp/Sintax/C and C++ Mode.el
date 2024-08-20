@@ -3,14 +3,14 @@
 ;; ################
 
 
-(setq-local custom-c-and-c++-startup
-            '(
-              ;; Define Variables
-              ("\\w" . font-lock-variable-name-face)
-              ))
+(require 'modern-cpp-font-lock)
+(modern-c++-font-lock-global-mode t)
 
 (setq-local custom-c-and-c++-defaults
 	          '(
+              ;; Define Types
+              ("\\s-*\\b\\(?:\\sw\\|\\s_\\)+\\b\\s-+\\b" . font-lock-type-face)
+              ("\\s-*\\b\\(?:\\sw\\|\\s_\\)+_t\\b" . font-lock-type-face)
               ;; Constants
               ("\\(\\_<[_]*[A-Z]\\(?:[A-Z0-9_]\\)?+\\)\\_>" . font-lock-constant-face)
               ))
@@ -102,7 +102,7 @@
               ("\\<\\(__ptr32\\|__ptr64\\|__sptr\\|__uptr\\)\\>" . font-lock-type-face)
               
               ;; Input & Output & Error
-              ("\\<\\(stdin\\|stdout\\|stderr\\)\\>" . font-lock-variable-name-face)
+              ("\\<\\(stdin\\|stdout\\|stderr\\)\\>" . font-lock-builtin-face)
 		          ("\\<\\(FILE\\)\\>" . font-lock-type-face)
 
               ;; Standard Types
@@ -157,7 +157,7 @@
 (setq-local custom-c++-keywords
 	          '(
               ;; C++ Keywords
-              ("\\<\\(auto\\|break\\|case\\|const\\|continue\\|default\\|do\\|else\\)\\>" . font-lock-keyword-face)
+              ("\\<\\(auto\\|break\\|case\\|const\\|continue\\|class\\|default\\|do\\|else\\)\\>" . font-lock-keyword-face)
               ("\\<\\(auto\\|enum\\|extern\\|for\\|goto\\|if\\|register\\|return\\)\\>" . font-lock-keyword-face)
               ("\\<\\(static\\|struct\\|switch\\|union\\|volatile\\|while\\|typedef\\)\\>" . font-lock-keyword-face)
               ("\\<\\(asm\\|catch\\|delete\\|friend\\|inline\\|new\\|operator\\)\\>" . font-lock-keyword-face)
@@ -171,10 +171,6 @@
 ;; # C
 ;; ################
 
-
-(font-lock-add-keywords
- 'c-mode
- custom-c-and-c++-startup)
 
 (font-lock-add-keywords
  'c-mode
@@ -205,10 +201,6 @@
 ;; # C++
 ;; ################
 
-
-(font-lock-add-keywords
- 'c++-mode
- custom-c-and-c++-startup)
 
 (font-lock-add-keywords
  'c++-mode

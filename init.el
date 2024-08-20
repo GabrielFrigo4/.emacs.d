@@ -53,6 +53,10 @@
 ;; Unique Buffer Names for Matching Files
 (require 'uniquify)
 
+;; Use EmacsClient to open files in an already-running Emacs Process
+(require 'server)
+(unless (server-running-p) (server-start))
+
 
 ;; ########################
 ;; # EMACS auto-options
@@ -75,7 +79,7 @@
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(eshell-prompt-extras abc-mode quelpa-use-package aweshell vterm xterm-color multiple-cursors riscv-mode nasm-mode zig-mode parent-mode spacemacs-theme doom-themes zenburn-theme slime which-key vertico rust-mode neotree lua-mode highlight-numbers dracula-theme company all-the-icons ace-window))
+   '(modern-cpp-font-lock visual-regexp-steroids eshell-prompt-extras abc-mode quelpa-use-package aweshell vterm xterm-color multiple-cursors riscv-mode nasm-mode zig-mode parent-mode spacemacs-theme doom-themes zenburn-theme slime which-key vertico rust-mode neotree lua-mode highlight-numbers dracula-theme company all-the-icons ace-window))
  '(size-indication-mode t)
  '(tool-bar-mode nil)
  '(xterm-mouse-mode 1))
@@ -152,10 +156,6 @@
 
 ;; Load ".elc" files in Sintax
 (mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Sintax/*.el")))
-
-;; Use emacsclient to open files in an already-running Emacs process
-(require 'server)
-(unless (server-running-p) (server-start))
 
 
 ;; ##################################

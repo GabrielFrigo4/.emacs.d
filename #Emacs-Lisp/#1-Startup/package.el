@@ -26,6 +26,8 @@
   :ensure t)
 (use-package riscv-mode
   :ensure t)
+(use-package modern-cpp-font-lock
+  :ensure t)
 
 ;; Install SLIME IDE
 (use-package slime
@@ -88,7 +90,13 @@
 (if-linux
  (use-package vterm
    :ensure t)
-)
+ )
+
+;; Install Regex Tools
+(use-package visual-regexp
+  :ensure)
+(use-package visual-regexp-steroids
+  :ensure)
 
 ;; Install Emacs Tools
 (use-package which-key
