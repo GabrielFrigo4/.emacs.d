@@ -26,7 +26,10 @@
 ;; ################
 
 
+(defalias 'clear-scrollback 'eshell/clear-scrollback)
 (defalias 'clear 'eshell/clear-scrollback)
 (defalias 'cls 'eshell/clear-scrollback)
 (defalias 'clr 'eshell/clear-scrollback)
+(defalias 'rm 'eshell/rm)
 (defalias 'ls 'eshell/ls)
+(defalias 'x 'eshell/exit)
