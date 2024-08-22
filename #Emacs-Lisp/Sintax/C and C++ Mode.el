@@ -73,7 +73,10 @@
 
 (setq-local custom-c-and-c++-types
 	          '(
-              ;; Microsoft
+              ;; CLIB Types
+              ("\\<\\(FILE\\)\\>" . font-lock-type-face) 
+              
+              ;; Microsoft Types
               ("\\<\\(ATOM\\|BOOL\\|BOOLEAN\\|BYTE\\|USN\\|WCHAR\\|WORD\\|WPARAM\\)\\>" . font-lock-type-face)
               ("\\<\\(CCHAR\\|CHAR\\|COLORREF\\|DWORD\\|DWORDLONG\\|DWORD_PTR\\)\\>" . font-lock-type-face)
               ("\\<\\(DWORD32\\|DWORD64\\|FLOAT\\|HACCEL\\|HALF_PTR\\|HANDLE\\|HBITMAP\\)\\>" . font-lock-type-face)
@@ -100,10 +103,6 @@
               ("\\<\\(ULONG\\|ULONGLONG\\|ULONG_PTR\\|ULONG32\\|ULONG64\\|UNICODE_STRING\\|USHORT\\)\\>" . font-lock-type-face)
               ("\\<\\(__int8\\|__int16\\|__int32\\|__int64\\)\\>" . font-lock-type-face)
               ("\\<\\(__ptr32\\|__ptr64\\|__sptr\\|__uptr\\)\\>" . font-lock-type-face)
-              
-              ;; Input & Output & Error
-              ("\\<\\(stdin\\|stdout\\|stderr\\)\\>" . font-lock-builtin-face)
-		          ("\\<\\(FILE\\)\\>" . font-lock-type-face)
 
               ;; Standard Types
               ("\\<\\(float\\|double\\|int\\)\\>" . font-lock-type-face)
@@ -111,11 +110,11 @@
               ("\\<\\(short\\|long\\)\\>" . font-lock-type-face)
               ("\\<\\(signed\\|unsigned\\)\\>" . font-lock-type-face)
 
-              ;; Types C/C++
+              ;; C/C++ Types
               ("\\<\\(size_t\\|ptrdiff_t\\|sig_atomic_t\\)\\>" . font-lock-type-face)
               ("\\<\\(wchar_t\\|wint_t\\)\\>" . font-lock-type-face)
 
-              ;; Types CINT
+              ;; CINT Types
               ("\\<\\(intmax_t\\|uintmax_t\\)\\>" . font-lock-type-face)
               ("\\<\\(int8_t\\|uint8_t\\)\\>" . font-lock-type-face)
               ("\\<\\(int16_t\\|uint16_t\\)\\>" . font-lock-type-face)
@@ -132,10 +131,22 @@
               ("\\<\\(intptr_t\\|uintptr_t\\)\\>" . font-lock-type-face)
               ))
 
+(setq-local custom-c++-types
+            '(
+              ;; Define C++ Types
+              ("\\<\\(string\\|vector\\|map\\|set\\)\\>" . font-lock-type-face)
+              ))
+
 (setq-local custom-c-and-c++-functions
             '(
               ;; Define Functions
-              ("\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>\\s-*(" 1 font-lock-function-name-face)
+              ("\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>\\(\\s-\\|[\r\n]\\)*(" 1 font-lock-function-name-face)
+              ))
+
+(setq-local custom-c++-functions
+            '(
+              ;; C++ Functions
+              ("\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>\\s-*<\\s-*\\(?:\\sw\\|\\s_\\|[:,\r\n\t ]\\)*\\s-*>\\(\\s-\\|[\r\n]\\)*(" 1 font-lock-function-name-face)
               ))
 
 (setq-local custom-c-and-c++-keywords
@@ -164,6 +175,12 @@
               ("\\<\\(private\\|protected\\|public\\|register\\|static\\|template\\|this\\)\\>" . font-lock-keyword-face)
               ("\\<\\(throw\\|try\\|virtual\\)\\>" . font-lock-keyword-face)
               ("\\<\\(sizeof\\)\\>" . font-lock-keyword-face)
+              ))
+
+(setq-local custom-c-and-c++-builtin
+            '(
+              ;; Input & Output & Error
+              ("\\<\\(stdin\\|stdout\\|stderr\\)\\>" . font-lock-builtin-face)
               ))
 
 (setq-local custom-c++-builtin
@@ -203,6 +220,10 @@
  'c-mode
  custom-c-keywords)
 
+(font-lock-add-keywords
+ 'c-mode
+ custom-c-and-c++-builtin)
+
 
 ;; ################
 ;; # C++
@@ -223,7 +244,15 @@
 
 (font-lock-add-keywords
  'c++-mode
+ custom-c++-types)
+
+(font-lock-add-keywords
+ 'c++-mode
  custom-c-and-c++-functions)
+
+(font-lock-add-keywords
+ 'c++-mode
+ custom-c++-functions)
 
 (font-lock-add-keywords
  'c++-mode
@@ -232,6 +261,10 @@
 (font-lock-add-keywords
  'c++-mode
  custom-c++-keywords)
+
+(font-lock-add-keywords
+ 'c++-mode
+ custom-c-and-c++-builtin)
 
 (font-lock-add-keywords
  'c++-mode
