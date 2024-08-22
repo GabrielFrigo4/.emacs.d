@@ -39,6 +39,10 @@
 (global-set-key (kbd "C-c t") 'term)
 (global-set-key (kbd "C-c C-t") 'default-term-other-window)
 
+;; VTerminal
+(global-set-key (kbd "C-c v") 'vterm)
+(global-set-key (kbd "C-c C-v") 'vterm-other-window)
+
 ;; Shell
 (global-set-key (kbd "C-c s") 'shell)
 (global-set-key (kbd "C-c C-s") 'shell-other-window)
