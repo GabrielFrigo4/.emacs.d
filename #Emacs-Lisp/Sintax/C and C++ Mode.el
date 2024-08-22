@@ -166,6 +166,13 @@
               ("\\<\\(sizeof\\)\\>" . font-lock-keyword-face)
               ))
 
+(setq-local custom-c++-builtin
+	          '(
+              ;; C++ Builtin
+              ("\\<\\(cin\\|cout\\|cerr\\|clog\\)\\>" . font-lock-builtin-face)
+              ("\\<\\(wcin\\|wcout\\|wcerr\\|wclog\\)\\>" . font-lock-builtin-face)
+              ))
+
 
 ;; ################
 ;; # C
@@ -225,3 +232,7 @@
 (font-lock-add-keywords
  'c++-mode
  custom-c++-keywords)
+
+(font-lock-add-keywords
+ 'c++-mode
+ custom-c++-builtin)
