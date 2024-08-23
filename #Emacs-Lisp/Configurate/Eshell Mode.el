@@ -5,21 +5,27 @@
 
 (with-eval-after-load 'esh-mode
   (add-hook 'eshell-mode-hook
-          (lambda () (progn
-            (setq xterm-color-preserve-properties t)
-            (setenv "TERM" "xterm-256color"))))
-
+            (lambda () (progn
+                         (setq xterm-color-preserve-properties t)
+                         (setenv "TERM" "xterm-256color"))))
   (add-to-list 'eshell-preoutput-filter-functions 'xterm-color-filter)
-
   (setq eshell-output-filter-functions
-  (remove 'eshell-handle-ansi-color eshell-output-filter-functions))
-)
+        (remove 'eshell-handle-ansi-color eshell-output-filter-functions))
+  )
 
 (with-eval-after-load "esh-opt"
-  (autoload 'epe-theme-lambda "eshell-prompt-extras")
+  (autoload 'epe-theme-multiline-with-status "eshell-prompt-extras")
   (setq eshell-highlight-prompt t
-        eshell-prompt-function 'epe-theme-lambda))
+        eshell-prompt-function 'epe-theme-multiline-with-status
+        epe-git-dirty-char "*")
+  )
 
+(setq eshell-last-dir-ring-size 500)
+(setq eshell-cp-interactive-query t
+       eshell-ln-interactive-query t
+       eshell-mv-interactive-query t
+       eshell-rm-interactive-query t
+       eshell-mv-overwrite-files nil)
 
 ;; ################
 ;; # Functions

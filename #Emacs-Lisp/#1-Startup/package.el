@@ -28,7 +28,7 @@
   :ensure t)
 (use-package lua-mode
   :ensure t)
-  (use-package nasm-mode
+(use-package nasm-mode
   :ensure t)
 (use-package riscv-mode
   :ensure t)
@@ -74,7 +74,7 @@
     (setq company-minimum-prefix-length 3)
     (setq company-dabbrev-downcase 0)
     (setq company-idle-delay
-      (lambda () (if (company-in-string-or-comment) nil 0.9)))
+          (lambda () (if (company-in-string-or-comment) nil 0.9)))
     ))
 (use-package vertico
   :ensure t
@@ -88,6 +88,8 @@
 
 ;; Install Term Tools
 (use-package xterm-color
+  :ensure t)
+(use-package eshell-up
   :ensure t)
 (use-package eshell-prompt-extras
   :ensure t)
