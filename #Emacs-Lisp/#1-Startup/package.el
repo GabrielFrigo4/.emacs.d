@@ -51,7 +51,7 @@
   :bind ("M-[" . 'neotree-toggle)
   :config
   (progn
-    (setq neo-theme 'icons))
+    (setq neo-theme 'icons)
     (setq-default neo-show-hidden-files t)
     ))
 
