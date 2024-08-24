@@ -9,10 +9,12 @@
 (setq-local custom-c-and-c++-defaults
 	          '(
               ;; Define Types
-              ("\\s-*\\b\\(?:\\sw\\|\\s_\\)+\\b\\s-+\\b" . font-lock-type-face)
-              ("\\s-*\\b\\(?:\\sw\\|\\s_\\)+_t\\b" . font-lock-type-face)
+              ("\\b\\(?:\\sw\\|\\s_\\)+\\b\\s-+\\b" . font-lock-type-face)
+              ("\\b\\(?:\\sw\\|\\s_\\)+_t\\b" . font-lock-type-face)
               ;; Constants
               ("\\(\\_<[_]*[A-Z]\\(?:[A-Z0-9_]\\)?+\\)\\_>" . font-lock-constant-face)
+              ;; Array
+              ("\\b\\(?:\\sw\\|\\s_\\)+\\b\\s-*\\[" . font-lock-variable-name-face)
               ))
 
 (setq-local custom-c-and-c++-constants
@@ -188,6 +190,7 @@
               ;; C++ Builtin
               ("\\<\\(cin\\|cout\\|cerr\\|clog\\)\\>" . font-lock-builtin-face)
               ("\\<\\(wcin\\|wcout\\|wcerr\\|wclog\\)\\>" . font-lock-builtin-face)
+              ("\\<\\(endl\\)\\>" . font-lock-builtin-face)
               ))
 
 
