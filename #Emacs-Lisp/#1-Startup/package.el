@@ -49,9 +49,9 @@
   :bind ("C-," . 'neotree-toggle)
   :bind ("C-\\" . 'neotree-toggle)
   :bind ("M-[" . 'neotree-toggle)
-  :init
+  :config
   (progn
-    (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+    (setq neo-theme 'icons))
     (setq-default neo-show-hidden-files t)
     ))
 
@@ -83,7 +83,7 @@
   (read-buffer-completion-ignore-case t)
   (read-file-name-completion-ignore-case t)
   (completion-styles '(basic substring partial-completion flex))
-  :init
+  :config
   (vertico-mode))
 
 ;; Install Term Tools
