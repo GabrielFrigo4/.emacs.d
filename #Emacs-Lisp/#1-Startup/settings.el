@@ -16,7 +16,7 @@
 (setq-default tab-width 4)
 
 ;; Set font-lock to maximun decoration
-(setq-default font-lock-maximum-decoration t)
+(setq-default font-lock-maximum-decoration '((c++-mode . 2) (t . t)))
 
 ;; Set default to UTF-8
 (prefer-coding-system 'utf-8)

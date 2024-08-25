@@ -74,6 +74,9 @@
               ;; Define Types
               ("\\b\\([[:word:]]+_t\\)\\b" (1 font-lock-type-face))
               ("\\b\\([[:word:]]+\\)\\b\\s-+\\b" (1 font-lock-type-face))
+              ("[^(,]\\s-*[\r\n]\\s-*\\b\\([[:word:]]+\\)\\b" (1 font-lock-type-face))
+              ("(\\s-*\\b\\([[:word:]]+\\)\\b\\s-*[&*]\\s-*\\b\\([[:word:]]+\\)\\b\\s-*[=:;]" (1 font-lock-type-face) (2 font-lock-variable-name-face))
+              ("^\\s-*\\b\\([[:word:]]+\\)\\b\\s-*[&*]\\s-*\\b\\([[:word:]]+\\)\\b\\s-*;" (1 font-lock-type-face) (2 font-lock-variable-name-face))
               ("\\b\\(struct\\|union\\|class\\)\\b\\s-+\\b\\([[:word:]]+\\)\\b" (1 font-lock-keyword-face) (2 font-lock-type-face))
 
               ;; Sizeof Type
