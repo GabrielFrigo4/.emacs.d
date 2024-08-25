@@ -144,7 +144,9 @@
               ;; Define C++ Types
               ("\\<\\(string\\|vector\\|map\\|set\\)\\>" 1 font-lock-type-face)
               ;; Namespace
-              ("\\([[:alnum:][:space:]*]+\\)\\:\\:" 1 font-lock-keyword-face)
+              ("\\([[:word:]]+\\)\\s-*\\:\\:" 1 font-lock-keyword-face)
+              ;; Type in Namespace
+              ("\\:\\:\\s-*\\([[:word:]]+\\)" 1 font-lock-type-face)
               ))
 
 (setq-local custom-c-and-c++-functions
