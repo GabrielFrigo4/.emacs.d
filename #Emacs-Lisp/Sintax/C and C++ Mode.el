@@ -17,7 +17,7 @@
 	          '(
               ;; Input & Output & Error
               ("\\<\\(STDIN_FILENO\\|STDOUT_FILENO\\|STDERR_FILENO\\)\\>" 1 font-lock-builtin-face)
-              
+
               ;; CLIMITS
               ("\\<\\(CHAR_BIT\\|MB_LEN_MAX\\)\\>" . font-lock-builtin-face)
               ("\\<\\(SCHAR_MIN\\|SCHAR_MAX\\|UCHAR_MAX\\|CHAR_MIN\\|CHAR_MAX\\)\\>" 1 font-lock-builtin-face)
@@ -74,16 +74,14 @@
               ;; Define Types
               ("\\b\\([[:word:]]+_t\\)\\b" (1 font-lock-type-face))
               ("\\b\\([[:word:]]+\\)\\b\\s-+\\b" (1 font-lock-type-face))
+              ("\\b\\(struct\\|union\\|class\\)\\b\\s-+\\b\\([[:word:]]+\\)\\b" (1 font-lock-keyword-face) (2 font-lock-type-face))
 
-              ;; Type Variable
-              ("\\b\\([[:word:]]+_t\\)\\b\\s-+\\b\\([[:word:]]+\\)\\b" (1 font-lock-type-face) (2 font-lock-variable-name-face))
-              
               ;; Sizeof Type
               ("\\<sizeof[[:space:]]*(\\([[:alnum:][:space:]*]+\\))" 1 font-lock-type-face)
-              
+
               ;; CLIB Types
               ("\\<\\(FILE\\)\\>" 1 font-lock-type-face) 
-              
+
               ;; Microsoft Types
               ("\\<\\(ATOM\\|BOOL\\|BOOLEAN\\|BYTE\\|USN\\|WCHAR\\|WORD\\|WPARAM\\)\\>" 1 font-lock-type-face)
               ("\\<\\(CCHAR\\|CHAR\\|COLORREF\\|DWORD\\|DWORDLONG\\|DWORD_PTR\\)\\>" 1 font-lock-type-face)
