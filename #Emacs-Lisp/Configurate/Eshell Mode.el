@@ -3,6 +3,10 @@
 ;; ################
 
 
+(advice-add 'epe-git-p :override
+                    (lambda (&rest args)
+                      nil))
+
 (with-eval-after-load 'esh-mode
   (add-hook 'eshell-mode-hook
             (lambda () (progn
