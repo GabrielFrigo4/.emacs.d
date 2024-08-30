@@ -35,6 +35,10 @@
 (use-package modern-cpp-font-lock
   :ensure t
   :hook (c++-mode . modern-c++-font-lock-mode))
+(use-package vimrc-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.vim\\(rc\\)?\\'" . vimrc-mode)))
 
 ;; Install SLIME IDE
 (use-package slime
