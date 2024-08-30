@@ -2,6 +2,7 @@
 ;; # Assembly
 ;; ################
 
+
 (defun custom-asm-mode-hook ()
   (local-unset-key (vector asm-comment-char))
   (setq tab-always-indent (default-value 'tab-always-indent))
