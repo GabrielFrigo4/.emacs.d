@@ -88,12 +88,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "RobotoMono Nerd Font Mono" :foundry "outline" :slant normal :weight regular :height 108 :width normal)))))
+ '(default ((t (:family "RobotoMono Nerd Font" :foundry "GOOG" :slant normal :weight regular :height 108 :width normal)))))
 
 
 ;; ########################
 ;; # EMACS setup-options
 ;; ########################
+
+
+;; For "Roboto Mono Nerd Font" , we need to separately specify the italic mode to work
+(set-face-attribute 'italic nil :font "Roboto Mono Nerd Font" :slant 'italic)
 
 
 ;; Setup Packages (MELPA)
