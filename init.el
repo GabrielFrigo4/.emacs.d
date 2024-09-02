@@ -77,7 +77,6 @@
  '(display-time-mode t)
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-screen t)
- '(menu-bar-mode nil)
  '(package-selected-packages
    '(vimrc-mode eshell-up eshell-prompt-extras aweshell vterm xterm-color rainbow-delimiters visual-regexp modern-cpp-font-lock visual-regexp-steroids abc-mode quelpa-use-package multiple-cursors riscv-mode nasm-mode zig-mode parent-mode spacemacs-theme doom-themes zenburn-theme slime which-key vertico rust-mode neotree lua-mode highlight-numbers dracula-theme company all-the-icons ace-window))
  '(size-indication-mode t)
@@ -88,7 +87,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "RobotoMono Nerd Font" :foundry "GOOG" :slant normal :weight regular :height 108 :width normal)))))
+ '(default ((t (:family "RobotoMono Nerd Font Mono" :foundry "GOOG" :slant normal :weight regular :height 108 :width normal)))))
 
 
 ;; ########################
@@ -97,7 +96,7 @@
 
 
 ;; For "Roboto Mono Nerd Font" , we need to separately specify the italic mode to work
-(set-face-attribute 'italic nil :font "Roboto Mono Nerd Font" :slant 'italic)
+(set-face-attribute 'italic nil :font "Roboto Mono Nerd Font Mono" :foundry "pyrs" :slant 'italic)
 
 ;; Setup Packages (MELPA)
 (require 'package)
