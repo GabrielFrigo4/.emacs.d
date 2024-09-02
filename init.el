@@ -99,7 +99,6 @@
 ;; For "Roboto Mono Nerd Font" , we need to separately specify the italic mode to work
 (set-face-attribute 'italic nil :font "Roboto Mono Nerd Font" :slant 'italic)
 
-
 ;; Setup Packages (MELPA)
 (require 'package)
 (setq package-enable-at-startup nil)
