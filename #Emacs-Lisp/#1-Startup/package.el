@@ -38,7 +38,14 @@
   :ensure t
   :hook (c++-mode . modern-c++-font-lock-mode))
 
-;; Install SLIME IDE
+;; Install Arduino IDE
+(use-package arduino-cli-mode
+  :ensure t
+  :custom
+  (arduino-cli-warnings 'all)
+  (arduino-cli-verify t))
+
+;; Install Slime IDE
 (use-package slime
   :ensure t
   :config
