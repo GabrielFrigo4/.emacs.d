@@ -96,8 +96,8 @@
 ;; ########################
 
 
-;; For "Roboto Mono Nerd Font" , we need to separately specify the italic mode to work
-(set-face-attribute 'italic nil :font "Roboto Mono Nerd Font Mono" :foundry "pyrs" :slant 'italic)
+;; For "RobotoMono Nerd Font" , we need to separately specify the italic mode to work
+(set-face-attribute 'italic nil :font "RobotoMono Nerd Font Mono" :foundry "pyrs" :slant 'italic)
 
 ;; Setup Packages (MELPA)
 (require 'package)
