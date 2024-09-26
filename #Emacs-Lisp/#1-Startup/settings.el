@@ -18,11 +18,10 @@
 ;; Set font-lock to maximun decoration
 (setq-default font-lock-maximum-decoration '((c++-mode . 2) (t . t)))
 
-;; Set default to UTF-8
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-language-environment 'utf-8)
-(set-selection-coding-system 'utf-8)
+;; Set default to UTF-8 and UTF-16-LE
+(if-windows
+ (set-default-coding-systems 'utf-16-le)
+ (set-default-coding-systems 'utf-8))
 
 ;; On OSX, swap Meta and Super
 ;; For Better Keyboard Ergonomics
