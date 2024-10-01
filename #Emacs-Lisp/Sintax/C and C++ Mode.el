@@ -142,8 +142,9 @@
 (setq-local custom-c++-types
             '(
               ;; Define C++ Types
-              ("\\<\\(array\\|vector\\|list\\|deque\\|set\\|unordered_set\\|map\\|unordered_map\\)\\>" 1 font-lock-type-face)
+              ("\\<\\(array\\|vector\\|stack\\|queue\\|list\\|deque\\|set\\|unordered_set\\|map\\|unordered_map\\)\\>" 1 font-lock-type-face)
               ("\\<\\(string\\)\\>" 1 font-lock-type-face)
+              ("\\<\\(tuple\\|pair\\)\\>" 1 font-lock-type-face)
               ;; Namespace
               ("\\([[:word:]]+\\)\\s-*\\:\\:" 1 font-lock-keyword-face)
               ;; Type in Namespace
