@@ -12,9 +12,6 @@
 ;; Remove backup files
 (setq-default make-backup-files nil)
 
-;; Set default tab-width
-(setq-default tab-width 4)
-
 ;; Set font-lock to maximun decoration
 (setq-default font-lock-maximum-decoration '((c++-mode . 2) (t . t)))
 
@@ -35,8 +32,11 @@
 ;; ################
 
 
-;; Set *cc-mode*
+;; Set *prog-mode*
+(setq-default tab-width 4)
 (setq-default indent-tabs-mode t)
+
+;; Set *cc-mode*
 (setq-default c-ts-mode-indent-offset tab-width)
 (setq-default c-ts-mode-indent-style 'bsd)
 (setq-default c-basic-offset tab-width)

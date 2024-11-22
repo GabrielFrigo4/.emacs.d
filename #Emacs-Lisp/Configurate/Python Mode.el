@@ -4,9 +4,8 @@
 
 
 (defun custom-python-mode-hook ()
-  (setq indent-tabs-mode t)
-  (setq python-indent 8)
   (setq tab-width 4)
+  (setq indent-tabs-mode t)
   (setq python-indent-offset tab-width)
   )
 
