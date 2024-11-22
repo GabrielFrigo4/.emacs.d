@@ -133,9 +133,10 @@
 
 ;; Add load-path "#Emacs-Lisp/..."
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#1-Startup") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Modes") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Configurate") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Sintax") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Configurate") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Sintax") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#4-Mode") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Third-Party") load-path))
 
 ;; Load ".el" or ".elc" files in "#1-Startup"
 (load "package")
@@ -143,11 +144,16 @@
 (load "settings")
 (load "shortcut")
 
+;; Load ".el" or ".elc" files in "Third-Party"
+(load "auto-scroll-bar")
+;; Auto scroll bar
+(auto-scroll-bar-mode 1)
+
 ;; Load ".el" files in Configuration
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Configurate/*.el")))
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Configurate/*.el")))
 
 ;; Load ".el" files in Sintax
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Sintax/*.el")))
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Sintax/*.el")))
 
 
 ;; ##################################
