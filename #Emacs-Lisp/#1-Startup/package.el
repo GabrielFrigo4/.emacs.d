@@ -7,6 +7,10 @@
 (use-package parent-mode
   :ensure t)
 
+;; Install Emacs Visual Studio
+(use-package auto-scroll-bar
+  :ensure t)
+
 ;; Install Numbers
 (use-package highlight-numbers
   :ensure t

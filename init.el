@@ -90,13 +90,15 @@
         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
         ("melpa" . "https://melpa.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")
+        ("jcs-elpa" . "https://jcs-emacs.github.io/jcs-elpa/packages/")
         ))
 (setq package-archive-priorities
       '(
-        ("gnu" . 15)
-        ("nongnu" . 10)
-        ("melpa" . 5)
-        ("melpa-stable" . 0)
+        ("gnu" . 20)
+        ("nongnu" . 15)
+        ("melpa" . 10)
+        ("melpa-stable" . 5)
+        ("jcs-elpa" . 0)
         ))
 
 ;; Install Use-Package (ELPA & MELPA)
@@ -136,18 +138,12 @@
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Configurate") load-path))
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Sintax") load-path))
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#4-Mode") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/Third-Party") load-path))
 
 ;; Load ".el" or ".elc" files in "#1-Startup"
 (load "package")
 (load "function")
 (load "settings")
 (load "shortcut")
-
-;; Load ".el" or ".elc" files in "Third-Party"
-(load "auto-scroll-bar")
-;; Auto scroll bar
-(auto-scroll-bar-mode 1)
 
 ;; Load ".el" files in Configuration
 (mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Configurate/*.el")))

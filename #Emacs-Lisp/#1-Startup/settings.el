@@ -12,6 +12,8 @@
 ;; Remove backup files
 (setq-default make-backup-files nil)
 
+(auto-scroll-bar-mode t)
+
 ;; Set font-lock to maximun decoration
 (setq-default font-lock-maximum-decoration '((c++-mode . 2) (t . t)))
 
