@@ -3,7 +3,7 @@
 ;; ################
 
 
-(defun sintax-asm-mode-hook ()
+(defun syntax-asm-mode-hook ()
   ;; Comments Style
   (modify-syntax-entry ?\# "<")
   (modify-syntax-entry ?\n ">")
@@ -38,4 +38,4 @@
    (or tab-width)))
   )
 
-(add-hook 'asm-mode-hook #'sintax-asm-mode-hook)
+(add-hook 'asm-mode-hook #'syntax-asm-mode-hook)

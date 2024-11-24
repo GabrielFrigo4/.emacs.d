@@ -135,9 +135,8 @@
 
 ;; Add load-path "#Emacs-Lisp/..."
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#1-Startup") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Configurate") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Sintax") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#4-Mode") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Modification") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Mode") load-path))
 
 ;; Load ".el" or ".elc" files in "#1-Startup"
 (load "package")
