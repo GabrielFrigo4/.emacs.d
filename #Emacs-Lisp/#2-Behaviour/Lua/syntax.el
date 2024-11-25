@@ -3,22 +3,22 @@
 ;; ################
 
 
-(setq-local custom-lua-startup
+(setq-local syntax-lua-startup
             '(
               ("\\(\\_<\\(?:\\sw\\|\\s_\\)?+\\)\\_>" . font-lock-variable-name-face)
               ))
 
-(setq-local custom-lua-defaults
+(setq-local syntax-lua-defaults
             '(
               ("\\(\\_<\\s_*[A-Z]\\(?:[A-Z0-9_]\\)?+\\)\\_>" . font-lock-constant-face)
               ))
 
-(setq-local custom-lua-attributes
+(setq-local syntax-lua-attributes
             '(
               ("<\\(?:\\sw\\)?+>" . font-lock-builtin-face)
               ))
 
-(setq-local custom-lua-functions
+(setq-local syntax-lua-functions
             '(
               ;; Builtin Functions
               ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(dofile\\|dostring\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-builtin-face)
@@ -33,7 +33,7 @@
               ("\\<function\\s-*\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)" 1 font-lock-function-name-face)
               ))
 
-(setq-local custom-lua-keywords
+(setq-local syntax-lua-keywords
             '(
               ;; Lua Keywords
               ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(true\\|false\\|nil\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-constant-face)
@@ -51,20 +51,20 @@
 
 (font-lock-add-keywords
  'lua-mode
- custom-lua-startup)
+ syntax-lua-startup)
 
 (font-lock-add-keywords
  'lua-mode
- custom-lua-defaults)
+ syntax-lua-defaults)
 
 (font-lock-add-keywords
  'lua-mode
- custom-lua-attributes)
+ syntax-lua-attributes)
 
 (font-lock-add-keywords
  'lua-mode
- custom-lua-functions)
+ syntax-lua-functions)
 
 (font-lock-add-keywords
  'lua-mode
- custom-lua-keywords)
+ syntax-lua-keywords)

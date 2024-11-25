@@ -3,9 +3,9 @@
 ;; ################
 
 
-(defun custom-emacs-lisp-mode-hook ()
+(defun config-emacs-lisp-mode-hook ()
   (setq indent-tabs-mode nil)
   (setq tab-width 2)
  )
 
-(add-hook 'emacs-lisp-mode-hook #'custom-emacs-lisp-mode-hook)
+(add-hook 'emacs-lisp-mode-hook #'config-emacs-lisp-mode-hook)

@@ -3,10 +3,10 @@
 ;; ################
 
 
-(defun custom-lua-mode-hook ()
+(defun config-lua-mode-hook ()
   (setq indent-tabs-mode t)
   (setq tab-width 4)
   (setq lua-indent-level tab-width)
   )
 
-(add-hook 'lua-mode-hook #'custom-lua-mode-hook)
+(add-hook 'lua-mode-hook #'config-lua-mode-hook)

@@ -3,7 +3,7 @@
 ;; ################
 
 
-(setq-local custom-c-and-c++-defaults
+(setq-local syntax-c-and-c++-defaults
 	          '(
               ;; Constants
               ("\\_<\\([_]*[A-Z]\\(?:[A-Z0-9_]\\)?+\\)\\_>" 1 font-lock-constant-face)
@@ -13,7 +13,7 @@
               ("\\b\\([[:word:]]+\\)\\b" 1 font-lock-variable-name-face)
               ))
 
-(setq-local custom-c-and-c++-constants
+(setq-local syntax-c-and-c++-constants
 	          '(
               ;; Input & Output & Error
               ("\\<\\(STDIN_FILENO\\|STDOUT_FILENO\\|STDERR_FILENO\\)\\>" 1 font-lock-builtin-face)
@@ -69,7 +69,7 @@
               ("\\<\\(INT64_C\\|UINT64_C\\)\\>" 1 font-lock-builtin-face)
               ))
 
-(setq-local custom-c-and-c++-types
+(setq-local syntax-c-and-c++-types
 	          '(
               ;; Define Types
               ("\\b\\([[:word:]]+_t\\)\\b" (1 font-lock-type-face))
@@ -139,7 +139,7 @@
               ("\\<\\(intptr_t\\|uintptr_t\\)\\>" 1 font-lock-type-face)
               ))
 
-(setq-local custom-c++-types
+(setq-local syntax-c++-types
             '(
               ;; Define C++ Types
               ("\\<\\(array\\|vector\\|stack\\|queue\\|list\\|deque\\|set\\|unordered_set\\|map\\|unordered_map\\)\\>" 1 font-lock-type-face)
@@ -151,26 +151,26 @@
               ("\\:\\:\\s-*\\([[:word:]]+\\)" 1 font-lock-type-face)
               ))
 
-(setq-local custom-c-and-c++-functions
+(setq-local syntax-c-and-c++-functions
             '(
               ;; Define Functions
               ("\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>\\(\\s-\\|[\r\n]\\)*(" 1 font-lock-function-name-face)
               ))
 
-(setq-local custom-c++-functions
+(setq-local syntax-c++-functions
             '(
               ;; C++ Functions
               ("\\(\\_<\\(?:\\sw\\|\\s_\\)+\\)\\_>\\s-*<\\s-*\\(?:\\sw\\|\\s_\\|[:,\r\n\t ]\\)*\\s-*>\\(\\s-\\|[\r\n]\\)*(" 1 font-lock-function-name-face)
               ))
 
-(setq-local custom-c-and-c++-keywords
+(setq-local syntax-c-and-c++-keywords
 	          '(
               ;; Microsoft
               ("\\<\\(WINAPI\\|APIENTRY\\|CALLBACK\\|CONST\\|VOID\\)\\>" 1 font-lock-builtin-face)
               ("\\<\\(__stdcall\\|__cdecl\\|__nullterminated\\|vararg\\)\\>" 1 font-lock-keyword-face)
               ))
 
-(setq-local custom-c-keywords
+(setq-local syntax-c-keywords
 	          '(
               ;; C Keywords
               ("\\<\\(auto\\|break\\|case\\|const\\|continue\\|default\\|do\\|else\\)\\>" 1 font-lock-keyword-face)
@@ -179,7 +179,7 @@
               ("\\<\\(sizeof\\)\\>" . font-lock-keyword-face)
               ))
 
-(setq-local custom-c++-keywords
+(setq-local syntax-c++-keywords
 	          '(
               ;; C++ Keywords
               ("\\<\\(auto\\|break\\|case\\|const\\|continue\\|class\\|default\\|do\\|else\\)\\>" 1 font-lock-keyword-face)
@@ -195,13 +195,13 @@
                (1 font-lock-type-face) (2 font-lock-type-face))
               ))
 
-(setq-local custom-c-and-c++-builtin
+(setq-local syntax-c-and-c++-builtin
             '(
               ;; Input & Output & Error
               ("\\<\\(stdin\\|stdout\\|stderr\\)\\>" 1 font-lock-builtin-face)
               ))
 
-(setq-local custom-c++-builtin
+(setq-local syntax-c++-builtin
 	          '(
               ;; C++ Builtin
               ("\\<\\(cin\\|cout\\|cerr\\|clog\\)\\>" 1 font-lock-builtin-face)
@@ -217,31 +217,31 @@
 
 (font-lock-add-keywords
  'c-mode
- custom-c-and-c++-defaults)
+ syntax-c-and-c++-defaults)
 
 (font-lock-add-keywords
  'c-mode
- custom-c-and-c++-constants)
+ syntax-c-and-c++-constants)
 
 (font-lock-add-keywords
  'c-mode
- custom-c-and-c++-types)
+ syntax-c-and-c++-types)
 
 (font-lock-add-keywords
  'c-mode
- custom-c-and-c++-functions)
+ syntax-c-and-c++-functions)
 
 (font-lock-add-keywords
  'c-mode
- custom-c-and-c++-keywords)
+ syntax-c-and-c++-keywords)
 
 (font-lock-add-keywords
  'c-mode
- custom-c-keywords)
+ syntax-c-keywords)
 
 (font-lock-add-keywords
  'c-mode
- custom-c-and-c++-builtin)
+ syntax-c-and-c++-builtin)
 
 
 ;; ################
@@ -251,40 +251,40 @@
 
 (font-lock-add-keywords
  'c++-mode
- custom-c-and-c++-defaults)
+ syntax-c-and-c++-defaults)
 
 (font-lock-add-keywords
  'c++-mode
- custom-c-and-c++-constants)
+ syntax-c-and-c++-constants)
 
 (font-lock-add-keywords
  'c++-mode
- custom-c-and-c++-types)
+ syntax-c-and-c++-types)
 
 (font-lock-add-keywords
  'c++-mode
- custom-c++-types)
+ syntax-c++-types)
 
 (font-lock-add-keywords
  'c++-mode
- custom-c-and-c++-functions)
+ syntax-c-and-c++-functions)
 
 (font-lock-add-keywords
  'c++-mode
- custom-c++-functions)
+ syntax-c++-functions)
 
 (font-lock-add-keywords
  'c++-mode
- custom-c-and-c++-keywords)
+ syntax-c-and-c++-keywords)
 
 (font-lock-add-keywords
  'c++-mode
- custom-c++-keywords)
+ syntax-c++-keywords)
 
 (font-lock-add-keywords
  'c++-mode
- custom-c-and-c++-builtin)
+ syntax-c-and-c++-builtin)
 
 (font-lock-add-keywords
  'c++-mode
- custom-c++-builtin)
+ syntax-c++-builtin)

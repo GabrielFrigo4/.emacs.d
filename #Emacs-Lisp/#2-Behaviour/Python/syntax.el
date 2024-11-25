@@ -3,24 +3,24 @@
 ;; ################
 
 
-(setq-local custom-python-startup
+(setq-local syntax-python-startup
             '(
               ("\\(\\_<[a-z_]\\(?:\\sw\\|\\s_\\)?+\\)\\_>" . font-lock-variable-name-face)
               ))
 
-(setq-local custom-python-defaults
+(setq-local syntax-python-defaults
             '(
               ("\\(\\_<\\s_*[A-Z]\\(?:[A-Z0-9_]\\)?+\\)\\_>" . font-lock-constant-face)
               ("\\(\\_<\\s_*[A-Z]\\(?:\\sw\\|\\s_\\)?+\\)\\_>" . font-lock-type-face)
               ))
 
-(setq-local custom-python-classes
+(setq-local syntax-python-classes
             '(
               ("\\(\\_<\\s_*[A-Z]\\(?:\\sw\\|\\s_\\)?+\\)\\_>\\s-*(" 1 font-lock-type-face)
               ("\\<class\\s-*\\(\\_<\\s_?[A-Z]\\(?:\\sw\\|\\s_\\)?+\\)" 1 font-lock-type-face)
               ))
 
-(setq-local custom-python-functions
+(setq-local syntax-python-functions
             '(
               ;; Builtin Functions
               ("\\B\\s_\\s_import\\s_\\s_\\B" . font-lock-builtin-face)
@@ -51,7 +51,7 @@
               ("\\<def\\s-*\\(\\_<\\s_*[A-Z]\\(?:[A-Z]\\|\\s_\\|[0-9]\\)?+\\)" 1 font-lock-function-name-face)
               ))
 
-(setq-local custom-python-keywords
+(setq-local syntax-python-keywords
             '(
               ;; Python Keywords
               ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(and\\|as\\|assert\\|async\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-keyword-face)
@@ -75,34 +75,34 @@
               ("\\B\\s_\\s_builtins\\s_\\s_\\B" . font-lock-builtin-face)
               ))
 
-(setq-local custom-python-values
+(setq-local syntax-python-values
             '(
               ("\\(?:[^a-zA-Z0-9_]\\|^\\)\\(False\\|True\\|None\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" 1 font-lock-constant-face)
               ))
 
 (font-lock-add-keywords
  'python-mode
- custom-python-startup)
+ syntax-python-startup)
 
 (font-lock-add-keywords
  'python-mode
- custom-python-defaults)
+ syntax-python-defaults)
 
 (font-lock-add-keywords
  'python-mode
- custom-python-classes)
+ syntax-python-classes)
 
 (font-lock-add-keywords
  'python-mode
- custom-python-functions)
+ syntax-python-functions)
 
 (font-lock-add-keywords
  'python-mode
- custom-python-keywords)
+ syntax-python-keywords)
 
 (font-lock-add-keywords
  'python-mode
- custom-python-values)
+ syntax-python-values)
 
 (with-eval-after-load 'python
   (setf (nth 7 python-font-lock-keywords-maximum-decoration)

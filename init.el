@@ -135,7 +135,7 @@
 
 ;; Add load-path "#Emacs-Lisp/..."
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#1-Startup") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Modification") load-path))
+(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Behaviour") load-path))
 (setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Mode") load-path))
 
 ;; Load ".el" or ".elc" files in "#1-Startup"
@@ -144,11 +144,8 @@
 (load "settings")
 (load "shortcut")
 
-;; Load ".el" files in Configuration
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Configurate/*.el")))
-
-;; Load ".el" files in Sintax
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Sintax/*.el")))
+;; Load ".el" files in "#2-Behaviour"
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Behaviour/*/*.el")))
 
 
 ;; ##################################

@@ -3,7 +3,7 @@
 ;; ################
 
 
-(defun sintax-emacs-lisp-mode-hook ()
+(defun syntax-emacs-lisp-mode-hook ()
   ;; ################
   ;; # Define Locals
   ;; ################
@@ -457,4 +457,4 @@
    macros)
   )
 
-(sintax-emacs-lisp-mode-hook)
+(syntax-emacs-lisp-mode-hook)
