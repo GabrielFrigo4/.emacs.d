@@ -15,7 +15,7 @@
 (auto-scroll-bar-mode t)
 
 ;; Set font-lock to maximun decoration
-(setq-default font-lock-maximum-decoration '((c++-mode . 2) (t . t)))
+(setq-default font-lock-maximum-decoration 't)
 
 ;; Set default to UTF-8 and UTF-16-LE
 (if-windows

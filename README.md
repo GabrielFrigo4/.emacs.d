@@ -11,32 +11,6 @@ Atualizar ASM (sintax)
 Atualizar Lisp (sintax)
 ```
 
-## Add TreeSitter
-Eu decidi parar de usar TreeSitter no Emacs. Já que apesar de ser nativo
-O style do Emacs e o do TreeSitter no momento são incompatíveis e isso
-atrapalhava para eu padronizar o meu emacs...
-
-Add in settings.el
-``` elisp
-;; Install Treesit-Auto
-(unless (package-installed-p 'treesit-auto)
-  (package-install 'treesit-auto))
-(use-package treesit-auto
-  :custom
-  (treesit-auto-install 't)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
-```
-
-Add in init.el
-``` elisp
-(custom-set-variables
- '(package-selected-packages
-   '(treesit-auto))
-)
-```
-
 ## Elisp Symbols
 Get Symbols
 ``` elisp
@@ -86,14 +60,7 @@ Show Macros
 ```
 
 ## Using on LINUX
-Install __All-The-Icons__ and __Tree-Sitter__
+Install __All-The-Icons__
 ```
 M-x all-the-icons-install-fonts
-M-x treesit-auto-install-all
-```
-
-## Using on WINDOWS
-Install __Tree-Sitter__
-```
-M-x treesit-auto-install-all
 ```
