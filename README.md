@@ -4,11 +4,36 @@ Emacs config
 This repository is the configuration of the Emacs code editor that Gabriel Frigo uses
 
 ## TODO
-Fazer
+Todo List
 ```
 Atualizar Eshell
-Atualizar ASM (sintax)
+Atualizar emacs-lisp-ts-mode
 Atualizar Lisp (sintax)
+```
+
+## Treesit
+All \*ts-mode\* in Emacs 29.4
+```
+c-ts-mode
+go-ts-mode
+js-ts-mode
+c++-ts-mode
+css-ts-mode
+tsx-ts-mode
+bash-ts-mode
+java-ts-mode
+json-ts-mode
+ruby-ts-mode
+rust-ts-mode
+toml-ts-mode
+yaml-ts-mode
+cmake-ts-mode
+csharp-ts-mode
+go-mod-ts-mode
+python-ts-mode
+c-or-c++-ts-mode
+dockerfile-ts-mode
+typescript-ts-mode
 ```
 
 ## Elisp Symbols

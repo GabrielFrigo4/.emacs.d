@@ -10,30 +10,37 @@
 ;; ################
 
 
+;; Def *if-system*
 (defmacro if-system (type &rest body)
   (declare (indent defun))
   `(when (eq system-type ',type) ,@body))
 
+;; Def *if-gnu*
 (defmacro if-gnu (&rest body)
   `(if-system gnu
      (progn ,@body)))
 
+;; Def *if-linux*
 (defmacro if-linux (&rest body)
   `(if-system gnu/linux
      (progn ,@body)))
 
+;; Def *if-darwin*
 (defmacro if-darwin (&rest body)
   `(if-system darwin
      (progn ,@body)))
 
+;; Def *if-msdos*
 (defmacro if-msdos (&rest body)
   `(if-system ms-dos
      (progn ,@body)))
 
+;; Def *if-windows*
 (defmacro if-windows (&rest body)
   `(if-system windows-nt
      (progn ,@body)))
 
+;; Def *if-cygwin*
 (defmacro if-cygwin (&rest body)
   `(if-system cygwin
      (progn ,@body)))
@@ -134,19 +141,20 @@
 
 
 ;; Add load-path "#Emacs-Lisp/..."
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#1-Startup") load-path))
-;(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Behaviour") load-path))
-(setq load-path (cons (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Mode") load-path))
+(let ((default-directory (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/")))
+  (normal-top-level-add-subdirs-to-load-path))
 
-;; Load ".el" or ".elc" files in "#1-Startup"
-(load "package")
-(load "function")
-(load "settings")
-(load "shortcut")
-(load "treesitter")
+;; Load ".el" files in "#1-Setup"
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#1-Setup/*.el")))
 
-;; Load ".el" files in "#2-Behaviour"
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Behaviour/*/*.el")))
+;; Load ".el" files in "#2-Settings"
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Settings/*.el")))
+
+;; Load ".el" files in "#3-Behaviour"
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Behaviour/*/*/*.el")))
+
+;; Load ".el" files in "#4-Mode"
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#4-Mode/*/*.el")))
 
 
 ;; ##################################

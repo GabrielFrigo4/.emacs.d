@@ -1,38 +1,10 @@
 ;; ################
-;; # Settings
-;; ################
-
-
-;; Set cursor blink time
-(setq blink-cursor-interval 0.5)
-
-;; Disable the beep on Windows
-(setq-default visible-bell t)
-
-;; Remove backup files
-(setq-default make-backup-files nil)
-
-(auto-scroll-bar-mode t)
-
-;; Set font-lock to maximun decoration
-(setq-default font-lock-maximum-decoration 't)
-
-;; Set default to UTF-8 and UTF-16-LE
-(if-windows
- (set-default-coding-systems 'utf-16-le)
- (set-default-coding-systems 'utf-8))
-
-;; On OSX, swap Meta and Super
-;; For Better Keyboard Ergonomics
-(if-darwin
- (setq mac-command-modifier 'meta)
- (setq mac-option-modifier 'super))
-
-
-;; ################
 ;; # Languages
 ;; ################
 
+
+;; Set *font-lock* to Maximun Decoration
+(setq-default font-lock-maximum-decoration 't)
 
 ;; Set *prog-mode*
 (setq-default tab-width 4)
@@ -94,15 +66,17 @@
 
 
 ;; ################
-;; # Org-Mode
+;; # Prog Mode
 ;; ################
 
 
-;; Shift Selection
-(setq-default org-support-shift-select t)
+;; Def *config-prog-mode-hook*
+(defun config-prog-mode-hook ()
+  (setq tab-width 4)
+  (setq indent-tabs-mode t)
+  (highlight-numbers-mode)
+  )
 
-;; Fontify Code in Code Blocks
-(setq-default org-src-fontify-natively t)
-
-;; Set Org-Mode Indentation
-(setq-default org-src-preserve-indentation t)
+;; Add Hook *prog-mode-hook*
+(add-hook 'prog-mode-hook 'superword-mode)
+(add-hook 'prog-mode-hook #'config-prog-mode-hook)

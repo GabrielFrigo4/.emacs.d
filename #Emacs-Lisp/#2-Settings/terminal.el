@@ -1,38 +1,5 @@
 ;; ################
-;; # Function
-;; ################
-
-
-;; ################
-;; # Regex
-;; ################
-
-
-(defun regex-code-word (word)
-  (format "\\(?:[^a-zA-Z0-9_]\\|^\\)\\(%s\\)\\(?:[^a-zA-Z0-9_]\\|$\\)" word))
-
-(defun regex-elisp-keyword (keyword)
-  (format "(\\<\\(%s\\)\\>[^a-zA-Z0-9_-]" keyword))
-
-
-;; ################
-;; # Sort
-;; ################
-
-
-(defun sort-decreasing-length (list)
-  (sort list
-        (lambda (a b)
-          (> (length a) (length b)))))
-
-(defun sort-encreasing-length (list)
-  (sort list
-        (lambda (a b)
-          (< (length a) (length b)))))
-
-
-;; ################
-;; # Term
+;; # Terminal
 ;; ################
 
 
@@ -73,8 +40,7 @@
   (interactive)
   (if (eq system-type 'windows-nt)
       (pwsh-other-window)
-    (zsh-other-window))
-  )
+    (zsh-other-window)))
 
 
 ;; ################
@@ -91,7 +57,7 @@
 
 
 ;; ################
-;; # Shell
+;; # Eshell
 ;; ################
 
 
@@ -101,3 +67,26 @@
   (let ((buf (eshell)))
     (switch-to-buffer (other-buffer buf))
     (switch-to-buffer-other-window buf)))
+
+
+;; ################
+;; # Shortcut
+;; ################
+
+
+;; Terminal
+(global-set-key (kbd "C-c t") 'term)
+(global-set-key (kbd "C-c C-t") 'default-term-other-window)
+
+;; VTerminal
+(global-set-key (kbd "C-c v") 'vterm)
+(global-set-key (kbd "C-c C-v") 'vterm-other-window)
+
+;; Shell
+(global-set-key (kbd "C-c s") 'shell)
+(global-set-key (kbd "C-c C-s") 'shell-other-window)
+(global-set-key (kbd "C-c C-c") 'shell-command)
+
+;; Eshell
+(global-set-key (kbd "C-c e") 'eshell)
+(global-set-key (kbd "C-c C-e") 'eshell-other-window)

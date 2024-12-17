@@ -3,8 +3,10 @@
 /auto-save-list
 /org-persist
 /eln-cache
+/transient
 /server
 /elpa
+/url
 
 # emacs quelpa
 /quelpa
