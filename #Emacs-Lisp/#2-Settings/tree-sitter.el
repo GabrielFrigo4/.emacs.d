@@ -21,10 +21,21 @@
         (java . ("https://github.com/tree-sitter/tree-sitter-java" "master" "src"))
         ;; VM
         (python . ("https://github.com/tree-sitter/tree-sitter-python" "master" "src"))
-        ;; MAKE
-        (cmake . ("https://github.com/uyha/tree-sitter-cmake" "master" "src"))
+        (ruby . ("https://github.com/tree-sitter/tree-sitter-ruby" "master" "src"))
+        ;; WEB
+        (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
+        (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
+        (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
+        (css . ("https://github.com/tree-sitter/tree-sitter-css" "master" "src"))
         ;; EMACS
         (elisp . ("https://github.com/Wilfred/tree-sitter-elisp" "main" "src"))
+        ;; SHELL
+        (bash . ("https://github.com/tree-sitter/tree-sitter-bash" "master" "src"))
+        ;; MAKE
+        (cmake . ("https://github.com/uyha/tree-sitter-cmake" "master" "src"))
+        ;; CONFIG
+        (dockerfile . ("https://github.com/camdencheek/tree-sitter-dockerfile" "master" "src"))
+        (go-mod . ("https://github.com/camdencheek/tree-sitter-go-mod" "master" "src"))
         ;; DATA
         (json . ("https://github.com/tree-sitter/tree-sitter-json" "master" "src"))
         (toml . ("https://github.com/tree-sitter/tree-sitter-toml" "master" "src"))
@@ -36,6 +47,7 @@
       '(;; BIN
         (c-mode . c-ts-mode)
         (cpp-mode . cpp-ts-mode)
+        (c-or-c++-mode . c-or-c++-ts-mode)
         (rust-mode . rust-ts-mode)
         (go-mode . go-ts-mode)
         ;; JIT
@@ -43,10 +55,21 @@
         (java-mode . java-ts-mode)
         ;; VM
         (python-mode . python-ts-mode)
-        ;; MAKE
-        (cmake-mode . cmake-ts-mode)
+        (ruby-mode . ruby-ts-mode)
+        ;; WEB
+        (js-mode . js-ts-mode)
+        (typescript-mode . typescript-ts-mode)
+        (tsx-mode . tsx-ts-mode)
+        (css-mode . css-ts-mode)
         ;; EMACS
         (emacs-lisp-mode . emacs-lisp-ts-mode)
+        ;; SHELL
+        (bash-mode . bash-ts-mode)
+        ;; MAKE
+        (cmake-mode . cmake-ts-mode)
+        ;; CONFIG
+        (dockerfile-mode . dockerfile-ts-mode)
+        (go-mod-mode . go-mod-ts-mode)
         ;; DATA
         (json-mode . json-ts-mode)
         (toml-mode . toml-ts-mode)
