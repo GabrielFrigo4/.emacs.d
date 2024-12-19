@@ -25,6 +25,11 @@
   `(if-system gnu/linux
      (progn ,@body)))
 
+;; Def *if-freebsd*
+(defmacro if-freebsd (&rest body)
+  `(if-system gnu/kfreebsd
+     (progn ,@body)))
+
 ;; Def *if-darwin*
 (defmacro if-darwin (&rest body)
   `(if-system darwin
@@ -45,6 +50,10 @@
   `(if-system cygwin
      (progn ,@body)))
 
+;; Def *if-haiku*
+(defmacro if-haiku (&rest body)
+  `(if-system haiku
+     (progn ,@body)))
 
 ;; ################
 ;; # Startup
