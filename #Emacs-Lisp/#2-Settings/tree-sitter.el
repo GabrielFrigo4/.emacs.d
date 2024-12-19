@@ -46,7 +46,7 @@
 (setq major-mode-remap-alist
       '(;; BIN
         (c-mode . c-ts-mode)
-        (cpp-mode . cpp-ts-mode)
+        (c++-mode . c++-ts-mode)
         (c-or-c++-mode . c-or-c++-ts-mode)
         (rust-mode . rust-ts-mode)
         (go-mode . go-ts-mode)
