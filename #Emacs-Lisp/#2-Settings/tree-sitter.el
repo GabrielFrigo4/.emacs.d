@@ -35,8 +35,8 @@
         ;; MAKE
         (cmake . ("https://github.com/uyha/tree-sitter-cmake" "master" "src"))
         ;; CONFIG
-        (dockerfile . ("https://github.com/camdencheek/tree-sitter-dockerfile" "master" "src"))
-        (go-mod . ("https://github.com/camdencheek/tree-sitter-go-mod" "master" "src"))
+        (dockerfile . ("https://github.com/camdencheek/tree-sitter-dockerfile" "main" "src"))
+        ;;(go-mod . ("https://github.com/camdencheek/tree-sitter-go-mod" "main" "src"))
         ;; DATA
         (json . ("https://github.com/tree-sitter/tree-sitter-json" "master" "src"))
         (toml . ("https://github.com/tree-sitter/tree-sitter-toml" "master" "src"))
@@ -71,7 +71,7 @@
         (cmake-mode . cmake-ts-mode)
         ;; CONFIG
         (dockerfile-mode . dockerfile-ts-mode)
-        (go-mod-mode . go-mod-ts-mode)
+        ;;(go-mod-mode . go-mod-ts-mode)
         ;; DATA
         (json-mode . json-ts-mode)
         (toml-mode . toml-ts-mode)

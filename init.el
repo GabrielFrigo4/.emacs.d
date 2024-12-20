@@ -139,9 +139,9 @@
 (elpaca `(,@elpaca-order))
 
 ;; Install Use-Package (ELPACA)
-;;(elpaca elpaca-use-package
-;;  (elpaca-use-package-mode)
-;;  (setq elpaca-use-package-by-default t))
+(elpaca elpaca-use-package
+  (elpaca-use-package-mode)
+  (setq elpaca-use-package-by-default t))
 
 ;; Wait (ELPACA)
 (elpaca-wait)

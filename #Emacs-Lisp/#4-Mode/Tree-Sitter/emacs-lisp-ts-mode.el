@@ -53,6 +53,11 @@
      (unquote "," @font-lock-keyword-face))
 
    :language 'elisp
+   :feature 'constant
+   '(["t" "nil"] @font-lock-constant-face
+     (char) @font-lock-constant-face)
+
+   :language 'elisp
    :feature 'definition
    `((special_form
       _ ["defvar" "setq" "setq-default" "let"] (symbol) @font-lock-variable-name-face)
@@ -73,11 +78,6 @@
                               (or ,@emacs-lisp-ts-mode--builtins)
                               eol))
                       @font-lock-keyword-face))))
-
-   :language 'elisp
-   :feature 'constant
-   '(["t" "nil"] @font-lock-constant-face
-     (char) @font-lock-constant-face)
 
    :language 'elisp
    :feature 'property

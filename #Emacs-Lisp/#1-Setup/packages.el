@@ -15,6 +15,8 @@
 (use-package eshell-prompt-extras
   :ensure t)
 (use-package aweshell
+  :elpaca nil
+  :ensure t
   :quelpa (abc-mode :fetcher github :repo "manateelazycat/aweshell"))
 (if-linux
  (use-package vterm
@@ -22,54 +24,42 @@
 
 ;; Install Emacs Regex
 (use-package visual-regexp
-  :ensure)
+  :ensure t)
 (use-package visual-regexp-steroids
-  :ensure)
+  :ensure t)
 
 ;; Install Emacs Visual Studio
-(use-package auto-scroll-bar
-  :ensure t
-  :config
-  (auto-scroll-bar-mode t))
+(unless (package-installed-p 'auto-scroll-bar)
+  (package-install 'auto-scroll-bar))
+(auto-scroll-bar-mode t)
 
-;; Install Which Key
+;; Install Emacs Tools
 (use-package which-key
   :ensure t
   :config
   (progn
     (which-key-mode)
     (which-key-setup-side-window-right-bottom)))
-
-;; Install Ace Window
 (use-package ace-window
   :ensure t
   :bind (("M-o" . ace-window)))
-
-;; Install Multiple Cursors
 (use-package multiple-cursors
   :ensure t)
+(elpaca-wait)
 
-;; Install Numbers
+;; Install Emacs Syntax
 (use-package highlight-numbers
   :ensure t
   :config
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
-
-;; Install Delimiters
 (use-package rainbow-delimiters
-  :ensure
+  :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; Install Themes
-(use-package dracula-theme
-  :ensure t)
-(use-package zenburn-theme
-  :ensure t)
-(use-package doom-themes
-  :ensure t)
-(unless (package-installed-p 'spacemacs-theme)
-  (package-install 'spacemacs-theme))
+(unless (package-installed-p 'doom-themes)
+  (package-install 'doom-themes))
 
 ;; Install Languages
 (use-package rust-mode
@@ -95,6 +85,7 @@
 ;; Install Treesit Grammar
 (use-package zig-ts-mode
   :ensure t)
+(elpaca-wait)
 
 ;; Install NeoTree
 (use-package all-the-icons
@@ -128,16 +119,4 @@
   (completion-styles '(basic substring partial-completion flex))
   :config
   (vertico-mode))
-
-;; Install Arduino IDE
-(use-package arduino-cli-mode
-  :ensure t
-  :custom
-  (arduino-cli-warnings 'all)
-  (arduino-cli-verify t))
-
-;; Install Slime IDE
-(use-package slime
-  :ensure t
-  :config
-  (setq inferior-lisp-program "sbcl"))
+(elpaca-wait)
