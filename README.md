@@ -12,7 +12,7 @@ Atualizar Eshell
 ```
 
 ## Treesit
-All \*ts-mode\* in Emacs 29.4
+Oficial \*ts-mode\* in Emacs 29.4
 ```
 (ok) => c-ts-mode
 (ok) => go-ts-mode
@@ -34,6 +34,13 @@ All \*ts-mode\* in Emacs 29.4
 (ok) => c-or-c++-ts-mode
 (ok) => dockerfile-ts-mode
 (ok) => typescript-ts-mode
+```
+
+Unoficial \*ts-mode\* in Emacs 29.4
+```
+(ok) => elisp-ts-mode
+(ok) => zig-ts-mode
+(not) => lua-ts-mode
 ```
 
 ## Elisp Symbols
@@ -84,8 +91,11 @@ Show Macros
     ))
 ```
 
-## Using on LINUX
+## Using on Linux
 Install __All-The-Icons__
 ```
 M-x all-the-icons-install-fonts
 ```
+
+## Using on Windows
+To use the emacs-client you need to make the [whole system use UTF-8](https://scholarslab.lib.virginia.edu/learn-twarc/08-win-region-settings)

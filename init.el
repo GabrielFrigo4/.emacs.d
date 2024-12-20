@@ -55,6 +55,7 @@
   `(if-system haiku
      (progn ,@body)))
 
+
 ;; ################
 ;; # Startup
 ;; ################
@@ -74,10 +75,6 @@
 ;; Unique Buffer Names for Matching Files
 (require 'uniquify)
 
-;; Use Emacs-Client to open files in an already-running Emacs-Process Server
-(require 'server)
-(unless (server-running-p) (server-start))
-
 ;; Set Custom File path to Elisp Code create by Emacs
 (setq custom-file (concat (getenv "HOME") "/.emacs.d/custom.el"))
 (load custom-file)
@@ -93,13 +90,69 @@
 
 
 ;; ################
+;; # ELPACA
+;; ################
+
+
+;; Disable package.el at Startup
+(require 'package)
+(setq package-enable-at-startup nil)
+
+;; Setup Package Archives (ELPACA)
+(defvar elpaca-installer-version 0.8)
+(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+(defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
+(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
+                              :ref nil :depth 1
+                              :files (:defaults "elpaca-test.el" (:exclude "extensions"))
+                              :build (:not elpaca--activate-package)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+       (build (expand-file-name "elpaca/" elpaca-builds-directory))
+       (order (cdr elpaca-order))
+       (default-directory repo))
+  (add-to-list 'load-path (if (file-exists-p build) build repo))
+  (unless (file-exists-p repo)
+    (make-directory repo t)
+    (when (< emacs-major-version 28) (require 'subr-x))
+    (condition-case-unless-debug err
+        (if-let* ((buffer (pop-to-buffer-same-window "*elpaca-bootstrap*"))
+                  ((zerop (apply #'call-process `("git" nil ,buffer t "clone"
+                                                  ,@(when-let* ((depth (plist-get order :depth)))
+                                                      (list (format "--depth=%d" depth) "--no-single-branch"))
+                                                  ,(plist-get order :repo) ,repo))))
+                  ((zerop (call-process "git" nil buffer t "checkout"
+                                        (or (plist-get order :ref) "--"))))
+                  (emacs (concat invocation-directory invocation-name))
+                  ((zerop (call-process emacs nil buffer nil "-Q" "-L" "." "--batch"
+                                        "--eval" "(byte-recompile-directory \".\" 0 'force)")))
+                  ((require 'elpaca))
+                  ((elpaca-generate-autoloads "elpaca" repo)))
+            (progn (message "%s" (buffer-string)) (kill-buffer buffer))
+          (error "%s" (with-current-buffer buffer (buffer-string))))
+      ((error) (warn "%s" err) (delete-directory repo 'recursive))))
+  (unless (require 'elpaca-autoloads nil t)
+    (require 'elpaca)
+    (elpaca-generate-autoloads "elpaca" repo)
+    (load "./elpaca-autoloads")))
+(add-hook 'after-init-hook #'elpaca-process-queues)
+(elpaca `(,@elpaca-order))
+
+;; Install Use-Package (ELPACA)
+;;(elpaca elpaca-use-package
+;;  (elpaca-use-package-mode)
+;;  (setq elpaca-use-package-by-default t))
+
+;; Wait (ELPACA)
+(elpaca-wait)
+
+
+;; ################
 ;; # ELPA & MELPA
 ;; ################
 
 
 ;; Setup Package Archives (ELPA & MELPA)
-(require 'package)
-(setq package-enable-at-startup nil)
 (setq package-archives
       '(
         ("gnu" . "https://elpa.gnu.org/packages/")
@@ -145,6 +198,29 @@
 
 
 ;; ################
+;; # STRAIGHT
+;; ################
+
+
+;; Setup Package Archive (STRAIGHT)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+
+;; ################
 ;; # Load Elisp
 ;; ################
 
@@ -164,6 +240,16 @@
 
 ;; Load ".el" files in "#4-Mode"
 (mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#4-Mode/*/*.el")))
+
+
+;; ################
+;; # Server
+;; ################
+
+
+;; Use Emacs-Client to open files in an already-running Emacs-Process Server
+(require 'server)
+(unless (server-running-p) (server-start))
 
 
 ;; ##################################

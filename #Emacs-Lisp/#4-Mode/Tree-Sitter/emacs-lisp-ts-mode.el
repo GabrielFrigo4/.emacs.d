@@ -1,43 +1,9 @@
-;;; emacs-lisp-ts-mode.el --- Tree-sitter support for emacs lisp -*- lexical-binding: t; -*-
-
-;; Author: Gabriel Frigo <gabriel.frigo4t@gmail.com>
-;; URL: https://github.com/nverno/emacs-lisp-ts-mode
-;; Version: 0.0.2
-;; Package-Requires: ((emacs "29.4"))
-;; Created: 17 December 2024
-;; Keywords: elisp emacs-lisp treesit
-
-;; This file is not part of GNU Emacs.
-;;
-;; This program is free software; you can redistribute it and/or
-;; modify it under the terms of the GNU General Public License as
-;; published by the Free Software Foundation; either version 3, or
-;; (at your option) any later version.
-;;
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-;; General Public License for more details.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program; see the file COPYING.  If not, write to
-;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
-;; Floor, Boston, MA 02110-1301, USA.
-
-;;; Commentary:
-;;
-;; This mode is compatible with the tree-sitter grammar from
-;; https://github.com/Wilfred/tree-sitter-elisp.
-;;
-;;; Code:
-
 (require 'treesit)
 
-(setq-local macro-names '())
+(setq macro-names '())
 (mapatoms (lambda (symbol)
             (when (macrop symbol)
-              (push (symbol-name symbol) macro-names))
-            ))
+              (push (symbol-name symbol) macro-names))))
 (setq macro-names (cl-sort macro-names 'string-lessp :key 'downcase))
 (push "require" macro-names)
 
@@ -82,24 +48,21 @@
    :language 'elisp
    :feature 'keyword
    `([,@emacs-lisp-ts-mode--keywords] @font-lock-keyword-face
-
      (quote ["`" "'" "#'"] @font-lock-keyword-face)
-     (list (quote
-            "`" (list (unquote_splice ",@" @font-lock-keyword-face))))
-     (list (quote
-            "`" (list (unquote "," @font-lock-keyword-face)))))
+     (unquote_splice ",@" @font-lock-keyword-face)
+     (unquote "," @font-lock-keyword-face))
 
    :language 'elisp
    :feature 'definition
    `((special_form
-      _ ["defvar" "setq" "let"] (symbol) @font-lock-variable-name-face)
+      _ ["defvar" "setq" "setq-default" "let"] (symbol) @font-lock-variable-name-face)
 
      (function_definition
       name: (symbol) @font-lock-function-name-face
       parameters: (list _ (symbol) @emacs-lisp-ts-mode--fontify-parameters :*))
 
      (macro_definition
-      name: (symbol) @font-lock-function-name-face
+      name: (symbol) @font-lock-keyword-face
       parameters: (list _ (symbol) @emacs-lisp-ts-mode--fontify-parameters :*)))
 
    :language 'elisp
@@ -122,6 +85,13 @@
       (:match ,(rx bol ":") @font-lock-builtin-face)))
 
    :language 'elisp
+   :feature 'preprocessor
+   `(((symbol) @font-lock-preprocessor-face
+      (:match ,(rx bol "@") @font-lock-preprocessor-face))
+     (unquote_splice (symbol) @font-lock-preprocessor-face)
+     (unquote (symbol) @font-lock-preprocessor-face))
+
+   :language 'elisp
    :feature 'quoted
    '((quote (symbol) @font-lock-constant-face))
 
@@ -136,15 +106,22 @@
                 `(seq bol
                       (or ,@emacs-lisp-ts-mode--operators)
                       eol))
-              @font-lock-operator-face)))))
+              @font-lock-operator-face)))
+
+   :language 'elisp
+   :feature 'variable
+   `((vector _ ((symbol) @font-lock-variable-name-face)))
+
+   :language 'elisp
+   :feature 'callable
+   `((list _ ((symbol) @font-lock-function-call-face)))))
 
 (defvar emacs-lisp-ts-mode-feature-list
   '((comment)
     (string keyword definition)
-    (builtin constant property)
-    (bracket number operator quoted)))
+    (builtin constant property preprocessor)
+    (bracket number operator quoted variable callable)))
 
-;;;###autoload
 (define-derived-mode emacs-lisp-ts-mode emacs-lisp-mode "ELisp"
   "Major mode for editing Emacs Lisp code using tree-sitter.
 
@@ -161,8 +138,3 @@ Commands:
     (treesit-major-mode-setup)))
 
 (provide 'emacs-lisp-ts-mode)
-;; Local Variables:
-;; coding: utf-8
-;; indent-tabs-mode: nil
-;; End:
-;;; emacs-lisp-ts-mode.el ends here

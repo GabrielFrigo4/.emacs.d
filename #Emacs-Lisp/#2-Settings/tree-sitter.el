@@ -15,6 +15,7 @@
         (c . ("https://github.com/tree-sitter/tree-sitter-c" "master" "src"))
         (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp" "master" "src"))
         (rust . ("https://github.com/tree-sitter/tree-sitter-rust" "master" "src"))
+        (zig . ("https://github.com/maxxnino/tree-sitter-zig" "main" "src"))
         (go . ("https://github.com/tree-sitter/tree-sitter-go" "master" "src"))
         ;; JIT
         (c-sharp . ("https://github.com/tree-sitter/tree-sitter-c-sharp" "master" "src"))
@@ -49,6 +50,7 @@
         (c++-mode . c++-ts-mode)
         (c-or-c++-mode . c-or-c++-ts-mode)
         (rust-mode . rust-ts-mode)
+        (zig-mode . zig-ts-mode)
         (go-mode . go-ts-mode)
         ;; JIT
         (csharp-mode . csharp-ts-mode)

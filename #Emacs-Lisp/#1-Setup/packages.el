@@ -92,6 +92,10 @@
   :ensure t
   :hook (c++-mode . modern-c++-font-lock-mode))
 
+;; Install Treesit Grammar
+(use-package zig-ts-mode
+  :ensure t)
+
 ;; Install NeoTree
 (use-package all-the-icons
   :ensure t)

@@ -1,24 +1,26 @@
-# emacs default
-/all-the-fonts
+# Emacs Default
 /auto-save-list
+/all-the-fonts
 /org-persist
 /eln-cache
 /transient
 /server
-/elpa
 /url
 
-# emacs quelpa
+# Emacs ELPA
+/straight
+/elpaca
 /quelpa
+/elpa
 
-# emacs packages
+# Emacs Packages
 /ac-comphist.dat
 /tree-sitter
 /recentf
 
-# emacs eshell
+# Emacs Eshell
 /eshell/history
 /eshell/lastdir
 
-# emacs compile
+# Emacs Compile
 *.elc
