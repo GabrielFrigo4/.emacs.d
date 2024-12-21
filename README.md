@@ -29,7 +29,7 @@ Oficial \*ts-mode\* in Emacs 29.4
 (ok) => yaml-ts-mode
 (ok) => cmake-ts-mode
 (ok) => csharp-ts-mode
-(not) => go-mod-ts-mode
+(ok) => go-mod-ts-mode
 (ok) => python-ts-mode
 (ok) => c-or-c++-ts-mode
 (ok) => dockerfile-ts-mode

@@ -138,6 +138,9 @@
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
 
+;; Wait (ELPACA)
+(elpaca-wait)
+
 ;; Install Use-Package (ELPACA)
 (elpaca elpaca-use-package
   (elpaca-use-package-mode)

@@ -33,6 +33,9 @@
 (setq-default rust-ident-offset tab-width)
 (setq-default rust-format-on-save t)
 
+;; Set *go-mode*
+(add-to-list 'auto-mode-alist '("\\go.mod\\'" . go-mod-ts-mode))
+
 ;; Set *asm-mode*
 (add-to-list 'auto-mode-alist '("\\.s\\'" . asm-mode))
 (add-to-list 'auto-mode-alist '("\\.i\\'" . asm-mode))

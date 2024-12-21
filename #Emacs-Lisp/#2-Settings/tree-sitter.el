@@ -36,12 +36,11 @@
         (cmake . ("https://github.com/uyha/tree-sitter-cmake" "master" "src"))
         ;; CONFIG
         (dockerfile . ("https://github.com/camdencheek/tree-sitter-dockerfile" "main" "src"))
-        ;;(go-mod . ("https://github.com/camdencheek/tree-sitter-go-mod" "main" "src"))
+        (gomod . ("https://github.com/camdencheek/tree-sitter-go-mod" "main" "src"))
         ;; DATA
         (json . ("https://github.com/tree-sitter/tree-sitter-json" "master" "src"))
         (toml . ("https://github.com/tree-sitter/tree-sitter-toml" "master" "src"))
-        (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "master" "src"))
-        ))
+        (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "master" "src"))))
 
 ;; Set *major-mode-remap-alist*
 (setq major-mode-remap-alist
@@ -71,12 +70,13 @@
         (cmake-mode . cmake-ts-mode)
         ;; CONFIG
         (dockerfile-mode . dockerfile-ts-mode)
-        ;;(go-mod-mode . go-mod-ts-mode)
         ;; DATA
         (json-mode . json-ts-mode)
         (toml-mode . toml-ts-mode)
-        (yaml-mode . yaml-ts-mode)
-        ))
+        (yaml-mode . yaml-ts-mode)))
+
+;; Set *treesit-load-name-override-list*
+(setq treesit-load-name-override-list '())
 
 ;; Def *tree-sitter-setup*
 (defun tree-sitter-setup ()

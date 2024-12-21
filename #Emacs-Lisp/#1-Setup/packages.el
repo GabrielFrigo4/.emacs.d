@@ -3,24 +3,14 @@
 ;; ################
 
 
+;; ################
+;; # ELPACA
+;; ################
+
+
 ;; Install Emacs Libs
 (use-package parent-mode
   :ensure t)
-
-;; Install Emacs Term
-(use-package xterm-color
-  :ensure t)
-(use-package eshell-up
-  :ensure t)
-(use-package eshell-prompt-extras
-  :ensure t)
-(use-package aweshell
-  :elpaca nil
-  :ensure t
-  :quelpa (abc-mode :fetcher github :repo "manateelazycat/aweshell"))
-(if-linux
- (use-package vterm
-   :ensure t))
 
 ;; Install Emacs Regex
 (use-package visual-regexp
@@ -28,10 +18,18 @@
 (use-package visual-regexp-steroids
   :ensure t)
 
-;; Install Emacs Visual Studio
-(unless (package-installed-p 'auto-scroll-bar)
-  (package-install 'auto-scroll-bar))
-(auto-scroll-bar-mode t)
+;; Install Emacs Term
+(if-linux
+ (use-package vterm
+   :ensure t))
+(use-package xterm-color
+  :ensure t)
+(use-package eshell-up
+  :defer t
+  :ensure t)
+(use-package eshell-prompt-extras
+  :defer t
+  :ensure t)
 
 ;; Install Emacs Tools
 (use-package which-key
@@ -45,7 +43,6 @@
   :bind (("M-o" . ace-window)))
 (use-package multiple-cursors
   :ensure t)
-(elpaca-wait)
 
 ;; Install Emacs Syntax
 (use-package highlight-numbers
@@ -56,10 +53,6 @@
   :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-
-;; Install Themes
-(unless (package-installed-p 'doom-themes)
-  (package-install 'doom-themes))
 
 ;; Install Languages
 (use-package rust-mode
@@ -84,8 +77,7 @@
 
 ;; Install Treesit Grammar
 (use-package zig-ts-mode
-  :ensure t)
-(elpaca-wait)
+  :ensure (:type git :host github :repo "Ziqi-Yang/zig-ts-mode"))
 
 ;; Install NeoTree
 (use-package all-the-icons
@@ -119,4 +111,30 @@
   (completion-styles '(basic substring partial-completion flex))
   :config
   (vertico-mode))
+
+;; Wait (ELPACA)
 (elpaca-wait)
+
+
+;; ################
+;; # QUELPA
+;; ################
+
+
+;; Install Emacs Term
+(quelpa '(aweshell :fetcher github :repo "manateelazycat/aweshell"))
+
+
+;; ################
+;; # ELPA
+;; ################
+
+
+;; Install Emacs Visual Studio
+(unless (package-installed-p 'auto-scroll-bar)
+  (package-install 'auto-scroll-bar))
+(auto-scroll-bar-mode t)
+
+;; Install Themes
+(unless (package-installed-p 'doom-themes)
+  (package-install 'doom-themes))
