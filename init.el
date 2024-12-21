@@ -75,10 +75,6 @@
 ;; Unique Buffer Names for Matching Files
 (require 'uniquify)
 
-;; Set Custom File path to Elisp Code create by Emacs
-(setq custom-file (concat (getenv "HOME") "/.emacs.d/custom.el"))
-(load custom-file)
-
 
 ;; ################
 ;; # Settings
@@ -232,8 +228,8 @@
 (let ((default-directory (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/")))
   (normal-top-level-add-subdirs-to-load-path))
 
-;; Load ".el" files in "#1-Setup"
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#1-Setup/*.el")))
+;; Load ".el" files in "#1-Packages"
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#1-Packages/*.el")))
 
 ;; Load ".el" files in "#2-Settings"
 (mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Settings/*.el")))
@@ -243,6 +239,10 @@
 
 ;; Load ".el" files in "#4-Mode"
 (mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#4-Mode/*/*.el")))
+
+;; Set Custom File path to Elisp Code create by Emacs
+(setq custom-file (concat (getenv "HOME") "/.emacs.d/custom.el"))
+(load custom-file)
 
 
 ;; ################

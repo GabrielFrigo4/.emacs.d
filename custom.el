@@ -13,8 +13,6 @@
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
- '(package-selected-packages
-   '(quelpa zig-ts-mode auto-scroll-bar arduino-cli-mode vimrc-mode eshell-up eshell-prompt-extras aweshell vterm xterm-color rainbow-delimiters visual-regexp modern-cpp-font-lock visual-regexp-steroids abc-mode quelpa-use-package multiple-cursors riscv-mode nasm-mode zig-mode parent-mode spacemacs-theme doom-themes zenburn-theme slime which-key vertico rust-mode neotree lua-mode highlight-numbers dracula-theme company all-the-icons ace-window))
  '(size-indication-mode t)
  '(tool-bar-mode nil)
  '(xterm-mouse-mode 1))
