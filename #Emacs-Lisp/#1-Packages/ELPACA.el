@@ -30,12 +30,6 @@
   :ensure t)
 
 ;; Install Emacs Tools
-(use-package which-key
-  :ensure t
-  :config
-  (progn
-    (which-key-mode)
-    (which-key-setup-side-window-right-bottom)))
 (use-package ace-window
   :ensure t
   :bind (("M-o" . ace-window)))
