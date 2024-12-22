@@ -1,27 +1,34 @@
+;; Import *treesit*
 (require 'treesit)
 
-(setq macro-names '())
+;; Set *macro-names*
+(setq-local macro-names '())
 (mapatoms (lambda (symbol)
             (when (macrop symbol)
               (push (symbol-name symbol) macro-names))))
 (setq macro-names (cl-sort macro-names 'string-lessp :key 'downcase))
 (push "require" macro-names)
 
+;; Def *emacs-lisp-ts-mode--builtins*
 (defvar emacs-lisp-ts-mode--builtins
   macro-names)
 
+;; Def *emacs-lisp-ts-mode--keywords*
 (defvar emacs-lisp-ts-mode--keywords
   '("defun" "defsubst" "defmacro" "defconst" "defvar"
     ;; Special forms
-    "and" "catch" "cond" "condition-case" "function"
-    "if" "interactive" "lambda" "let" "let*" "or" "prog1" "prog2"
-    "progn" "quote" "save-current-buffer" "save-excursion"
-    "save-restriction" "setq" "setq-default" "unwind-protect" "while"))
+    "if" "while" "catch" "cond" "condition-case" "function"
+    "interactive" "lambda" "let" "let*" "prog1" "prog2" "progn"
+    "save-restriction" "save-current-buffer" "save-excursion"
+    "quote" "setq" "setq-default" "unwind-protect"))
 
+;; Def *emacs-lisp-ts-mode--operators*
 (defvar emacs-lisp-ts-mode--operators
-  '("*" "/" "+" "-"
-    "/=" "="))
+  '("*" "/" "%" "+" "-" "mod" "incf" "decf"
+    "=" "/=" "<" ">" ">=" "<=" "max" "min"
+    "and" "or" "not"))
 
+;; Def *emacs-lisp-ts-mode--fontify-parameters*
 (defun emacs-lisp-ts-mode--fontify-parameters (node override start end &rest _)
   (treesit-fontify-with-override
    (treesit-node-start node)
@@ -31,19 +38,29 @@
      'font-lock-variable-name-face)
    override start end))
 
+;; Def *emacs-lisp-ts-mode--font-lock-settings*
 (defvar emacs-lisp-ts-mode--font-lock-settings
   (treesit-font-lock-rules
    :language 'elisp
    :feature 'comment
-   '((comment) @font-lock-comment-face)
+   `((comment) @font-lock-comment-face)
 
    :language 'elisp
    :feature 'string
-   '((string) @font-lock-string-face)
+   `((string) @font-lock-string-face)
 
    :language 'elisp
    :feature 'number
-   '([(integer) (float)] @font-lock-number-face)
+   `([(integer) (float)] @font-lock-number-face)
+
+   :language 'elisp
+   :feature 'operator
+   `(((symbol) @font-lock-operator-face
+      (:match ,(rx-to-string
+                `(seq bol
+                      (or ,@emacs-lisp-ts-mode--operators)
+                      eol))
+              @font-lock-operator-face)))
 
    :language 'elisp
    :feature 'keyword
@@ -54,7 +71,7 @@
 
    :language 'elisp
    :feature 'constant
-   '(["t" "nil"] @font-lock-constant-face
+   `(["t" "nil"] @font-lock-constant-face
      (char) @font-lock-constant-face)
 
    :language 'elisp
@@ -93,20 +110,11 @@
 
    :language 'elisp
    :feature 'quoted
-   '((quote (symbol) @font-lock-constant-face))
+   `((quote (symbol) @font-lock-constant-face))
 
    :language 'elisp
    :feature 'bracket
-   '(["(" ")" "[" "]" "#[" "#("] @font-lock-bracket-face)
-
-   :language 'elisp
-   :feature 'operator
-   `(((symbol) @font-lock-operator-face
-      (:match ,(rx-to-string
-                `(seq bol
-                      (or ,@emacs-lisp-ts-mode--operators)
-                      eol))
-              @font-lock-operator-face)))
+   `(["(" ")" "[" "]" "#[" "#("] @font-lock-bracket-face)
 
    :language 'elisp
    :feature 'variable
@@ -114,14 +122,20 @@
 
    :language 'elisp
    :feature 'callable
-   `((list _ ((symbol) @font-lock-function-call-face)))))
+   `((list _ ((symbol) @font-lock-function-call-face)))
 
+   :language 'elisp
+   :feature 'argument
+   `(((symbol) @font-lock-variable-name-face))))
+
+;; Def *emacs-lisp-ts-mode-feature-list*
 (defvar emacs-lisp-ts-mode-feature-list
-  '((comment)
+  `((comment)
     (string keyword definition)
     (builtin constant property preprocessor)
-    (bracket number operator quoted variable callable)))
+    (bracket number operator quoted variable callable argument)))
 
+;; Define Derived Mode *emacs-lisp-ts-mode*
 (define-derived-mode emacs-lisp-ts-mode emacs-lisp-mode "ELisp"
   "Major mode for editing Emacs Lisp code using tree-sitter.
 
@@ -137,4 +151,5 @@ Commands:
 
     (treesit-major-mode-setup)))
 
+;; Provide *emacs-lisp-ts-mode*
 (provide 'emacs-lisp-ts-mode)
