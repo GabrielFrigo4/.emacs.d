@@ -95,6 +95,7 @@
 (setq package-enable-at-startup nil)
 
 ;; Setup Package Archives (ELPACA)
+(defvar elpaca-queue-limit 32)
 (defvar elpaca-installer-version 0.8)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))

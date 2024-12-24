@@ -9,5 +9,6 @@
 (setq mc/cmds-to-run-once
       '(
         keyboard-escape-quit
+        mouse-secondary-save-then-kill
         mouse-set-region
         ))

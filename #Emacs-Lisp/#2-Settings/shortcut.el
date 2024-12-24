@@ -72,31 +72,28 @@
 (global-set-key (kbd "<f11>") 'insert-char)
 (global-set-key (kbd "<f12>") 'eshell)
 
-;; C-(Numpad Keys)
-;; Not used by Default: 0, 1, 2, 3, 4, 5, 6, 8, 9
-;; Used by Default: 7
-(global-set-key (kbd "C-0") 'shell-command)
-(global-set-key (kbd "C-1") 'kill-ring-save)
-(global-set-key (kbd "C-2") 'yank)
-(global-set-key (kbd "C-3") 'kill-region)
-(global-set-key (kbd "C-4") 'undo)
-(global-set-key (kbd "C-5") 'undo-redo)
-(global-set-key (kbd "C-6") 'mark-whole-buffer)
-(global-set-key (kbd "C-8") 'find-file)
-(global-set-key (kbd "C-9") 'dired)
-
-;; C-M-(Numpad Keys)
-(global-set-key (kbd "C-M-0") 'insert-char)
-(global-set-key (kbd "C-M-1") 'list-buffers)
-(global-set-key (kbd "C-M-2") 'switch-to-buffer)
-(global-set-key (kbd "C-M-3") 'eval-buffer)
-(global-set-key (kbd "C-M-4") 'eshell)
-(global-set-key (kbd "C-M-5") 'shell)
-(global-set-key (kbd "C-M-6") 'term)
-
 ;; String
 (global-set-key (kbd "M-s q") 'replace-regexp)
 (global-set-key (kbd "M-s r") 'replace-string)
+
+
+;; ################
+;; # Terminal
+;; ################
+
+
+;; Terminal
+(global-set-key (kbd "C-c t") 'term)
+
+;; VTerminal
+(global-set-key (kbd "C-c v") 'vterm)
+
+;; Shell
+(global-set-key (kbd "C-c s") 'shell)
+(global-set-key (kbd "C-c C-c") 'shell-command)
+
+;; Eshell
+(global-set-key (kbd "C-c e") 'eshell)
 
 
 ;; ################
@@ -114,7 +111,7 @@
 
 
 ;; ################
-;; # MC-PKG
+;; # Cursors
 ;; ################
 
 
