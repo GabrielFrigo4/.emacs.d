@@ -9,6 +9,16 @@
 ;; Install Emacs Libs
 (use-package parent-mode
   :ensure t)
+(use-package goto-chg
+  :ensure t)
+(use-package undo-tree
+  :ensure t)
+(use-package undo-fu
+  :ensure t)
+
+;; Install Emacs Evil
+(use-package evil
+  :ensure t)
 
 ;; Install Emacs Regex
 (use-package visual-regexp
