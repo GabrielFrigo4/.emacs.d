@@ -51,8 +51,7 @@
 
 ;; Install Use-Package (ELPACA)
 (elpaca elpaca-use-package
-  (elpaca-use-package-mode)
-  (setq elpaca-use-package-by-default t))
+  (elpaca-use-package-mode))
 
 ;; Wait (ELPACA)
 (elpaca-wait)
@@ -68,78 +67,78 @@
 
 ;; Install Emacs Libs
 (use-package transient
-  :ensure t)
+  :elpaca)
 (use-package parent-mode
-  :ensure t)
+  :elpaca)
 (use-package goto-chg
-  :ensure t)
+  :elpaca)
 (use-package undo-tree
-  :ensure t)
+  :elpaca)
 (use-package undo-fu
-  :ensure t)
+  :elpaca)
 
 ;; Install Emacs Modes
 (use-package evil
-  :ensure t)
+  :elpaca)
 (use-package magit
-  :ensure t
+  :elpaca
   :after (transient))
 
 ;; Install Emacs Regex
 (use-package visual-regexp
-  :ensure t)
+  :elpaca)
 (use-package visual-regexp-steroids
-  :ensure t)
+  :elpaca)
 
 ;; Install Emacs Term
 (if-linux
  (use-package vterm
-   :ensure t))
+   :elpaca))
 (use-package xterm-color
-  :ensure t)
+  :elpaca)
 (use-package eshell-up
   :defer t
-  :ensure t)
+  :elpaca)
 (use-package eshell-prompt-extras
   :defer t
-  :ensure t)
+  :elpaca)
 
 ;; Install Emacs Tools
 (use-package ace-window
-  :ensure t
+  :elpaca
   :bind (("M-o" . ace-window)))
 (use-package multiple-cursors
-  :ensure t)
+  :elpaca)
 
 ;; Install Emacs Syntax
 (use-package highlight-numbers
-  :ensure t
+  :elpaca
   :config
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 (use-package rainbow-delimiters
-  :ensure t
+  :elpaca
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; Install Languages
 (use-package rust-mode
-  :ensure t
+  :elpaca
   :config
   (setq rust-mode-treesitter-derive t)
   :bind
   (("C-c r f" . rust-format-buffer)))
 (use-package zig-mode
-  :ensure t)
+  :elpaca)
 (use-package lua-mode
-  :ensure t)
+  :elpaca)
 (use-package nasm-mode
-  :ensure t)
+  :elpaca)
 (use-package riscv-mode
-  :ensure t)
+  :elpaca)
 (use-package vimrc-mode
-  :ensure t)
+  :elpaca)
 (use-package modern-cpp-font-lock
-  :ensure t
+  :elpaca
   :hook (c++-mode . modern-c++-font-lock-mode))
 
 ;; Install Treesit Grammar
@@ -148,9 +147,9 @@
 
 ;; Install NeoTree
 (use-package all-the-icons
-  :ensure t)
+  :elpaca)
 (use-package neotree
-  :ensure t
+  :elpaca
   :bind ("C-," . 'neotree-toggle)
   :bind ("C-\\" . 'neotree-toggle)
   :bind ("M-[" . 'neotree-toggle)
@@ -161,7 +160,7 @@
 
 ;; Install Auto-Completion
 (use-package company
-  :ensure t
+  :elpaca
   :hook (after-init . global-company-mode)
   :config
   (progn
@@ -170,7 +169,7 @@
     (setq company-idle-delay
           (lambda () (if (company-in-string-or-comment) nil 0.9)))))
 (use-package vertico
-  :ensure t
+  :elpaca
   :custom
   (vertico-cycle t)
   (read-buffer-completion-ignore-case t)

@@ -25,4 +25,5 @@
 
 
 ;; Install Emacs Term
-(quelpa '(aweshell :fetcher github :repo "manateelazycat/aweshell"))
+(use-package aweshell
+  :quelpa (aweshell :fetcher github :repo "manateelazycat/aweshell"))
