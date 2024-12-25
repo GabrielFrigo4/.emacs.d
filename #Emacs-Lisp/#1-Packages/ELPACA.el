@@ -67,78 +67,78 @@
 
 ;; Install Emacs Libs
 (use-package transient
-  :elpaca)
+  :ensure t)
 (use-package parent-mode
-  :elpaca)
+  :ensure t)
 (use-package goto-chg
-  :elpaca)
+  :ensure t)
 (use-package undo-tree
-  :elpaca)
+  :ensure t)
 (use-package undo-fu
-  :elpaca)
+  :ensure t)
 
 ;; Install Emacs Modes
 (use-package evil
-  :elpaca)
+  :ensure t)
 (use-package magit
-  :elpaca
+  :ensure t
   :after (transient))
 
 ;; Install Emacs Regex
 (use-package visual-regexp
-  :elpaca)
+  :ensure t)
 (use-package visual-regexp-steroids
-  :elpaca)
+  :ensure t)
 
 ;; Install Emacs Term
 (if-linux
  (use-package vterm
-   :elpaca))
+   :ensure t))
 (use-package xterm-color
-  :elpaca)
+  :ensure t)
 (use-package eshell-up
   :defer t
-  :elpaca)
+  :ensure t)
 (use-package eshell-prompt-extras
   :defer t
-  :elpaca)
+  :ensure t)
 
 ;; Install Emacs Tools
 (use-package ace-window
-  :elpaca
+  :ensure t
   :bind (("M-o" . ace-window)))
 (use-package multiple-cursors
-  :elpaca)
+  :ensure t)
 
 ;; Install Emacs Syntax
 (use-package highlight-numbers
-  :elpaca
+  :ensure t
   :config
   (add-hook 'prog-mode-hook 'highlight-numbers-mode))
 (use-package rainbow-delimiters
-  :elpaca
+  :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; Install Languages
 (use-package rust-mode
-  :elpaca
+  :ensure t
   :config
   (setq rust-mode-treesitter-derive t)
   :bind
   (("C-c r f" . rust-format-buffer)))
 (use-package zig-mode
-  :elpaca)
+  :ensure t)
 (use-package lua-mode
-  :elpaca)
+  :ensure t)
 (use-package nasm-mode
-  :elpaca)
+  :ensure t)
 (use-package riscv-mode
-  :elpaca)
+  :ensure t)
 (use-package vimrc-mode
-  :elpaca)
+  :ensure t)
 (use-package modern-cpp-font-lock
-  :elpaca
+  :ensure t
   :hook (c++-mode . modern-c++-font-lock-mode))
 
 ;; Install Treesit Grammar
@@ -147,9 +147,9 @@
 
 ;; Install NeoTree
 (use-package all-the-icons
-  :elpaca)
+  :ensure t)
 (use-package neotree
-  :elpaca
+  :ensure t
   :bind ("C-," . 'neotree-toggle)
   :bind ("C-\\" . 'neotree-toggle)
   :bind ("M-[" . 'neotree-toggle)
@@ -160,7 +160,7 @@
 
 ;; Install Auto-Completion
 (use-package company
-  :elpaca
+  :ensure t
   :hook (after-init . global-company-mode)
   :config
   (progn
@@ -169,7 +169,7 @@
     (setq company-idle-delay
           (lambda () (if (company-in-string-or-comment) nil 0.9)))))
 (use-package vertico
-  :elpaca
+  :ensure t
   :custom
   (vertico-cycle t)
   (read-buffer-completion-ignore-case t)

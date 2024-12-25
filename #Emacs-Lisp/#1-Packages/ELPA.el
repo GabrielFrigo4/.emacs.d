@@ -33,11 +33,11 @@
 
 
 ;; Install Emacs Visual Studio
-(use-package 'auto-scroll-bar
+(use-package auto-scroll-bar
   :ensure t
   :config
   (auto-scroll-bar-mode t))
 
 ;; Install Themes
-(unless (package-installed-p 'doom-themes)
-  (package-install 'doom-themes))
+(use-package doom-themes
+  :ensure t)
