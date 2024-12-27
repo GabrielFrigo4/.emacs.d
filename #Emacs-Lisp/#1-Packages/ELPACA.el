@@ -155,7 +155,7 @@
   :bind ("M-[" . 'neotree-toggle)
   :config
   (progn
-    (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+    (setq neo-theme 'icons)
     (setq neo-show-hidden-files t)))
 
 ;; Install Auto-Completion
