@@ -79,6 +79,9 @@
 (require 'package)
 (setq package-enable-at-startup nil)
 
+;; Set *evil-undo-system* as *undo-redo*
+(setq-default evil-undo-system 'undo-redo)
+
 
 ;; ################
 ;; # Settings
