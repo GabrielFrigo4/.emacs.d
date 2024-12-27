@@ -4,7 +4,7 @@
 
 
 ;; Def *init-buffers*
-(setq-local init-buffers '("*Warnings*" "*quelpa-build-checkout*" "*scratch*"))
+(setq-local init-buffers '("*Warnings*" "*Messages*" "*quelpa-build-checkout*" "*scratch*"))
 
 ;; Def *kill-all-buffers*
 (defun kill-all-buffers ()
