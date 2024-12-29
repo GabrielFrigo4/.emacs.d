@@ -6,7 +6,7 @@
 (mapatoms (lambda (symbol)
             (when (macrop symbol)
               (push (symbol-name symbol) macro-names))))
-(setq macro-names (cl-sort macro-names 'string-lessp :key 'downcase))
+(setq-local macro-names (cl-sort macro-names 'string-lessp :key 'downcase))
 (push "require" macro-names)
 
 ;; Def *emacs-lisp-ts-mode--builtins*

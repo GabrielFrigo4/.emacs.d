@@ -4,7 +4,7 @@
 
 
 ;; Setup Package Archives (ELPA & MELPA)
-(setq package-archives
+(setq-default package-archives
       '(
         ("gnu" . "https://elpa.gnu.org/packages/")
         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
@@ -12,7 +12,7 @@
         ("melpa-stable" . "https://stable.melpa.org/packages/")
         ("jcs-elpa" . "https://jcs-emacs.github.io/jcs-elpa/packages/")
         ))
-(setq package-archive-priorities
+(setq-default package-archive-priorities
       '(
         ("gnu" . 20)
         ("nongnu" . 15)

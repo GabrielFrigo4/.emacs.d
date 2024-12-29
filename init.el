@@ -13,7 +13,7 @@
 ;; Def *if-system*
 (defmacro if-system (type &rest body)
   (declare (indent defun))
-  `(when (eq system-type ',type) ,@body))
+  `(if (eq system-type ',type) ,@body))
 
 ;; Def *if-gnu*
 (defmacro if-gnu (&rest body)
