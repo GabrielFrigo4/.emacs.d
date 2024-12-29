@@ -6,6 +6,7 @@ This repository is the configuration of the Emacs code editor that Gabriel Frigo
 ## TODO
 Todo List
 ```
+Remover "#Emacs-Lisp\#3-Behaviour"
 Atualizar Lisp (Slime IDE)
 ```
 

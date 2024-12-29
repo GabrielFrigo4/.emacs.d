@@ -4,7 +4,7 @@
 
 
 ;; Def *init-buffers*
-(setq-local init-buffers '("*Warnings*" "*Messages*" "*quelpa-build-checkout*" "*scratch*"))
+(setq-default init-buffers '("*Warnings*" "*Messages*" "*Shell Configuration*" "*quelpa-build-checkout*" "*scratch*"))
 
 ;; Def *kill-all-buffers*
 (defun kill-all-buffers ()
@@ -21,9 +21,12 @@
 ;; Def *kill-init-buffers*
 (defun kill-init-buffers ()
   "Kill Initial Buffers after Initialization."
+  (interactive)
   (dolist (buf init-buffers)
     (when (get-buffer buf)
       (kill-buffer buf))))
 
 ;; Kill Initial Buffers
-(add-hook 'after-init-hook #'kill-init-buffers)
+(if (daemonp)
+    (add-hook 'server-switch-hook #'kill-init-buffers)
+  (add-hook 'after-init-hook #'kill-init-buffers))
