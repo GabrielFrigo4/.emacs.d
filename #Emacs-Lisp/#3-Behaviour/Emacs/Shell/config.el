@@ -4,6 +4,5 @@
 
 
 (if-windows
-  (setq shell-file-name "cmd"))
-(if-linux
-  (setq shell-file-name "zsh"))
+ (setq-default shell-file-name "cmd")
+ (setq-default shell-file-name "zsh"))
