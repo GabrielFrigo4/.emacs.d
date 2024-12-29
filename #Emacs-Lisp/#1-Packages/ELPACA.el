@@ -72,10 +72,6 @@
   :ensure t)
 (use-package goto-chg
   :ensure t)
-(use-package undo-tree
-  :ensure t)
-(use-package undo-fu
-  :ensure t)
 
 ;; Install Emacs Modes
 (use-package evil
@@ -90,25 +86,15 @@
 (use-package visual-regexp-steroids
   :ensure t)
 
-;; Install Emacs Term
-(if-linux
- (use-package vterm
-   :ensure t))
-(use-package xterm-color
-  :ensure t)
-(use-package eshell-up
-  :defer t
-  :ensure t)
-(use-package eshell-prompt-extras
-  :defer t
-  :ensure t)
-
 ;; Install Emacs Tools
 (use-package ace-window
   :ensure t
   :bind (("M-o" . ace-window)))
 (use-package multiple-cursors
   :ensure t)
+(if-linux
+ (use-package vterm
+   :ensure t))
 
 ;; Install Emacs Syntax
 (use-package highlight-numbers

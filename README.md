@@ -6,9 +6,7 @@ This repository is the configuration of the Emacs code editor that Gabriel Frigo
 ## TODO
 Todo List
 ```
-Atualizar emacs-lisp-ts-mode
 Atualizar Lisp (Slime IDE)
-Atualizar Eshell
 ```
 
 ## Treesit
