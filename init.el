@@ -18,42 +18,42 @@
 ;; Def *if-gnu*
 (defmacro if-gnu (&rest body)
   `(if-system gnu
-     (progn ,@body)))
+     ,@body))
 
 ;; Def *if-linux*
 (defmacro if-linux (&rest body)
   `(if-system gnu/linux
-     (progn ,@body)))
+     ,@body))
 
 ;; Def *if-freebsd*
 (defmacro if-freebsd (&rest body)
   `(if-system gnu/kfreebsd
-     (progn ,@body)))
+     ,@body))
 
 ;; Def *if-darwin*
 (defmacro if-darwin (&rest body)
   `(if-system darwin
-     (progn ,@body)))
+     ,@body))
 
 ;; Def *if-msdos*
 (defmacro if-msdos (&rest body)
   `(if-system ms-dos
-     (progn ,@body)))
+     ,@body))
 
 ;; Def *if-windows*
 (defmacro if-windows (&rest body)
   `(if-system windows-nt
-     (progn ,@body)))
+     ,@body))
 
 ;; Def *if-cygwin*
 (defmacro if-cygwin (&rest body)
   `(if-system cygwin
-     (progn ,@body)))
+     ,@body))
 
 ;; Def *if-haiku*
 (defmacro if-haiku (&rest body)
   `(if-system haiku
-     (progn ,@body)))
+     ,@body))
 
 
 ;; ################
