@@ -9,7 +9,7 @@
 ;; Def *new-frame-setup*
 (defun new-frame-setup (frame)
   (if (display-graphic-p frame)
-      (setq neo-theme 'icons)))
+      (setq-default neo-theme 'icons)))
 
 ;; Run for already-existing frames (For single instance emacs)
 (mapc 'new-frame-setup (frame-list))

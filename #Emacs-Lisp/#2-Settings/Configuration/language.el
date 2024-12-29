@@ -75,8 +75,8 @@
 
 ;; Def *config-prog-mode-hook*
 (defun config-prog-mode-hook ()
-  (setq tab-width 4)
-  (setq indent-tabs-mode t)
+  (setq-local tab-width 4)
+  (setq-local indent-tabs-mode t)
   (highlight-numbers-mode)
   )
 

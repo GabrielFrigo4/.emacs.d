@@ -4,7 +4,7 @@
 
 
 ;; Set *elpaca-queue-limit*
-(setq elpaca-queue-limit 16)
+(setq-default elpaca-queue-limit 16)
 
 ;; Setup Package Archives (ELPACA)
 (defvar elpaca-installer-version 0.8)
@@ -110,7 +110,7 @@
 (use-package rust-mode
   :ensure t
   :config
-  (setq rust-mode-treesitter-derive t)
+  (setq-default rust-mode-treesitter-derive t)
   :bind
   (("C-c r f" . rust-format-buffer)))
 (use-package zig-mode
@@ -141,8 +141,8 @@
   :bind ("M-[" . 'neotree-toggle)
   :config
   (progn
-    (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-    (setq neo-show-hidden-files t)))
+    (setq-default neo-theme (if (display-graphic-p) 'icons 'arrow))
+    (setq-default neo-show-hidden-files t)))
 
 ;; Install Auto-Completion
 (use-package company
@@ -150,10 +150,10 @@
   :hook (after-init . global-company-mode)
   :config
   (progn
-    (setq company-minimum-prefix-length 3)
-    (setq company-dabbrev-downcase 0)
-    (setq company-idle-delay
-          (lambda () (if (company-in-string-or-comment) nil 0.9)))))
+    (setq-default company-minimum-prefix-length 3)
+    (setq-default company-dabbrev-downcase 0)
+    (setq-default company-idle-delay
+                  (lambda () (if (company-in-string-or-comment) nil 0.9)))))
 (use-package vertico
   :ensure t
   :custom

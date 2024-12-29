@@ -1,12 +1,55 @@
 ;; #############################################
 ;; # Minimize garbage collection during startup
-(setq gc-cons-threshold most-positive-fixnum)
-(setq read-process-output-max (expt 2 20))
+(setq-default gc-cons-threshold most-positive-fixnum)
+(setq-default read-process-output-max (expt 2 20))
 ;; #############################################
 
 
 ;; ################
-;; # Macros
+;; # Macro *When*
+;; ################
+
+
+;; Def *when-system*
+(defmacro when-system (type &rest body)
+  (declare (indent defun))
+  `(when (eq system-type ',type) ,@body))
+
+;; Def *when-gnu*
+(defmacro when-gnu (&rest body)
+  `(when-system gnu ,@body))
+
+;; Def *when-linux*
+(defmacro when-linux (&rest body)
+  `(when-system gnu/linux ,@body))
+
+;; Def *when-freebsd*
+(defmacro when-freebsd (&rest body)
+  `(when-system gnu/kfreebsd ,@body))
+
+;; Def *when-darwin*
+(defmacro when-darwin (&rest body)
+  `(when-system darwin ,@body))
+
+;; Def *when-msdos*
+(defmacro when-msdos (&rest body)
+  `(when-system ms-dos ,@body))
+
+;; Def *when-windows*
+(defmacro when-windows (&rest body)
+  `(when-system windows-nt ,@body))
+
+;; Def *when-cygwin*
+(defmacro when-cygwin (&rest body)
+  `(when-system cygwin ,@body))
+
+;; Def *when-haiku*
+(defmacro when-haiku (&rest body)
+  `(when-system haiku ,@body))
+
+
+;; ################
+;; # Macro *If*
 ;; ################
 
 
@@ -17,43 +60,35 @@
 
 ;; Def *if-gnu*
 (defmacro if-gnu (&rest body)
-  `(if-system gnu
-     ,@body))
+  `(if-system gnu ,@body))
 
 ;; Def *if-linux*
 (defmacro if-linux (&rest body)
-  `(if-system gnu/linux
-     ,@body))
+  `(if-system gnu/linux ,@body))
 
 ;; Def *if-freebsd*
 (defmacro if-freebsd (&rest body)
-  `(if-system gnu/kfreebsd
-     ,@body))
+  `(if-system gnu/kfreebsd ,@body))
 
 ;; Def *if-darwin*
 (defmacro if-darwin (&rest body)
-  `(if-system darwin
-     ,@body))
+  `(if-system darwin ,@body))
 
 ;; Def *if-msdos*
 (defmacro if-msdos (&rest body)
-  `(if-system ms-dos
-     ,@body))
+  `(if-system ms-dos ,@body))
 
 ;; Def *if-windows*
 (defmacro if-windows (&rest body)
-  `(if-system windows-nt
-     ,@body))
+  `(if-system windows-nt ,@body))
 
 ;; Def *if-cygwin*
 (defmacro if-cygwin (&rest body)
-  `(if-system cygwin
-     ,@body))
+  `(if-system cygwin ,@body))
 
 ;; Def *if-haiku*
 (defmacro if-haiku (&rest body)
-  `(if-system haiku
-     ,@body))
+  `(if-system haiku ,@body))
 
 
 ;; ################
@@ -62,22 +97,22 @@
 
 
 ;; Set to "fundamental-mode"
-(setq initial-major-mode 'fundamental-mode)
+(setq-default initial-major-mode 'fundamental-mode)
 
 ;; Set to "Interactively DO things” (IDO)
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
+(setq-default ido-enable-flex-matching t)
+(setq-default ido-everywhere t)
 (ido-mode t)
 
 ;; Remove default message
-(setq initial-scratch-message 'nil)
+(setq-default initial-scratch-message 'nil)
 
 ;; Unique Buffer Names for Matching Files
 (require 'uniquify)
 
 ;; Disable package.el at Startup
 (require 'package)
-(setq package-enable-at-startup nil)
+(setq-default package-enable-at-startup nil)
 
 ;; Set *evil-undo-system* as *undo-redo*
 (setq-default evil-undo-system 'undo-redo)
@@ -114,7 +149,7 @@
 (mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#4-Mode/*/*.el")))
 
 ;; Set Custom File path to Elisp Code create by Emacs
-(setq custom-file (concat (getenv "HOME") "/.emacs.d/custom.el"))
+(setq-default custom-file (concat (getenv "HOME") "/.emacs.d/custom.el"))
 (load custom-file)
 
 
@@ -130,5 +165,5 @@
 
 ;; ##################################
 ;; # Default garbage collection
-(setq gc-cons-threshold (expt 2 20))
+(setq-default gc-cons-threshold (expt 2 20))
 ;; ##################################

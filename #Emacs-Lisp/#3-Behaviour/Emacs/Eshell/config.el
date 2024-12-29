@@ -9,9 +9,9 @@
 
 (with-eval-after-load "esh-opt"
   (autoload 'epe-theme-multiline-with-status "eshell-prompt-extras")
-  (setq eshell-highlight-prompt t
-        eshell-prompt-function 'epe-theme-multiline-with-status
-        epe-git-dirty-char "*"))
+  (setq-default eshell-highlight-prompt t
+                eshell-prompt-function 'epe-theme-multiline-with-status
+                epe-git-dirty-char "*"))
 
 
 ;; ################
