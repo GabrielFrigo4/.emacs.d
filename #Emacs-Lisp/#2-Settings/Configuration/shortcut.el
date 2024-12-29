@@ -14,6 +14,12 @@
 ;; Quit
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+
+;; ################
+;; # Standard
+;; ################
+
+
 ;; Copy
 (global-set-key (kbd "C-<apps> c") 'kill-ring-save)
 (global-set-key (kbd "C-<menu> c") 'kill-ring-save)
@@ -33,6 +39,20 @@
 ;; Undo
 (global-set-key (kbd "C-<apps> z") 'undo)
 (global-set-key (kbd "C-<menu> z") 'undo)
+
+;; Redo
+(global-set-key (kbd "C-<apps> y") 'undo-redo)
+(global-set-key (kbd "C-<menu> y") 'undo-redo)
+
+;; Save
+(global-set-key (kbd "C-<apps> s") 'save-buffer)
+(global-set-key (kbd "C-<menu> s") 'save-buffer)
+
+
+;; ################
+;; # System
+;; ################
+
 
 ;; Window
 (global-set-key (kbd "M-]") 'other-window)
@@ -90,7 +110,7 @@
 
 ;; Shell
 (global-set-key (kbd "C-c s") 'shell)
-(global-set-key (kbd "C-c C-c") 'shell-command)
+(global-set-key (kbd "C-c C-s") 'shell-command)
 
 ;; Eshell
 (global-set-key (kbd "C-c e") 'eshell)
