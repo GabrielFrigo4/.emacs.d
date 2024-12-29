@@ -4,7 +4,7 @@
 
 
 ;; Def *init-buffers*
-(setq-default init-buffers '("*Warnings*" "*Messages*" "*Shell Configuration*" "*quelpa-build-checkout*" "*scratch*"))
+(setq-default init-buffers '("*Warnings*" "*Messages*" "*Shell Configuration*" "*Async-native-compile-log*" "*quelpa-build-checkout*" "*scratch*"))
 
 ;; Def *kill-all-buffers*
 (defun kill-all-buffers ()
