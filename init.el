@@ -147,7 +147,7 @@
 
 ;; Set Custom File path to Elisp Code create by Emacs
 (setq-default custom-file (concat (getenv "HOME") "/.emacs.d/custom.el"))
-(load custom-file)
+(add-hook 'elpaca-after-init-hook (lambda () (load custom-file 'noerror)))
 
 
 ;; ################

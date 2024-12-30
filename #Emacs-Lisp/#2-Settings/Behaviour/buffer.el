@@ -4,7 +4,7 @@
 
 
 ;; Def *init-buffers*
-(setq-default init-buffers '("*Warnings*" "*Messages*" "*Shell Configuration*" "*Async-native-compile-log*" "*quelpa-build-checkout*" "*scratch*"))
+(setq-default init-buffers '("*Warnings*" "*Messages*" "*Shell Configuration*" "*Async-native-compile-log*" "*quelpa-build-checkout*"))
 
 ;; Def *kill-all-buffers*
 (defun kill-all-buffers ()
@@ -27,6 +27,5 @@
       (kill-buffer buf))))
 
 ;; Kill Initial Buffers
-(if (daemonp)
-    (add-hook 'server-switch-hook #'kill-init-buffers)
-  (add-hook 'after-init-hook #'kill-init-buffers))
+(add-hook 'server-switch-hook #'kill-init-buffers)
+(add-hook 'after-init-hook #'kill-init-buffers)

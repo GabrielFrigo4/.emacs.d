@@ -11,7 +11,6 @@
   (neotree-refresh)
   (neotree-hide))
 
-;; Check if *daemonp*
-(if (daemonp)
-    (add-hook 'server-switch-hook #'neotree-startup)
-  (add-hook 'after-init-hook #'neotree-startup))
+;; Add NeoTree-Startup
+(add-hook 'server-switch-hook #'neotree-startup)
+(add-hook 'after-init-hook #'neotree-startup)
