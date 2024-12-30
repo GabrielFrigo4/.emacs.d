@@ -142,11 +142,8 @@
 ;; Load ".el" files in "#2-Settings"
 (mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Settings/*/*.el")))
 
-;; Load ".el" files in "#3-Behaviour"
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Behaviour/*/*/*.el")))
-
-;; Load ".el" files in "#4-Mode"
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#4-Mode/*/*.el")))
+;; Load ".el" files in "#3-Mode"
+(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Mode/*/*.el")))
 
 ;; Set Custom File path to Elisp Code create by Emacs
 (setq-default custom-file (concat (getenv "HOME") "/.emacs.d/custom.el"))
