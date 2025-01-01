@@ -4,9 +4,15 @@ Emacs config
 This repository is the configuration of the Emacs code editor that Gabriel Frigo uses
 
 ## TODO
-Todo List
+Todo List (Emacs Current)
 ```
-Atualizar Lisp (Slime IDE)
+Update Lisp (Slime IDE)
+```
+
+Todo List (Emacs 30)
+```
+Add lua-ts-mode
+Add which-key
 ```
 
 ## Treesit
