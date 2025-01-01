@@ -27,5 +27,5 @@
       (kill-buffer buf))))
 
 ;; Kill Initial Buffers
-(add-hook 'server-switch-hook #'kill-init-buffers)
-(add-hook 'after-init-hook #'kill-init-buffers)
+(add-hook 'org-load-hook #'kill-init-buffers)
+(add-hook 'elpaca-after-init-hook #'kill-init-buffers)
