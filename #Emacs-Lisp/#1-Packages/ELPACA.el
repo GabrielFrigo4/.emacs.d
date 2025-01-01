@@ -123,9 +123,6 @@
   :ensure t)
 (use-package vimrc-mode
   :ensure t)
-(use-package modern-cpp-font-lock
-  :ensure t
-  :hook (c++-mode . modern-c++-font-lock-mode))
 
 ;; Install Treesit Grammar
 (use-package zig-ts-mode
