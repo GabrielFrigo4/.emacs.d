@@ -24,6 +24,6 @@
 ;; ################
 
 
-;; Install Emacs Term
+;; Install Aweshell
 (use-package aweshell
   :quelpa (aweshell :fetcher github :repo "GabrielFrigo4/aweshell"))
