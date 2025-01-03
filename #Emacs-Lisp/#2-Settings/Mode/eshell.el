@@ -3,6 +3,9 @@
 ;; ################
 
 
+;; Enable *auto-suggestion*
+(setq-default aweshell-auto-suggestion-p t)
+
 ;; Remove *command-tolerance*
 (setq-default eshell-bad-command-tolerance (expt 2 64))
 
