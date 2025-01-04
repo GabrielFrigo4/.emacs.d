@@ -73,6 +73,12 @@
 (use-package goto-chg
   :ensure t)
 
+;; Install Emacs Async
+(use-package async
+  :ensure t)
+(use-package ob-async
+  :ensure t)
+
 ;; Install Emacs Modes
 (use-package evil
   :ensure t)
