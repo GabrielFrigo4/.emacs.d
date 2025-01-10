@@ -14,5 +14,11 @@
 ;; Run for already-existing frames (For single instance emacs)
 (mapc 'new-frame-setup (frame-list))
 
+
+;; ################
+;; # Hook
+;; ################
+
+
 ;; Run when a new frame is created (For emacs in client/server mode)
 (add-hook 'after-make-frame-functions 'new-frame-setup)

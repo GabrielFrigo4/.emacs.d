@@ -26,6 +26,23 @@
     (when (get-buffer buf)
       (kill-buffer buf))))
 
+;; Def *setup-buffer-eol*
+(defun setup-buffer-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq-default buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
+(setup-buffer-eol)
+
+
+;; ################
+;; # Hook
+;; ################
+
+
 ;; Kill Initial Buffers
 (add-hook 'org-load-hook #'kill-init-buffers)
 (add-hook 'elpaca-after-init-hook #'kill-init-buffers)
+
+;; Setup Buffer EOL
+(add-hook 'after-init-hook #'setup-buffer-eol)

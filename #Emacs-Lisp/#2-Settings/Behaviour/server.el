@@ -11,6 +11,12 @@
   (neotree-refresh)
   (neotree-hide))
 
+
+;; ################
+;; # Hook
+;; ################
+
+
 ;; Add NeoTree-Startup
 (add-hook 'server-switch-hook #'neotree-startup)
 (add-hook 'after-init-hook #'neotree-startup)
