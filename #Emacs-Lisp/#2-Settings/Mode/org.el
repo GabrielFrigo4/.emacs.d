@@ -12,6 +12,9 @@
 ;; Set Org-Mode Indentation
 (setq-default org-src-preserve-indentation t)
 
+;; Hide Emphasis Markers
+(setq-default org-hide-emphasis-markers t)
+
 ;; Org-Mode Theme Definitions
 (defface org-block-begin-line
   '((t (:underline "#646260" :foreground "#10CFFC" :background "#41403F" :extend t)))

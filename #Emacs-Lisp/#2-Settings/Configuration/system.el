@@ -12,6 +12,9 @@
 ;; Remove backup files
 (setq-default make-backup-files nil)
 
+;; Remove Font Caches
+(setq-default inhibit-compacting-font-caches t)
+
 ;; On OSX, swap Meta and Super
 ;; For Better Keyboard Ergonomics
 (if-darwin

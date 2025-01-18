@@ -124,7 +124,7 @@
 
 
 ;; For "RobotoMono Nerd Font", we need to separately specify the italic mode to work
-(set-face-attribute 'italic nil :font "RobotoMono Nerd Font Mono" :foundry "pyrs" :slant 'italic)
+;; (set-face-attribute 'italic nil :font "RobotoMono Nerd Font Mono" :foundry "pyrs" :slant 'italic)
 
 
 ;; ################

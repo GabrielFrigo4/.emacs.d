@@ -66,6 +66,8 @@
 (elpaca-wait)
 
 ;; Install Emacs Libs
+(use-package compat
+  :ensure (:type git :host github :repo "emacs-compat/compat"))
 (use-package transient
   :ensure t)
 (use-package parent-mode
@@ -85,6 +87,12 @@
 (use-package magit
   :ensure t
   :after (transient))
+
+;; Install Emacs Org
+(use-package org-superstar
+  :ensure (:type git :host github :repo "integral-dw/org-superstar-mode")
+  :config 
+  (add-hook 'org-mode-hook 'org-superstar-mode))
 
 ;; Install Emacs Regex
 (use-package visual-regexp
