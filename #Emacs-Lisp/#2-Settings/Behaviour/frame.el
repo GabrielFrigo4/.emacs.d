@@ -11,7 +11,7 @@
   (if (display-graphic-p frame)
       (setq-default neo-theme 'icons)))
 
-;; Run for already-existing frames (For single instance emacs)
+;; Run for Already-Existing Frames (For Single Instance Emacs)
 (mapc 'new-frame-setup (frame-list))
 
 
@@ -20,5 +20,5 @@
 ;; ################
 
 
-;; Run when a new frame is created (For emacs in client/server mode)
+;; Run When a New Frame is Created (For Emacs in Client/Server Mode)
 (add-hook 'after-make-frame-functions 'new-frame-setup)

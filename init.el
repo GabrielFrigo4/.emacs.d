@@ -1,5 +1,5 @@
 ;; #############################################
-;; # Minimize garbage collection during startup
+;; # Minimize Garbage Collection During Startup
 (setq-default gc-cons-threshold most-positive-fixnum)
 (setq-default read-process-output-max (expt 2 20))
 ;; #############################################
@@ -104,7 +104,7 @@
 (setq-default ido-everywhere t)
 (ido-mode t)
 
-;; Remove default message
+;; Remove Default Message
 (setq-default initial-scratch-message 'nil)
 
 ;; Unique Buffer Names for Matching Files
@@ -123,7 +123,7 @@
 ;; ################
 
 
-;; For "RobotoMono Nerd Font", we need to separately specify the italic mode to work
+;; For "RobotoMono Nerd Font", We Need to Separately Specify the Italic Mode to Work
 ;; (set-face-attribute 'italic nil :font "RobotoMono Nerd Font Mono" :foundry "pyrs" :slant 'italic)
 
 
@@ -145,7 +145,7 @@
 ;; Load ".el" files in "#3-Mode"
 (mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Mode/*/*.el")))
 
-;; Set Custom File path to Elisp Code create by Emacs
+;; Set Custom File path to Elisp Code Create by Emacs
 (setq-default custom-file (concat (getenv "HOME") "/.emacs.d/custom.el"))
 (add-hook 'elpaca-after-init-hook (lambda () (load custom-file 'noerror)))
 
@@ -155,12 +155,12 @@
 ;; ################
 
 
-;; Use Emacs-Client to open files in an already-running Emacs-Process Server
+;; Use Emacs-Client to Open Files in an Already-Running Emacs-Process Server
 (require 'server)
 (unless (server-running-p) (server-start))
 
 
 ;; ##################################
-;; # Default garbage collection
+;; # Default Garbage Collection
 (setq-default gc-cons-threshold (expt 2 20))
 ;; ##################################

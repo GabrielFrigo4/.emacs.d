@@ -3,17 +3,20 @@
 ;; ################
 
 
-;; Set cursor blink time
+;; Set Cursor Blink Time
 (setq-default blink-cursor-interval 0.5)
 
-;; Disable the beep on Windows
+;; Disable the Beep on Windows
 (setq-default visible-bell t)
 
-;; Remove backup files
+;; Remove Backup Files
 (setq-default make-backup-files nil)
 
 ;; Remove Font Caches
 (setq-default inhibit-compacting-font-caches t)
+
+;; Remove End Line Wrap
+(set-default 'truncate-lines t)
 
 ;; On OSX, swap Meta and Super
 ;; For Better Keyboard Ergonomics
