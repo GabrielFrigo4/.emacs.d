@@ -41,8 +41,6 @@
 (add-to-list 'auto-mode-alist '("\\.i\\'" . asm-mode))
 (add-to-list 'auto-mode-alist '("\\.S\\'" . asm-mode))
 (add-to-list 'auto-mode-alist '("\\.I\\'" . asm-mode))
-(add-to-list 'auto-mode-alist '("\\.fasm\\'" . asm-mode))
-(add-to-list 'auto-mode-alist '("\\.finc\'" . asm-mode))
 (add-to-list 'auto-mode-alist '("\\.masm\\'" . asm-mode))
 (add-to-list 'auto-mode-alist '("\\.minc\'" . asm-mode))
 (add-to-list 'auto-mode-alist '("\\.x86\\'" . asm-mode))
@@ -50,6 +48,10 @@
 (add-to-list 'auto-mode-alist '("\\.xinc\\'" . asm-mode))
 (add-to-list 'auto-mode-alist '("\\.arm\\'" . asm-mode))
 (add-to-list 'auto-mode-alist '("\\.ainc\\'" . asm-mode))
+
+;; Set *fasm-mode*
+(add-to-list 'auto-mode-alist '("\\.fasm\\'" . fasm-mode))
+(add-to-list 'auto-mode-alist '("\\.finc\'" . fasm-mode))
 
 ;; Set *nasm-mode*
 (setq-default nasm-basic-offset tab-width)
@@ -106,7 +108,14 @@
   (setq-local indent-tabs-mode nil)
   (setq-local tab-width 2))
 
+;; Def *config-fasm-mode*
+(defun config-fasm-mode ()
+  (setq-local indent-tabs-mode t)
+  (setq-local tab-width 4)
+  (setq-local fasm-basic-offset tab-width))
+
 ;; Add Hook *mode-hook*
 (add-hook 'python-mode-hook #'config-python-mode)
 (add-hook 'lua-mode-hook #'config-lua-mode)
 (add-hook 'emacs-lisp-mode-hook #'config-emacs-lisp-mode)
+(add-hook 'fasm-mode-hook #'config-fasm-mode)
