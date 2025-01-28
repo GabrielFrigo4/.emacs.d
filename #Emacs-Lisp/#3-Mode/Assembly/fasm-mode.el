@@ -60,8 +60,10 @@
     map)
   "Local keymap for FASM mode.")
 
-(defvar fasm-basic-offset 2
-  "Offset for FASM mode indentation.")
+(defcustom fasm-basic-offset (default-value 'tab-width)
+  "Indentation level for FASM mode'."
+  :type 'integer
+  :group 'nasm-mode)
 
 (defmacro fasm--regexp-from-keywords (&rest keywords)
   (rx-to-string `(and symbol-start (or ,@keywords) symbol-end)))
@@ -370,8 +372,8 @@
         (currindent (fasm--get-indent-level 1)))
     (if (or (> previndent currindent)
             (memq this-command '(newline-and-indent evil-ret-and-indent)))
-        (indent-to previndent)
-      (indent-to (* fasm-basic-offset (1+ (/ currindent fasm-basic-offset)))))))
+        (indent-to previndent))))
+      ;;(indent-to (* fasm-basic-offset (1+ (/ currindent fasm-basic-offset)))))))
 
 (defmacro fasm--set-local (variable value)
   `(set (make-local-variable ',variable) ,value))

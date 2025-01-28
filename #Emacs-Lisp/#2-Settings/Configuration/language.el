@@ -108,14 +108,7 @@
   (setq-local indent-tabs-mode nil)
   (setq-local tab-width 2))
 
-;; Def *config-fasm-mode*
-(defun config-fasm-mode ()
-  (setq-local indent-tabs-mode t)
-  (setq-local tab-width 4)
-  (setq-local fasm-basic-offset tab-width))
-
 ;; Add Hook *mode-hook*
 (add-hook 'python-mode-hook #'config-python-mode)
 (add-hook 'lua-mode-hook #'config-lua-mode)
 (add-hook 'emacs-lisp-mode-hook #'config-emacs-lisp-mode)
-(add-hook 'fasm-mode-hook #'config-fasm-mode)
