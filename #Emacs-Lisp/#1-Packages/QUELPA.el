@@ -28,10 +28,12 @@
 (use-package aweshell
   :quelpa (aweshell :fetcher github :repo "GabrielFrigo4/aweshell"))
 
-;; Install FASM
+;; Install Assembly Language
 (use-package fasm-mode
   :quelpa (fasm-mode :fetcher github :repo "GabrielFrigo4/fasm-mode"))
-
-;; Install NASM
 (use-package nasm-mode
   :quelpa (nasm-mode :fetcher github :repo "GabrielFrigo4/nasm-mode"))
+
+;; Install Treesit Grammar
+(use-package emacs-lisp-ts-mode
+  :quelpa (emacs-lisp-ts-mode :fetcher github :repo "GabrielFrigo4/emacs-lisp-ts-mode"))

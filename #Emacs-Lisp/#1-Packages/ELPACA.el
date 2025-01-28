@@ -65,7 +65,7 @@
 ;; Wait (ELPACA)
 (elpaca-wait)
 
-;; Install Emacs Libs
+;; Install Emacs Lib
 (use-package compat
   :ensure (:type git :host github :repo "emacs-compat/compat"))
 (use-package transient
@@ -81,7 +81,7 @@
 (use-package ob-async
   :ensure t)
 
-;; Install Emacs Modes
+;; Install Emacs Mode
 (use-package evil
   :ensure t)
 (use-package magit
@@ -100,7 +100,7 @@
 (use-package visual-regexp-steroids
   :ensure t)
 
-;; Install Emacs Tools
+;; Install Emacs Tool
 (use-package ace-window
   :ensure t
   :bind (("M-o" . ace-window)))
@@ -120,7 +120,11 @@
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
-;; Install Languages
+;; Install Assembly Language
+(use-package riscv-mode
+  :ensure t)
+
+;; Install Programing Language
 (use-package rust-mode
   :ensure t
   :config
@@ -130,8 +134,6 @@
 (use-package zig-mode
   :ensure t)
 (use-package lua-mode
-  :ensure t)
-(use-package riscv-mode
   :ensure t)
 (use-package vimrc-mode
   :ensure t)
