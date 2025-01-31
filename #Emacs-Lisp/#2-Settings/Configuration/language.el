@@ -50,6 +50,7 @@
 (add-to-list 'auto-mode-alist '("\\.ainc\\'" . asm-mode))
 
 ;; Set *fasm-mode*
+(setq-default fasm-basic-offset tab-width)
 (add-to-list 'auto-mode-alist '("\\.fasm\\'" . fasm-mode))
 (add-to-list 'auto-mode-alist '("\\.finc\'" . fasm-mode))
 
