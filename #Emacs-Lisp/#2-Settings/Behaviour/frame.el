@@ -8,8 +8,9 @@
 
 ;; Def *new-frame-setup*
 (defun new-frame-setup (frame)
-  (if (display-graphic-p frame)
-      (setq-default neo-theme 'icons)))
+  (when (display-graphic-p frame)
+    (setq-default neo-theme 'icons)
+    (set-frame-size frame 81 27)))
 
 ;; Run for Already-Existing Frames (For Single Instance Emacs)
 (mapc 'new-frame-setup (frame-list))

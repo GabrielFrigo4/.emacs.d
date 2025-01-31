@@ -21,10 +21,6 @@
 ;; Remove End Line Wrap
 (set-default 'truncate-lines t)
 
-;; Set Frame Size
-(when (window-system)
-  (set-frame-size (selected-frame) 81 27))
-
 ;; On OSX, swap Meta and Super
 ;; For Better Keyboard Ergonomics
 (if-darwin
