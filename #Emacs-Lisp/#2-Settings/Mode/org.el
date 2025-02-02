@@ -15,6 +15,10 @@
 ;; Hide Emphasis Markers
 (setq-default org-hide-emphasis-markers t)
 
+;; Set TODO Keywords
+(setq-default org-todo-keywords
+      '((sequence "☐" "|" "☑")))
+
 ;; Org-Mode Theme Definitions
 (defface org-block-begin-line
   '((t (:underline "#646260" :foreground "#10CFFC" :background "#41403F" :extend t)))
