@@ -81,6 +81,10 @@
 (use-package ob-async
   :ensure t)
 
+;; Install Emacs Text
+(use-package mixed-pitch
+  :ensure t)
+
 ;; Install Emacs Mode
 (use-package evil
   :ensure t)
