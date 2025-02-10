@@ -17,3 +17,4 @@
 (evil-set-initial-state 'shell-mode 'emacs)
 (evil-set-initial-state 'term-mode 'emacs)
 (evil-set-initial-state 'vterm-mode 'emacs)
+(evil-set-initial-state 'gud-mode 'emacs)
