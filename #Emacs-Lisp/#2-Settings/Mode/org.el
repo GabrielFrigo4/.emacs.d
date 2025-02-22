@@ -17,18 +17,33 @@
 
 ;; Set TODO Keywords
 (setq-default org-todo-keywords
-      '((sequence "☐" "|" "☑")))
+              '((sequence "TODO" "|" "PROGRESS" "|" "DONE")))
 
-;; Org-Mode Theme Definitions
-(defface org-block-begin-line
-  '((t (:underline "#646260" :foreground "#10CFFC" :background "#41403F" :extend t)))
-  "Face used for the line delimiting the begin of source blocks.")
-(defface org-block
-  '((t (:background "#3A3938" :extend t)))
-  "Face used for the source block background.")
-(defface org-block-end-line
-  '((t (:underline "#646260" :foreground "#10CFFC" :background "#41403F" :extend t)))
-  "Face used for the line delimiting the end of source blocks.")
+;; Set TODO Faces
+(defface org-todo-custom-face
+  '((t (:foreground "red" :weight bold)))
+  "Custom face for TODO keyword.")
+(defface org-done-custom-face
+  '((t (:foreground "green" :weight bold)))
+  "Custom face for DONE keyword.")
+(defface org-progress-custom-face
+  '((t (:foreground "orange" :weight bold)))
+  "Custom face for PROGRESS keyword.")
+(setq-default org-todo-keyword-faces
+              '(("TODO" . org-todo-custom-face)
+                ("DONE" . org-done-custom-face)
+                ("PROGRESS" . org-progress-custom-face)))
+
+;; Set Prettify Symbols Keywords
+(add-hook 'org-mode-hook (lambda ()
+                           "Beautify Org Checkbox Symbol"
+                           (push '("[ ]" .  "☐") prettify-symbols-alist)
+                           (push '("[X]" . "☑" ) prettify-symbols-alist)
+                           (push '("[-]" . "⦿" ) prettify-symbols-alist)
+                           (push '("TODO" .  "☐") prettify-symbols-alist)
+                           (push '("DONE" . "☑" ) prettify-symbols-alist)
+                           (push '("PROGRESS" . "⦿" ) prettify-symbols-alist)
+                           (prettify-symbols-mode)))
 
 ;; Append *org-src-lang-modes*
 (with-eval-after-load 'org
@@ -101,6 +116,17 @@
 ;; Shell on Windows
 (when-windows
  (setq-default org-babel-sh-command "cmdproxy.exe"))
+
+;; Set Block Theme
+(defface org-block-begin-line
+  '((t (:underline "#646260" :foreground "#10CFFC" :background "#41403F" :extend t)))
+  "Face used for the line delimiting the begin of source blocks.")
+(defface org-block
+  '((t (:background "#3A3938" :extend t)))
+  "Face used for the source block background.")
+(defface org-block-end-line
+  '((t (:underline "#646260" :foreground "#10CFFC" :background "#41403F" :extend t)))
+  "Face used for the line delimiting the end of source blocks.")
 
 ;; Add *org-babel-load-languages*
 (org-babel-do-load-languages
