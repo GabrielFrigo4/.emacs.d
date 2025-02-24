@@ -23,16 +23,31 @@
 (defface org-todo-custom-face
   '((t (:inherit 'org-todo :weight bold :height 120)))
   "Custom face for TODO keyword.")
-(defface org-done-custom-face
-  '((t (:inherit 'org-done :weight bold :height 110)))
-  "Custom face for DONE keyword.")
 (defface org-progress-custom-face
   '((t (:foreground "dark gray" :weight bold :height 110)))
   "Custom face for PROGRESS keyword.")
+(defface org-done-custom-face
+  '((t (:inherit 'org-done :weight bold :height 110)))
+  "Custom face for DONE keyword.")
 (setq-default org-todo-keyword-faces
               '(("TODO" . org-todo-custom-face)
-                ("DONE" . org-done-custom-face)
-                ("PROGRESS" . org-progress-custom-face)))
+                ("PROGRESS" . org-progress-custom-face)
+                ("DONE" . org-done-custom-face)))
+
+;; Set TODO Font Lock
+(add-hook 'org-mode-hook (lambda ()
+                           "Replace TODO, PROGRESS and DONE keywords with UTF-8 symbols in Org Mode."
+                           (font-lock-add-keywords
+                            nil
+                            '(("^\\(\\*+ \\)\\(TODO\\) "
+                               (2 (prog1 ()
+                                    (compose-region (match-beginning 2) (match-end 2) ?➜))))
+                              ("^\\(\\*+ \\)\\(PROGRESS\\) "
+                               (2 (prog1 ()
+                                    (compose-region (match-beginning 2) (match-end 2) ?✘))))
+                              ("^\\(\\*+ \\)\\(DONE\\) "
+                               (2 (prog1 ()
+                                    (compose-region (match-beginning 2) (match-end 2) ?✔))))))))
 
 ;; Set CheckBox Faces
 (set-face-attribute 'org-checkbox nil :weight 'bold :height 110)
@@ -40,13 +55,10 @@
 ;; Set Prettify Symbols Keywords
 (add-hook 'org-mode-hook (lambda ()
                            "Beautify Org Mode Symbol"
-                           (push '("[ ]" .  "☐") prettify-symbols-alist)
-                           (push '("[X]" . "☑" ) prettify-symbols-alist)
-                           (push '("[-]" . "➤" ) prettify-symbols-alist)
-                           (push '("TODO" .  "➜") prettify-symbols-alist)
-                           (push '("DONE" . "✔" ) prettify-symbols-alist)
-                           (push '("PROGRESS" . "✘" ) prettify-symbols-alist)
-                           (prettify-symbols-mode)))
+                           (push '("[ ]" . ?☐) prettify-symbols-alist)
+                           (push '("[-]" . ?➤ ) prettify-symbols-alist)
+                           (push '("[X]" . ?☑ ) prettify-symbols-alist)
+                           (prettify-symbols-mode t)))
 
 ;; Append *org-src-lang-modes*
 (with-eval-after-load 'org
