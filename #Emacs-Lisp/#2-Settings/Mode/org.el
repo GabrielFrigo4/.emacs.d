@@ -21,10 +21,10 @@
 
 ;; Set TODO Faces
 (defface org-todo-custom-face
-  '((t (:inherit 'org-todo :weight bold :height 120)))
+  '((t (:inherit 'org-todo :weight bold :height 110)))
   "Custom face for TODO keyword.")
 (defface org-progress-custom-face
-  '((t (:foreground "dark gray" :weight bold :height 110)))
+  '((t (:foreground "dark gray" :weight bold :height 90)))
   "Custom face for PROGRESS keyword.")
 (defface org-done-custom-face
   '((t (:inherit 'org-done :weight bold :height 110)))
@@ -39,26 +39,27 @@
                            "Replace TODO, PROGRESS and DONE keywords with UTF-8 symbols in Org Mode."
                            (font-lock-add-keywords
                             nil
-                            '(("^\\(\\*+ \\)\\(TODO\\) "
-                               (2 (prog1 ()
-                                    (compose-region (match-beginning 2) (match-end 2) ?➜))))
-                              ("^\\(\\*+ \\)\\(PROGRESS\\) "
-                               (2 (prog1 ()
-                                    (compose-region (match-beginning 2) (match-end 2) ?✘))))
-                              ("^\\(\\*+ \\)\\(DONE\\) "
-                               (2 (prog1 ()
-                                    (compose-region (match-beginning 2) (match-end 2) ?✔))))))))
+                            '(("^\\*+ \\(TODO\\) "
+                               (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☐) nil)))
+                              ("^\\*+ \\(PROGRESS\\) "
+                               (1 (progn (compose-region (match-beginning 1) (match-end 1) ?▣) nil)))
+                              ("^\\*+ \\(DONE\\) "
+                               (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☑) nil)))))))
 
 ;; Set CheckBox Faces
-(set-face-attribute 'org-checkbox nil :weight 'bold :height 110)
+(set-face-attribute 'org-checkbox nil :weight 'bold :height 120)
 
-;; Set Prettify Symbols Keywords
+;; Set CheckBox Font Lock
 (add-hook 'org-mode-hook (lambda ()
-                           "Beautify Org Mode Symbol"
-                           (push '("[ ]" . ?☐) prettify-symbols-alist)
-                           (push '("[-]" . ?➤ ) prettify-symbols-alist)
-                           (push '("[X]" . ?☑ ) prettify-symbols-alist)
-                           (prettify-symbols-mode t)))
+                           "Replace Org Mode CheckBox symbols with UTF-8 characters."
+                           (font-lock-add-keywords
+                            nil
+                            '(("^[\t ]*-[\t ]*\\(\\[ \\]\\)"
+                               (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☐) nil)))
+                              ("^[\t ]*-[\t ]*\\(\\[-\\]\\)"
+                               (1 (progn (compose-region (match-beginning 1) (match-end 1) ?▣) nil)))
+                              ("^[\t ]*-[\t ]*\\(\\[X\\]\\)"
+                               (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☑) nil)))))))
 
 ;; Append *org-src-lang-modes*
 (with-eval-after-load 'org
