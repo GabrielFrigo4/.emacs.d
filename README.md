@@ -9,22 +9,25 @@ Todo List (Emacs Current)
 Update Lisp (Slime IDE)
 ```
 
-Todo List (Emacs 30)
+Todo List (Emacs 31)
 ```
-Add lua-ts-mode
-Add which-key
+Add DirectWrite BackEngine Font on Windows
 ```
 
 ## Treesit
-Oficial \*ts-mode\* in Emacs 29.4
+Oficial \*ts-mode\* in Emacs 30.1
 ```
 (ok) => c-ts-mode
 (ok) => go-ts-mode
 (ok) => js-ts-mode
 (ok) => c++-ts-mode
 (ok) => css-ts-mode
+(ok) => lua-ts-mode
+(ok) => php-ts-mode
 (ok) => tsx-ts-mode
 (ok) => bash-ts-mode
+(ok) => heex-ts-mode
+(ok) => html-ts-mode
 (ok) => java-ts-mode
 (ok) => json-ts-mode
 (ok) => ruby-ts-mode
@@ -33,6 +36,7 @@ Oficial \*ts-mode\* in Emacs 29.4
 (ok) => yaml-ts-mode
 (ok) => cmake-ts-mode
 (ok) => csharp-ts-mode
+(ok) => elixir-ts-mode
 (ok) => go-mod-ts-mode
 (ok) => python-ts-mode
 (ok) => c-or-c++-ts-mode
@@ -40,11 +44,10 @@ Oficial \*ts-mode\* in Emacs 29.4
 (ok) => typescript-ts-mode
 ```
 
-Unoficial \*ts-mode\* in Emacs 29.4
+Unoficial \*ts-mode\* in Emacs 30.1
 ```
 (ok) => elisp-ts-mode
 (ok) => zig-ts-mode
-(not) => lua-ts-mode
 ```
 
 ## Elisp Symbols

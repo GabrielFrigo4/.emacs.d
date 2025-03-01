@@ -104,6 +104,9 @@
 (setq-default ido-everywhere t)
 (ido-mode t)
 
+;; Set to "Which Key" in shortcut
+(which-key-mode t)
+
 ;; Remove Default Message
 (setq-default initial-scratch-message 'nil)
 

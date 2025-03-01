@@ -20,13 +20,17 @@
                 ;; JIT
                 (c-sharp . ("https://github.com/tree-sitter/tree-sitter-c-sharp" "master" "src"))
                 (java . ("https://github.com/tree-sitter/tree-sitter-java" "master" "src"))
+                (elixir . ("https://github.com/elixir-lang/tree-sitter-elixir" "main" "src"))
+                (php . ("https://github.com/tree-sitter/tree-sitter-php" "master" "php/src"))
                 ;; VM
+                (lua . ("https://github.com/tjdevries/tree-sitter-lua" "master" "src"))
                 (python . ("https://github.com/tree-sitter/tree-sitter-python" "master" "src"))
                 (ruby . ("https://github.com/tree-sitter/tree-sitter-ruby" "master" "src"))
                 ;; WEB
                 (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
                 (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
                 (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
+                (html . ("https://github.com/tree-sitter/tree-sitter-html" "master" "src"))
                 (css . ("https://github.com/tree-sitter/tree-sitter-css" "master" "src"))
                 ;; EMACS
                 (elisp . ("https://github.com/Wilfred/tree-sitter-elisp" "main" "src"))
@@ -37,6 +41,7 @@
                 ;; CONFIG
                 (dockerfile . ("https://github.com/camdencheek/tree-sitter-dockerfile" "main" "src"))
                 (gomod . ("https://github.com/camdencheek/tree-sitter-go-mod" "main" "src"))
+                (heex . ("https://github.com/phoenixframework/tree-sitter-heex" "main" "src"))
                 ;; DATA
                 (json . ("https://github.com/tree-sitter/tree-sitter-json" "master" "src"))
                 (toml . ("https://github.com/tree-sitter/tree-sitter-toml" "master" "src"))
@@ -54,13 +59,17 @@
                 ;; JIT
                 (csharp-mode . csharp-ts-mode)
                 (java-mode . java-ts-mode)
+                (elixir-mode . elixir-ts-mode)
+                (php-mode . php-ts-mode)
                 ;; VM
+                (lua-mode . lua-ts-mode)
                 (python-mode . python-ts-mode)
                 (ruby-mode . ruby-ts-mode)
                 ;; WEB
                 (js-mode . js-ts-mode)
                 (typescript-mode . typescript-ts-mode)
                 (tsx-mode . tsx-ts-mode)
+                (html-mode . html-ts-mode)
                 (css-mode . css-ts-mode)
                 ;; EMACS
                 (emacs-lisp-mode . emacs-lisp-ts-mode)

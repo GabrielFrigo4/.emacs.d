@@ -139,6 +139,8 @@
   :ensure t)
 (use-package lua-mode
   :ensure t)
+(use-package elixir-mode
+  :ensure t)
 (use-package vimrc-mode
   :ensure t)
 
