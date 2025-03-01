@@ -40,6 +40,8 @@
                 (cmake . ("https://github.com/uyha/tree-sitter-cmake" "master" "src"))
                 ;; CONFIG
                 (dockerfile . ("https://github.com/camdencheek/tree-sitter-dockerfile" "main" "src"))
+                (phpdoc . ("https://github.com/claytonrcarter/tree-sitter-phpdoc" "master" "src"))
+                (jsdoc . ("https://github.com/tree-sitter/tree-sitter-jsdoc" "master" "src"))
                 (gomod . ("https://github.com/camdencheek/tree-sitter-go-mod" "main" "src"))
                 (heex . ("https://github.com/phoenixframework/tree-sitter-heex" "main" "src"))
                 ;; DATA

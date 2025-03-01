@@ -141,6 +141,8 @@
   :ensure t)
 (use-package elixir-mode
   :ensure t)
+(use-package php-mode
+  :ensure t)
 (use-package vimrc-mode
   :ensure t)
 
