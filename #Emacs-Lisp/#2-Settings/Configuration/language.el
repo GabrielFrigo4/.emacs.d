@@ -76,15 +76,12 @@
 ;; ################
 
 
-;; Def *config-prog-mode*
-(defun config-prog-mode ()
-  (setq-local tab-width 4)
-  (setq-local indent-tabs-mode t)
-  (highlight-numbers-mode))
-
 ;; Add Hook *prog-mode-hook*
 (add-hook 'prog-mode-hook 'superword-mode)
-(add-hook 'prog-mode-hook #'config-prog-mode)
+(add-hook 'prog-mode-hook (lambda ()
+                            (setq-local tab-width 4)
+                            (setq-local indent-tabs-mode t)
+                            (highlight-numbers-mode)))
 
 
 ;; ################
@@ -92,24 +89,19 @@
 ;; ################
 
 
-;; Def *config-python-mode*
-(defun config-python-mode ()
-  (setq-local tab-width 4)
-  (setq-local indent-tabs-mode t)
-  (setq-local python-indent-offset tab-width))
+;; Add Hook *python-mode-hook*
+(add-hook 'python-mode-hook (lambda ()
+                              (setq-local tab-width 4)
+                              (setq-local indent-tabs-mode t)
+                              (setq-local python-indent-offset tab-width)))
 
-;; Def *config-lua-mode*
-(defun config-lua-mode ()
-  (setq-local indent-tabs-mode t)
-  (setq-local tab-width 4)
-  (setq-local lua-indent-level tab-width))
+;; Add Hook *lua-mode-hook*
+(add-hook 'lua-mode-hook (lambda ()
+                           (setq-local indent-tabs-mode t)
+                           (setq-local tab-width 4)
+                           (setq-local lua-indent-level tab-width)))
 
-;; Def *config-emacs-lisp-mode*
-(defun config-emacs-lisp-mode ()
-  (setq-local indent-tabs-mode nil)
-  (setq-local tab-width 2))
-
-;; Add Hook *mode-hook*
-(add-hook 'python-mode-hook #'config-python-mode)
-(add-hook 'lua-mode-hook #'config-lua-mode)
-(add-hook 'emacs-lisp-mode-hook #'config-emacs-lisp-mode)
+;; Add Hook *emacs-lisp-mode-hook*
+(add-hook 'emacs-lisp-mode-hook (lambda ()
+                                  (setq-local indent-tabs-mode nil)
+                                  (setq-local tab-width 2)))
