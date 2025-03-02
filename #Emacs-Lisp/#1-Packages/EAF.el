@@ -7,12 +7,8 @@
 (add-to-list 'load-path (concat (getenv "HOME") "/.emacs.d/eaf/emacs-application-framework/"))
 
 ;; Setup EAF
-(require 'eaf)
-
-;; Setup Apps on Windows
-(when-windows
- (require 'eaf-browser)
- (require 'eaf-pdf-viewer))
+(when-linux
+ (require 'eaf))
 
 ;; Setup Apps on Linux
 (when-linux
