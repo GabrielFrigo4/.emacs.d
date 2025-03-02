@@ -13,6 +13,9 @@
 /quelpa
 /elpa
 
+# Emacs EAF
+/eaf
+
 # Emacs Packages
 /ac-comphist.dat
 /tree-sitter
