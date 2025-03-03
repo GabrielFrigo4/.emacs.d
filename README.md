@@ -6,12 +6,13 @@
 ## TODO
  Todo List (Emacs Current)
  ```
- Update Lisp (Slime IDE)
+ Apply: [completion-preview-mode>]
+ Update: [Lisp (Slime IDE)]
  ```
 
  Todo List (Emacs 31)
  ```
- Add DirectWrite BackEngine Font on Windows
+ Add: [DirectWrite BackEngine Font on Windows]
  ```
 
 ## Treesit
