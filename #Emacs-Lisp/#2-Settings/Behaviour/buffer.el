@@ -42,6 +42,9 @@
 
 ;; Kill Initial Buffers
 (add-hook 'org-load-hook #'kill-init-buffers)
+(add-hook 'emacs-startup-hook #'kill-init-buffers)
+(add-hook 'window-setup-hook #'kill-init-buffers)
+(add-hook 'eaf-after-init-hook #'kill-init-buffers)
 (add-hook 'elpaca-after-init-hook #'kill-init-buffers)
 
 ;; Setup Buffer EOL
