@@ -4,7 +4,8 @@
 
 
 ;; Def *init-buffers*
-(setq-default init-buffers '("*Warnings*" "*Messages*" "*Shell Configuration*" "*quelpa-build-checkout*" "*straight-process*"))
+(setq-default standard-buffers '("*scratch*" "*Messages*"))
+(setq-default init-buffers '("*Warnings*" "*Shell Configuration*" "*quelpa-build-checkout*" "*straight-process*"))
 (setq-default org-buffers '("*Async-native-compile-log*"))
 
 ;; Def *kill-all-buffers*
@@ -51,6 +52,7 @@
 
 ;; Kill Initial Buffers
 (add-hook 'emacs-startup-hook #'kill-init-buffers)
+(add-hook 'window-setup-hook #'kill-init-buffers)
 (add-hook 'elpaca-after-init-hook #'kill-init-buffers)
 
 ;; Kill Org Mode Buffers

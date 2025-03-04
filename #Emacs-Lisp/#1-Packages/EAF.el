@@ -14,13 +14,25 @@
                     result))
                  result))))
 
-;; Load EAF Path
-(add-to-list 'load-path (concat (getenv "HOME") "/.emacs.d/eaf/emacs-application-framework/"))
+;; Def *eaf-setup*
+(defun eaf-setup ()
+  "Setup Emacs Application Framework (EAF)"
+  (interactive)
+  ;; Check if EAF is not Loaded
+  (unless (featurep 'eaf)
+    ;; Load EAF Path
+    (add-to-list 'load-path (concat (getenv "HOME") "/.emacs.d/eaf/emacs-application-framework/"))
+    ;; Setup EAF
+    (require 'eaf)
+    ;; Setup Apps
+    (require 'eaf-browser)
+    (require 'eaf-pdf-viewer)
+    ;; Kill EAF Garbage
+    (eaf-kill-process)))
 
-;; Setup EAF
-(require 'eaf)
-(setq-default eaf-dbus-supported nil)
+;; Setup EAF only in *display-graphic*
+(when (display-graphic-p)
+  (eaf-setup))
 
-;; Setup Apps
-(require 'eaf-browser)
-(require 'eaf-pdf-viewer)
+;; Setup EAF only in a Server Frame
+(add-hook 'server-after-make-frame-hook #'eaf-setup)
