@@ -22,7 +22,10 @@ SECTION is the manual section number.
 COMMAND is the name of the command."
   (interactive "sSection: \nsCommand: ")
   (let* ((url-template (aref unix-manual-list unix-manual-active))
+         (number (if (and (> (length section) 0) (not (string-match-p "[0-9]" (string (aref section (1- (length section)))))))
+                     (substring section 0 (1- (length section)))
+                   section))
          (url (if (string-match "%s.*%s.*%s" url-template)
-                  (format url-template (url-hexify-string section) (url-hexify-string command) (url-hexify-string section))
+                  (format url-template (url-hexify-string number) (url-hexify-string command) (url-hexify-string section))
                 (format url-template (url-hexify-string command) (url-hexify-string section)))))
     (eww url)))
