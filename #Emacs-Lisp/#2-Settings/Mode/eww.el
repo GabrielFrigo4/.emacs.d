@@ -3,6 +3,18 @@
 ;; ################
 
 
+;; Enable images
+(setq-default shr-inhibit-images nil)
+
+;; Use a Better Font for Reading
+(setq-default shr-use-fonts t)
+
+;; Enable JavaScript (Kind of)
+(setq-default browse-url-browser-function 'browse-url-default-browser)
+
+;; Improve Page Rendering
+(add-hook 'eww-after-render-hook 'eww-readable)
+
 ;; List of Unix Manual Links
 (setq-default unix-manual-list
               ["https://www.man7.org/linux/man-pages/man%s/%s.%s.html"

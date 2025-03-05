@@ -27,3 +27,6 @@
 
 # Emacs Compile
 *.elc
+
+# Emacs Tramp
+/tramp

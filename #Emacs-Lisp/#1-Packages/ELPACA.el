@@ -114,6 +114,10 @@
  (use-package vterm
    :ensure t))
 
+;; Install Emacs Web
+(use-package w3m
+  :ensure t)
+
 ;; Install Emacs Syntax
 (use-package highlight-numbers
   :ensure t
