@@ -3,7 +3,7 @@
 ;; ################
 
 
-;; Def *init-buffers*
+;; Set Buffer List
 (setq-default standard-buffers '("*scratch*" "*Messages*" "*Warnings*"))
 (setq-default shell-buffers '("*Shell Configuration*"))
 (setq-default pkg-buffers '("*quelpa-build-checkout*" "*straight-process*" "*Async-native-compile-log*"))
