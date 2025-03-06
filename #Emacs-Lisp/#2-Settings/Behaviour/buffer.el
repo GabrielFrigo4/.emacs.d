@@ -4,8 +4,9 @@
 
 
 ;; Def *init-buffers*
-(setq-default standard-buffers '("*scratch*" "*Messages*"))
-(setq-default init-buffers '("*Warnings*" "*Shell Configuration*" "*quelpa-build-checkout*" "*straight-process*"))
+(setq-default standard-buffers '("*scratch*" "*Messages*" "*Warnings*"))
+(setq-default shell-buffers '("*Shell Configuration*"))
+(setq-default pkg-buffers '("*quelpa-build-checkout*" "*straight-process*" "*Async-native-compile-log*"))
 (setq-default org-buffers '("*Async-native-compile-log*"))
 
 ;; Def *kill-all-buffers*
@@ -20,17 +21,25 @@
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
-;; Def *kill-init-buffers*
-(defun kill-init-buffers ()
-  "Kill Initial Buffers after Initialization."
+;; Def *kill-shell-buffers*
+(defun kill-shell-buffers ()
+  "Kill Shell Buffers."
   (interactive)
-  (dolist (buf init-buffers)
+  (dolist (buf shell-buffers)
+    (when (get-buffer buf)
+      (kill-buffer buf))))
+
+;; Def *kill-pkg-buffers*
+(defun kill-pkg-buffers ()
+  "Kill Packages Buffers."
+  (interactive)
+  (dolist (buf pkg-buffers)
     (when (get-buffer buf)
       (kill-buffer buf))))
 
 ;; Def *kill-org-buffers*
 (defun kill-org-buffers ()
-  "Kill Org Mode Buffers after Setup."
+  "Kill Org Mode Buffers."
   (interactive)
   (dolist (buf org-buffers)
     (when (get-buffer buf)
@@ -50,10 +59,11 @@
 ;; ################
 
 
-;; Kill Initial Buffers
-(add-hook 'emacs-startup-hook #'kill-init-buffers)
-(add-hook 'window-setup-hook #'kill-init-buffers)
-(add-hook 'elpaca-after-init-hook #'kill-init-buffers)
+;; Kill Shell Buffers
+(add-hook 'window-setup-hook #'kill-shell-buffers)
+
+;; Kill Packages Buffers
+(add-hook 'elpaca-after-init-hook #'kill-pkg-buffers)
 
 ;; Kill Org Mode Buffers
 (add-hook 'org-load-hook #'kill-org-buffers)
