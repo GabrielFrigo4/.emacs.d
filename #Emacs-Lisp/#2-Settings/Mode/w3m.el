@@ -7,6 +7,9 @@
 (require 'w3m-load)
 (require 'mime-w3m)
 
+;; Set Display Mode to Plain
+(w3m-display-mode 'plain)
+
 ;; List of Unix Manual Links
 (setq-default unix-manual-list
               ["https://www.man7.org/linux/man-pages/man%s/%s.%s.html"
@@ -49,8 +52,8 @@ COMMAND is the name of the command."
                 (format url-template (url-hexify-string command) (url-hexify-string section)))))
     (eww url)))
 
-;; Create Alias of Unix Manual Online (EWW)
-(defalias 'mandoc 'eww/mandoc
+;; Create Alias of Unix Manual Online (W3M)
+(defalias 'mandoc 'w3m/mandoc
   "Unix Manual Pages Online (Linux/BSD Manual Pages).
 SECTION is the manual section number.
 COMMAND is the name of the command.")
