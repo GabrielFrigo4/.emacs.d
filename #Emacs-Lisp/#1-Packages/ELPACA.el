@@ -98,13 +98,34 @@
   :config
   (add-hook 'org-mode-hook 'org-superstar-mode))
 
-;; Install TeX and LaTeX
-(use-package tex
-  :ensure auctex
-  :hook (latex-mode-hook . preview-latex-mode))
-(use-package cdlatex
+;; Install Emacs PDF
+(use-package pdf-tools
   :ensure t
-  :hook (latex-mode . turn-on-cdlatex))
+  :config (pdf-tools-install)
+  :hook (pdf-view-mode . (lambda () (display-line-numbers-mode -1))))
+
+;; Install Emacs TeX
+(use-package auctex
+  :ensure t
+  :defer t
+  :hook (latex-mode-hook . preview-latex-mode)
+  :hook (TeX-after-compilation-finished-functions . TeX-revert-document-buffer)
+  :config
+  (progn
+    ;; Enable Syntax Highlighting Inside Math Mode
+    (setq-default font-latex-fontify-script t)
+    ;; Set TeX Settings
+    (setq-default TeX-auto-save t)
+    (setq-default TeX-parse-self t)
+    (setq-default TeX-master nil)
+    ;; Enable PDF Mode by Default
+    (setq-default TeX-PDF-mode t)
+    (setq-default TeX-view-program-selection '((output-pdf "PDF Tools")))
+    ;; Use `TeX-source-correlate-mode` for Search
+    (setq-default TeX-source-correlate-mode t)
+    (setq-default TeX-source-correlate-method 'synctex)))
+(use-package cdlatex
+  :ensure t)
 
 ;; Install Emacs Web
 (use-package w3m
