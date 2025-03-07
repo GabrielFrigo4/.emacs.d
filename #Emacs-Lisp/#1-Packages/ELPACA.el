@@ -112,12 +112,9 @@
   :hook (TeX-after-compilation-finished-functions . TeX-revert-document-buffer)
   :config
   (progn
-    ;; Enable Syntax Highlighting Inside Math Mode
-    (setq-default font-latex-fontify-script t)
     ;; Set TeX Settings
     (setq-default TeX-auto-save t)
     (setq-default TeX-parse-self t)
-    (setq-default TeX-master nil)
     ;; Enable PDF Mode by Default
     (setq-default TeX-PDF-mode t)
     (setq-default TeX-view-program-selection '((output-pdf "PDF Tools")))

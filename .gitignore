@@ -30,3 +30,6 @@
 
 # Emacs Tramp
 /tramp
+
+# Emacs IDO
+/ido.last
