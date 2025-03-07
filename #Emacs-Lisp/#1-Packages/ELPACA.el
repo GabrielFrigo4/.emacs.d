@@ -95,13 +95,19 @@
 ;; Install Emacs Org
 (use-package org-superstar
   :ensure (:type git :host github :repo "integral-dw/org-superstar-mode")
-  :config 
+  :config
   (add-hook 'org-mode-hook 'org-superstar-mode))
 
-;; Install Emacs Regex
-(use-package visual-regexp
-  :ensure t)
-(use-package visual-regexp-steroids
+;; Install TeX and LaTeX
+(use-package tex
+  :ensure auctex
+  :hook (latex-mode-hook . preview-latex-mode))
+(use-package cdlatex
+  :ensure t
+  :hook (latex-mode . turn-on-cdlatex))
+
+;; Install Emacs Web
+(use-package w3m
   :ensure t)
 
 ;; Install Emacs Tool
@@ -114,8 +120,10 @@
  (use-package vterm
    :ensure t))
 
-;; Install Emacs Web
-(use-package w3m
+;; Install Emacs Regex
+(use-package visual-regexp
+  :ensure t)
+(use-package visual-regexp-steroids
   :ensure t)
 
 ;; Install Emacs Syntax

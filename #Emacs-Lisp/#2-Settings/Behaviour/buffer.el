@@ -63,7 +63,6 @@
 (add-hook 'elpaca-after-init-hook #'kill-pkg-buffers)
 
 ;; Kill Shell Buffers
-(add-hook 'emacs-startup-hook #'kill-shell-buffers)
 (add-hook 'window-setup-hook #'kill-shell-buffers)
 
 ;; Kill Org Mode Buffers
