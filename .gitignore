@@ -29,7 +29,9 @@
 *.elc
 
 # Emacs Tramp
+/tramp~
 /tramp
 
 # Emacs IDO
+/ido.last~
 /ido.last

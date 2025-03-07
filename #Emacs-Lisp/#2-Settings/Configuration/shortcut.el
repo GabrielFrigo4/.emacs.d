@@ -46,6 +46,8 @@
 ;; Quit
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+;; Kill Process
+(global-set-key (kbd "C-c k") 'kill-process)
 
 ;; ################
 ;; # Terminal

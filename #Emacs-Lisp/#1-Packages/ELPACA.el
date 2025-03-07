@@ -138,6 +138,19 @@
  (use-package vterm
    :ensure t))
 
+;; Install Emacs Edit
+(use-package paredit
+  :ensure t)
+(use-package smartparens
+  :ensure t
+  :hook (prog-mode . smartparens-mode)
+  :config
+  (require 'smartparens-config))
+(use-package dash
+  :ensure t
+  :config
+  (global-dash-fontify-mode))
+
 ;; Install Emacs Regex
 (use-package visual-regexp
   :ensure t)

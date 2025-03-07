@@ -15,8 +15,8 @@
 ;; Remove Font Caches
 (setq-default inhibit-compacting-font-caches t)
 
-;; Enable *whitespace-mode*
-(whitespace-mode t)
+;; Disable White Space Mode
+(global-whitespace-mode -1)
 
 ;; Remove End Line Wrap
 (set-default 'truncate-lines t)
