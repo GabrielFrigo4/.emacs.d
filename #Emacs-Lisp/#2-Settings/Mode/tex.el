@@ -67,4 +67,4 @@
 (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
 
 ;; Use TAB for Quick Insertion
-(setq cdlatex-tab-style 'electric)
+;;(setq-default cdlatex-tab-style 'electric)
