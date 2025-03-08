@@ -6,8 +6,10 @@
 ## TODO
  Todo List (Emacs Current)
  ```
- Apply: [completion-preview-mode>]
+ Apply: [<completion-preview-mode>]
  Update: [Lisp (Slime IDE)]
+ Update: [Preview LaTeX]
+ Update: [Aweshell]
  ```
 
  Todo List (Emacs 31)
