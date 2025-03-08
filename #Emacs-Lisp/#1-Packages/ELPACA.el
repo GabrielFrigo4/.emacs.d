@@ -109,6 +109,7 @@
   :ensure t
   :defer t
   :hook (latex-mode-hook . preview-latex-mode)
+  :hook (latex-mode-hook . TeX-source-correlate-mode)
   :hook (TeX-after-compilation-finished-functions . TeX-revert-document-buffer)
   :config
   (progn
@@ -118,8 +119,7 @@
     ;; Enable PDF Mode by Default
     (setq-default TeX-PDF-mode t)
     (setq-default TeX-view-program-selection '((output-pdf "PDF Tools")))
-    ;; Use `TeX-source-correlate-mode` for Search
-    (setq-default TeX-source-correlate-mode t)
+    ;; Set Correlate Method for Search
     (setq-default TeX-source-correlate-method 'synctex)))
 (use-package cdlatex
   :ensure t)

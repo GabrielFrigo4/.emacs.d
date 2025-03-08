@@ -18,8 +18,8 @@
 ;; Disable White Space Mode
 (global-whitespace-mode -1)
 
-;; Remove End Line Wrap
-(set-default 'truncate-lines t)
+;; Enable End Line Wrap
+(set-default 'truncate-lines nil)
 
 ;; On OSX, swap Meta and Super
 ;; For Better Keyboard Ergonomics

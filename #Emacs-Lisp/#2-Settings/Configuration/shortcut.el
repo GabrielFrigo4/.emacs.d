@@ -68,17 +68,17 @@
 (global-set-key (kbd "C-c e") 'eshell)
 
 ;; Aweshell
-;; (global-set-key (kbd "C-c C-a") 'aweshell-new)
-;; (global-set-key (kbd "C-c C-a") 'aweshell-next)
-;; (global-set-key (kbd "C-c C-a") 'aweshell-prev)
+;; (global-set-key (kbd "") 'aweshell-new)
+;; (global-set-key (kbd "") 'aweshell-next)
+;; (global-set-key (kbd "") 'aweshell-prev)
 (global-set-key (kbd "C-c C-a") 'aweshell-toggle)
-;; (global-set-key (kbd "C-c C-a") 'aweshell-sudo-toggle)
-;; (global-set-key (kbd "C-c C-a") 'aweshell-autosuggest)
-;; (global-set-key (kbd "C-c C-a") 'aweshell-clear-buffer)
-;; (global-set-key (kbd "C-c C-a") 'aweshell-switch-buffer)
-;; (global-set-key (kbd "C-c C-a") 'aweshell-search-history)
-;; (global-set-key (kbd "C-c C-a") 'aweshell-dedicated-open)
-;; (global-set-key (kbd "C-c C-a") 'aweshell-dedicated-close)
+;; (global-set-key (kbd "") 'aweshell-sudo-toggle)
+;; (global-set-key (kbd "") 'aweshell-autosuggest)
+;; (global-set-key (kbd "") 'aweshell-clear-buffer)
+;; (global-set-key (kbd "") 'aweshell-switch-buffer)
+;; (global-set-key (kbd "") 'aweshell-search-history)
+;; (global-set-key (kbd "") 'aweshell-dedicated-open)
+;; (global-set-key (kbd "") 'aweshell-dedicated-close)
 (global-set-key (kbd "C-c C-d") 'aweshell-dedicated-toggle)
 
 

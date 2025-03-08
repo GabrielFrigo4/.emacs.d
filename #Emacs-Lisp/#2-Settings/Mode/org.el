@@ -35,31 +35,33 @@
                 ("DONE" . org-done-custom-face)))
 
 ;; Set TODO Font Lock
-(add-hook 'org-mode-hook (lambda ()
-                           "Replace TODO, PROGRESS and DONE keywords with UTF-8 symbols in Org Mode."
-                           (font-lock-add-keywords
-                            nil
-                            '(("^\\*+ \\(TODO\\) "
-                               (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☐) nil)))
-                              ("^\\*+ \\(PROGRESS\\) "
-                               (1 (progn (compose-region (match-beginning 1) (match-end 1) ?▣) nil)))
-                              ("^\\*+ \\(DONE\\) "
-                               (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☑) nil)))))))
+(add-hook 'org-mode-hook
+          (lambda ()
+            "Replace TODO, PROGRESS and DONE keywords with UTF-8 symbols in Org Mode."
+            (font-lock-add-keywords
+             nil
+             '(("^\\*+ \\(TODO\\) "
+                (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☐) nil)))
+               ("^\\*+ \\(PROGRESS\\) "
+                (1 (progn (compose-region (match-beginning 1) (match-end 1) ?▣) nil)))
+               ("^\\*+ \\(DONE\\) "
+                (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☑) nil)))))))
 
 ;; Set CheckBox Faces
 (set-face-attribute 'org-checkbox nil :weight 'bold :height 120)
 
 ;; Set CheckBox Font Lock
-(add-hook 'org-mode-hook (lambda ()
-                           "Replace Org Mode CheckBox symbols with UTF-8 characters."
-                           (font-lock-add-keywords
-                            nil
-                            '(("^[\t ]*-[\t ]*\\(\\[ \\]\\)"
-                               (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☐) nil)))
-                              ("^[\t ]*-[\t ]*\\(\\[-\\]\\)"
-                               (1 (progn (compose-region (match-beginning 1) (match-end 1) ?▣) nil)))
-                              ("^[\t ]*-[\t ]*\\(\\[X\\]\\)"
-                               (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☑) nil)))))))
+(add-hook 'org-mode-hook
+          (lambda ()
+            "Replace Org Mode CheckBox symbols with UTF-8 characters."
+            (font-lock-add-keywords
+             nil
+             '(("^[\t ]*-[\t ]*\\(\\[ \\]\\)"
+                (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☐) nil)))
+               ("^[\t ]*-[\t ]*\\(\\[-\\]\\)"
+                (1 (progn (compose-region (match-beginning 1) (match-end 1) ?▣) nil)))
+               ("^[\t ]*-[\t ]*\\(\\[X\\]\\)"
+                (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☑) nil)))))))
 
 ;; Append *org-src-lang-modes*
 (with-eval-after-load 'org
