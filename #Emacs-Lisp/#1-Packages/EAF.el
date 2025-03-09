@@ -36,3 +36,45 @@
 
 ;; Setup EAF only in a Server Frame
 (add-hook 'server-after-make-frame-hook #'eaf-setup)
+
+
+;; ################
+;; # Functions
+;; ################
+
+
+;; Google
+(defun eaf-open-google ()
+  "Open EAF Browser with Google Search"
+  (interactive)
+  (eaf-open-browser "google.com"))
+
+;; DuckDuckGo
+(defun eaf-open-duckduckgo ()
+  "Open EAF Browser with DuckDuckGo Search"
+  (interactive)
+  (eaf-open-browser "duckduckgo.com"))
+
+;; Bing
+(defun eaf-open-bing ()
+  "Open EAF Browser with Bing Search"
+  (interactive)
+  (eaf-open-browser "bing.com"))
+
+
+;; ################
+;; # Alias
+;; ################
+
+
+;; Google
+(defalias 'google 'eaf-open-google
+  "Open EAF Browser with Google Search")
+
+;; DuckDuckGo
+(defalias 'duckduckgo 'eaf-open-duckduckgo
+  "Open EAF Browser with DuckDuckGo Search")
+
+;; Bing
+(defalias 'bing 'eaf-open-bing
+  "Open EAF Browser with Bing Search")
