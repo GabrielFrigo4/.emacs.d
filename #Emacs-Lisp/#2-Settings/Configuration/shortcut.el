@@ -48,6 +48,9 @@
 
 ;; Kill Process
 (global-set-key (kbd "C-c k") 'kill-process)
+(global-set-key (kbd "C-c C-k") 'eshell-kill-process)
+(global-set-key (kbd "C-c M-k") 'eaf-kill-process)
+
 
 ;; ################
 ;; # Terminal
