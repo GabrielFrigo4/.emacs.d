@@ -124,13 +124,23 @@
     (setq-default TeX-auto-save nil)
     (setq-default TeX-master t)
     ;; Set Cache Preamble and Files
-    (setq-default preview-auto-cache-preamble nil)
+    (setq-default preview-auto-cache-preamble t)
     (setq-default TeX-output-dir (expand-file-name "emacs-tex-out" temporary-file-directory))
     ;; Enable PDF Mode by Default
     (setq-default TeX-PDF-mode t)
     (setq-default TeX-view-program-selection '((output-pdf "PDF Tools")))
     ;; Set Correlate Method for Search
-    (setq-default TeX-source-correlate-method 'synctex)))
+    (setq-default TeX-source-correlate-method 'synctex)
+    ;; Set Preview Image Type
+    (setq-default preview-image-type 'dvipng)
+    (append preview-default-preamble
+            '("graphicx"
+              "fontenc"
+              "mathtools"
+              "mathrsfs"
+              "amssymb"
+              "amsthm"
+              "amsmath"))))
 
 ;; Install Emacs PDF
 (use-package pdf-tools
