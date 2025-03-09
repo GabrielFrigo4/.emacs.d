@@ -39,7 +39,7 @@
 ;; Start Preview LaTeX
 (add-hook 'find-file-hook
           (lambda ()
-            (when (eq major-mode 'LaTeX-mode)
+            (when (and (not (zerop (buffer-size))) (eq major-mode 'LaTeX-mode))
               (let ((current-buffer (current-buffer)))
                 (preview-buffer)
                 (switch-to-buffer current-buffer)))))
