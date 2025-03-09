@@ -42,6 +42,31 @@
 ;; Enable Auto Cache Preamble
 (setq-default preview-auto-cache-preamble t)
 
+;; Use GhostScript Method
+(setq-default preview-pdf-color-adjust-method t)
+
+;; Recreate Preview Images Files
+(defun invert-black-preview-images ()
+  "Invert only black to white in AUCTeX preview images using ImageMagick."
+  (interactive)
+  (shell-command (format "mogrify -fuzz 10%% -fill \"RGB(144,144,144)\" -opaque black -format png %s/*/*/*.png" TeX-output-dir))
+  (preview-toggle nil))
+
+;; Add Advice to Preview Buffer
+(advice-add 'preview-buffer :after
+            (lambda ()
+              (run-at-time "1 sec" nil #'invert-black-preview-images)))
+
+;; Add Advice to Preview Document
+(advice-add 'preview-document :after
+            (lambda ()
+              (run-at-time "1 sec" nil #'invert-black-preview-images)))
+
+;; Add Advice to Preview Document
+(advice-add 'preview-regenerate :after
+            (lambda ()
+              (run-at-time "1 sec" nil #'invert-black-preview-images)))
+
 
 ;; ################
 ;; # AUCTeX
@@ -52,14 +77,14 @@
 (defun setup-preview-latex ()
   (when (and (not (zerop (buffer-size))) (eq major-mode 'LaTeX-mode))
     (setq-local preview-default-option-list
-              (append preview-default-option-list
-                      '("graphicx"
-                        "fontenc"
-                        "mathtools"
-                        "mathrsfs"
-                        "amssymb"
-                        "amsthm"
-                        "amsmath")))
+                (append preview-default-option-list
+                        '("graphicx"
+                          "fontenc"
+                          "mathtools"
+                          "mathrsfs"
+                          "amssymb"
+                          "amsthm"
+                          "amsmath")))
     (let ((current-buffer (current-buffer)))
       (preview-buffer)
       (switch-to-buffer current-buffer))))
