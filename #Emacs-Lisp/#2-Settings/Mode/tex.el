@@ -32,6 +32,18 @@
 
 
 ;; ################
+;; # Preview
+;; ################
+
+
+;; Set Preview Image Type
+(setq-default preview-image-type 'dvipng)
+
+;; Enable Auto Cache Preamble
+(setq-default preview-auto-cache-preamble t)
+
+
+;; ################
 ;; # AUCTeX
 ;; ################
 
@@ -39,6 +51,15 @@
 ;; Setup Preview LaTeX
 (defun setup-preview-latex ()
   (when (and (not (zerop (buffer-size))) (eq major-mode 'LaTeX-mode))
+    (setq-local preview-default-option-list
+              (append preview-default-option-list
+                      '("graphicx"
+                        "fontenc"
+                        "mathtools"
+                        "mathrsfs"
+                        "amssymb"
+                        "amsthm"
+                        "amsmath")))
     (let ((current-buffer (current-buffer)))
       (preview-buffer)
       (switch-to-buffer current-buffer))))
