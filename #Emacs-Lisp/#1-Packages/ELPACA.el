@@ -104,25 +104,31 @@
   :config (pdf-tools-install)
   :hook (pdf-view-mode . (lambda () (display-line-numbers-mode -1))))
 
-;; Install Emacs TeX
+;; Install Emacs TeX / LaTeX
+(use-package cdlatex
+  :ensure t)
 (use-package auctex
   :ensure t
   :defer t
-  :hook (latex-mode-hook . preview-latex-mode)
-  :hook (latex-mode-hook . TeX-source-correlate-mode)
+  :hook (LaTeX-mode-hook . preview-latex-mode)
+  :hook (LaTeX-mode-hook . TeX-source-correlate-mode)
   :hook (TeX-after-compilation-finished-functions . TeX-revert-document-buffer)
   :config
   (progn
     ;; Set TeX Settings
-    (setq-default TeX-auto-save t)
-    (setq-default TeX-parse-self t)
+    (setq-default TeX-parse-self nil)
+    (setq-default TeX-save-parse nil)
+    (setq-default TeX-save-query nil)
+    (setq-default TeX-auto-save nil)
+    (setq-default TeX-master t)
+    ;; Set Cache Preamble and Files
+    (setq-default preview-auto-cache-preamble nil)
+    (setq-default TeX-output-dir (expand-file-name "emacs-tex-out" temporary-file-directory))
     ;; Enable PDF Mode by Default
     (setq-default TeX-PDF-mode t)
     (setq-default TeX-view-program-selection '((output-pdf "PDF Tools")))
     ;; Set Correlate Method for Search
     (setq-default TeX-source-correlate-method 'synctex)))
-(use-package cdlatex
-  :ensure t)
 
 ;; Install Emacs Web
 (use-package w3m

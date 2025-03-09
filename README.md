@@ -8,7 +8,6 @@
  ```
  Apply: [<completion-preview-mode>]
  Update: [Lisp (Slime IDE)]
- Update: [Preview LaTeX]
  Update: [Aweshell]
  ```
 
