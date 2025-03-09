@@ -81,7 +81,7 @@
 (use-package ob-async
   :ensure t)
 
-;; Install Emacs Text
+;; Install Emacs Font
 (use-package mixed-pitch
   :ensure t)
 
@@ -98,14 +98,13 @@
   :config
   (add-hook 'org-mode-hook 'org-superstar-mode))
 
-;; Install Emacs PDF
-(use-package pdf-tools
+;; Install Emacs Markdown
+(use-package markdown-mode
   :ensure t
-  :config
-  (progn
-    (pdf-tools-install)
-    (setq-default pdf-view-use-scaling t))
-  :hook (pdf-view-mode . (lambda () (display-line-numbers-mode -1))))
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown")
+  :bind (:map markdown-mode-map
+              ("C-c C-e" . markdown-do)))
 
 ;; Install Emacs TeX / LaTeX
 (use-package cdlatex
@@ -132,6 +131,15 @@
     (setq-default TeX-view-program-selection '((output-pdf "PDF Tools")))
     ;; Set Correlate Method for Search
     (setq-default TeX-source-correlate-method 'synctex)))
+
+;; Install Emacs PDF
+(use-package pdf-tools
+  :ensure t
+  :config
+  (progn
+    (pdf-tools-install)
+    (setq-default pdf-view-use-scaling t))
+  :hook (pdf-view-mode . (lambda () (display-line-numbers-mode -1))))
 
 ;; Install Emacs Web
 (use-package w3m

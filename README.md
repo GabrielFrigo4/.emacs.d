@@ -6,7 +6,6 @@
 ## TODO
  Todo List (Emacs Current)
  ```
- Apply: [<completion-preview-mode>]
  Update: [Lisp (Slime IDE)]
  Update: [Aweshell]
  ```
@@ -54,7 +53,7 @@
 
 ## Elisp Symbols
  Get Symbols
- ``` elisp
+ ```elisp
  (setq-local variable-names '())
  (setq-local function-names '())
  (setq-local macro-names '())
@@ -74,7 +73,7 @@
  ```
 
  Show Variables
- ``` elisp
+ ```elisp
  (let ((xbuff (generate-new-buffer "*output-variables*")))
    (with-output-to-temp-buffer xbuff
      (dolist (v variable-names)
@@ -83,7 +82,7 @@
  ```
 
  Show Functions
- ``` elisp
+ ```elisp
  (let ((xbuff (generate-new-buffer "*output-functions*")))
    (with-output-to-temp-buffer xbuff
      (dolist (f function-names)
@@ -92,7 +91,7 @@
  ```
 
  Show Macros
- ``` elisp
+ ```elisp
  (let ((xbuff (generate-new-buffer "*output-macros*")))
    (with-output-to-temp-buffer xbuff
      (dolist (m macro-names)
