@@ -101,7 +101,10 @@
 ;; Install Emacs PDF
 (use-package pdf-tools
   :ensure t
-  :config (pdf-tools-install)
+  :config
+  (progn
+    (pdf-tools-install)
+    (setq-default pdf-view-use-scaling t))
   :hook (pdf-view-mode . (lambda () (display-line-numbers-mode -1))))
 
 ;; Install Emacs TeX / LaTeX

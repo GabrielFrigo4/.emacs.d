@@ -36,13 +36,14 @@
 ;; ################
 
 
-;; Start Preview LaTeX
-(add-hook 'find-file-hook
-          (lambda ()
-            (when (and (not (zerop (buffer-size))) (eq major-mode 'LaTeX-mode))
-              (let ((current-buffer (current-buffer)))
-                (preview-buffer)
-                (switch-to-buffer current-buffer)))))
+;; Setup Preview LaTeX
+(defun setup-preview-latex ()
+  (when (and (not (zerop (buffer-size))) (eq major-mode 'LaTeX-mode))
+    (let ((current-buffer (current-buffer)))
+      (preview-buffer)
+      (switch-to-buffer current-buffer))))
+(add-hook 'find-file-hook #'setup-preview-latex)
+(add-hook 'after-save-hook #'setup-preview-latex)
 
 
 ;; ################
