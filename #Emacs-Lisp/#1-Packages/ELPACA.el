@@ -224,15 +224,6 @@
     (setq-default neo-show-hidden-files t)))
 
 ;; Install Auto-Completion
-(use-package company
-  :ensure t
-  :hook (after-init . global-company-mode)
-  :config
-  (progn
-    (setq-default company-minimum-prefix-length 3)
-    (setq-default company-dabbrev-downcase 0)
-    (setq-default company-idle-delay
-                  (lambda () (if (company-in-string-or-comment) nil 0.9)))))
 (use-package vertico
   :ensure t
   :custom
@@ -242,6 +233,18 @@
   (completion-styles '(basic substring partial-completion flex))
   :config
   (vertico-mode))
+(use-package company
+  :ensure t
+  :hook (after-init . global-company-mode)
+  :config
+  (progn
+    (setq-default company-minimum-prefix-length 3)
+    (setq-default company-dabbrev-downcase 0)
+    (setq-default company-idle-delay
+                  (lambda ()
+                    (if (company-in-string-or-comment)
+                        nil
+                      2.0)))))
 
 ;; Wait (ELPACA)
 (elpaca-wait)
