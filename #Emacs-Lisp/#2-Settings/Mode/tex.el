@@ -49,8 +49,7 @@
 (defun invert-black-preview-images ()
   "Invert only black to white in AUCTeX preview images using ImageMagick."
   (interactive)
-  (shell-command (format "mogrify -fuzz 10%% -fill \"RGB(144,144,144)\" -opaque black -format png %s/*/*/*.png" TeX-output-dir))
-  (preview-toggle nil))
+  (shell-command (format "mogrify -fuzz 10%% -fill \"RGB(144,144,144)\" -opaque black -format png %s/*/*/*.png" TeX-output-dir)))
 
 ;; Add Advice to Preview Buffer
 (advice-add 'preview-buffer :after
@@ -88,8 +87,8 @@
     (let ((current-buffer (current-buffer)))
       (preview-buffer)
       (switch-to-buffer current-buffer))))
-;;(add-hook 'find-file-hook #'setup-preview-latex)
-;;(add-hook 'after-save-hook #'setup-preview-latex)
+(add-hook 'find-file-hook #'setup-preview-latex)
+(add-hook 'after-save-hook #'setup-preview-latex)
 
 
 ;; ################
