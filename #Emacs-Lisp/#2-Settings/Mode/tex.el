@@ -88,8 +88,8 @@
     (let ((current-buffer (current-buffer)))
       (preview-buffer)
       (switch-to-buffer current-buffer))))
-(add-hook 'find-file-hook #'setup-preview-latex)
-(add-hook 'after-save-hook #'setup-preview-latex)
+;;(add-hook 'find-file-hook #'setup-preview-latex)
+;;(add-hook 'after-save-hook #'setup-preview-latex)
 
 
 ;; ################
