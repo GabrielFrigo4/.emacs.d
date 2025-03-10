@@ -112,8 +112,7 @@
 (use-package auctex
   :ensure t
   :defer t
-  :hook (LaTeX-mode-hook . preview-latex-mode)
-  :hook (LaTeX-mode-hook . TeX-source-correlate-mode)
+  :hook (LaTeX-mode . TeX-source-correlate-mode)
   :hook (TeX-after-compilation-finished-functions . TeX-revert-document-buffer)
   :config
   (progn
@@ -135,10 +134,11 @@
 (use-package pdf-tools
   :ensure t
   :config
-  (progn
-    (pdf-tools-install)
-    (setq-default pdf-view-use-scaling t))
-  :hook (pdf-view-mode . (lambda () (display-line-numbers-mode -1))))
+  (pdf-tools-install)
+  :hook
+  (pdf-view-mode . (lambda ()
+                          (display-line-numbers-mode -1)
+                          (pdf-view-midnight-minor-mode t))))
 
 ;; Install Emacs Web
 (use-package w3m
