@@ -31,7 +31,7 @@
 (add-hook 'LaTeX-mode-hook #'TeX-setup-tab-width)
 
 ;; Enable / Disable Previw Latex Bool
-(setq-default enable-preview-latex nil)
+(setq-default enable-preview-latex t)
 
 
 ;; ################
@@ -62,17 +62,33 @@
                 "mogrify -fuzz 3%% -fill \"RGB(212,212,212)\" -opaque \"RGB(7,7,7)\" -format png %s/*/*/*.png"))
 
 ;; Recreate Preview Images Files
+(setq-default __process-remeing__ nil)
 (defun invert-black-preview-images ()
   "Invert only Black to White in AUCTeX Preview Images Using ImageMagick."
+  (setq-default __process-remeing__ (length preview-cmd-template-list))
   (dolist (cmd-template preview-cmd-template-list)
-    (async-shell-command (format cmd-template TeX-output-dir) "*Message*")
-    (sleep-for 0.25))
-  (run-at-time "8 sec" nil (lambda () (switch-to-buffer setup-latex-buffer))))
+    (let ((proc (start-process-shell-command cmd-template nil (format cmd-template TeX-output-dir))))
+      (message "Command Process Create!")
+      (set-process-sentinel
+       proc
+       (lambda (process event)
+         (when (string-match-p "finished" event)
+           (message "Command Process Finish!")
+           (setq-default __process-remeing__ (1- __process-remeing__))
+           (when (zerop __process-remeing__)
+             (message "Finish Setup Latex Preview")
+             (if-windows
+              (run-at-time "2 sec" nil (lambda () (switch-to-buffer __latex-buffer__)))
+              (run-at-time "1 sec" nil (lambda () (switch-to-buffer __latex-buffer__)))))))))
+    (sleep-for 0.25)))
 
 ;; Setup LaTeX Preview
 (defun setup-latex-preview ()
-  "Setup LaTeX Preview"
-  (run-at-time "4 sec" nil #'invert-black-preview-images))
+  "Setup LaTeX Preview Images"
+  (message "Init Setup Latex Preview")
+  (if-windows
+   (run-at-time "6 sec" nil #'invert-black-preview-images)
+   (run-at-time "4 sec" nil #'invert-black-preview-images)))
 
 ;; Add Advice to Preview Buffer
 (advice-add 'preview-buffer :after #'setup-latex-preview)
@@ -93,17 +109,18 @@
                 "amsmath"))
 
 ;; Setup Preview LaTeX
-(setq-default setup-latex-buffer nil)
+(setq-default __latex-buffer__ nil)
 (defun setup-preview-latex ()
-  (when (and (not (zerop (buffer-size))) (eq major-mode 'LaTeX-mode))
-    (setq-default setup-latex-buffer (current-buffer))
+  (when (and
+         (and
+          (not (zerop (buffer-size)))
+          (eq major-mode 'LaTeX-mode))
+         (eq enable-preview-latex t))
+    (setq-default __latex-buffer__ (current-buffer))
     (preview-buffer)
     (switch-to-buffer "*Messages*")))
-
-;; Enable / Disable Previw Latex
-(when (eq enable-preview-latex t)
-  (add-hook 'find-file-hook #'setup-preview-latex)
-  (add-hook 'after-save-hook #'setup-preview-latex))
+(add-hook 'find-file-hook #'setup-preview-latex)
+(add-hook 'after-save-hook #'setup-preview-latex)
 
 
 ;; ################
