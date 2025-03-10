@@ -48,3 +48,11 @@
 
 ;; Add Hook *ob-async-pre-execute-src-block-hook*
 (add-hook 'ob-async-pre-execute-src-block-hook setup-coding-systems)
+
+
+;; ################
+;; # Async
+;; ################
+
+
+(setq-default async-shell-command-buffer 'new-buffer)

@@ -11,7 +11,7 @@
 (w3m-display-mode 'plain)
 
 ;; List of Unix Manual Links
-(setq-default unix-manual-list
+(setq-default unix-manual-template-list
               ["https://www.man7.org/linux/man-pages/man%s/%s.%s.html"
                "https://man.cx/%s(%s)"
                "https://man.freebsd.org/cgi/man.cgi?query=%s&sektion=%s"
@@ -28,7 +28,7 @@
 SECTION is the manual section number.
 COMMAND is the name of the command."
   (interactive "sSection: \nsCommand: ")
-  (let* ((url-template (aref unix-manual-list unix-manual-active))
+  (let* ((url-template (aref unix-manual-template-list unix-manual-active))
          (number (if (and (> (length section) 0) (not (string-match-p "[0-9]" (string (aref section (1- (length section)))))))
                      (substring section 0 (1- (length section)))
                    section))
@@ -43,7 +43,7 @@ COMMAND is the name of the command."
 SECTION is the manual section number.
 COMMAND is the name of the command."
   (interactive "sSection: \nsCommand: ")
-  (let* ((url-template (aref unix-manual-list unix-manual-active))
+  (let* ((url-template (aref unix-manual-template-list unix-manual-active))
          (number (if (and (> (length section) 0) (not (string-match-p "[0-9]" (string (aref section (1- (length section)))))))
                      (substring section 0 (1- (length section)))
                    section))
