@@ -31,7 +31,9 @@
 (add-hook 'LaTeX-mode-hook #'TeX-setup-tab-width)
 
 ;; Enable / Disable Previw Latex Bool
-(setq-default enable-preview-latex t)
+(if-windows
+ (setq-default enable-preview-latex nil)
+ (setq-default enable-preview-latex t))
 
 
 ;; ################
@@ -48,53 +50,16 @@
 ;; Use GhostScript Method
 (setq-default preview-pdf-color-adjust-method t)
 
-;; Command List
-;; [212;42] => 170
-;; [28;7] => 21
-(setq-default preview-cmd-template-list
-              '("mogrify -fuzz 0%% -fill \"RGB(42,42,42)\" -opaque \"RGB(28,28,28)\" -format png %s/*/*/*.png"
-                "mogrify -fuzz 1%% -fill \"RGB(93,93,93)\" -opaque \"RGB(22,22,22)\" -format png %s/*/*/*.png"
-                "mogrify -fuzz 2%% -fill \"RGB(127,127,127)\" -opaque \"RGB(17,17,17)\" -format png %s/*/*/*.png"
-                "mogrify -fuzz 2%% -fill \"RGB(144,144,144)\" -opaque \"RGB(15,15,15)\" -format png %s/*/*/*.png"
-                "mogrify -fuzz 2%% -fill \"RGB(161,161,161)\" -opaque \"RGB(13,13,13)\" -format png %s/*/*/*.png"
-                "mogrify -fuzz 3%% -fill \"RGB(178,178,178)\" -opaque \"RGB(11,11,11)\" -format png %s/*/*/*.png"
-                "mogrify -fuzz 3%% -fill \"RGB(195,195,195)\" -opaque \"RGB(9,9,9)\" -format png %s/*/*/*.png"
-                "mogrify -fuzz 3%% -fill \"RGB(212,212,212)\" -opaque \"RGB(7,7,7)\" -format png %s/*/*/*.png"))
+;; Use #3-Scripts for GhostScript
+(if-windows
+ (setq-default preview-gs-command (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Sources/GhostScript/gs-mogrify.cmd"))
+ (setq-default preview-gs-command (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Sources/GhostScript/gs-mogrify.sh")))
 
-;; Recreate Preview Images Files
-(setq-default __process-remeing__ nil)
-(defun invert-black-preview-images ()
-  "Invert only Black to White in AUCTeX Preview Images Using ImageMagick."
-  (setq-default __process-remeing__ (length preview-cmd-template-list))
-  (dolist (cmd-template preview-cmd-template-list)
-    (let ((proc (start-process-shell-command cmd-template nil (format cmd-template TeX-output-dir))))
-      (message "Command Process Create!")
-      (set-process-sentinel
-       proc
-       (lambda (process event)
-         (when (string-match-p "finished" event)
-           (message "Command Process Finish!")
-           (setq-default __process-remeing__ (1- __process-remeing__))
-           (when (zerop __process-remeing__)
-             (message "Finish Setup Latex Preview")
-             (if-windows
-              (run-at-time "2 sec" nil (lambda () (switch-to-buffer __latex-buffer__)))
-              (run-at-time "1 sec" nil (lambda () (switch-to-buffer __latex-buffer__)))))))))
-    (sleep-for 0.25)))
-
-;; Setup LaTeX Preview
-(defun setup-latex-preview ()
-  "Setup LaTeX Preview Images"
-  (message "Init Setup Latex Preview")
-  (if-windows
-   (run-at-time "6 sec" nil #'invert-black-preview-images)
-   (run-at-time "4 sec" nil #'invert-black-preview-images)))
-
-;; Add Advice to Preview Buffer
-(advice-add 'preview-buffer :after #'setup-latex-preview)
-
-;; Add Advice to Preview Document
-(advice-add 'preview-document :after #'setup-latex-preview)
+;; Define Preview LaTeX
+(defun preview-latex ()
+  "Preview Inline LaTeX Without Break Colors"
+  (interactive)
+  (preview-region (point-min) (point-max)))
 
 
 ;; ################
@@ -109,16 +74,15 @@
                 "amsmath"))
 
 ;; Setup Preview LaTeX
-(setq-default __latex-buffer__ nil)
 (defun setup-preview-latex ()
   (when (and
          (and
           (not (zerop (buffer-size)))
           (eq major-mode 'LaTeX-mode))
          (eq enable-preview-latex t))
-    (setq-default __latex-buffer__ (current-buffer))
-    (preview-buffer)
-    (switch-to-buffer "*Messages*")))
+    (let ((__latex-buffer__ (current-buffer)))
+      (preview-latex)
+      (switch-to-buffer __latex-buffer__))))
 (add-hook 'find-file-hook #'setup-preview-latex)
 (add-hook 'after-save-hook #'setup-preview-latex)
 

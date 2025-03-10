@@ -109,3 +109,12 @@
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
+
+
+;; ################
+;; # LaTeX / TeX
+;; ################
+
+
+;; Preview
+(global-set-key (kbd "C-c p") #'preview-latex)
