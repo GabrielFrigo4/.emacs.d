@@ -137,8 +137,8 @@
   (pdf-tools-install)
   :hook
   (pdf-view-mode . (lambda ()
-                          (display-line-numbers-mode -1)
-                          (pdf-view-midnight-minor-mode t))))
+                     (display-line-numbers-mode -1)
+                     (pdf-view-midnight-minor-mode t))))
 
 ;; Install Emacs Web
 (use-package w3m
