@@ -50,10 +50,8 @@
 ;; Use GhostScript Method
 (setq-default preview-pdf-color-adjust-method t)
 
-;; Use #3-Scripts for GhostScript
-(if-windows
- (setq-default preview-gs-command (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Sources/GhostScript/gs-mogrify.cmd"))
- (setq-default preview-gs-command (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Sources/GhostScript/gs-mogrify.sh")))
+;; Use #3-Sources for GhostScript
+(setq-default preview-gs-command (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Sources/GhostScript/gs-mogrify.pyw"))
 
 ;; Define Preview LaTeX
 (defun preview-latex ()
