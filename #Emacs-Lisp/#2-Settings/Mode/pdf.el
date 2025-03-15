@@ -1,4 +1,18 @@
 ;; ################
+;; # PDF
+;; ################
+
+
+;; ################
+;; # PDF-TOOLS
+;; ################
+
+
+;; Setup MSYS2
+(setq-default pdf-tools-msys2-directory (concat (getenv "HOME") "/scoop/apps/msys2/current/"))
+
+
+;; ################
 ;; # PDF-VIEW
 ;; ################
 
