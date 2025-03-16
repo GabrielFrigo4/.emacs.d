@@ -39,11 +39,24 @@
 ;; ################
 
 
-;;Clear
-(defalias 'clear-scrollback 'eshell/clear-scrollback)
-(defalias 'clear 'eshell/clear)
-(defalias 'cls 'eshell/clear)
-(defalias 'clr 'eshell/clear)
+;;Clear / Wipe
+(defalias 'eshell/cls 'eshell/clear)
+(defalias 'eshell/clr 'eshell/clear)
 
 ;; Which / Where
-(defalias 'wh 'eshell/which)
+(defalias 'eshell/where 'eshell/which)
+(defalias 'eshell/wh 'eshell/which)
+
+;; Exit / Close
+(defalias 'eshell/close 'eshell/exit)
+(defalias 'eshell/ex 'eshell/exit)
+
+;; Open File
+(defalias 'eshell/open-file 'find-file)
+(defalias 'eshell/open 'find-file)
+(defalias 'eshell/op 'find-file)
+
+;; Buffer
+(defalias 'eshell/buff 'switch-to-buffer)
+(defalias 'eshell/s2b 'switch-to-buffer)
+(defalias 'eshell/sb 'switch-to-buffer)
