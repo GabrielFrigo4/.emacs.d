@@ -39,8 +39,11 @@
 ;; ################
 
 
-;; Def alias
+;;Clear
 (defalias 'clear-scrollback 'eshell/clear-scrollback)
 (defalias 'clear 'eshell/clear)
 (defalias 'cls 'eshell/clear)
 (defalias 'clr 'eshell/clear)
+
+;; Which / Where
+(defalias 'wh 'eshell/which)
