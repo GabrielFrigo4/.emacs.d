@@ -6,7 +6,7 @@
 ## TODO
  Todo List (Emacs Current)
  ```
- Fix: [Black Text in Preview Inline LaTeX]
+ Fix: [Clear Buffer in Elisp Update (Linux)]
  Update: [Lisp (Slime IDE)]
  Update: [Aweshell]
  ```
