@@ -21,7 +21,7 @@
   ;; Check if EAF is not Loaded
   (unless (featurep 'eaf)
     ;; Load EAF Path
-    (add-to-list 'load-path (concat (getenv "HOME") "/.emacs.d/eaf/emacs-application-framework/"))
+    (add-to-list 'load-path (concat emacs-dir "/eaf/emacs-application-framework/"))
     ;; Setup EAF
     (require 'eaf)
     ;; Setup Apps

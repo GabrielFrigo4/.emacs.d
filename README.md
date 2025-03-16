@@ -100,6 +100,13 @@
      ))
  ```
 
+## Font
+ RobotoMono Nerd Font - Italic
+ ``` elisp
+ ;; For "RobotoMono Nerd Font", We Need to Separately Specify the Italic Mode to Work
+ (set-face-attribute 'italic nil :font "RobotoMono Nerd Font Mono" :foundry "pyrs" :slant 'italic)
+ ```
+
 ## Install Emacs Application Framework (EAF)
  [__Install Emacs Application Framework__](https://github.com/emacs-eaf/emacs-application-framework) is a free/libre and open-source extensible framework that revolutionizes the graphical capabilities of Emacs.
  The key to ultimately Live in Emacs

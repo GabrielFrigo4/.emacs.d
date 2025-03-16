@@ -92,6 +92,19 @@
 
 
 ;; ################
+;; # Dir / Path
+;; ################
+
+
+;; $HOME
+(setq-default home-dir (getenv "HOME"))
+(setq-default home-dir (replace-regexp-in-string "\\\\" "/" home-dir))
+
+;; $HOME/.emacs.d
+(setq-default emacs-dir (concat home-dir "/.emacs.d"))
+
+
+;; ################
 ;; # Startup
 ;; ################
 
@@ -122,31 +135,22 @@
 
 
 ;; ################
-;; # Settings
-;; ################
-
-
-;; For "RobotoMono Nerd Font", We Need to Separately Specify the Italic Mode to Work
-;; (set-face-attribute 'italic nil :font "RobotoMono Nerd Font Mono" :foundry "pyrs" :slant 'italic)
-
-
-;; ################
 ;; # Load Elisp
 ;; ################
 
 
 ;; Add load-path "#Emacs-Lisp/..."
-(let ((default-directory (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/")))
+(let ((default-directory (concat emacs-dir "/#Emacs-Lisp/")))
   (normal-top-level-add-subdirs-to-load-path))
 
 ;; Load ".el" files in "#1-Packages"
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#1-Packages/*.el")))
+(mapc 'load (file-expand-wildcards (concat emacs-dir "/#Emacs-Lisp/#1-Packages/*.el")))
 
 ;; Load ".el" files in "#2-Settings"
-(mapc 'load (file-expand-wildcards (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#2-Settings/*/*.el")))
+(mapc 'load (file-expand-wildcards (concat emacs-dir "/#Emacs-Lisp/#2-Settings/*/*.el")))
 
 ;; Set Custom File path to Elisp Code Create by Emacs
-(setq-default custom-file (concat (getenv "HOME") "/.emacs.d/custom.el"))
+(setq-default custom-file (concat emacs-dir "/custom.el"))
 (add-hook 'elpaca-after-init-hook (lambda () (load custom-file 'noerror)))
 
 

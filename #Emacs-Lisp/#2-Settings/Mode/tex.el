@@ -50,8 +50,8 @@
 
 ;; Use #3-Sources for GhostScript
 (if-windows
- (setq-default preview-gs-command (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Sources/GhostScript/gs-mogrify.cmd"))
- (setq-default preview-gs-command (concat (getenv "HOME") "/.emacs.d/#Emacs-Lisp/#3-Sources/GhostScript/gs-mogrify.sh")))
+ (setq-default preview-gs-command (concat emacs-dir "/#Emacs-Lisp/#3-Sources/GhostScript/gs-mogrify.cmd"))
+ (setq-default preview-gs-command (concat emacs-dir "/#Emacs-Lisp/#3-Sources/GhostScript/gs-mogrify.sh")))
 
 ;; Define Preview LaTeX
 (defun preview-latex ()
