@@ -6,8 +6,7 @@
 ## TODO
  Todo List (Emacs Current)
  ```
- Fix: [Clear Buffer in Elisp Update (Linux)]
- Update: [Lisp (Slime IDE)]
+ Fix: [EAF Browser with YouTube]
  Update: [Aweshell]
  ```
 

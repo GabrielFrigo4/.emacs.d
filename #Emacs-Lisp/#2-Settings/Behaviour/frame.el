@@ -21,11 +21,14 @@
 
 ;; Def *new-frame-setup*
 (defun new-frame-setup (frame)
+  (select-frame frame)
+  (set-frame-size frame 87 29)
+  (if-windows
+   (sleep-for 0.036)
+   (sleep-for 0.032))
+  (set-frame-center-screen frame)
   (when (display-graphic-p frame)
-    (setq-default neo-theme 'icons)
-    (select-frame frame)
-    (set-frame-size frame 87 29)
-    (set-frame-center-screen frame)))
+    (setq-default neo-theme 'icons)))
 
 ;; Run for Already-Existing Frames (For Single Instance Emacs)
 (dolist (frame (frame-list))

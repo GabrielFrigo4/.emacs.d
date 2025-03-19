@@ -13,18 +13,23 @@
 (defun kill-all-buffers ()
   "Kill all Buffers."
   (interactive)
-  (mapc 'kill-buffer (buffer-list)))
+  (async-sleep 0.16)
+  (dolist (buffer (buffer-list))
+    (kill-buffer buffer)))
 
 ;; Def *kill-other-buffers*
 (defun kill-other-buffers ()
   "Kill all other Buffers."
   (interactive)
-  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+  (async-sleep 0.16)
+  (dolist (buffer (delq (current-buffer) (buffer-list)))
+    (kill-buffer buffer)))
 
 ;; Def *kill-pkg-buffers*
 (defun kill-pkg-buffers ()
   "Kill Packages Buffers."
   (interactive)
+  (async-sleep 0.16)
   (dolist (buf pkg-buffers)
     (when (get-buffer buf)
       (kill-buffer buf))))
@@ -33,6 +38,7 @@
 (defun kill-shell-buffers ()
   "Kill Shell Buffers."
   (interactive)
+  (async-sleep 0.16)
   (dolist (buf shell-buffers)
     (when (get-buffer buf)
       (kill-buffer buf))))
@@ -41,6 +47,7 @@
 (defun kill-org-buffers ()
   "Kill Org Mode Buffers."
   (interactive)
+  (async-sleep 0.16)
   (dolist (buf org-buffers)
     (when (get-buffer buf)
       (kill-buffer buf))))
@@ -60,13 +67,25 @@
 
 
 ;; Kill Packages Buffers
-(add-hook 'elpaca-after-init-hook #'kill-pkg-buffers)
+(add-hook 'elpaca-after-init-hook
+          (lambda ()
+            (if-windows
+             (run-at-time "2.4 sec" nil #'kill-pkg-buffers)
+             (run-at-time "1.6 sec" nil #'kill-pkg-buffers))))
 
 ;; Kill Shell Buffers
-(add-hook 'window-setup-hook #'kill-shell-buffers)
+(add-hook 'window-setup-hook
+          (lambda ()
+            (if-windows
+             (run-at-time "2.4 sec" nil #'kill-shell-buffers)
+             (run-at-time "1.6 sec" nil #'kill-shell-buffers))))
 
 ;; Kill Org Mode Buffers
-(add-hook 'org-load-hook #'kill-org-buffers)
+(add-hook 'org-load-hook
+          (lambda ()
+            (if-windows
+             (run-at-time "2.4 sec" nil #'kill-org-buffers)
+             (run-at-time "1.6 sec" nil #'kill-org-buffers))))
 
 ;; Setup Buffer EOL
 (add-hook 'after-init-hook #'setup-buffer-eol)

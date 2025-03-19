@@ -92,6 +92,20 @@
 
 
 ;; ################
+;; # Function
+;; ################
+
+
+;; Def *async-sleep*
+(defun async-sleep (seconds)
+  "Sleep for SECONDS without freezing Emacs."
+  (interactive)
+  (let ((end-time (+ (float-time) seconds)))
+    (while (< (float-time) end-time)
+      (accept-process-output nil (expt 10 -3)))))
+
+
+;; ################
 ;; # Dir / Path
 ;; ################
 

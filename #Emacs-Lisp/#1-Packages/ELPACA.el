@@ -209,6 +209,14 @@
 (use-package zig-ts-mode
   :ensure (:type git :host github :repo "Ziqi-Yang/zig-ts-mode"))
 
+;; Install Slime (Lisp)
+(use-package slime
+  :ensure t
+  :init
+  (setq-default inferior-lisp-program "sbcl")
+  :config
+  (slime-setup '(slime-fancy)))
+
 ;; Install NeoTree
 (use-package all-the-icons
   :ensure t)

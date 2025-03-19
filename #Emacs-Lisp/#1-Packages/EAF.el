@@ -45,6 +45,30 @@
 ;; ################
 
 
+;; Start
+(defun eaf-start ()
+  "Start Emacs Application Framework (EAF)"
+  (interactive)
+  (eaf-start-process))
+
+;; Restart
+(defun eaf-restart ()
+  "Restart Emacs Application Framework (EAF)"
+  (interactive)
+  (eaf-restart-process))
+
+;; Stop
+(defun eaf-stop ()
+  "Stop Emacs Application Framework (EAF)"
+  (interactive)
+  (eaf-stop-process))
+
+;; Kill
+(defun eaf-kill ()
+  "Kill Emacs Application Framework (EAF)"
+  (interactive)
+  (eaf-kill-process))
+
 ;; Google
 (defun eaf-open-google ()
   "Open EAF Browser with Google Search"
@@ -63,6 +87,36 @@
   (interactive)
   (eaf-open-browser "bing.com"))
 
+;; ChatGPT
+(defun eaf-open-chatgpt ()
+  "Open EAF Browser with ChatGPT LLM"
+  (interactive)
+  (eaf-open-browser "chatgpt.com"))
+
+;; Gemini
+(defun eaf-open-gemini ()
+  "Open EAF Browser with Gemini LLM"
+  (interactive)
+  (eaf-open-browser "gemini.google.com"))
+
+;; DeepSeek
+(defun eaf-open-deepseek ()
+  "Open EAF Browser with DeepSeek LLM"
+  (interactive)
+  (eaf-open-browser "chat.deepseek.com"))
+
+;; Wikipedia
+(defun eaf-open-wikipedia ()
+  "Open EAF Browser with Wikipedia WebSite"
+  (interactive)
+  (eaf-open-browser "pt.wikipedia.org"))
+
+;; YouTube
+(defun eaf-open-youtube ()
+  "Open EAF Browser with YouTube WebSite"
+  (interactive)
+  (eaf-open-browser "youtube.com"))
+
 
 ;; ################
 ;; # Alias
@@ -80,3 +134,23 @@
 ;; Bing
 (defalias 'bing 'eaf-open-bing
   "Open EAF Browser with Bing Search")
+
+;; ChatGPT
+(defalias 'chatgpt 'eaf-open-chatgpt
+  "Open EAF Browser with ChatGPT LLM")
+
+;; Gemini
+(defalias 'gemini 'eaf-open-gemini
+  "Open EAF Browser with Gemini LLM")
+
+;; DeepSeek
+(defalias 'deepseek 'eaf-open-deepseek
+  "Open EAF Browser with DeepSeek LLM")
+
+;; Wikipedia
+(defalias 'wikipedia 'eaf-open-wikipedia
+  "Open EAF Browser with Wikipedia WebSite")
+
+;; YouTube
+(defalias 'youtube 'eaf-open-youtube
+  "Open EAF Browser with YouTube WebSite")
