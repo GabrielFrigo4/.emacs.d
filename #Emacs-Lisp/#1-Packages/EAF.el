@@ -29,8 +29,8 @@
     (require 'eaf-pdf-viewer)
     ;; Kill EAF Garbage
     (if-windows
-     (run-at-time "2 sec" nil #'eaf-kill-process)
-     (run-at-time "1 sec" nil #'eaf-kill-process))))
+     (run-at-time "2.4 sec" nil #'eaf-kill-process)
+     (run-at-time "1.6 sec" nil #'eaf-kill-process))))
 
 ;; Setup EAF only in *display-graphic*
 (when (display-graphic-p)
