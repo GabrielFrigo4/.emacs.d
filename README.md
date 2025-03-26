@@ -8,6 +8,7 @@
  ```
  Fix: [PDF Viewer]
  Fix: [EAF Browser with YouTube]
+ Update: [Lisp Treesit]
  Update: [Aweshell]
  ```
 
