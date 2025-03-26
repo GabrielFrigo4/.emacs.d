@@ -29,6 +29,17 @@
     ;; Setup Apps
     (require 'eaf-browser)
     (require 'eaf-pdf-viewer)
+    (require 'eaf-music-player)
+    (require 'eaf-video-player)
+    (require 'eaf-image-viewer)
+    (require 'eaf-file-manager)
+    (require 'eaf-pyqterminal)
+    (require 'eaf-terminal)
+    (require 'eaf-camera)
+    (require 'eaf-git)
+    ;; Set EAF Apps Variables
+    (setq-default eaf-pyqterminal-font-family "JetBrains Mono")
+    (setq-default eaf-pyqterminal-font-size 20)
     ;; Enable EAF Start Process
     (if-windows
      (run-at-time "2.4 sec" nil (lambda () (advice-remove 'eaf-start-process #'ignore)))
@@ -72,6 +83,12 @@
   "Kill Emacs Application Framework (EAF)"
   (interactive)
   (eaf-kill-process))
+
+;; Term
+(defun eaf-term ()
+  "Open EAF PyQ6 Terminal"
+  (interactive)
+  (eaf-open-pyqterminal))
 
 ;; Google
 (defun eaf-open-google ()

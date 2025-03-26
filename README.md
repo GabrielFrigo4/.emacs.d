@@ -6,6 +6,7 @@
 ## TODO
  Todo List (Emacs Current)
  ```
+ Fix: [PDF Viewer]
  Fix: [EAF Browser with YouTube]
  Update: [Aweshell]
  ```
@@ -123,6 +124,16 @@
  git clone --depth=1 -b master "https://github.com/emacs-eaf/emacs-application-framework.git" "$HOME/.emacs.d/eaf/emacs-application-framework/"
  cd "$HOME/.emacs.d/eaf/emacs-application-framework/"
  python install-eaf.py
+ python install-eaf.py --install "browser"
+ python install-eaf.py --install "pdf-viewer"
+ python install-eaf.py --install "music-player"
+ python install-eaf.py --install "video-player"
+ python install-eaf.py --install "image-viewer"
+ python install-eaf.py --install "file-manager"
+ python install-eaf.py --install "pyqterminal"
+ python install-eaf.py --install "terminal"
+ python install-eaf.py --install "camera"
+ python install-eaf.py --install "git"
  ```
 
 ## Using on Linux
