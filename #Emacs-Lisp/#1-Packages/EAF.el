@@ -84,11 +84,23 @@
   (interactive)
   (eaf-kill-process))
 
+;; File
+(defun eaf-file ()
+  "Open EAF File Manager"
+  (interactive)
+  (eaf-open-file-manager))
+
 ;; Term
 (defun eaf-term ()
   "Open EAF PyQ6 Terminal"
   (interactive)
   (eaf-open-pyqterminal))
+
+;; Cam
+(defun eaf-cam ()
+  "Open EAF Camera"
+  (interactive)
+  (eaf-open-camera))
 
 ;; Google
 (defun eaf-open-google ()
