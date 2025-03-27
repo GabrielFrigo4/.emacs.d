@@ -15,6 +15,9 @@
 ;; Remove Font Caches
 (setq-default inhibit-compacting-font-caches t)
 
+;; Enable to Load a Large Images (2^32 x 2^32 pixels)
+(setq-default max-image-size (expt 2 32))
+
 ;; Disable White Space Mode
 (global-whitespace-mode -1)
 
