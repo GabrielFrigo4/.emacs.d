@@ -60,6 +60,9 @@
 ;; Set EAF Browser
 (setq-default eaf-browser-dark-mode nil)
 
+;; Set EAF PDF Viwerer
+(setq-default eaf-pdf-extension-list nil)
+
 ;; Set EAF PyQ6 Terminal
 (setq-default eaf-pyqterminal-font-family "JetBrains Mono")
 (setq-default eaf-pyqterminal-font-size 20)
