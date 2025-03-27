@@ -37,6 +37,8 @@
     (require 'eaf-terminal)
     (require 'eaf-camera)
     (require 'eaf-git)
+    ;; Settings Apps
+    (setq-default eaf-pdf-extension-list (delete "pdf" eaf-pdf-extension-list))
     ;; Enable EAF Start Process
     (if-windows
      (run-at-time "2.4 sec" nil (lambda () (advice-remove 'eaf-start-process #'ignore)))
@@ -59,9 +61,6 @@
 
 ;; Set EAF Browser
 (setq-default eaf-browser-dark-mode nil)
-
-;; Set EAF PDF Viwerer
-(setq-default eaf-pdf-extension-list nil)
 
 ;; Set EAF PyQ6 Terminal
 (setq-default eaf-pyqterminal-font-family "JetBrains Mono")
