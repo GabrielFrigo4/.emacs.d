@@ -6,7 +6,6 @@
 ## TODO
  Todo List (Emacs Current)
  ```
- Fix: [EAF Browser with YouTube]
  Update: [Lisp Treesit]
  Update: [Aweshell]
  ```

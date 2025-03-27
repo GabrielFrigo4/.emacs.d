@@ -37,9 +37,6 @@
     (require 'eaf-terminal)
     (require 'eaf-camera)
     (require 'eaf-git)
-    ;; Set EAF Apps Variables
-    (setq-default eaf-pyqterminal-font-family "JetBrains Mono")
-    (setq-default eaf-pyqterminal-font-size 20)
     ;; Enable EAF Start Process
     (if-windows
      (run-at-time "2.4 sec" nil (lambda () (advice-remove 'eaf-start-process #'ignore)))
@@ -53,6 +50,19 @@
 
 ;; Setup EAF only in a Server Frame
 (add-hook 'server-after-make-frame-hook #'eaf-setup)
+
+
+;; ################
+;; # Variables
+;; ################
+
+
+;; Set EAF Browser
+(setq-default eaf-browser-dark-mode nil)
+
+;; Set EAF PyQ6 Terminal
+(setq-default eaf-pyqterminal-font-family "JetBrains Mono")
+(setq-default eaf-pyqterminal-font-size 20)
 
 
 ;; ################
