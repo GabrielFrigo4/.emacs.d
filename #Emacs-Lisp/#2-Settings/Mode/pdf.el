@@ -18,7 +18,13 @@
 
 
 ;; Setup PDF View Images Scale
-(setq-default pdf-view-use-scaling t)
+(setq-default pdf-view-use-scaling nil)
+
+;; Enable 2 Pixels Border
+(setq-default pdf-view-image-relief 2)
+
+;; Use ImageMagick
+(setq-default pdf-view-use-imagemagick t)
 
 ;; Disable PDF-Cache Prefetching Timer
 (defadvice pdf-cache--prefetch-start (around suppress-timer activate)

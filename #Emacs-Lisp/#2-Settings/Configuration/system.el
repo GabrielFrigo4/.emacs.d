@@ -15,9 +15,6 @@
 ;; Remove Font Caches
 (setq-default inhibit-compacting-font-caches t)
 
-;; Enable to Load a Large Images (2^32 x 2^32 pixels)
-(setq-default max-image-size (expt 2 32))
-
 ;; Disable White Space Mode
 (global-whitespace-mode -1)
 
@@ -51,6 +48,18 @@
 
 ;; Add Hook *ob-async-pre-execute-src-block-hook*
 (add-hook 'ob-async-pre-execute-src-block-hook setup-coding-systems)
+
+
+;; ################
+;; # Images
+;; ################
+
+
+;; Enable to Load a Large Images (2^24 x 2^24 pixels)
+(setq-default max-image-size (expt 2 24))
+
+;; Image Cache Eviction Delay (2^6 seconds)
+(setq-default image-cache-eviction-delay (expt 2 6))
 
 
 ;; ################
