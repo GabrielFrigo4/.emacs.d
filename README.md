@@ -6,7 +6,6 @@
 ## TODO
  Todo List (Emacs Current)
  ```
- Update: [Lisp Treesit]
  Update: [Aweshell]
  ```
 
@@ -49,6 +48,11 @@
  ```
  (ok) => elisp-ts-mode
  (ok) => zig-ts-mode
+ ```
+
+ Debug Grammar / Explore Grammar
+ ```elisp
+ (treesit-explore-mode t)
  ```
 
 ## Elisp Symbols

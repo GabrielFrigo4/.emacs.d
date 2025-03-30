@@ -26,6 +26,7 @@
                 (lua . ("https://github.com/tree-sitter-grammars/tree-sitter-lua" "main" "src"))
                 (python . ("https://github.com/tree-sitter/tree-sitter-python" "master" "src"))
                 (ruby . ("https://github.com/tree-sitter/tree-sitter-ruby" "master" "src"))
+                (commonlisp . ("https://github.com/tree-sitter-grammars/tree-sitter-commonlisp" "master" "src"))
                 ;; WEB
                 (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
                 (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
@@ -71,6 +72,7 @@
                 (lua-mode . lua-ts-mode)
                 (python-mode . python-ts-mode)
                 (ruby-mode . ruby-ts-mode)
+                (common-lisp-mode . common-lisp-ts-mode)
                 ;; WEB
                 (js-mode . js-ts-mode)
                 (typescript-mode . typescript-ts-mode)
