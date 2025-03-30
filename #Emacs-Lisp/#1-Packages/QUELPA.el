@@ -38,4 +38,4 @@
 (use-package emacs-lisp-ts-mode
   :quelpa (emacs-lisp-ts-mode :fetcher github :repo "GabrielFrigo4/emacs-lisp-ts-mode"))
 (use-package common-lisp-ts-mode
-  :quelpa (emacs-lisp-ts-mode :fetcher github :repo "GabrielFrigo4/common-lisp-ts-mode"))
+  :quelpa (common-lisp-ts-mode :fetcher github :repo "GabrielFrigo4/common-lisp-ts-mode"))
