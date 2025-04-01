@@ -17,6 +17,7 @@
                 (rust . ("https://github.com/tree-sitter/tree-sitter-rust" "master" "src"))
                 (zig . ("https://github.com/maxxnino/tree-sitter-zig" "main" "src"))
                 (go . ("https://github.com/tree-sitter/tree-sitter-go" "master" "src"))
+                (haskell . ("https://github.com/tree-sitter/tree-sitter-haskell" "master" "src"))
                 ;; JIT
                 (c-sharp . ("https://github.com/tree-sitter/tree-sitter-c-sharp" "master" "src"))
                 (java . ("https://github.com/tree-sitter/tree-sitter-java" "master" "src"))
@@ -63,6 +64,7 @@
                 (rust-mode . rust-ts-mode)
                 (zig-mode . zig-ts-mode)
                 (go-mode . go-ts-mode)
+                (haskell-mode . haskell-ts-mode)
                 ;; JIT
                 (csharp-mode . csharp-ts-mode)
                 (java-mode . java-ts-mode)

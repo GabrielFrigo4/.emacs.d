@@ -196,6 +196,8 @@
   (("C-c r f" . rust-format-buffer)))
 (use-package zig-mode
   :ensure t)
+(use-package haskell-mode
+  :ensure t)
 (use-package lua-mode
   :ensure t)
 (use-package elixir-mode
@@ -208,6 +210,8 @@
 ;; Install Treesit Grammar
 (use-package zig-ts-mode
   :ensure (:type git :host github :repo "Ziqi-Yang/zig-ts-mode"))
+(use-package haskell-ts-mode
+  :ensure t)
 
 ;; Install Slime (Lisp)
 (use-package slime
