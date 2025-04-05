@@ -4,16 +4,18 @@
 
 
 ;; List of Unix Manual Links
-(setq-default unix-manual-template-list
+(defvar unix-manual-template-list
               ["https://www.man7.org/linux/man-pages/man%s/%s.%s.html"
                "https://man.cx/%s(%s)"
                "https://man.freebsd.org/cgi/man.cgi?query=%s&sektion=%s"
                "https://man.openbsd.org/%s.%s"
                "https://man.netbsd.org/%s.%s"
-               "https://man.dragonflybsd.org/?command=%s&section=%s"])
+               "https://man.dragonflybsd.org/?command=%s&section=%s"]
+              "Unix Manual Template List")
 
 ;; Current Unix Manual Link
-(setq-default unix-manual-active 0)
+(defvar unix-manual-active 0
+  "Unix Manual Active")
 
 ;; Unix Manual Online (Browser)
 (defun browser/mandoc (browser section command)
