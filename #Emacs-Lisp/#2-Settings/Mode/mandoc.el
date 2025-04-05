@@ -58,8 +58,36 @@ COMMAND is the name of the command."
       (error "Invalid manual entry format")))
     (browser/mandoc #'w3m-browse-url section command)))
 
-;; Create Alias of Unix Manual Online (W3M)
-(defalias 'mandoc 'w3m/mandoc
+;; Unix Manual Online (EWW)
+(defun eww/mandoc (entry)
+  "Unix Manual Pages Online (Linux/BSD Manual Pages).
+Option 1: \"SECTION COMMAND\"
+Option 2: \"COMMAND(SECTION)\"
+Option 3: \"COMMAND.SECTION\"
+SECTION is the manual section number.
+COMMAND is the name of the command."
+  (interactive "sManual Entry: ")
+  (let (section command)
+    (cond
+     ;; Option 1: SECTION COMMAND (e.g., "3 printf" or "3p printf")
+     ((string-match "^\\([0-9]+[a-z]?\\)\\s-+\\(.+\\)$" entry)
+      (setq section (match-string 1 entry)
+            command (match-string 2 entry)))
+     ;; Option 2: COMMAND(SECTION) (e.g., "printf(3)" or "printf(3p)")
+     ((string-match "^\\(.+\\)(\\([0-9]+[a-z]?\\))$" entry)
+      (setq command (match-string 1 entry)
+            section (match-string 2 entry)))
+     ;; Option 3: COMMAND.SECTION (e.g., "printf.3" or "printf.3p")
+     ((string-match "^\\(.+\\)\\.\\([0-9]+[a-z]?\\)$" entry)
+      (setq command (match-string 1 entry)
+            section (match-string 2 entry)))
+     ;; Get an Error: Invalid Manual Entry Format
+     (t
+      (error "Invalid manual entry format")))
+    (browser/mandoc #'eww section command)))
+
+;; Create Alias of Unix Manual Online (EWW)
+(defalias 'mandoc 'eww/mandoc
   "Unix Manual Pages Online (Linux/BSD Manual Pages).
 Option 1: \"SECTION COMMAND\"
 Option 2: \"COMMAND(SECTION)\"

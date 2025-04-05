@@ -141,6 +141,12 @@
                      (pdf-view-midnight-minor-mode t))))
 
 ;; Install Emacs Web
+(use-package shrface
+  :ensure t
+  :config
+  (progn
+    (setq-default shrface-href-versatile t)
+    (shrface-basic)))
 (use-package w3m
   :ensure t)
 

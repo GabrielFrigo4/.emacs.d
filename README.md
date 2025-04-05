@@ -46,8 +46,14 @@
 
  Unoficial \*ts-mode\* in Emacs 30.1
  ```
- (ok) => elisp-ts-mode
+ (ok) => haskell-ts-mode
  (ok) => zig-ts-mode
+ ```
+
+ Custom \*ts-mode\* in Emacs 30.1
+ ```
+ (ok) => common-lisp-ts-mode
+ (ok) => emacs-lisp-ts-mode
  ```
 
  Debug Grammar / Explore Grammar

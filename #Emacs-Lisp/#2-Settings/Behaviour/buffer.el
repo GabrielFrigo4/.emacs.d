@@ -13,7 +13,7 @@
 (defun kill-all-buffers ()
   "Kill all Buffers."
   (interactive)
-  (async-sleep 0.16)
+  (async-sleep (expt 2 -8))
   (dolist (buffer (buffer-list))
     (kill-buffer buffer)))
 
@@ -21,7 +21,7 @@
 (defun kill-other-buffers ()
   "Kill all other Buffers."
   (interactive)
-  (async-sleep 0.16)
+  (async-sleep (expt 2 -8))
   (dolist (buffer (delq (current-buffer) (buffer-list)))
     (kill-buffer buffer)))
 
@@ -29,7 +29,7 @@
 (defun kill-pkg-buffers ()
   "Kill Packages Buffers."
   (interactive)
-  (async-sleep 0.16)
+  (async-sleep (expt 2 -8))
   (dolist (buf pkg-buffers)
     (when (get-buffer buf)
       (kill-buffer buf))))
@@ -38,7 +38,7 @@
 (defun kill-shell-buffers ()
   "Kill Shell Buffers."
   (interactive)
-  (async-sleep 0.16)
+  (async-sleep (expt 2 -8))
   (dolist (buf shell-buffers)
     (when (get-buffer buf)
       (kill-buffer buf))))
@@ -47,7 +47,7 @@
 (defun kill-org-buffers ()
   "Kill Org Mode Buffers."
   (interactive)
-  (async-sleep 0.16)
+  (async-sleep (expt 2 -8))
   (dolist (buf org-buffers)
     (when (get-buffer buf)
       (kill-buffer buf))))
