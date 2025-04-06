@@ -10,9 +10,7 @@
 (setq-default eshell-bad-command-tolerance (expt 2 64))
 
 ;; Remove Git Data
-(advice-add 'epe-git-p :override
-            (lambda (&rest args)
-              nil))
+(setq-default epe-git-enable nil)
 
 ;; Set Theme
 (with-eval-after-load "esh-opt"

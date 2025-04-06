@@ -6,7 +6,6 @@
 ## TODO
  Todo List (Emacs Current)
  ```
- Update: [Aweshell]
  ```
 
  Todo List (Emacs 31)
