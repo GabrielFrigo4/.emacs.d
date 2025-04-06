@@ -27,6 +27,7 @@
 
 
 ;; Setup "Simple HTML Reader" (SHR)
+(shrface-mode t)
 (setq-default shr-nbsp ?\u00A0)
 (setq-default shr-inhibit-images nil)
 (setq-default shr-use-fonts nil)
@@ -54,22 +55,20 @@
     (cond
      ;; Section Header: Insert Spacing and New Line
      ((and class (string= class "section"))
-      (message "MESSAGE CLASS: %s" class)
       (shr-insert "\n\n")
       (shr-generic dom)
       (shr-insert "\n\n")
       (setq eww-after-section-header t))
-      ;; Bold Text: Indent if at Beginning of Line
-      ((and text
-            (or (string-match-p "^[a-zA-Z0-9_]+$" text)
-                (string-match-p "^#" text)))
-       (message "MESSAGE TEXT: %s" text)
-       (when (and (save-excursion (bolp))
-                  (eq eww-after-section-header t))
-         (shr-insert "     ")
-         (setq eww-after-section-header nil))
-       (shr-insert (propertize text 'face 'bold)))
-      ;; Fallback
-      (t
-       (shr-generic dom)))))
-  (add-to-list 'shr-external-rendering-functions '(b . eww-render-b))
+     ;; Bold Text: Indent if at Beginning of Line
+     ((and text
+           (or (string-match-p "^[a-zA-Z0-9_]+$" text)
+               (string-match-p "^#" text)))
+      (when (and (save-excursion (bolp))
+                 (eq eww-after-section-header t))
+        (shr-insert "     ")
+        (setq eww-after-section-header nil))
+      (shr-insert (propertize text 'face 'bold)))
+     ;; Fallback
+     (t
+      (shr-generic dom)))))
+(add-to-list 'shr-external-rendering-functions '(b . eww-render-b))
