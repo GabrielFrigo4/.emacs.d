@@ -157,7 +157,10 @@
   :ensure t
   :hook (prog-mode . smartparens-mode)
   :config
-  (require 'smartparens-config))
+  (progn
+    (require 'smartparens-config)
+    (setq-default sp-show-pair-from-inside t)
+    (setq-default sp-autoskip-closing-pair t)))
 (use-package dash
   :ensure t
   :config
