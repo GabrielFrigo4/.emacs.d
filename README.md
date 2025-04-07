@@ -6,7 +6,6 @@
 ## TODO
  Todo List (Emacs Current)
  ```
- Update: [aweshell, highlight strings and numbers]
  ```
 
  Todo List (Emacs 31)

@@ -82,8 +82,8 @@
           (lambda ()
             (setq-local tab-width 4)
             (setq-local indent-tabs-mode t)
-            (highlight-numbers-mode)
-            (set-default 'truncate-lines t)))
+            (set-default 'truncate-lines t)
+            (highlight-numbers-mode t)))
 
 
 ;; ################
