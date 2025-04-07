@@ -84,14 +84,14 @@
                 ;; EMACS
                 (emacs-lisp-mode . emacs-lisp-ts-mode)
                 ;; SHELL
-                (bash-mode . bash-ts-mode)
+                (sh-mode . bash-ts-mode)
                 ;; MAKE
                 (cmake-mode . cmake-ts-mode)
                 ;; CONFIG
                 (dockerfile-mode . dockerfile-ts-mode)
                 ;; DATA
                 (json-mode . json-ts-mode)
-                (toml-mode . toml-ts-mode)
+                (conf-toml-mode . toml-ts-mode)
                 (yaml-mode . yaml-ts-mode)))
 
 ;; Set *treesit-load-name-override-list*

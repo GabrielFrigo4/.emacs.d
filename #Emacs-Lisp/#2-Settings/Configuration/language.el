@@ -110,3 +110,16 @@
           (lambda ()
             (setq-local tab-width 2)
             (setq-local indent-tabs-mode nil)))
+
+
+;; ################
+;; # Alias
+;; ################
+
+
+;; conf-toml-mode
+(defalias 'toml-mode 'conf-toml-mode)
+
+;; sh-mode
+(defalias 'bash-mode 'sh-mode)
+(defalias 'zsh-mode 'sh-mode)

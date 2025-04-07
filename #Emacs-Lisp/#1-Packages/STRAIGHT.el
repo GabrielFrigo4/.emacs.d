@@ -24,3 +24,8 @@
 ;; ################
 ;; # Packages
 ;; ################
+
+
+;; TSX / JSX
+(use-package tsx-mode
+  :straight '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el" :branch "emacs30"))

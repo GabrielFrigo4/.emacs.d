@@ -150,16 +150,6 @@
 (use-package w3m
   :ensure t)
 
-;; Install Emacs Tool
-(use-package ace-window
-  :ensure t
-  :bind (("M-o" . ace-window)))
-(use-package multiple-cursors
-  :ensure t)
-(if-linux
- (use-package vterm
-   :ensure t))
-
 ;; Install Emacs Edit
 (use-package paredit
   :ensure t)
@@ -172,6 +162,20 @@
   :ensure t
   :config
   (global-dash-fontify-mode))
+
+;; Install Emacs Window
+(use-package ace-window
+  :ensure t
+  :bind (("M-o" . ace-window)))
+
+;; Install Emacs Cursor
+(use-package multiple-cursors
+  :ensure t)
+
+;; Install Emacs Terminal
+(if-linux
+ (use-package vterm
+   :ensure t))
 
 ;; Install Emacs Regex
 (use-package visual-regexp
@@ -208,9 +212,23 @@
   :ensure t)
 (use-package elixir-mode
   :ensure t)
+(use-package typescript-mode
+  :ensure t)
 (use-package php-mode
   :ensure t)
 (use-package vimrc-mode
+  :ensure t)
+
+;; Install Markup Language
+(use-package json-mode
+  :ensure t)
+(use-package yaml-mode
+  :ensure t)
+
+;; Install Configuration Language
+(use-package dockerfile-mode
+  :ensure t)
+(use-package cmake-mode
   :ensure t)
 
 ;; Install Treesit Grammar
