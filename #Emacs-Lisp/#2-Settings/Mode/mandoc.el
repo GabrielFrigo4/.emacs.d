@@ -5,13 +5,13 @@
 
 ;; List of Unix Manual Links
 (defvar unix-manual-template-list
-              ["https://www.man7.org/linux/man-pages/man%s/%s.%s.html"
-               "https://man.cx/%s(%s)"
-               "https://man.freebsd.org/cgi/man.cgi?query=%s&sektion=%s"
-               "https://man.openbsd.org/%s.%s"
-               "https://man.netbsd.org/%s.%s"
-               "https://man.dragonflybsd.org/?command=%s&section=%s"]
-              "Unix Manual Template List")
+  ["https://www.man7.org/linux/man-pages/man%s/%s.%s.html"
+   "https://man.cx/%s(%s)"
+   "https://man.freebsd.org/cgi/man.cgi?query=%s&sektion=%s"
+   "https://man.openbsd.org/%s.%s"
+   "https://man.netbsd.org/%s.%s"
+   "https://man.dragonflybsd.org/?command=%s&section=%s"]
+  "Unix Manual Template List")
 
 ;; Current Unix Manual Link
 (defvar unix-manual-active 0
@@ -87,6 +87,33 @@ COMMAND is the name of the command."
      (t
       (error "Invalid manual entry format")))
     (browser/mandoc #'eww section command)))
+
+;; Unix Manual Online (Eshell)
+(defun eshell/mandoc (&rest args)
+  "Unix Manual Pages Online (Linux/BSD Manual Pages).
+Option 1: \"SECTION COMMAND\"
+Option 2: \"COMMAND(SECTION)\"
+Option 3: \"COMMAND.SECTION\"
+SECTION is the manual section number.
+COMMAND is the name of the command."
+  (let ((entry (string-join (mapcar (lambda (arg) (format "%s" arg)) args) " "))
+        section command)
+    (cond
+     ;; Option 1: SECTION COMMAND (e.g., "3 printf")
+     ((string-match "^\\([0-9]+[a-z]?\\)\\s-+\\(.+\\)$" entry)
+      (setq section (match-string 1 entry)
+            command (match-string 2 entry)))
+     ;; Option 2: COMMAND(SECTION) (e.g., "printf(3)")
+     ((string-match "^\\(.+\\)(\\([0-9]+[a-z]?\\))$" entry)
+      (setq command (match-string 1 entry)
+            section (match-string 2 entry)))
+     ;; Option 3: COMMAND.SECTION (e.g., "printf.3")
+     ((string-match "^\\(.+\\)\\.\\([0-9]+[a-z]?\\)$" entry)
+      (setq command (match-string 1 entry)
+            section (match-string 2 entry)))
+     (t
+      (error "Invalid manual entry format: %s" entry)))
+    (browser/mandoc #'eww-browse-url section command)))
 
 ;; Create Alias of Unix Manual Online (EWW)
 (defalias 'mandoc 'eww/mandoc
