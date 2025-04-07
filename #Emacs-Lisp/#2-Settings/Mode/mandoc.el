@@ -123,3 +123,20 @@ Option 2: \"COMMAND(SECTION)\"
 Option 3: \"COMMAND.SECTION\"
 SECTION is the manual section number.
 COMMAND is the name of the command.")
+
+;; Set MAN to MANDOC on Windows
+(when-windows
+ (defalias 'man 'eww/mandoc
+   "Unix Manual Pages Online (Linux/BSD Manual Pages).
+Option 1: \"SECTION COMMAND\"
+Option 2: \"COMMAND(SECTION)\"
+Option 3: \"COMMAND.SECTION\"
+SECTION is the manual section number.
+COMMAND is the name of the command.")
+ (defalias 'eshell/man 'eshell/mandoc
+   "Unix Manual Pages Online (Linux/BSD Manual Pages).
+Option 1: \"SECTION COMMAND\"
+Option 2: \"COMMAND(SECTION)\"
+Option 3: \"COMMAND.SECTION\"
+SECTION is the manual section number.
+COMMAND is the name of the command."))
