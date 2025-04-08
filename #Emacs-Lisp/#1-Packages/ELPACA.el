@@ -240,6 +240,10 @@
 (use-package haskell-ts-mode
   :ensure t)
 
+;; Install PlatformIO
+(use-package platformio-mode
+  :ensure t)
+
 ;; Install Slime (Lisp)
 (use-package slime
   :ensure t
