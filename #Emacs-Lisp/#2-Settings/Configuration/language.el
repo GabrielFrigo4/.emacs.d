@@ -87,7 +87,7 @@
 
 
 ;; ################
-;; # Modes
+;; # Lang Modes
 ;; ################
 
 
@@ -107,6 +107,32 @@
 
 ;; Add Hook *emacs-lisp-mode-hook*
 (add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (setq-local tab-width 2)
+            (setq-local indent-tabs-mode nil)))
+
+
+;; ################
+;; # Treesit Modes
+;; ################
+
+
+;; Add Hook *python-mode-hook*
+(add-hook 'python-ts-mode-hook
+          (lambda ()
+            (setq-local tab-width 4)
+            (setq-local indent-tabs-mode t)
+            (setq-local python-indent-offset tab-width)))
+
+;; Add Hook *lua-mode-hook*
+(add-hook 'lua-ts-mode-hook
+          (lambda ()
+            (setq-local tab-width 4)
+            (setq-local indent-tabs-mode t)
+            (setq-local lua-indent-level tab-width)))
+
+;; Add Hook *emacs-lisp-mode-hook*
+(add-hook 'emacs-lisp-ts-mode-hook
           (lambda ()
             (setq-local tab-width 2)
             (setq-local indent-tabs-mode nil)))
