@@ -12,6 +12,9 @@
 ;; Remove Git Data
 (setq-default epe-git-enable nil)
 
+;; Set Validate Delay
+(setq-default aweshell-validate-delay 0.4)
+
 ;; Set Theme
 (with-eval-after-load "esh-opt"
   (autoload 'epe-theme-multiline-with-status "eshell-prompt-extras")
