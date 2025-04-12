@@ -17,51 +17,31 @@
 
 ;; Set TODO Keywords
 (setq-default org-todo-keywords
-              '((sequence "TODO" "|" "PROGRESS" "|" "DONE")))
+              '((sequence "TODO" "|" "WORK" "|" "DONE")))
 
 ;; Set TODO Faces
 (defface org-todo-custom-face
-  '((t (:inherit 'org-todo :weight bold :height 110)))
+  '((t (:inherit 'org-todo :weight bold)))
   "Custom face for TODO keyword.")
-(defface org-progress-custom-face
-  '((t (:foreground "dark gray" :weight bold :height 90)))
-  "Custom face for PROGRESS keyword.")
+(defface org-work-custom-face
+  '((t (:foreground "dark gray" :weight bold)))
+  "Custom face for WORK keyword.")
 (defface org-done-custom-face
-  '((t (:inherit 'org-done :weight bold :height 110)))
+  '((t (:inherit 'org-done :weight bold)))
   "Custom face for DONE keyword.")
 (setq-default org-todo-keyword-faces
               '(("TODO" . org-todo-custom-face)
-                ("PROGRESS" . org-progress-custom-face)
+                ("WORK" . org-work-custom-face)
                 ("DONE" . org-done-custom-face)))
 
-;; Set TODO Font Lock
-(add-hook 'org-mode-hook
-          (lambda ()
-            "Replace TODO, PROGRESS and DONE keywords with UTF-8 symbols in Org Mode."
-            (font-lock-add-keywords
-             nil
-             '(("^\\*+ \\(TODO\\) "
-                (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☐) nil)))
-               ("^\\*+ \\(PROGRESS\\) "
-                (1 (progn (compose-region (match-beginning 1) (match-end 1) ?▣) nil)))
-               ("^\\*+ \\(DONE\\) "
-                (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☑) nil)))))))
-
 ;; Set CheckBox Faces
-(set-face-attribute 'org-checkbox nil :weight 'bold :height 120)
+(set-face-attribute 'org-checkbox nil :weight 'bold)
 
 ;; Set CheckBox Font Lock
-(add-hook 'org-mode-hook
-          (lambda ()
-            "Replace Org Mode CheckBox symbols with UTF-8 characters."
-            (font-lock-add-keywords
-             nil
-             '(("^[\t ]*-[\t ]*\\(\\[ \\]\\)"
-                (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☐) nil)))
-               ("^[\t ]*-[\t ]*\\(\\[-\\]\\)"
-                (1 (progn (compose-region (match-beginning 1) (match-end 1) ?▣) nil)))
-               ("^[\t ]*-[\t ]*\\(\\[X\\]\\)"
-                (1 (progn (compose-region (match-beginning 1) (match-end 1) ?☑) nil)))))))
+(font-lock-add-keywords
+ 'org-mode
+ '(("^ *[-+] +\\[X\\] \\(.*\\)"
+    (1 'shadow prepend))))
 
 ;; Append *org-src-lang-modes*
 (with-eval-after-load 'org
@@ -69,6 +49,8 @@
                 (append '(;; BIN
                           ("c" . c-ts)
                           ("C" . c-ts)
+                          ("cc" . c-ts)
+                          ("CC" . c++-ts)
                           ("c++" . c++-ts)
                           ("C++" . c++-ts)
                           ("cpp" . c++-ts)
@@ -77,19 +59,26 @@
                           ("rust" . rust-ts)
                           ("zig" . zig-ts)
                           ("go" . go-ts)
+                          ("haskell" . haskell-ts)
                           ;; JIT
                           ("csharp" . csharp-ts)
                           ("c#" . csharp-ts)
                           ("C#" . csharp-ts)
                           ("java" . java-ts)
+                          ("elixir" . elixir-ts)
+                          ("php" . php-ts)
                           ;; VM
+                          ("lua" . lua-ts)
                           ("python" . python-ts)
                           ("ruby" . ruby-ts)
+                          ("common-lisp" . common-lisp-ts)
+                          ("lisp" . common-lisp-ts)
                           ;; WEB
-                          ("js" . js-ts-mode)
+                          ("js" . js-ts)
                           ("javascript" . js-ts)
                           ("typescript" . typescript-ts)
                           ("tsx" . tsx-ts)
+                          ("html" . html-ts)
                           ("css" . css-ts)
                           ;; EMACS
                           ("emacs-lisp" . emacs-lisp-ts)
@@ -151,12 +140,14 @@
  'org-babel-load-languages
  '(;; BIN
    (C . t)
+   (haskell . t)
    ;; JIT
    (java . t)
    ;; VM
+   (lua . t)
    (python . t)
    (ruby . t)
-   (lua . t)
+   (lisp . t)
    ;; WEB
    (js . t)
    (css . t)
@@ -168,4 +159,6 @@
    ;; MAKE
    (makefile . t)
    ;; CONFIG
-   (org . t)))
+   (org . t)
+   ;; TEX / LATEX
+   (latex . t)))
