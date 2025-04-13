@@ -19,16 +19,18 @@
 (setq-default org-todo-keywords
               '((sequence "TODO" "|" "WORK" "|" "DONE")))
 
-;; Set TODO Faces
+;; Custom TODO / CheckBox Faces
 (defface org-todo-custom-face
   '((t (:inherit 'org-todo :weight bold)))
-  "Custom face for TODO keyword.")
+  "Custom face for TODO and [ ] keyword.")
 (defface org-work-custom-face
   '((t (:foreground "dark gray" :weight bold)))
-  "Custom face for WORK keyword.")
+  "Custom face for WORK and [-] keyword.")
 (defface org-done-custom-face
   '((t (:inherit 'org-done :weight bold)))
-  "Custom face for DONE keyword.")
+  "Custom face for DONE and [X] keyword.")
+
+;; Set TODO Faces
 (setq-default org-todo-keyword-faces
               '(("TODO" . org-todo-custom-face)
                 ("WORK" . org-work-custom-face)
