@@ -24,7 +24,7 @@
   '((t (:inherit 'org-todo :weight bold)))
   "Custom face for TODO and [ ] keyword.")
 (defface org-work-custom-face
-  '((t (:foreground "dark gray" :weight bold)))
+  '((t (:foreground "goldenrod4" :weight bold)))
   "Custom face for WORK and [-] keyword.")
 (defface org-done-custom-face
   '((t (:inherit 'org-done :weight bold)))
@@ -39,10 +39,32 @@
 ;; Set CheckBox Faces
 (set-face-attribute 'org-checkbox nil :weight 'bold)
 
+;; CheckBox Colorizer
+(defun org-checkbox-colorizer (start end)
+  "Fontify Org checkboxes differently based on their state between START and END."
+  (save-excursion
+    (goto-char start)
+    (while (re-search-forward "^ *[-+*] +\\(\\[ \\]\\|\\[-\\]\\|\\[X\\]\\)" end t)
+      (let ((match (match-string 1)))
+        (add-text-properties
+         (match-beginning 1) (match-end 1)
+         (cond
+          ((string= match "[ ]")
+           '(face ,org-todo-custom-face))
+          ((string= match "[-]")
+           '(face ,org-work-custom-face))
+          ((string= match "[X]")
+           '(face ,org-done-custom-face))))))))
+
+;; Enable CheckBox Colorizer
+(add-hook 'org-mode-hook (lambda ()
+                           "Enable custom checkbox coloring in Org buffers."
+                           (jit-lock-register #'org-checkbox-colorizer)))
+
 ;; Set CheckBox Font Lock
 (font-lock-add-keywords
  'org-mode
- '(("^ *[-+] +\\[X\\] \\(.*\\)"
+ '(("^ *[-+*] +\\[X\\] \\(.*\\)"
     (1 'shadow prepend))))
 
 ;; Append *org-src-lang-modes*

@@ -7,8 +7,6 @@
  Todo List (Emacs Current)
  ```
  Update: [Aweww]
- Update: [Aweshell]
- Update: [Org Mode]
  Update: [CommonLisp]
  Update: [Assembly]
  ```

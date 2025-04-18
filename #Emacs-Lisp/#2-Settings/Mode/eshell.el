@@ -13,7 +13,9 @@
 (setq-default epe-git-enable nil)
 
 ;; Set Validate Delay
-(setq-default aweshell-validate-delay 0.4)
+(if-windows
+ (setq-default aweshell-validate-delay (expt 2 -0.5))
+ (setq-default aweshell-validate-delay (expt 2 -1)))
 
 ;; Set Theme
 (with-eval-after-load "esh-opt"
