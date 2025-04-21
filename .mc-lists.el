@@ -8,6 +8,7 @@
 
 (setq mc/cmds-to-run-once
       '(
+        backward-delete-char
         keyboard-escape-quit
         mouse-secondary-save-then-kill
         mouse-set-region

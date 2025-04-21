@@ -9,14 +9,20 @@
 ;; Enable *evil-mode*
 (evil-mode t)
 
-;; Set *evil-default-state* as *emacs*
+;; Set *evil-default-state* as Emacs
 (setq-default evil-default-state 'emacs)
 
-;; Set *initial-state*
-(evil-set-initial-state 'slime-repl-mode 'emacs)
-(evil-set-initial-state 'comint-mode 'emacs)
-(evil-set-initial-state 'eshell-mode 'emacs)
-(evil-set-initial-state 'shell-mode 'emacs)
-(evil-set-initial-state 'term-mode 'emacs)
-(evil-set-initial-state 'vterm-mode 'emacs)
-(evil-set-initial-state 'gud-mode 'emacs)
+;; Set *initial-state* to Emacs
+(dolist (mode-list '(evil-motion-state-modes
+                     evil-insert-state-modes
+                     evil-normal-state-modes
+                     evil-visual-state-modes
+                     evil-replace-state-modes
+                     evil-operator-state-modes))
+  (setq-default evil-emacs-state-modes (append evil-emacs-state-modes (symbol-value mode-list))))
+(setq-default evil-motion-state-modes '())
+(setq-default evil-insert-state-modes '())
+(setq-default evil-normal-state-modes '())
+(setq-default evil-visual-state-modes '())
+(setq-default evil-replace-state-modes '())
+(setq-default evil-operator-state-modes '())

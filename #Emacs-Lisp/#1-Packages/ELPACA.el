@@ -86,11 +86,15 @@
   :ensure t)
 
 ;; Install Emacs Mode
-(use-package evil
-  :ensure t)
 (use-package magit
   :ensure t
   :after (transient))
+
+;; Install Emacs Evil
+(use-package evil
+  :ensure t)
+(use-package evil-tutor
+  :ensure t)
 
 ;; Install Emacs Org
 (use-package org-superstar

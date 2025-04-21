@@ -35,3 +35,6 @@
 # Emacs IDO
 /ido.last~
 /ido.last
+
+# Evil
+/.tutor
