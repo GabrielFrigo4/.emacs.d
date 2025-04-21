@@ -41,20 +41,22 @@
 
 ;; CheckBox Colorizer
 (defun org-checkbox-colorizer (start end)
-  "Fontify Org checkboxes differently based on their state between START and END."
+  "Fontify Org checkboxes differently based on their state between START and END.
+Skip checkboxes in source code blocks."
   (save-excursion
     (goto-char start)
     (while (re-search-forward "^ *[-+*] +\\(\\[ \\]\\|\\[-\\]\\|\\[X\\]\\)" end t)
-      (let ((match (match-string 1)))
-        (add-text-properties
-         (match-beginning 1) (match-end 1)
-         (cond
-          ((string= match "[ ]")
-           '(face ,org-todo-custom-face))
-          ((string= match "[-]")
-           '(face ,org-work-custom-face))
-          ((string= match "[X]")
-           '(face ,org-done-custom-face))))))))
+      (unless (org-in-src-block-p)
+        (let ((match (match-string 1)))
+          (add-text-properties
+           (match-beginning 1) (match-end 1)
+           (cond
+            ((string= match "[ ]")
+             '(face ,org-todo-custom-face))
+            ((string= match "[-]")
+             '(face ,org-work-custom-face))
+            ((string= match "[X]")
+             '(face ,org-done-custom-face)))))))))
 
 ;; Enable CheckBox Colorizer
 (add-hook 'org-mode-hook (lambda ()
