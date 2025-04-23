@@ -110,6 +110,11 @@
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
 
+;; Babel
+(global-set-key (kbd "C-c o e") #'org-babel-execute-buffer)
+(global-set-key (kbd "C-c o s") #'org-babel-execute-src-block)
+(global-set-key (kbd "C-c o a") #'org-babel-execute-src-block:async)
+
 
 ;; ################
 ;; # LaTeX / TeX
