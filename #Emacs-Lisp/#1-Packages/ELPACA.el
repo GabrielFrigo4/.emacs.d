@@ -65,6 +65,10 @@
 ;; Wait (ELPACA)
 (elpaca-wait)
 
+;; Install Documentation
+(use-package eldoc-box
+  :ensure t)
+
 ;; Install Emacs Lib
 (use-package compat
   :ensure (:type git :host github :repo "emacs-compat/compat"))
@@ -133,6 +137,10 @@
     (setq-default TeX-view-program-selection '((output-pdf "PDF Tools")))
     ;; Set Correlate Method for Search
     (setq-default TeX-source-correlate-method 'synctex)))
+
+;; Install Emacs BOOK
+(use-package nov
+  :ensure t)
 
 ;; Install Emacs PDF
 (use-package pdf-tools
