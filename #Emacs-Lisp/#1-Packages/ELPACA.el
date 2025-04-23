@@ -153,6 +153,8 @@
                      (pdf-view-midnight-minor-mode t))))
 
 ;; Install Emacs Web
+(use-package shr-tag-pre-highlight
+  :ensure t)
 (use-package shrface
   :ensure t
   :config
