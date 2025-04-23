@@ -27,8 +27,8 @@
 ;; Install Awesome Emacs
 (use-package aweshell
   :quelpa (aweshell :fetcher github :repo "GabrielFrigo4/aweshell"))
-(use-package aweww
-  :quelpa (aweww :fetcher github :repo "GabrielFrigo4/aweww"))
+;;(use-package aweww
+;;  :quelpa (aweww :fetcher github :repo "GabrielFrigo4/aweww"))
 
 ;; Install Assembly Language
 (use-package fasm-mode
