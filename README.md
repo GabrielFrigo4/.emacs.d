@@ -6,7 +6,6 @@
 ## TODO
  Todo List (Emacs Current)
  ```
- Update: [Aweww]
  Update: [CommonLisp]
  Update: [Assembly]
  ```
