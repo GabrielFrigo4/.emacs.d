@@ -71,17 +71,7 @@
 (global-set-key (kbd "C-c e") 'eshell)
 
 ;; Aweshell
-;; (global-set-key (kbd "") 'aweshell-new)
-;; (global-set-key (kbd "") 'aweshell-next)
-;; (global-set-key (kbd "") 'aweshell-prev)
 (global-set-key (kbd "C-c C-a") 'aweshell-toggle)
-;; (global-set-key (kbd "") 'aweshell-sudo-toggle)
-;; (global-set-key (kbd "") 'aweshell-autosuggest)
-;; (global-set-key (kbd "") 'aweshell-clear-buffer)
-;; (global-set-key (kbd "") 'aweshell-switch-buffer)
-;; (global-set-key (kbd "") 'aweshell-search-history)
-;; (global-set-key (kbd "") 'aweshell-dedicated-open)
-;; (global-set-key (kbd "") 'aweshell-dedicated-close)
 (global-set-key (kbd "C-c C-d") 'aweshell-dedicated-toggle)
 
 
@@ -124,3 +114,12 @@
 
 ;; Preview
 (global-set-key (kbd "C-c p") #'preview-latex)
+
+
+;; ################
+;; # Modes
+;; ################
+
+
+;; WhiteSpace
+(global-set-key (kbd "C-c m w") #'whitespace-mode)
