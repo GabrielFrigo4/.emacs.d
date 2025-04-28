@@ -19,7 +19,7 @@
 (global-whitespace-mode -1)
 
 ;; Enable End Line Wrap
-(set-default 'truncate-lines nil)
+(setq-default truncate-lines nil)
 
 ;; On OSX, swap Meta and Super
 ;; For Better Keyboard Ergonomics

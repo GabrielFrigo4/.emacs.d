@@ -27,6 +27,7 @@
 (setq-default shr-nbsp ?\u00A0)
 (setq-default shr-inhibit-images nil)
 (setq-default shr-use-fonts nil)
+(setq-default shr-width (+ (expt 2 6) (expt 2 4)))
 
 
 ;; ################
