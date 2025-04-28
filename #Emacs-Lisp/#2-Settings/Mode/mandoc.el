@@ -5,7 +5,8 @@
 
 ;; List of Unix Manual Links
 (defvar unix-manual-template-list
-  ["https://www.man7.org/linux/man-pages/man%s/%s.%s.html"
+  ["https://www.commandlinux.com/man-page/man%s/%s.%s.html"
+   "https://www.man7.org/linux/man-pages/man%s/%s.%s.html"
    "https://man.cx/%s(%s)"
    "https://man.freebsd.org/cgi/man.cgi?query=%s&sektion=%s"
    "https://man.openbsd.org/%s.%s"

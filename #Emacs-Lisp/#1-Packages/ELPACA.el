@@ -161,6 +161,7 @@
   :ensure t
   :config
   (progn
+    (setq-default shrface-toggle-bullets nil)
     (setq-default shrface-href-versatile t)
     (shrface-basic)))
 (use-package w3m
