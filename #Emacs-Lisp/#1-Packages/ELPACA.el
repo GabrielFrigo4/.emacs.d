@@ -101,6 +101,8 @@
   :ensure t)
 
 ;; Install Emacs Org
+(use-package org-modern
+  :ensure t)
 (use-package org-superstar
   :ensure (:type git :host github :repo "integral-dw/org-superstar-mode")
   :config
