@@ -38,3 +38,5 @@
  '(org-table ((t (:family "JetBrains Mono" :inherit fixed-pitch :foreground "#83a598"))))
  '(org-tag ((t (:family "JetBrains Mono" :inherit (shadow fixed-pitch) :weight bold))))
  '(org-verbatim ((t (:family "JetBrains Mono" :inherit (shadow fixed-pitch))))))
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
