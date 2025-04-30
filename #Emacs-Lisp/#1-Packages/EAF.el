@@ -162,6 +162,12 @@
   (interactive)
   (eaf-open-browser "youtube.com"))
 
+;; CP Algorithms
+(defun eaf-open-cp-algorithms ()
+  "Open EAF Browser with CP Algorithms WebSite"
+  (interactive)
+  (eaf-open-browser "cp-algorithms.com"))
+
 
 ;; ################
 ;; # Alias
@@ -199,3 +205,7 @@
 ;; YouTube
 (defalias 'youtube 'eaf-open-youtube
   "Open EAF Browser with YouTube WebSite")
+
+;; CP Algorithms
+(defalias 'cp-algorithms 'eaf-open-cp-algorithms
+  "Open EAF Browser with CP Algorithms WebSite")
