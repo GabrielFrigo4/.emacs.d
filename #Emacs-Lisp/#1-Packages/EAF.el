@@ -150,6 +150,12 @@
   (interactive)
   (eaf-open-browser "chat.deepseek.com"))
 
+;; GitHub
+(defun eaf-open-github ()
+  "Open EAF Browser with GitHub WebSite"
+  (interactive)
+  (eaf-open-browser "github.com"))
+
 ;; Wikipedia
 (defun eaf-open-wikipedia ()
   "Open EAF Browser with Wikipedia WebSite"
@@ -197,6 +203,10 @@
 ;; DeepSeek
 (defalias 'deepseek 'eaf-open-deepseek
   "Open EAF Browser with DeepSeek LLM")
+
+;; GitHub
+(defalias 'github 'eaf-open-github
+  "Open EAF Browser with GitHub WebSite")
 
 ;; Wikipedia
 (defalias 'wikipedia 'eaf-open-wikipedia
