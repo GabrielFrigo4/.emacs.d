@@ -35,6 +35,27 @@
 
 
 ;; ################
+;; # View PDF
+;; ################
+
+
+;; Define View LaTeX
+(defun view-latex ()
+  "Compile LaTeX with LaTeXMk and Dvipdfmx, then view the PDF in a split window."
+  (interactive)
+  (let ((orig-buffer (current-buffer)))
+    (TeX-command "LaTeXMk" 'TeX-master-file)
+    (async-sleep (expt 2 -2))
+    (switch-to-buffer orig-buffer)
+    (TeX-command "Dvipdfmx" 'TeX-master-file)
+    (async-sleep (expt 2 -2))
+    (switch-to-buffer orig-buffer)
+    (split-window-below)
+    (other-window 1)
+    (find-file (concat TeX-output-dir "/" (TeX-master-file) ".pdf"))))
+
+
+;; ################
 ;; # Preview
 ;; ################
 
@@ -47,11 +68,6 @@
 
 ;; Use GhostScript Method
 (setq-default preview-pdf-color-adjust-method t)
-
-;; Use #3-Sources for GhostScript
-(if-windows
- (setq-default preview-gs-command (concat emacs-dir "/#Emacs-Lisp/#3-Sources/GhostScript/gs-mogrify.cmd"))
- (setq-default preview-gs-command (concat emacs-dir "/#Emacs-Lisp/#3-Sources/GhostScript/gs-mogrify.sh")))
 
 ;; Define Preview LaTeX
 (defun preview-latex ()

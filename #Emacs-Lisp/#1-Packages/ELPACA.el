@@ -137,9 +137,10 @@
     (setq-default TeX-master t)
     ;; Set TeX Output Files
     (setq-default TeX-output-dir (expand-file-name "emacs-tex-out" temporary-file-directory))
-    ;; Enable PDF Mode by Default
-    (setq-default TeX-PDF-mode t)
-    (setq-default TeX-view-program-selection '((output-pdf "PDF Tools")))
+    ;; Setup Preview PDF
+    (setq-default TeX-PDF-mode nil)
+    (setq-default TeX-view-program-selection
+                  '((output-pdf "PDF Tools")))
     ;; Set Correlate Method for Search
     (setq-default TeX-source-correlate-method 'synctex)))
 

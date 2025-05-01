@@ -58,13 +58,13 @@
 
 
 ;; Terminal
-(global-set-key (kbd "C-c t") 'term)
+(global-set-key (kbd "C-c M-t") 'term)
 
 ;; VTerminal
-(global-set-key (kbd "C-c v") 'vterm)
+(global-set-key (kbd "C-c M-v") 'vterm)
 
 ;; Shell
-(global-set-key (kbd "C-c s") 'shell)
+(global-set-key (kbd "C-c M-s") 'shell)
 (global-set-key (kbd "C-c C-s") 'shell-command)
 
 ;; Eshell
@@ -111,6 +111,9 @@
 ;; # LaTeX / TeX
 ;; ################
 
+
+;; View PDF
+(global-set-key (kbd "C-c v") #'view-latex)
 
 ;; Preview
 (global-set-key (kbd "C-c p") #'preview-latex)
