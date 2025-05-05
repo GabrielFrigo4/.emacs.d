@@ -111,6 +111,29 @@
             (setq-local tab-width 2)
             (setq-local indent-tabs-mode nil)))
 
+;; Add Hook *asm-mode-hook*
+(add-hook 'asm-mode-hook
+          (lambda ()
+            "Add support for multiple comment styles in `asm-mode`."
+            ;; Add line comment characters ; and #
+            (modify-syntax-entry ?; "< b" asm-mode-syntax-table)
+            (modify-syntax-entry ?# "< b" asm-mode-syntax-table)
+            (modify-syntax-entry ?\n "> b" asm-mode-syntax-table)
+
+            ;; Setup block comment delimiters /* ... */
+            (modify-syntax-entry ?/ ". 124b" asm-mode-syntax-table)
+            (modify-syntax-entry ?* ". 23" asm-mode-syntax-table)
+
+            ;; Use syntax-propertize-function to recognize //
+            (setq-local syntax-propertize-function
+                        (syntax-propertize-rules
+                         ("\\(//\\)" (1 "< b"))))
+
+            ;; Set comment vars so M-; works
+            (setq-local comment-start "; ")
+            (setq-local comment-end "")
+            (setq-local comment-start-skip "\\(?:/\\*+\\|//+\\|;+\\|#+\\)[ \t]*")))
+
 
 ;; ################
 ;; # Treesit Modes

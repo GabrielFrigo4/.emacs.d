@@ -7,7 +7,6 @@
  Todo List (Emacs Current)
  ```
  Update: [CommonLisp]
- Update: [Assembly]
  ```
 
  Todo List (Emacs 31)
