@@ -25,6 +25,24 @@
   (dolist (buffer (delq (current-buffer) (buffer-list)))
     (kill-buffer buffer)))
 
+;; Def *kill-nstd-buffers*
+(defun kill-nstd-buffers ()
+  "Kill all Non Standard Buffers."
+  (interactive)
+  (dolist (buffer (buffer-list))
+    (let ((name (buffer-name buffer)))
+      (unless (member name standard-buffers)
+        (kill-buffer buffer)))))
+
+;; Def *kill-nstd-other-buffers*
+(defun kill-nstd-other-buffers ()
+  "Kill all Non Standard Buffers."
+  (interactive)
+  (dolist (buffer (delq (current-buffer) (buffer-list)))
+    (let ((name (buffer-name buffer)))
+      (unless (member name standard-buffers)
+        (kill-buffer buffer)))))
+
 ;; Def *kill-pkg-buffers*
 (defun kill-pkg-buffers ()
   "Kill Packages Buffers."
@@ -65,13 +83,6 @@
 ;; # Hook
 ;; ################
 
-
-;; Kill Packages Buffers
-(add-hook 'elpaca-after-init-hook
-          (lambda ()
-            (if-windows
-             (run-at-time "2.4 sec" nil #'kill-pkg-buffers)
-             (run-at-time "1.6 sec" nil #'kill-pkg-buffers))))
 
 ;; Kill Shell Buffers
 (add-hook 'window-setup-hook

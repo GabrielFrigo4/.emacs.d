@@ -17,6 +17,7 @@
 (global-set-key (kbd "C-c b e") 'eval-buffer)
 (global-set-key (kbd "C-c b k") 'kill-current-buffer)
 (global-set-key (kbd "C-c w k") 'kill-buffer-and-window)
+(global-set-key (kbd "C-c n") 'kill-nstd-other-buffers)
 
 ;; Command
 (global-set-key (kbd "<apps>") 'execute-extended-command)
