@@ -116,23 +116,34 @@
           (lambda ()
             "Add support for multiple comment styles in `asm-mode`."
             ;; Add line comment characters ; and #
-            (modify-syntax-entry ?; "< b" asm-mode-syntax-table)
+            (modify-syntax-entry ?\; "< b" asm-mode-syntax-table)
             (modify-syntax-entry ?# "< b" asm-mode-syntax-table)
             (modify-syntax-entry ?\n "> b" asm-mode-syntax-table)
-
             ;; Setup block comment delimiters /* ... */
             (modify-syntax-entry ?/ ". 124b" asm-mode-syntax-table)
             (modify-syntax-entry ?* ". 23" asm-mode-syntax-table)
-
             ;; Use syntax-propertize-function to recognize //
             (setq-local syntax-propertize-function
                         (syntax-propertize-rules
                          ("\\(//\\)" (1 "< b"))))
-
             ;; Set comment vars so M-; works
             (setq-local comment-start "; ")
             (setq-local comment-end "")
             (setq-local comment-start-skip "\\(?:/\\*+\\|//+\\|;+\\|#+\\)[ \t]*")))
+
+;; Add Hook *nasm-mode-hook*
+(add-hook 'nasm-mode-hook
+          (lambda ()
+            "Improve comment styles in `nasm-mode`."
+            (setq-local comment-start "; ")
+            (setq-local comment-end "")))
+
+;; Add Hook *fasm-mode-hook*
+(add-hook 'fasm-mode-hook
+          (lambda ()
+            "Improve comment styles in `fasm-mode`."
+            (setq-local comment-start "; ")
+            (setq-local comment-end "")))
 
 
 ;; ################
