@@ -103,9 +103,7 @@
 ;; Install Emacs Org
 (use-package org-modern
   :ensure t
-  :config
-  (if-linux
-   (add-hook 'org-mode-hook 'org-modern-mode)))
+  :hook (org-mode . org-modern-mode))
 (use-package org-superstar
   :ensure (:type git :host github :repo "integral-dw/org-superstar-mode")
   :config
