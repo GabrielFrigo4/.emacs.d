@@ -188,3 +188,13 @@ Skip checkboxes in source code blocks."
    (org . t)
    ;; TEX / LATEX
    (latex . t)))
+
+;; Make Lua Works
+(defun org-babel-execute-lua (body params)
+  "Execute a block of Lua code with Babel using an external Lua process."
+  (let* ((script-file (make-temp-file "ob-lua-" nil ".lua" body))
+         (cmd (format "lua %s" (shell-quote-argument script-file))))
+    (with-temp-buffer
+      (call-process-shell-command cmd nil t)
+      (buffer-string))))
+(advice-add 'org-babel-execute:lua :override #'org-babel-execute-lua)
