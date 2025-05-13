@@ -120,11 +120,6 @@
 ;; Install Emacs Jupyter
 (use-package jupyter
   :ensure (:type git :host github :repo "emacs-jupyter/jupyter"))
-(when-linux
-(use-package emacs-ipython-notebook
-  :ensure (:type git :host github :repo "millejoh/emacs-ipython-notebook"))
-(use-package ob-ipython
-  :ensure (:type git :host github :repo "gregsexton/ob-ipython")))
 
 ;; Install Emacs TeX / LaTeX
 (use-package cdlatex
