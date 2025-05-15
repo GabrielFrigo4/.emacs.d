@@ -46,12 +46,12 @@
   (let ((orig-buffer (current-buffer)))
     (TeX-command "LaTeXMk" 'TeX-master-file)
     (if-windows
-     (async-sleep (expt 2 2))
-     (async-sleep (expt 2 0)))
+     (async-sleep (expt 2 2.5))
+     (async-sleep (expt 2 1.5)))
     (switch-to-buffer orig-buffer)
     (TeX-command "Dvipdfmx" 'TeX-master-file)
     (if-windows
-     (async-sleep (expt 2 2))
+     (async-sleep (expt 2 1))
      (async-sleep (expt 2 0)))
     (switch-to-buffer orig-buffer)
     (split-window-below)
