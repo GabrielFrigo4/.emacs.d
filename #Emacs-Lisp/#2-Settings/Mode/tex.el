@@ -45,10 +45,14 @@
   (interactive)
   (let ((orig-buffer (current-buffer)))
     (TeX-command "LaTeXMk" 'TeX-master-file)
-    (async-sleep (expt 2 -2))
+    (if-windows
+     (async-sleep (expt 2 2))
+     (async-sleep (expt 2 0)))
     (switch-to-buffer orig-buffer)
     (TeX-command "Dvipdfmx" 'TeX-master-file)
-    (async-sleep (expt 2 -2))
+    (if-windows
+     (async-sleep (expt 2 2))
+     (async-sleep (expt 2 0)))
     (switch-to-buffer orig-buffer)
     (split-window-below)
     (other-window 1)
