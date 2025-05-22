@@ -15,6 +15,8 @@
 
 ;; Buffer
 (global-set-key (kbd "C-c b e") 'eval-buffer)
+(global-set-key (kbd "C-c b m") 'buffer-menu)
+(global-set-key (kbd "C-c b o") 'buffer-menu-other-window)
 (global-set-key (kbd "C-c b k") 'kill-current-buffer)
 (global-set-key (kbd "C-c w k") 'kill-buffer-and-window)
 (global-set-key (kbd "C-c n") 'kill-nstd-other-buffers)
