@@ -41,10 +41,14 @@
 ;; Backspace
 (global-set-key (kbd "<backspace>") 'backward-delete-char)
 (global-set-key (kbd "S-<backspace>") 'backward-delete-char-untabify)
-
-;; Delete
 (global-set-key (kbd "<del>") 'backward-delete-char)
 (global-set-key (kbd "S-<del>") 'backward-delete-char-untabify)
+(global-set-key (kbd "C-?") 'backward-delete-char)
+(global-set-key (kbd "S-C-?") 'backward-delete-char-untabify)
+
+;; Delete
+(global-set-key (kbd "<deletechar>") 'delete-char)
+(global-set-key (kbd "S-<deletechar>") 'delete-char)
 
 ;; Quit
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
