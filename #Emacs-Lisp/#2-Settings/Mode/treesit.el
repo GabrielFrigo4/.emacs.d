@@ -76,7 +76,8 @@
                 (ruby-mode . ruby-ts-mode)
                 (common-lisp-mode . common-lisp-ts-mode)
                 ;; WEB
-                (js-mode . js-ts-mode)
+                (js2-mode . js-ts-mode)
+                (javascript-mode . js-ts-mode)
                 (typescript-mode . typescript-ts-mode)
                 (tsx-mode . tsx-ts-mode)
                 (html-mode . html-ts-mode)

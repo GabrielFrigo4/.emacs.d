@@ -29,6 +29,13 @@
 ;; Set *perl-mode*
 (setq-default cperl-indent-level tab-width)
 
+;; Set *javascript-mode*
+(setq-default js-indent-level tab-width)
+(setq-default js2-basic-offset tab-width)
+
+;; Set *typescript-mode*
+(setq-default typescript-indent-level tab-width)
+
 ;; Set *rust-mode*
 (setq-default rust-ident-offset tab-width)
 (setq-default rust-format-on-save t)

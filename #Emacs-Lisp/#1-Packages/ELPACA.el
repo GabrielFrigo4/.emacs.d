@@ -238,6 +238,8 @@
   :ensure t)
 (use-package elixir-mode
   :ensure t)
+(use-package js2-mode
+  :ensure t)
 (use-package typescript-mode
   :ensure t)
 (use-package php-mode
