@@ -277,6 +277,15 @@
   :config
   (slime-setup '(slime-fancy)))
 
+;; Install Consult
+(use-package consult
+  :ensure t
+  :bind ("C-c h" .
+         (lambda ()
+           (interactive)
+           (consult-fd default-directory)))
+  :bind ("C-c f" . 'consult-fd))
+
 ;; Install NeoTree
 (use-package all-the-icons
   :ensure t)
