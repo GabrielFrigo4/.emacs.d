@@ -244,7 +244,11 @@
   :ensure t)
 (use-package php-mode
   :ensure t)
-(use-package vimrc-mode
+
+;; Install GPU Language
+(use-package cuda-mode
+  :ensure t)
+(use-package glsl-mode
   :ensure t)
 
 ;; Install Markup Language
@@ -253,10 +257,14 @@
 (use-package yaml-mode
   :ensure t)
 
-;; Install Configuration Language
+;; Install Build System Language
 (use-package dockerfile-mode
   :ensure t)
 (use-package cmake-mode
+  :ensure t)
+
+;; Install Configuration Language
+(use-package vimrc-mode
   :ensure t)
 
 ;; Install Treesit Grammar
