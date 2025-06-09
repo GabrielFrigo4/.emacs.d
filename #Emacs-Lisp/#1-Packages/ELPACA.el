@@ -234,6 +234,8 @@
   :ensure t)
 (use-package haskell-mode
   :ensure t)
+(use-package ada-mode
+  :ensure t)
 (use-package lua-mode
   :ensure t)
 (use-package elixir-mode
