@@ -47,8 +47,8 @@
 (global-set-key (kbd "S-C-?") 'backward-delete-char-untabify)
 
 ;; Delete
-(global-set-key (kbd "<deletechar>") 'delete-char)
-(global-set-key (kbd "S-<deletechar>") 'delete-char)
+(global-set-key (kbd "<deletechar>") 'delete-forward-char)
+(global-set-key (kbd "S-<deletechar>") 'delete-forward-char)
 
 ;; Quit
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
