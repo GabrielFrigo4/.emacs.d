@@ -127,7 +127,7 @@ COMMAND is the name of the command.")
 
 ;; Set MAN to WOMAN on Windows
 (when-windows
- (defalias 'man 'eww/woman
+ (defalias 'man 'woman
    "Unix Manual Pages Online (Linux/BSD Manual Pages).
 Option 1: \"SECTION COMMAND\"
 Option 2: \"COMMAND(SECTION)\"

@@ -277,8 +277,8 @@
 
 ;; Install PlatformIO
 (when-linux
-  (use-package platformio-mode
-    :ensure t))
+ (use-package platformio-mode
+   :ensure t))
 
 ;; Install Slime (Lisp)
 (use-package slime
