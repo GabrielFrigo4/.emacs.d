@@ -183,7 +183,8 @@
   (progn
     (require 'smartparens-config)
     (setq-default sp-show-pair-from-inside t)
-    (setq-default sp-autoskip-closing-pair t)))
+    (setq-default sp-autoskip-closing-pair t)
+    (setq-default sp-highlight-pair-overlay nil)))
 (use-package dash
   :ensure t
   :config
