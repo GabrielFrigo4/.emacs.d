@@ -11,13 +11,12 @@
 
 ;; Set *treesit-language-source-alist*
 (setq-default treesit-language-source-alist
-              '(;; BIN
+              '(;; Emacs Oficial Treesit
+                ;; BIN
                 (c . ("https://github.com/tree-sitter/tree-sitter-c" "master" "src"))
                 (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp" "master" "src"))
                 (rust . ("https://github.com/tree-sitter/tree-sitter-rust" "master" "src"))
-                (zig . ("https://github.com/maxxnino/tree-sitter-zig" "main" "src"))
                 (go . ("https://github.com/tree-sitter/tree-sitter-go" "master" "src"))
-                (haskell . ("https://github.com/tree-sitter/tree-sitter-haskell" "master" "src"))
                 ;; JIT
                 (c-sharp . ("https://github.com/tree-sitter/tree-sitter-c-sharp" "master" "src"))
                 (java . ("https://github.com/tree-sitter/tree-sitter-java" "master" "src"))
@@ -27,15 +26,12 @@
                 (lua . ("https://github.com/tree-sitter-grammars/tree-sitter-lua" "main" "src"))
                 (python . ("https://github.com/tree-sitter/tree-sitter-python" "master" "src"))
                 (ruby . ("https://github.com/tree-sitter/tree-sitter-ruby" "master" "src"))
-                (commonlisp . ("https://github.com/tree-sitter-grammars/tree-sitter-commonlisp" "master" "src"))
                 ;; WEB
                 (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "master" "src"))
                 (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
                 (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
                 (html . ("https://github.com/tree-sitter/tree-sitter-html" "master" "src"))
                 (css . ("https://github.com/tree-sitter/tree-sitter-css" "master" "src"))
-                ;; EMACS
-                (elisp . ("https://github.com/Wilfred/tree-sitter-elisp" "main" "src"))
                 ;; SHELL
                 (bash . ("https://github.com/tree-sitter/tree-sitter-bash" "master" "src"))
                 ;; MAKE
@@ -53,18 +49,29 @@
                 (luadoc . ("https://github.com/tree-sitter-grammars/tree-sitter-luadoc" "master" "src"))
                 (jsdoc . ("https://github.com/tree-sitter/tree-sitter-jsdoc" "master" "src"))
                 ;; PATTERN
-                (luap . ("https://github.com/tree-sitter-grammars/tree-sitter-luap" "master" "src"))))
+                (luap . ("https://github.com/tree-sitter-grammars/tree-sitter-luap" "master" "src"))
+                
+                ;; Emacs Unoficial Treesit
+                ;; BIN
+                (haskell . ("https://github.com/tree-sitter/tree-sitter-haskell" "master" "src"))
+                (zig . ("https://github.com/maxxnino/tree-sitter-zig" "main" "src"))
+                
+                ;; Emacs Custom Treesit
+                ;; VM
+                (commonlisp . ("https://github.com/tree-sitter-grammars/tree-sitter-commonlisp" "master" "src"))
+                ;; EMACS
+                (elisp . ("https://github.com/Wilfred/tree-sitter-elisp" "main" "src"))
+                ))
 
 ;; Set *major-mode-remap-alist*
 (setq-default major-mode-remap-alist
-              '(;; BIN
+              '(;; Emacs Oficial Treesit
+                ;; BIN
                 (c-mode . c-ts-mode)
                 (c++-mode . c++-ts-mode)
                 (c-or-c++-mode . c-or-c++-ts-mode)
                 (rust-mode . rust-ts-mode)
-                (zig-mode . zig-ts-mode)
                 (go-mode . go-ts-mode)
-                (haskell-mode . haskell-ts-mode)
                 ;; JIT
                 (csharp-mode . csharp-ts-mode)
                 (java-mode . java-ts-mode)
@@ -74,7 +81,6 @@
                 (lua-mode . lua-ts-mode)
                 (python-mode . python-ts-mode)
                 (ruby-mode . ruby-ts-mode)
-                (common-lisp-mode . common-lisp-ts-mode)
                 ;; WEB
                 (js2-mode . js-ts-mode)
                 (javascript-mode . js-ts-mode)
@@ -82,8 +88,6 @@
                 (tsx-mode . tsx-ts-mode)
                 (html-mode . html-ts-mode)
                 (css-mode . css-ts-mode)
-                ;; EMACS
-                (emacs-lisp-mode . emacs-lisp-ts-mode)
                 ;; SHELL
                 (sh-mode . bash-ts-mode)
                 ;; MAKE
@@ -93,7 +97,19 @@
                 ;; DATA
                 (json-mode . json-ts-mode)
                 (conf-toml-mode . toml-ts-mode)
-                (yaml-mode . yaml-ts-mode)))
+                (yaml-mode . yaml-ts-mode)
+                
+                ;; Emacs Unoficial Treesit
+                ;; BIN
+                (haskell-mode . haskell-ts-mode)
+                (zig-mode . zig-ts-mode)
+                
+                ;; Emacs Custom Treesit
+                ;; VM
+                (common-lisp-mode . common-lisp-ts-mode)
+                ;; EMACS
+                (emacs-lisp-mode . emacs-lisp-ts-mode)
+                ))
 
 ;; Set *treesit-load-name-override-list*
 (setq-default treesit-load-name-override-list '())
