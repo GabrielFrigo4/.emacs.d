@@ -108,6 +108,8 @@
   :ensure (:type git :host github :repo "integral-dw/org-superstar-mode")
   :config
   (add-hook 'org-mode-hook 'org-superstar-mode))
+(use-package ox-odt
+  :ensure (:type git :host github :repo "kjambunathan/org-mode-ox-odt"))
 
 ;; Install Emacs Markdown
 (use-package markdown-mode

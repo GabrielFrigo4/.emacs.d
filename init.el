@@ -117,6 +117,9 @@
 ;; $HOME/.emacs.d
 (setq-default emacs-dir (concat home-dir "/.emacs.d"))
 
+;; $HOME/.emacs.d/elpa/gnupg
+(setq-default package-gnupghome-dir (concat home-dir "/.emacs.d/elpa/gnupg"))
+
 
 ;; ################
 ;; # Startup
