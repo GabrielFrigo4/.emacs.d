@@ -33,3 +33,15 @@
 ;; TSX / JSX
 (use-package tsx-mode
   :straight '(tsx-mode :type git :host github :repo "orzechowskid/tsx-mode.el" :branch "emacs30"))
+
+;; Org Exporter Backend
+(use-package ox-odt
+  :straight (org-mode-ox-odt
+             :host github
+             :repo "kjambunathan/org-mode-ox-odt"
+             :files ("lisp/ox-odt.el"
+                     "lisp/ox-ods.el"
+                     "lisp/odt.el"
+                     "etc"
+                     "docs"
+                     "contrib/odt/LibreOffice")))

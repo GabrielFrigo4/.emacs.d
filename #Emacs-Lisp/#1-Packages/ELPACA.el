@@ -103,19 +103,18 @@
 ;; Install Emacs Org
 (use-package org-modern
   :ensure t
-  :hook (org-mode . org-modern-mode))
+  :hook (org-mode . org-modern-mode)
+  :init
+  (setq-default org-modern-fold-stars '(("▶" . "▼") ("▷" . "▽") ("►" . "◆") ("▻" . "◇") ("▸" . "▾") ("▹" . "▿"))))
 (use-package org-superstar
   :ensure (:type git :host github :repo "integral-dw/org-superstar-mode")
-  :config
-  (add-hook 'org-mode-hook 'org-superstar-mode))
-(use-package ox-odt
-  :ensure (:type git :host github :repo "kjambunathan/org-mode-ox-odt"))
+  :hook (org-mode . org-superstar-mode))
 
 ;; Install Emacs Markdown
 (use-package markdown-mode
   :ensure t
   :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown")
+  :init (setq-default markdown-command "multimarkdown")
   :bind (:map markdown-mode-map
               ("C-c C-e" . markdown-do)))
 
@@ -215,12 +214,10 @@
 ;; Install Emacs Syntax
 (use-package highlight-numbers
   :ensure t
-  :config
-  (add-hook 'prog-mode-hook 'highlight-numbers-mode))
+  :hook (prog-mode . highlight-numbers-mode))
 (use-package rainbow-delimiters
   :ensure t
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; Install Assembly Language
 (use-package riscv-mode
