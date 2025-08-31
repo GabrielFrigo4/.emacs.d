@@ -143,10 +143,6 @@
 ;; Unique Buffer Names for Matching Files
 (require 'uniquify)
 
-;; Disable package.el at Startup
-(require 'package)
-(setq-default package-enable-at-startup nil)
-
 ;; Set *evil-undo-system* as *undo-redo*
 (setq-default evil-undo-system 'undo-redo)
 

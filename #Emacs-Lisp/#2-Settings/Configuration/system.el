@@ -15,11 +15,15 @@
 ;; Remove Font Caches
 (setq-default inhibit-compacting-font-caches t)
 
-;; Disable White Space Mode
-(global-whitespace-mode -1)
-
 ;; Enable End Line Wrap
 (setq-default truncate-lines nil)
+
+;; Enable Auto Revert Mode
+(global-auto-revert-mode t)
+(setq-default global-auto-revert-non-file-buffers t)
+
+;; Disable White Space Mode
+(global-whitespace-mode -1)
 
 ;; On OSX, swap Meta and Super
 ;; For Better Keyboard Ergonomics

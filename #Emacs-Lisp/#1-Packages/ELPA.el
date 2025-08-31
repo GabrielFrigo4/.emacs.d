@@ -22,22 +22,12 @@
                 ))
 
 ;; Install Use-Package (ELPA & MELPA)
-(unless (package-installed-p 'use-package)
-  (package-resfresh-contents)
-  (package-install 'use-package))
+(unless (equal package-enable-at-startup nil)
+  (unless (package-installed-p 'use-package)
+    (package-resfresh-contents)
+    (package-install 'use-package)))
 
 
 ;; ################
 ;; # Packages
 ;; ################
-
-
-;; Install Emacs Visual Studio
-(use-package auto-scroll-bar
-  :ensure t
-  :config
-  (auto-scroll-bar-mode t))
-
-;; Install Themes
-(use-package doom-themes
-  :ensure t)

@@ -69,6 +69,12 @@
 (use-package eldoc-box
   :ensure t)
 
+;; Install Emacs Environment
+(use-package elenv
+  :ensure (:type git :host github :repo "jcs-elpa/elenv"))
+(use-package msgu
+  :ensure (:type git :host github :repo "jcs-elpa/msgu"))
+
 ;; Install Emacs Lib
 (use-package compat
   :ensure (:type git :host github :repo "emacs-compat/compat"))
@@ -83,6 +89,10 @@
 (use-package async
   :ensure t)
 (use-package ob-async
+  :ensure t)
+
+;; Install Emacs Themes
+(use-package doom-themes
   :ensure t)
 
 ;; Install Emacs Font
@@ -172,7 +182,7 @@
     (setq-default shrface-href-versatile t)
     (shrface-basic)))
 (use-package w3m
-  :ensure t)
+  :ensure (:type git :host github :repo "emacs-w3m/emacs-w3m"))
 
 ;; Install Emacs Edit
 (use-package paredit
@@ -210,6 +220,12 @@
   :ensure t)
 (use-package visual-regexp-steroids
   :ensure t)
+
+;; Install Emacs Visual Studio
+(use-package auto-scroll-bar
+  :ensure (:type git :host github :repo "emacs-vs/auto-scroll-bar")
+  :config
+  (auto-scroll-bar-mode t))
 
 ;; Install Emacs Syntax
 (use-package highlight-numbers
