@@ -9,8 +9,8 @@
 ;; Set *treesit-font-lock* to Maximun Decoration
 (setq-default treesit-font-lock-level 4)
 
-;; Set *treesit-language-source-alist*
-(setq-default treesit-language-source-alist
+;; Set *treesit-language-source-unstable-alist*
+(setq-default treesit-language-source-unstable-alist
               '(;; Emacs Oficial Treesit
                 ;; BIN
                 (c . ("https://github.com/tree-sitter/tree-sitter-c" "master" "src"))
@@ -59,6 +59,60 @@
                 ;; Emacs Custom Treesit
                 ;; VM
                 (commonlisp . ("https://github.com/tree-sitter-grammars/tree-sitter-commonlisp" "master" "src"))
+                ;; EMACS
+                (elisp . ("https://github.com/Wilfred/tree-sitter-elisp" "main" "src"))
+                ))
+
+;; Set *treesit-language-source-stable-alist*
+(setq-default treesit-language-source-stable-alist
+              '(;; Emacs Oficial Treesit
+                ;; BIN
+                (c . ("https://github.com/tree-sitter/tree-sitter-c" "v0.23.6" "src"))
+                (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp" "v0.23.4" "src"))
+                (rust . ("https://github.com/tree-sitter/tree-sitter-rust" "v0.23.3" "src"))
+                (go . ("https://github.com/tree-sitter/tree-sitter-go" "v0.23.4" "src"))
+                ;; JIT
+                (c-sharp . ("https://github.com/tree-sitter/tree-sitter-c-sharp" "v0.23.1" "src"))
+                (java . ("https://github.com/tree-sitter/tree-sitter-java" "v0.23.5" "src"))
+                (elixir . ("https://github.com/elixir-lang/tree-sitter-elixir" "v0.3.4" "src"))
+                (php . ("https://github.com/tree-sitter/tree-sitter-php" "v0.23.12" "php/src"))
+                ;; VM
+                (lua . ("https://github.com/tree-sitter-grammars/tree-sitter-lua" "v0.3.0" "src"))
+                (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.23.6" "src"))
+                (ruby . ("https://github.com/tree-sitter/tree-sitter-ruby" "v0.23.1" "src"))
+                ;; WEB
+                (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.23.1" "src"))
+                (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "typescript/src"))
+                (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.23.2" "tsx/src"))
+                (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.23.2" "src"))
+                (css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.23.2" "src"))
+                ;; SHELL
+                (bash . ("https://github.com/tree-sitter/tree-sitter-bash" "v0.23.3" "src"))
+                ;; MAKE
+                (cmake . ("https://github.com/uyha/tree-sitter-cmake" "v0.7.1" "src"))
+                ;; CONFIG
+                (dockerfile . ("https://github.com/camdencheek/tree-sitter-dockerfile" "v0.2.0" "src"))
+                (gomod . ("https://github.com/camdencheek/tree-sitter-go-mod" "v1.1.0" "src"))
+                (heex . ("https://github.com/phoenixframework/tree-sitter-heex" "v0.8.0" "src"))
+                ;; DATA
+                (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.24.8" "src"))
+                (toml . ("https://github.com/tree-sitter/tree-sitter-toml" "master" "src"))
+                (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0" "src"))
+                ;; DOC
+                (phpdoc . ("https://github.com/claytonrcarter/tree-sitter-phpdoc" "v0.1.6" "src"))
+                (luadoc . ("https://github.com/tree-sitter-grammars/tree-sitter-luadoc" "v1.1.0" "src"))
+                (jsdoc . ("https://github.com/tree-sitter/tree-sitter-jsdoc" "v0.23.2" "src"))
+                ;; PATTERN
+                (luap . ("https://github.com/tree-sitter-grammars/tree-sitter-luap" "v1.0.1" "src"))
+                
+                ;; Emacs Unoficial Treesit
+                ;; BIN
+                (haskell . ("https://github.com/tree-sitter/tree-sitter-haskell" "v0.23.1" "src"))
+                (zig . ("https://github.com/maxxnino/tree-sitter-zig" "main" "src"))
+                
+                ;; Emacs Custom Treesit
+                ;; VM
+                (commonlisp . ("https://github.com/tree-sitter-grammars/tree-sitter-commonlisp" "v0.4.1" "src"))
                 ;; EMACS
                 (elisp . ("https://github.com/Wilfred/tree-sitter-elisp" "main" "src"))
                 ))
@@ -113,6 +167,9 @@
 
 ;; Set *treesit-load-name-override-list*
 (setq-default treesit-load-name-override-list '())
+
+;; Set *treesit-language-source-alist*
+(setq-default treesit-language-source-alist treesit-language-source-stable-alist)
 
 ;; Def *tree-sitter-setup*
 (defun tree-sitter-setup ()
