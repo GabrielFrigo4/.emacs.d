@@ -126,6 +126,16 @@
  cd "$HOME/.emacs.d/eaf/emacs-application-framework/"
  chmod +x ./install-eaf.py
  ./install-eaf.py
+ ./install-eaf.py --install "browser"
+ ./install-eaf.py --install "pdf-viewer"
+ ./install-eaf.py --install "music-player"
+ ./install-eaf.py --install "video-player"
+ ./install-eaf.py --install "image-viewer"
+ ./install-eaf.py --install "file-manager"
+ ./install-eaf.py --install "pyqterminal"
+ ./install-eaf.py --install "terminal"
+ ./install-eaf.py --install "camera"
+ ./install-eaf.py --install "git"
  ```
 
 ### Windows
