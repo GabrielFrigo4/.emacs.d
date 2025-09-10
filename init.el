@@ -126,6 +126,8 @@
         ,(concat home-dir "/.authinfo.gpg")
         ,(concat home-dir "/.netrc")))
 
+;; $HOME/Downloads
+(setq-default download-directory (concat home-dir "/Downloads"))
 
 ;; ################
 ;; # Startup
