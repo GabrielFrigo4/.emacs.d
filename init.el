@@ -120,6 +120,12 @@
 ;; $HOME/.emacs.d/elpa/gnupg
 (setq-default package-gnupghome-dir (concat home-dir "/.emacs.d/elpa/gnupg"))
 
+;; $HOME/<auth-sources>
+(setq-default auth-sources
+      `(,(concat home-dir "/.authinfo")
+        ,(concat home-dir "/.authinfo.gpg")
+        ,(concat home-dir "/.netrc")))
+
 
 ;; ################
 ;; # Startup
