@@ -26,7 +26,6 @@ Uses the `treesit-language-source-unstable-alist` list as a base."
 ;; Def *treesit-generate-stable-list-from-github*
 (defun treesit-generate-stable-list-from-github ()
   "Generate a list of grammar sources using fixed versions or latest tags.
-
 For each language in `treesit-language-source-branch-alist`, this function
 determines the revision to use based on the following priority:
 1. A fixed version specified in `treesit-language-fixed-version-alist`.
@@ -47,7 +46,6 @@ determines the revision to use based on the following priority:
                            (github-fetch-latest-release-tag url)))
              (final-rev (or fixed-version latest-tag original-rev)))
         (message "Language: %s -> Using revision: %s" lang final-rev)
-        ;; The corrected line with the proper flat structure.
         (push `(,lang ,url ,final-rev ,subdir) stable-list)))
     (nreverse stable-list)))
 

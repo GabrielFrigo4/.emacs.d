@@ -25,6 +25,9 @@
 ;; Disable White Space Mode
 (global-whitespace-mode -1)
 
+;; Enable Completion Preview
+(global-completion-preview-mode t)
+
 ;; On OSX, swap Meta and Super
 ;; For Better Keyboard Ergonomics
 (if-darwin

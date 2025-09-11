@@ -124,12 +124,3 @@
 
 ;; Preview
 (global-set-key (kbd "C-c p") #'preview-latex)
-
-
-;; ################
-;; # Modes
-;; ################
-
-
-;; WhiteSpace
-(global-set-key (kbd "C-c m w") #'whitespace-mode)

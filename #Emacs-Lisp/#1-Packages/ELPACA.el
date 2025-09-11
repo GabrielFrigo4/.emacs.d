@@ -75,6 +75,12 @@
 (use-package msgu
   :ensure (:type git :host github :repo "jcs-elpa/msgu"))
 
+;; Install Emacs Visual Studio
+(use-package auto-scroll-bar
+  :ensure (:type git :host github :repo "emacs-vs/auto-scroll-bar")
+  :config
+  (auto-scroll-bar-mode t))
+
 ;; Install Emacs Lib
 (use-package compat
   :ensure (:type git :host github :repo "emacs-compat/compat"))
@@ -102,15 +108,19 @@
 ;; Install Emacs Mode
 (use-package magit
   :ensure t
-  :after (transient))
+  :after (transient)
+  :config
+  (progn
+    (setq-default magit-git-executable "git")
+    (setq-default magit-debug-git-executable "git")))
 
-;; Install Emacs Evil
+;; Install Evil
 (use-package evil
   :ensure t)
 (use-package evil-tutor
   :ensure t)
 
-;; Install Emacs Org
+;; Install Org
 (use-package org-modern
   :ensure t
   :hook (org-mode . org-modern-mode)
@@ -120,7 +130,7 @@
   :ensure (:type git :host github :repo "integral-dw/org-superstar-mode")
   :hook (org-mode . org-superstar-mode))
 
-;; Install Emacs Markdown
+;; Install Markdown
 (use-package markdown-mode
   :ensure t
   :mode ("README\\.md\\'" . gfm-mode)
@@ -128,11 +138,11 @@
   :bind (:map markdown-mode-map
               ("C-c C-e" . markdown-do)))
 
-;; Install Emacs Jupyter
+;; Install Jupyter
 (use-package jupyter
   :ensure (:type git :host github :repo "emacs-jupyter/jupyter"))
 
-;; Install Emacs TeX / LaTeX
+;; Install TeX / LaTeX
 (use-package cdlatex
   :ensure t)
 (use-package auctex
@@ -157,21 +167,29 @@
     ;; Set Correlate Method for Search
     (setq-default TeX-source-correlate-method 'synctex)))
 
-;; Install Emacs BOOK
+;; Install BOOK
 (use-package nov
   :ensure t)
 
-;; Install Emacs PDF
+;; Install PDF
 (use-package pdf-tools
   :ensure t
   :config
-  (pdf-tools-install)
+  (progn
+    (pdf-tools-install)
+    (setq-default pdf-tools-msys2-directory (concat home-dir "/scoop/apps/msys2/current/"))
+    (setq-default pdf-view-use-scaling nil)
+    (setq-default pdf-view-image-relief 2)
+    (setq-default pdf-view-use-imagemagick t)
+    (defadvice pdf-cache--prefetch-start (around suppress-timer activate)
+      "Suppress the pdf-cache prefetching timer."
+      (cancel-function-timers 'pdf-cache--prefetch-start)))
   :hook
   (pdf-view-mode . (lambda ()
                      (display-line-numbers-mode -1)
                      (pdf-view-midnight-minor-mode t))))
 
-;; Install Emacs Web
+;; Install Web
 (use-package shr-tag-pre-highlight
   :ensure t)
 (use-package shrface
@@ -182,9 +200,49 @@
     (setq-default shrface-href-versatile t)
     (shrface-basic)))
 (use-package w3m
-  :ensure (:type git :host github :repo "emacs-w3m/emacs-w3m"))
+  :ensure (:type git :host github :repo "emacs-w3m/emacs-w3m")
+  :config
+  (w3m-display-mode 'plain))
 
-;; Install Emacs Edit
+;; Install LLM
+(use-package gptel
+  :ensure t
+  :config
+  (progn
+    (setq-default chatgpt-backend (gptel-make-openai "ChatGPT"
+                            :stream t
+                            :key (auth-source-pick-first-password :host "api.openai.com")))
+    (setq-default deepseek-backend (gptel-make-deepseek "DeepSeek"
+                             :stream t
+                             :key (auth-source-pick-first-password :host "api.deepseek.com")))
+    (setq-default gemini-backend (gptel-make-gemini "Gemini"
+                           :stream t
+                           :key (auth-source-pick-first-password :host "generativelanguage.googleapis.com")))
+    (setq-default gptel-model 'gemini-2.5-flash-lite)
+    (setq-default gptel-backend gemini-backend)
+
+    (defvar gptel-models
+      '("gemini-2.5-pro"
+        "gemini-2.5-flash"
+        "gemini-2.5-flash-lite")
+      "Models List for GPTEL")
+
+    (defun gptel-select-model ()
+      "Interactively select a model to use with GPTEL"
+      (interactive)
+      (let ((selected-model (completing-read "Select the Model: "
+                                             gptel-models
+                                             nil t nil nil
+                                             (symbol-name gptel-model))))
+        (if (and selected-model (not (string-empty-p selected-model)))
+            (progn
+              (setq gptel-model (intern selected-model))
+              (message "gptel-model defined as: %s" gptel-model))
+          (message "Model selection canceled."))))
+
+    (global-set-key (kbd "C-c m") #'gptel-select-model)))
+
+;; Install Edit
 (use-package paredit
   :ensure t)
 (use-package smartparens
@@ -201,33 +259,27 @@
   :config
   (global-dash-fontify-mode))
 
-;; Install Emacs Window
+;; Install Window
 (use-package ace-window
   :ensure t
   :bind (("M-o" . ace-window)))
 
-;; Install Emacs Cursor
+;; Install Cursor
 (use-package multiple-cursors
   :ensure t)
 
-;; Install Emacs Terminal
+;; Install Terminal
 (if-linux
  (use-package vterm
    :ensure t))
 
-;; Install Emacs Regex
+;; Install Regex
 (use-package visual-regexp
   :ensure t)
 (use-package visual-regexp-steroids
   :ensure t)
 
-;; Install Emacs Visual Studio
-(use-package auto-scroll-bar
-  :ensure (:type git :host github :repo "emacs-vs/auto-scroll-bar")
-  :config
-  (auto-scroll-bar-mode t))
-
-;; Install Emacs Syntax
+;; Install Syntax
 (use-package highlight-numbers
   :ensure t
   :hook (prog-mode . highlight-numbers-mode))
