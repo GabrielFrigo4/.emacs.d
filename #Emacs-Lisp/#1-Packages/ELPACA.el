@@ -167,7 +167,7 @@
     ;; Set Correlate Method for Search
     (setq-default TeX-source-correlate-method 'synctex)))
 
-;; Install BOOK
+;; Install Book
 (use-package nov
   :ensure t)
 
@@ -205,19 +205,32 @@
   (w3m-display-mode 'plain))
 
 ;; Install LLM
+(use-package llm
+  :ensure t
+  :config
+  (progn
+    (setq-default llm-openai-api-key (auth-source-pick-first-password :host "api.openai.com"))
+    (setq-default llm-deepseek-api-key (auth-source-pick-first-password :host "api.deepseek.com"))
+    (setq-default llm-google-api-key (auth-source-pick-first-password :host "generativelanguage.googleapis.com"))
+    (setq-default llm-default-provider 'google)
+    (setq-default llm-google-model "gemini-2.5-flash-lite")))
+(use-package org-ai
+  :ensure t
+  :after (org llm)
+  :hook (org-mode . org-ai-mode))
 (use-package gptel
   :ensure t
   :config
   (progn
     (setq-default chatgpt-backend (gptel-make-openai "ChatGPT"
-                            :stream t
-                            :key (auth-source-pick-first-password :host "api.openai.com")))
+                                    :stream t
+                                    :key (auth-source-pick-first-password :host "api.openai.com")))
     (setq-default deepseek-backend (gptel-make-deepseek "DeepSeek"
-                             :stream t
-                             :key (auth-source-pick-first-password :host "api.deepseek.com")))
+                                     :stream t
+                                     :key (auth-source-pick-first-password :host "api.deepseek.com")))
     (setq-default gemini-backend (gptel-make-gemini "Gemini"
-                           :stream t
-                           :key (auth-source-pick-first-password :host "generativelanguage.googleapis.com")))
+                                   :stream t
+                                   :key (auth-source-pick-first-password :host "generativelanguage.googleapis.com")))
     (setq-default gptel-model 'gemini-2.5-flash-lite)
     (setq-default gptel-backend gemini-backend)
 
