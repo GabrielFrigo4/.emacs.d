@@ -17,6 +17,8 @@
 
 ;; Enable End Line Wrap
 (setq-default truncate-lines nil)
+(add-hook 'org-mode-hook #'visual-line-mode)
+(add-hook 'prog-mode-hook (lambda () (visual-line-mode -1)))
 
 ;; Enable Auto Revert Mode
 (global-auto-revert-mode t)

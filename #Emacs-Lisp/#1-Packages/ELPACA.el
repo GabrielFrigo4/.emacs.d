@@ -212,26 +212,30 @@
     (setq-default llm-openai-api-key (auth-source-pick-first-password :host "api.openai.com"))
     (setq-default llm-deepseek-api-key (auth-source-pick-first-password :host "api.deepseek.com"))
     (setq-default llm-google-api-key (auth-source-pick-first-password :host "generativelanguage.googleapis.com"))
-    (setq-default llm-default-provider 'google)
     (setq-default llm-google-model "gemini-2.5-flash-lite")))
 (use-package org-ai
   :ensure t
   :after (org llm)
-  :hook (org-mode . org-ai-mode))
+  :hook (org-mode . org-ai-mode)
+  :config
+  (progn
+    (setq-default org-ai-default-chat-system-prompt "Act like a wizard that can only generate raw text. Your response should not contain any Markdown formatting. I need to copy and paste your output into a plain text editor without losing any information.")
+    (setq-default org-ai-default-inject-sys-prompt-for-all-messages t)
+    (setq-default org-ai-default-chat-model llm-google-model)))
 (use-package gptel
   :ensure t
   :config
   (progn
     (setq-default chatgpt-backend (gptel-make-openai "ChatGPT"
                                     :stream t
-                                    :key (auth-source-pick-first-password :host "api.openai.com")))
+                                    :key llm-openai-api-key))
     (setq-default deepseek-backend (gptel-make-deepseek "DeepSeek"
                                      :stream t
-                                     :key (auth-source-pick-first-password :host "api.deepseek.com")))
+                                     :key llm-deepseek-api-key))
     (setq-default gemini-backend (gptel-make-gemini "Gemini"
                                    :stream t
-                                   :key (auth-source-pick-first-password :host "generativelanguage.googleapis.com")))
-    (setq-default gptel-model 'gemini-2.5-flash-lite)
+                                   :key llm-google-api-key))
+    (setq-default gptel-model llm-google-model)
     (setq-default gptel-backend gemini-backend)
 
     (defvar gptel-models
@@ -253,6 +257,7 @@
               (message "gptel-model defined as: %s" gptel-model))
           (message "Model selection canceled."))))
 
+    (global-set-key (kbd "C-c g") #'gptel)
     (global-set-key (kbd "C-c m") #'gptel-select-model)))
 
 ;; Install Edit
