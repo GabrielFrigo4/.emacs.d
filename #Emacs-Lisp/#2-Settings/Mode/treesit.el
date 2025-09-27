@@ -63,13 +63,7 @@ determines the revision to use based on the following priority:
 
 ;; Set *treesit-language-fixed-version-alist*
 (defvar treesit-language-fixed-version-alist
-  '((c . "v0.23.6")
-    (rust . "v0.23.3")
-    (go . "v0.23.4")
-    (php . "v0.23.12")
-    (lua . "v0.3.0")
-    (javascript . "v0.23.1")
-    (bash . "v0.23.3"))
+  '()
   "List of grammars with fixed versions.")
 
 ;; Set *treesit-language-source-branch-alist*
