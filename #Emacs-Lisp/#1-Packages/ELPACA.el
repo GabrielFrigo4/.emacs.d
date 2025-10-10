@@ -81,6 +81,12 @@
   :config
   (auto-scroll-bar-mode t))
 
+;; Install Emacs Awesome
+(use-package aweshell
+  :ensure (:type git :host github :repo "GabrielFrigo4/aweshell"))
+(use-package aweww
+  :ensure (:type git :host github :repo "GabrielFrigo4/aweww"))
+
 ;; Install Emacs Lib
 (use-package compat
   :ensure (:type git :host github :repo "emacs-compat/compat"))
@@ -105,7 +111,13 @@
 (use-package mixed-pitch
   :ensure t)
 
-;; Install Emacs Mode
+;; Install Environment
+(use-package pyvenv
+  :ensure t
+  :config
+  (pyvenv-mode 1))
+
+;; Install Magit
 (use-package magit
   :ensure t
   :after (transient)
@@ -306,6 +318,10 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; Install Assembly Language
+(use-package fasm-mode
+  :ensure (:type git :host github :repo "GabrielFrigo4/fasm-mode"))
+(use-package nasm-mode
+  :ensure (:type git :host github :repo "GabrielFrigo4/nasm-mode"))
 (use-package riscv-mode
   :ensure t)
 
@@ -356,6 +372,10 @@
   :ensure t)
 
 ;; Install Treesit Grammar
+(use-package emacs-lisp-ts-mode
+  :ensure (:type git :host github :repo "GabrielFrigo4/emacs-lisp-ts-mode"))
+(use-package common-lisp-ts-mode
+  :ensure (:type git :host github :repo "GabrielFrigo4/common-lisp-ts-mode"))
 (use-package zig-ts-mode
   :ensure (:type git :host github :repo "Ziqi-Yang/zig-ts-mode"))
 (use-package haskell-ts-mode
