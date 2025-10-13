@@ -114,6 +114,12 @@
   (interactive)
   (eaf-open-camera))
 
+;; Web
+(defun eaf-web (URL)
+  "Open EAF Web Browser for Search"
+  (interactive "sURL: ")
+  (eaf-open-browser URL))
+
 ;; Google
 (defun eaf-open-google ()
   "Open EAF Browser with Google Search"
