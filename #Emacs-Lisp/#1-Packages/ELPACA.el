@@ -67,59 +67,63 @@
 
 ;; Install Documentation
 (use-package eldoc-box
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/eldoc-box" :branch "master"))
 
 ;; Install Emacs Environment
 (use-package elenv
-  :ensure (:type git :host github :repo "jcs-elpa/elenv"))
+  :ensure (:type git :host github :repo "jcs-elpa/elenv" :branch "master"))
 (use-package msgu
-  :ensure (:type git :host github :repo "jcs-elpa/msgu"))
+  :ensure (:type git :host github :repo "jcs-elpa/msgu" :branch "master"))
 
 ;; Install Emacs Visual Studio
 (use-package auto-scroll-bar
-  :ensure (:type git :host github :repo "emacs-vs/auto-scroll-bar")
+  :ensure (:type git :host github :repo "emacs-vs/auto-scroll-bar" :branch "master")
   :config
   (auto-scroll-bar-mode t))
 
 ;; Install Emacs Awesome
 (use-package aweshell
-  :ensure (:type git :host github :repo "GabrielFrigo4/aweshell"))
+  :ensure (:type git :host github :repo "GabrielFrigo4/aweshell" :branch "master"))
 (use-package aweww
-  :ensure (:type git :host github :repo "GabrielFrigo4/aweww"))
+  :ensure (:type git :host github :repo "GabrielFrigo4/aweww" :branch "main"))
 
 ;; Install Emacs Lib
 (use-package compat
-  :ensure (:type git :host github :repo "emacs-compat/compat"))
+  :ensure (:type git :host github :repo "emacsmirror/compat" :branch "master"))
 (use-package transient
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/transient" :branch "master"))
 (use-package parent-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/parent-mode" :branch "master"))
 (use-package goto-chg
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/goto-chg" :branch "master"))
+(use-package with-editor
+  :ensure (:type git :host github :repo "emacsmirror/with-editor" :branch "master"))
+(use-package cond-let
+  :ensure (:type git :host github :repo "emacsmirror/cond-let" :branch "master"))
 
 ;; Install Emacs Async
 (use-package async
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/emacs-async" :branch "master"))
 (use-package ob-async
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/ob-async" :branch "master"))
 
 ;; Install Emacs Themes
 (use-package doom-themes
-  :ensure t)
+  :ensure (:type git :host github :repo "doomemacs/themes" :branch "master"))
 
 ;; Install Emacs Font
 (use-package mixed-pitch
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/mixed-pitch" :branch "master"))
 
 ;; Install Environment
 (use-package pyvenv
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/pyvenv" :branch "master")
   :config
   (pyvenv-mode 1))
 
 ;; Install Magit
 (use-package magit
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/magit" :branch "master")
   :after (transient)
   :config
   (progn
@@ -128,23 +132,23 @@
 
 ;; Install Evil
 (use-package evil
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/evil" :branch "master"))
 (use-package evil-tutor
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/evil-tutor" :branch "master"))
 
 ;; Install Org
 (use-package org-modern
-  :ensure t
+  :ensure (:type git :host github :repo "emacs-straight/org-modern" :branch "master")
   :hook (org-mode . org-modern-mode)
   :init
   (setq-default org-modern-fold-stars '(("▶" . "▼") ("▷" . "▽") ("►" . "◆") ("▻" . "◇") ("▸" . "▾") ("▹" . "▿"))))
 (use-package org-superstar
-  :ensure (:type git :host github :repo "integral-dw/org-superstar-mode")
+  :ensure (:type git :host github :repo "emacsmirror/org-superstar" :branch "master")
   :hook (org-mode . org-superstar-mode))
 
 ;; Install Markdown
 (use-package markdown-mode
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/markdown-mode" :branch "master")
   :mode ("README\\.md\\'" . gfm-mode)
   :init (setq-default markdown-command "multimarkdown")
   :bind (:map markdown-mode-map
@@ -152,13 +156,13 @@
 
 ;; Install Jupyter
 (use-package jupyter
-  :ensure (:type git :host github :repo "emacs-jupyter/jupyter"))
+  :ensure (:type git :host github :repo "emacsmirror/jupyter" :branch "master"))
 
 ;; Install TeX / LaTeX
 (use-package cdlatex
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/cdlatex" :branch "master"))
 (use-package auctex
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/auctex" :branch "master")
   :defer t
   :hook (LaTeX-mode . TeX-source-correlate-mode)
   :hook (TeX-after-compilation-finished-functions . TeX-revert-document-buffer)
@@ -181,11 +185,11 @@
 
 ;; Install Book
 (use-package nov
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/nov" :branch "master"))
 
 ;; Install PDF
 (use-package pdf-tools
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/pdf-tools" :branch "master")
   :config
   (progn
     (pdf-tools-install)
@@ -203,22 +207,22 @@
 
 ;; Install Web
 (use-package shr-tag-pre-highlight
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/shr-tag-pre-highlight" :branch "master"))
 (use-package shrface
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/shrface" :branch "master")
   :config
   (progn
     (setq-default shrface-toggle-bullets nil)
     (setq-default shrface-href-versatile t)
     (shrface-basic)))
 (use-package w3m
-  :ensure (:type git :host github :repo "emacs-w3m/emacs-w3m")
+  :ensure (:type git :host github :repo "emacsmirror/w3m" :branch "master")
   :config
   (w3m-display-mode 'plain))
 
 ;; Install LLM
 (use-package llm
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/llm" :branch "master")
   :config
   (progn
     (setq-default llm-openai-api-key (auth-source-pick-first-password :host "api.openai.com"))
@@ -226,7 +230,7 @@
     (setq-default llm-google-api-key (auth-source-pick-first-password :host "generativelanguage.googleapis.com"))
     (setq-default llm-google-model "gemini-2.5-flash-lite")))
 (use-package org-ai
-  :ensure t
+  :ensure (:type git :host github :repo "rksm/org-ai" :branch "master")
   :after (org llm)
   :hook (org-mode . org-ai-mode)
   :config
@@ -235,7 +239,7 @@
     (setq-default org-ai-default-inject-sys-prompt-for-all-messages t)
     (setq-default org-ai-default-chat-model llm-google-model)))
 (use-package gptel
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/gptel" :branch "master")
   :config
   (progn
     (setq-default chatgpt-backend (gptel-make-openai "ChatGPT"
@@ -274,9 +278,9 @@
 
 ;; Install Edit
 (use-package paredit
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/paredit" :branch "master"))
 (use-package smartparens
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/smartparens" :branch "master")
   :hook (prog-mode . smartparens-mode)
   :config
   (progn
@@ -285,109 +289,111 @@
     (setq-default sp-autoskip-closing-pair t)
     (setq-default sp-highlight-pair-overlay nil)))
 (use-package dash
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/dash" :branch "master")
   :config
   (global-dash-fontify-mode))
 
 ;; Install Window
 (use-package ace-window
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/ace-window" :branch "master")
   :bind (("M-o" . ace-window)))
 
 ;; Install Cursor
 (use-package multiple-cursors
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/multiple-cursors" :branch "master"))
 
 ;; Install Terminal
 (if-linux
  (use-package vterm
-   :ensure t))
+   :ensure (:type git :host github :repo "emacsmirror/vterm" :branch "master")))
 
 ;; Install Regex
 (use-package visual-regexp
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/visual-regexp" :branch "master"))
 (use-package visual-regexp-steroids
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/visual-regexp-steroids" :branch "master"))
 
 ;; Install Syntax
 (use-package highlight-numbers
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/highlight-numbers" :branch "master")
   :hook (prog-mode . highlight-numbers-mode))
 (use-package rainbow-delimiters
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/rainbow-delimiters" :branch "master")
   :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; Install Assembly Language
 (use-package fasm-mode
-  :ensure (:type git :host github :repo "GabrielFrigo4/fasm-mode"))
+  :ensure (:type git :host github :repo "GabrielFrigo4/fasm-mode" :branch "main"))
 (use-package nasm-mode
-  :ensure (:type git :host github :repo "GabrielFrigo4/nasm-mode"))
+  :ensure (:type git :host github :repo "GabrielFrigo4/nasm-mode" :branch "master"))
 (use-package riscv-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/riscv-mode" :branch "master"))
 
 ;; Install Programing Language
 (use-package rust-mode
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/rust-mode" :branch "master")
   :config
   (setq-default rust-mode-treesitter-derive t)
   :bind
   (("C-c r f" . rust-format-buffer)))
 (use-package zig-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/zig-mode" :branch "master"))
 (use-package haskell-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/haskell-mode" :branch "master"))
 (use-package ada-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/ada-mode" :branch "master"))
 (use-package lua-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/lua-mode" :branch "master"))
 (use-package elixir-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/elixir-mode" :branch "master"))
 (use-package js2-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/js2-mode" :branch "master"))
 (use-package typescript-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/typescript-mode" :branch "master"))
 (use-package php-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/php-mode" :branch "master"))
 
 ;; Install GPU Language
 (use-package cuda-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/cuda-mode" :branch "master"))
+(use-package opencl-c-mode
+  :ensure (:type git :host github :repo "emacsmirror/opencl-c-mode" :branch "master"))
 (use-package glsl-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/glsl-mode" :branch "master"))
 
 ;; Install Markup Language
 (use-package json-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/json-mode" :branch "master"))
 (use-package yaml-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/yaml-mode" :branch "master"))
 
 ;; Install Build System Language
 (use-package dockerfile-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/dockerfile-mode" :branch "master"))
 (use-package cmake-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/cmake-mode" :branch "master"))
 
 ;; Install Configuration Language
 (use-package vimrc-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/vimrc-mode" :branch "master"))
 
 ;; Install Treesit Grammar
 (use-package emacs-lisp-ts-mode
-  :ensure (:type git :host github :repo "GabrielFrigo4/emacs-lisp-ts-mode"))
+  :ensure (:type git :host github :repo "GabrielFrigo4/emacs-lisp-ts-mode" :branch "main"))
 (use-package common-lisp-ts-mode
-  :ensure (:type git :host github :repo "GabrielFrigo4/common-lisp-ts-mode"))
+  :ensure (:type git :host github :repo "GabrielFrigo4/common-lisp-ts-mode" :branch "main"))
 (use-package zig-ts-mode
-  :ensure (:type git :host github :repo "Ziqi-Yang/zig-ts-mode"))
+  :ensure (:type git :host github :repo "emacsmirror/zig-ts-mode" :branch "master"))
 (use-package haskell-ts-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/haskell-ts-mode" :branch "master"))
 
 ;; Install PlatformIO
 (use-package platformio-mode
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/platformio-mode" :branch "master"))
 
 ;; Install Slime (Lisp)
 (use-package slime
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/slime" :branch "master")
   :init
   (setq-default inferior-lisp-program "sbcl")
   :config
@@ -395,7 +401,7 @@
 
 ;; Install Consult
 (use-package consult
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/consult" :branch "master")
   :bind ("C-c h" .
          (lambda ()
            (interactive)
@@ -404,9 +410,9 @@
 
 ;; Install NeoTree
 (use-package all-the-icons
-  :ensure t)
+  :ensure (:type git :host github :repo "emacsmirror/all-the-icons" :branch "master"))
 (use-package neotree
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/neotree" :branch "master")
   :bind ("C-," . 'neotree-toggle)
   :bind ("C-\\" . 'neotree-toggle)
   :bind ("M-[" . 'neotree-toggle)
@@ -417,7 +423,7 @@
 
 ;; Install Auto-Completion
 (use-package vertico
-  :ensure t
+  :ensure (:type git :host github :repo "emacs-straight/vertico" :branch "master")
   :custom
   (vertico-cycle t)
   (read-buffer-completion-ignore-case t)
@@ -426,7 +432,7 @@
   :config
   (vertico-mode))
 (use-package company
-  :ensure t
+  :ensure (:type git :host github :repo "emacs-straight/company" :branch "master")
   :hook (after-init . global-company-mode)
   :config
   (progn
