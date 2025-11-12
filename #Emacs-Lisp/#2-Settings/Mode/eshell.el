@@ -12,6 +12,9 @@
 ;; Remove Git Data
 (setq-default epe-git-enable nil)
 
+;; Remove Validate Executable
+(setq-default aweshell-validate-executable nil)
+
 ;; Set Validate Delay
 (if-windows
  (setq-default aweshell-validate-delay (expt 2 -0.5))
@@ -42,7 +45,7 @@
 ;; ################
 
 
-;;Clear / Wipe
+;; Clear / Wipe
 (defalias 'eshell/cls 'eshell/clear)
 (defalias 'eshell/clr 'eshell/clear)
 
