@@ -1,12 +1,8 @@
-;; ################
-;; # Frame
-;; ################
+;; ============================================================================
+;;  FRAME POSITIONING
+;; ============================================================================
 
 
-;; Import *all-the-icons*
-(require 'all-the-icons)
-
-;; Center the Frame in Screen
 (defun set-frame-center-screen (&optional frame)
   "Center Frame (or the Current Frame) on the Screen."
   (interactive)
@@ -19,26 +15,27 @@
          (pos-y (/ (- display-height frame-height) 2)))
     (set-frame-position frame pos-x pos-y)))
 
-;; Def *new-frame-setup*
 (defun new-frame-setup (frame)
   (select-frame frame)
   (set-frame-size frame 87 29)
   (if-windows
    (sleep-for 0.036)
    (sleep-for 0.032))
-  (set-frame-center-screen frame)
-  (when (display-graphic-p frame)
-    (setq-default neo-theme 'icons)))
+  (set-frame-center-screen frame))
 
-;; Run for Already-Existing Frames (For Single Instance Emacs)
+
+;; ============================================================================
+;;  INITIALIZATION
+;; ============================================================================
+
+
 (dolist (frame (frame-list))
   (new-frame-setup frame))
 
 
-;; ################
-;; # Hook
-;; ################
+;; ============================================================================
+;;  HOOKS
+;; ============================================================================
 
 
-;; Run When a New Frame is Created (For Emacs in Client/Server Mode)
 (add-hook 'after-make-frame-functions 'new-frame-setup)

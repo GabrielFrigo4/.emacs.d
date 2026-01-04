@@ -13,6 +13,9 @@
 /quelpa
 /elpa
 
+# Emacs Elpaca 
+/elpaca.lock
+
 # Emacs EAF
 /eaf
 

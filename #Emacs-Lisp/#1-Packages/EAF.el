@@ -1,227 +1,185 @@
-;; ################
-;; # EAF
-;; ################
+;; ============================================================================
+;;  WINDOWS COMPATIBILITY (D-BUS FIX)
+;; ============================================================================
 
 
-;; Remove D-Bus on Windows
 (when-windows
  (advice-add 'dbus-call-method :around
              (lambda (orig-fn &rest args)
                (let ((result ""))
                  (condition-case err
                      (setq result (apply orig-fn args))
-                   (error
-                    result))
+                   (error result))
                  result))))
 
-;; Def *eaf-setup*
+
+;; ============================================================================
+;;  SETUP & INITIALIZATION
+;; ============================================================================
+
+
 (defun eaf-setup ()
-  "Setup Emacs Application Framework (EAF)"
+  "Setup Emacs Application Framework (EAF)."
   (interactive)
-  ;; Check if EAF is not Loaded
   (unless (featurep 'eaf)
-    ;; Load EAF Path
-    (add-to-list 'load-path (concat emacs-dir "/eaf/emacs-application-framework/"))
-    ;; Ignore EAF Start Process
+    (add-to-list 'load-path (expand-file-name "eaf/emacs-application-framework" emacs-dir))
+    
+    ;; Suppress immediate start during setup
     (advice-add 'eaf-start-process :override #'ignore)
-    ;; Setup EAF
+    
     (require 'eaf)
-    ;; Setup Apps
-    (require 'eaf-browser)
-    (require 'eaf-pdf-viewer)
-    (require 'eaf-music-player)
-    (require 'eaf-video-player)
-    (require 'eaf-image-viewer)
-    (require 'eaf-file-manager)
-    (require 'eaf-pyqterminal)
-    (require 'eaf-terminal)
-    (require 'eaf-camera)
-    (require 'eaf-git)
-    ;; Settings Apps
-    (setq-default eaf-pdf-extension-list (delete "pdf" eaf-pdf-extension-list))
-    ;; Enable EAF Start Process
+    
+    (let ((eaf-apps '(eaf-browser eaf-pdf-viewer eaf-music-player 
+                                  eaf-video-player eaf-image-viewer eaf-file-manager 
+                                  eaf-pyqterminal eaf-terminal eaf-camera eaf-git)))
+      (dolist (app eaf-apps)
+        (require app)))
+    
+    (setq eaf-pdf-extension-list (delete "pdf" eaf-pdf-extension-list))
+    
+    ;; Re-enable start process with delay
     (if-windows
      (run-at-time "2.4 sec" nil (lambda () (advice-remove 'eaf-start-process #'ignore)))
      (run-at-time "1.6 sec" nil (lambda () (advice-remove 'eaf-start-process #'ignore))))
-    ;; Kill EAF Garbage
+    
     (eaf-kill-process)))
 
-;; Setup EAF only in *display-graphic*
 (when (display-graphic-p)
   (eaf-setup))
 
-;; Setup EAF only in a Server Frame
 (add-hook 'server-after-make-frame-hook #'eaf-setup)
 
 
-;; ################
-;; # Variables
-;; ################
+;; ============================================================================
+;;  CONFIGURATION
+;; ============================================================================
 
 
-;; Set EAF Browser
-(setq-default eaf-browser-dark-mode nil)
-
-;; Set EAF PyQ6 Terminal
-(setq-default eaf-pyqterminal-font-family "JetBrains Mono")
-(setq-default eaf-pyqterminal-font-size 20)
+(setq eaf-browser-dark-mode nil)
+(setq eaf-pyqterminal-font-family "JetBrains Mono")
+(setq eaf-pyqterminal-font-size 20)
 
 
-;; ################
-;; # Functions
-;; ################
+;; ============================================================================
+;;  CORE COMMANDS
+;; ============================================================================
 
 
-;; Start
 (defun eaf-start ()
-  "Start Emacs Application Framework (EAF)"
+  "Start Emacs Application Framework (EAF)."
   (interactive)
   (eaf-start-process))
 
-;; Restart
 (defun eaf-restart ()
-  "Restart Emacs Application Framework (EAF)"
+  "Restart Emacs Application Framework (EAF)."
   (interactive)
   (eaf-restart-process))
 
-;; Stop
 (defun eaf-stop ()
-  "Stop Emacs Application Framework (EAF)"
+  "Stop Emacs Application Framework (EAF)."
   (interactive)
   (eaf-stop-process))
 
-;; Kill
 (defun eaf-kill ()
-  "Kill Emacs Application Framework (EAF)"
+  "Kill Emacs Application Framework (EAF)."
   (interactive)
   (eaf-kill-process))
 
-;; File
+
+;; ============================================================================
+;;  APPLICATION LAUNCHERS
+;; ============================================================================
+
+
 (defun eaf-file ()
-  "Open EAF File Manager"
+  "Open EAF File Manager."
   (interactive)
   (eaf-open-file-manager))
 
-;; Term
 (defun eaf-term ()
-  "Open EAF PyQ6 Terminal"
+  "Open EAF PyQ6 Terminal."
   (interactive)
   (eaf-open-pyqterminal))
 
-;; Cam
 (defun eaf-cam ()
-  "Open EAF Camera"
+  "Open EAF Camera."
   (interactive)
   (eaf-open-camera))
 
-;; Web
 (defun eaf-web (URL)
-  "Open EAF Web Browser for Search"
+  "Open EAF Web Browser for Search."
   (interactive "sURL: ")
   (eaf-open-browser URL))
 
-;; Google
+
+;; ============================================================================
+;;  WEB SEARCH SHORTCUTS
+;; ============================================================================
+
+
 (defun eaf-open-google ()
-  "Open EAF Browser with Google Search"
+  "Open EAF Browser with Google Search."
   (interactive)
   (eaf-open-browser "google.com"))
 
-;; DuckDuckGo
 (defun eaf-open-duckduckgo ()
-  "Open EAF Browser with DuckDuckGo Search"
+  "Open EAF Browser with DuckDuckGo Search."
   (interactive)
   (eaf-open-browser "duckduckgo.com"))
 
-;; Bing
 (defun eaf-open-bing ()
-  "Open EAF Browser with Bing Search"
+  "Open EAF Browser with Bing Search."
   (interactive)
   (eaf-open-browser "bing.com"))
 
-;; ChatGPT
 (defun eaf-open-chatgpt ()
-  "Open EAF Browser with ChatGPT LLM"
+  "Open EAF Browser with ChatGPT LLM."
   (interactive)
   (eaf-open-browser "chatgpt.com"))
 
-;; Gemini
 (defun eaf-open-gemini ()
-  "Open EAF Browser with Gemini LLM"
+  "Open EAF Browser with Gemini LLM."
   (interactive)
   (eaf-open-browser "gemini.google.com"))
 
-;; DeepSeek
 (defun eaf-open-deepseek ()
-  "Open EAF Browser with DeepSeek LLM"
+  "Open EAF Browser with DeepSeek LLM."
   (interactive)
   (eaf-open-browser "chat.deepseek.com"))
 
-;; GitHub
 (defun eaf-open-github ()
-  "Open EAF Browser with GitHub WebSite"
+  "Open EAF Browser with GitHub WebSite."
   (interactive)
   (eaf-open-browser "github.com"))
 
-;; Wikipedia
 (defun eaf-open-wikipedia ()
-  "Open EAF Browser with Wikipedia WebSite"
+  "Open EAF Browser with Wikipedia WebSite."
   (interactive)
   (eaf-open-browser "pt.wikipedia.org"))
 
-;; YouTube
 (defun eaf-open-youtube ()
-  "Open EAF Browser with YouTube WebSite"
+  "Open EAF Browser with YouTube WebSite."
   (interactive)
   (eaf-open-browser "youtube.com"))
 
-;; CP Algorithms
 (defun eaf-open-cp-algorithms ()
-  "Open EAF Browser with CP Algorithms WebSite"
+  "Open EAF Browser with CP Algorithms WebSite."
   (interactive)
   (eaf-open-browser "cp-algorithms.com"))
 
 
-;; ################
-;; # Alias
-;; ################
+;; ============================================================================
+;;  ALIASES
+;; ============================================================================
 
 
-;; Google
-(defalias 'google 'eaf-open-google
-  "Open EAF Browser with Google Search")
-
-;; DuckDuckGo
-(defalias 'duckduckgo 'eaf-open-duckduckgo
-  "Open EAF Browser with DuckDuckGo Search")
-
-;; Bing
-(defalias 'bing 'eaf-open-bing
-  "Open EAF Browser with Bing Search")
-
-;; ChatGPT
-(defalias 'chatgpt 'eaf-open-chatgpt
-  "Open EAF Browser with ChatGPT LLM")
-
-;; Gemini
-(defalias 'gemini 'eaf-open-gemini
-  "Open EAF Browser with Gemini LLM")
-
-;; DeepSeek
-(defalias 'deepseek 'eaf-open-deepseek
-  "Open EAF Browser with DeepSeek LLM")
-
-;; GitHub
-(defalias 'github 'eaf-open-github
-  "Open EAF Browser with GitHub WebSite")
-
-;; Wikipedia
-(defalias 'wikipedia 'eaf-open-wikipedia
-  "Open EAF Browser with Wikipedia WebSite")
-
-;; YouTube
-(defalias 'youtube 'eaf-open-youtube
-  "Open EAF Browser with YouTube WebSite")
-
-;; CP Algorithms
-(defalias 'cp-algorithms 'eaf-open-cp-algorithms
-  "Open EAF Browser with CP Algorithms WebSite")
+(defalias 'google        'eaf-open-google        "Open EAF Browser with Google Search")
+(defalias 'duckduckgo    'eaf-open-duckduckgo    "Open EAF Browser with DuckDuckGo Search")
+(defalias 'bing          'eaf-open-bing          "Open EAF Browser with Bing Search")
+(defalias 'chatgpt       'eaf-open-chatgpt       "Open EAF Browser with ChatGPT LLM")
+(defalias 'gemini        'eaf-open-gemini        "Open EAF Browser with Gemini LLM")
+(defalias 'deepseek      'eaf-open-deepseek      "Open EAF Browser with DeepSeek LLM")
+(defalias 'github        'eaf-open-github        "Open EAF Browser with GitHub WebSite")
+(defalias 'wikipedia     'eaf-open-wikipedia     "Open EAF Browser with Wikipedia WebSite")
+(defalias 'youtube       'eaf-open-youtube       "Open EAF Browser with YouTube WebSite")
+(defalias 'cp-algorithms 'eaf-open-cp-algorithms "Open EAF Browser with CP Algorithms WebSite")

@@ -155,17 +155,47 @@
  python install-eaf.py --install "git"
  ```
 
-## Using on Linux
- Install __All-The-Icons__
+## Using Nerd-Icons on Linux
+ Install __Nerd-Icons__
  ```
- M-x all-the-icons-install-fonts
+ M-x nerd-icons-install-fonts
  ```
 
-## Using on Windows
- Install __All-The-Icons__
+## Using Nerd-Icons on Windows
+ Install __Nerd-Icons__
  ```
- M-x all-the-icons-install-fonts
+ M-x nerd-icons-install-fonts
  ```
  This function will prompt for a download directory for you to install them manually.
 
- To use the emacs-client you need to make the [whole system use UTF-8](https://scholarslab.lib.virginia.edu/learn-twarc/08-win-region-settings)
+## ⚠️ Windows Prerequisites
+ If you are running Emacs on Windows, the following configurations are **mandatory** to avoid installation errors and encoding issues.
+
+### 1. Enable Developer Mode (Crucial for Elpaca)
+ To allow the package manager (`elpaca`) to create symbolic links and avoid *"Operation not permitted"* errors:
+
+ 1.  Open **Settings**.
+ 2.  Navigate to:
+     * **Windows 11:** `System > For developers`
+     * **Windows 10:** `Update & Security > For developers`
+ 3.  Switch the **Developer Mode** toggle to **"On"**.
+
+### 2. Windows Defender Exclusions (Performance & Stability)
+ To prevent Git processes from being blocked (causing *"Too many open files"* errors) and to speed up package installation:
+
+ 1.  Go to **Settings > Privacy & security > Windows Security**.
+ 2.  Click on **Virus & threat protection**.
+ 3.  Under *Virus & threat protection settings*, click **Manage settings**.
+ 4.  Scroll down to *Exclusions* and click **Add or remove exclusions**.
+ 5.  Add your Emacs configuration folder: `C:\Users\YOUR_USERNAME\.emacs.d`
+
+### 3. Enable Global UTF-8 Support
+ To ensure `emacs-client` functions correctly and to prevent character encoding bugs:
+
+ 1.  Go to **Settings > Time & Language > Language & Region**.
+ 2.  Click on **Administrative language settings** (or related settings).
+ 3.  Click **Change system locale...**
+ 4.  Check the box: **"Beta: Use Unicode UTF-8 for worldwide language support"**.
+ 5.  Restart your computer.
+
+ > **Guides:** [Windows 10 Guide](https://scholarslab.lib.virginia.edu/learn-twarc/08-win-region-settings) | [Windows 11 Guide](https://windows.atsit.in/32315/)

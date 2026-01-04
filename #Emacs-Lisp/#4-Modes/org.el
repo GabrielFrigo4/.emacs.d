@@ -134,16 +134,8 @@ Skip checkboxes in source code blocks."
 ;; Set *org-confirm-babel-evaluate*
 (setq-default org-confirm-babel-evaluate nil)
 
-;; Shell on Linux
-(when-linux
- (setq-default org-babel-sh-command "zsh"))
-
-;; Shell on FreeBSD
-(when-freebsd
- (setq-default org-babel-sh-command "zsh"))
-
-;; Shell on MacOS
-(when-darwin
+;; Shell on Unix
+(when-unix
  (setq-default org-babel-sh-command "zsh"))
 
 ;; Shell on Windows

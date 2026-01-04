@@ -171,11 +171,19 @@ determines the revision to use based on the following priority:
 ;; Set *treesit-load-name-override-list*
 (setq-default treesit-load-name-override-list '())
 
-;; Set *treesit-language-source-alist*
-(setq-default treesit-language-source-alist (treesit-generate-stable-list-from-github))
+;; Set *treesit-language-source-alist* (BOOT TIME: Local only)
+(setq-default treesit-language-source-alist
+              (mapcar (lambda (item)
+                        (let ((lang (car item))
+                              (spec (cdr item)))
+                          (list lang (nth 0 spec) (nth 1 spec) (nth 2 spec))))
+                      treesit-language-source-branch-alist))
 
-;; Def *tree-sitter-setup*
+;; Def *tree-sitter-setup* (RUNTIME: GitHub fetch)
 (defun tree-sitter-setup ()
   (interactive)
+  (message "Fetching latest grammar versions from GitHub...")
+  (setq treesit-language-source-alist (treesit-generate-stable-list-from-github))
   (dolist (source treesit-language-source-alist)
-    (treesit-install-language-grammar (car source))))
+    (treesit-install-language-grammar (car source)))
+  (message "Tree-sitter setup completed."))
