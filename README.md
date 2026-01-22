@@ -160,6 +160,15 @@
  ```
  M-x nerd-icons-install-fonts
  ```
+ ```bash
+ mkdir -p "$HOME/.local/share/fonts"
+ cd "$HOME/.local/share/fonts"
+ wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/NerdFontsSymbolsOnly.zip"
+ unzip -o NerdFontsSymbolsOnly.zip
+ rm NerdFontsSymbolsOnly.zip
+ fc-cache -fv
+ cd -
+ ```
 
 ## Using Nerd-Icons on Windows
  Install __Nerd-Icons__
