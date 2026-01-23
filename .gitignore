@@ -1,43 +1,52 @@
-# Emacs Default
-/auto-save-list
-/all-the-fonts
-/org-persist
-/eln-cache
-/transient
-/server
-/url
-
-# Emacs ELPA
-/straight
-/elpaca
-/quelpa
-/elpa
-
-# Emacs Elpaca 
-/elpaca.lock
-
-# Emacs EAF
-/eaf
-
-# Emacs Packages
-/ac-comphist.dat
-/tree-sitter
-/recentf
-
-# Emacs Eshell
-/eshell/history
-/eshell/lastdir
-
-# Emacs Compile
+# ============================================================================
+# Emacs Compiled / Native
+# ============================================================================
 *.elc
+*.eln
+/eln-cache/
 
-# Emacs Tramp
-/tramp~
-/tramp
+# ============================================================================
+# Emacs State (The New Structure)
+# ============================================================================
+/var/
 
-# Emacs IDO
-/ido.last~
-/ido.last
+# ============================================================================
+# Package Managers
+# ============================================================================
+/elpaca/
+/elpaca.lock
+/elpa/
+/straight/
+/quelpa/
+/tree-sitter/
 
-# Evil
+# ============================================================================
+# Extensions / Frameworks
+# ============================================================================
+/eaf/
+/all-the-fonts/
+
+# ============================================================================
+# Legacy / Root Clutter
+# ============================================================================
+/auto-save-list/
+/transient/
+/server/
+/url/
+/eshell/
+/org-persist/
 /.tutor
+/ac-comphist.dat
+
+/.mc-lists.el
+/ido.last
+/ido.last~
+/recentf
+/tramp
+/tramp~
+
+# ============================================================================
+# System / OS
+# ============================================================================
+.DS_Store
+Thumbs.db

@@ -5,7 +5,7 @@
 
 (setq-default elpaca-queue-limit 5)
 (setq-default elpaca-log-level 'error)
-(setq-default elpaca-lock-file (expand-file-name "elpaca.lock" user-emacs-directory))
+(setq-default elpaca-lock-file (expand-file-name "elpaca.lock" lock-dir))
 
 (defvar elpaca-installer-version 0.11)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
@@ -92,7 +92,8 @@
 
 
 (use-package nerd-icons
-  :ensure t)
+  :ensure t
+  :custom (nerd-icons-scale-factor 1.2))
 
 (use-package doom-themes
   :ensure (:type git :host github :repo "doomemacs/themes" :branch "master")
@@ -105,15 +106,15 @@
 (use-package doom-modeline
   :ensure t
   :hook (after-init . doom-modeline-mode)
-  :config
-  (setq doom-modeline-height 30)
-  (setq doom-modeline-bar-width 4)
-  (setq doom-modeline-icon t)
-  (setq doom-modeline-minor-modes nil)
-  (setq doom-modeline-buffer-encoding nil)
-  (setq doom-modeline-indent-info nil)
-  (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
-  (setq doom-modeline-env-version t))
+  :custom
+  (doom-modeline-icon t)
+  (doom-modeline-height 32)
+  (doom-modeline-bar-width 4)
+  (doom-modeline-buffer-file-name-style 'truncate-upto-project)
+  (doom-modeline-env-version t)
+  (doom-modeline-buffer-encoding t)
+  (doom-modeline-indent-info nil)
+  (doom-modeline-minor-modes nil))
 
 (use-package dashboard
   :ensure t
@@ -129,7 +130,7 @@
   (setq dashboard-set-file-icons t)
   (setq dashboard-startup-banner 'logo)
   (add-hook 'dashboard-mode-hook
-            (lambda () 
+            (lambda ()
               (setq-local display-line-numbers nil)
               (setq-local display-line-numbers-type nil)
               (display-line-numbers-mode -1))))
@@ -374,13 +375,13 @@
   (setq-default chatgpt-backend (gptel-make-openai "ChatGPT" :stream t :key llm-openai-api-key))
   (setq-default deepseek-backend (gptel-make-deepseek "DeepSeek" :stream t :key llm-deepseek-api-key))
   (setq-default gemini-backend (gptel-make-gemini "Gemini" :stream t :key llm-google-api-key))
-  
+
   (setq-default gptel-model llm-google-model)
   (setq-default gptel-backend gemini-backend)
-  
+
   (defvar gptel-models '("gemini-2.5-pro" "gemini-2.5-flash" "gemini-2.5-flash-lite")
     "Models List for GPTEL")
-  
+
   (defun gptel-select-model ()
     "Interactively select a model to use with GPTEL"
     (interactive)

@@ -23,6 +23,33 @@
             (expand-file-name ".authinfo.gpg" home-dir)
             (expand-file-name ".netrc" home-dir)))
 
+(setq var-dir (expand-file-name "var/" emacs-dir))
+(unless (file-exists-p var-dir)
+  (make-directory var-dir t))
+
+(setq backup-dir (expand-file-name "backup/" var-dir))
+(unless (file-exists-p backup-dir)
+  (make-directory backup-dir t))
+
+(setq cache-dir (expand-file-name "cache/" var-dir))
+(unless (file-exists-p cache-dir)
+  (make-directory cache-dir t))
+
+(setq lock-dir (expand-file-name "lock/" var-dir))
+(unless (file-exists-p lock-dir)
+  (make-directory lock-dir t))
+
+
+;; ============================================================================
+;;  CACHE & STATE FILES
+;; ============================================================================
+
+
+(setq ido-save-directory-list-file (expand-file-name "ido.last" cache-dir))
+(setq tramp-persistency-file-name (expand-file-name "tramp" cache-dir))
+(setq recentf-save-file (expand-file-name "recentf" cache-dir))
+(setq mc/list-file (expand-file-name "mc-lists.el" cache-dir))
+
 
 ;; ============================================================================
 ;;  SYSTEM CHECKS & MACROS

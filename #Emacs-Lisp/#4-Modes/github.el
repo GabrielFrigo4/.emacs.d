@@ -1,24 +1,28 @@
-;; ################
-;; # GitHub
-;; ################
+;; ============================================================================
+;;  DEPENDENCIES
+;; ============================================================================
 
 
-;; Import *WebAPI*
 (require 'url)
 (require 'json)
-
-;; Import *Auth*
 (require 'auth-source)
 
-;; Def *github-fetch-latest-release-data*
+
+;; ============================================================================
+;;  CORE API FUNCTIONS
+;; ============================================================================
+
+
 (defun github-fetch-latest-release-data (repo-input)
   "Internal helper to fetch the latest release data for a GitHub repo.
 Returns the parsed JSON as an alist on success, or nil on failure."
   (let ((owner-repo (cond
                      ((string-match "github\\.com/\\([^/]+\\)/\\([^/]+\\)" repo-input)
-                      (list (match-string 1 repo-input) (match-string 2 repo-input)))
+                      (list (match-string 1 repo-input)
+                            (match-string 2 repo-input)))
                      ((string-match "^\\([^/]+\\)/\\([^/]+\\)$" repo-input)
-                      (list (match-string 1 repo-input) (match-string 2 repo-input)))
+                      (list (match-string 1 repo-input)
+                            (match-string 2 repo-input)))
                      (t nil))))
     (if owner-repo
         (let* ((owner (car owner-repo))
@@ -45,18 +49,18 @@ Returns the parsed JSON as an alist on success, or nil on failure."
       nil)))
 
 
-;; ################
-;; # GitHub Utils
-;; ################
+;; ============================================================================
+;;  INTERACTIVE UTILITIES
+;; ============================================================================
 
 
-;; Def *github-fetch-latest-release-tag*
 (defun github-fetch-latest-release-tag (repo-input)
   "For a GitHub URL or 'owner/repo' string, fetches the latest release tag name.
 Returns the tag name as a string or nil on failure."
   (interactive "sGitHub Repo (URL or owner/repo): ")
   (let* ((json-data (github-fetch-latest-release-data repo-input))
-         (tag-name (when json-data (cdr (assoc 'tag_name json-data)))))
+         (tag-name (when json-data
+                     (cdr (assoc 'tag_name json-data)))))
     (if tag-name
         (progn
           (message "Found tag: %s" tag-name)
@@ -64,9 +68,8 @@ Returns the tag name as a string or nil on failure."
       (message "Could not find release tag.")
       nil)))
 
-;; Def *github-download-latest-release*
 (defun github-download-latest-release (repo-input &optional download-dir)
-  "For a GitHub repo, finds the latest release and prompts to download one of its assets, including source code."
+  "For a GitHub repo, finds the latest release and prompts to download one of its assets."
   (interactive
    (list (read-string "GitHub Repo (URL or owner/repo): ")
          (if (boundp 'download-directory) download-directory "~/")))

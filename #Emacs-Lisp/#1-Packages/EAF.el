@@ -23,25 +23,17 @@
   (interactive)
   (unless (featurep 'eaf)
     (add-to-list 'load-path (expand-file-name "eaf/emacs-application-framework" emacs-dir))
-    
-    ;; Suppress immediate start during setup
     (advice-add 'eaf-start-process :override #'ignore)
-    
     (require 'eaf)
-    
-    (let ((eaf-apps '(eaf-browser eaf-pdf-viewer eaf-music-player 
-                                  eaf-video-player eaf-image-viewer eaf-file-manager 
+    (let ((eaf-apps '(eaf-browser eaf-pdf-viewer eaf-music-player
+                                  eaf-video-player eaf-image-viewer eaf-file-manager
                                   eaf-pyqterminal eaf-terminal eaf-camera eaf-git)))
       (dolist (app eaf-apps)
         (require app)))
-    
     (setq eaf-pdf-extension-list (delete "pdf" eaf-pdf-extension-list))
-    
-    ;; Re-enable start process with delay
     (if-windows
      (run-at-time "2.4 sec" nil (lambda () (advice-remove 'eaf-start-process #'ignore)))
      (run-at-time "1.6 sec" nil (lambda () (advice-remove 'eaf-start-process #'ignore))))
-    
     (eaf-kill-process)))
 
 (when (display-graphic-p)

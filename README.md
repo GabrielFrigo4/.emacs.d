@@ -6,7 +6,8 @@
 ## TODO
  Todo List (Emacs Current)
  ```
- Update: [CommonLisp]
+ Update: [Common Lisp]
+ Update: [Emacs Lisp]
  ```
 
  Todo List (Emacs 31)
@@ -48,12 +49,14 @@
  ```
  (ok) => haskell-ts-mode
  (ok) => zig-ts-mode
+ (not) => erts-ts-mode
+ (not) => glsl-ts-mode
  ```
 
  Custom \*ts-mode\* in Emacs 30.1
  ```
- (ok) => common-lisp-ts-mode
- (ok) => emacs-lisp-ts-mode
+ (err) => common-lisp-ts-mode
+ (err) => emacs-lisp-ts-mode
  ```
 
  Debug Grammar / Explore Grammar
