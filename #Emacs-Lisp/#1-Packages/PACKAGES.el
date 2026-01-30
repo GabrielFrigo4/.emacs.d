@@ -92,7 +92,7 @@
 
 
 (use-package nerd-icons
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/nerd-icons" :branch "master")
   :custom (nerd-icons-scale-factor 1.2))
 
 (use-package doom-themes
@@ -104,7 +104,7 @@
   (add-hook 'org-mode-hook #'doom-themes-org-config))
 
 (use-package doom-modeline
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/doom-modeline" :branch "master")
   :hook (after-init . doom-modeline-mode)
   :custom
   (doom-modeline-icon t)
@@ -117,7 +117,7 @@
   (doom-modeline-minor-modes nil))
 
 (use-package dashboard
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/dashboard" :branch "master")
   :config
   (dashboard-setup-startup-hook)
   (setq dashboard-center-content t)
@@ -261,8 +261,11 @@
       (kbd "h") 'dired-up-directory
       (kbd "l") 'dired-find-file)))
 
+(use-package treemacs-nerd-icons
+  :ensure (:type git :host github :repo "emacsmirror/treemacs-nerd-icons" :branch "master"))
+
 (use-package treemacs
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/treemacs" :branch "master")
   :defer t
   :bind
   (("C-\\" . treemacs)
@@ -274,15 +277,15 @@
   (treemacs-fringe-indicator-mode 'always))
 
 (use-package treemacs-evil
-  :ensure t
+  :ensure nil
   :after (treemacs evil))
 
 (use-package treemacs-icons-dired
-  :ensure t
+  :ensure nil
   :hook (dired-mode . treemacs-icons-dired-mode))
 
 (use-package treemacs-magit
-  :ensure t
+  :ensure nil
   :after (treemacs magit))
 
 
@@ -320,7 +323,7 @@
 
 
 ;; ============================================================================
-;;  ORG MODE & AI
+;;  ORG MODE
 ;; ============================================================================
 
 
@@ -338,21 +341,11 @@
   :ensure (:type git :host github :repo "emacsmirror/org-superstar" :branch "master")
   :hook (org-mode . org-superstar-mode))
 
-(use-package markdown-mode
-  :ensure (:type git :host github :repo "emacsmirror/markdown-mode" :branch "master")
-  :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq-default markdown-command "multimarkdown")
-  :bind (:map markdown-mode-map
-              ("C-c C-e" . markdown-do)))
-
-(use-package llm
-  :ensure (:type git :host github :repo "emacsmirror/llm" :branch "master")
-  :defer t
+(use-package ob-mermaid
+  :ensure (:type git :host github :repo "emacsmirror/ob-mermaid" :branch "master")
+  :after org
   :config
-  (setq-default llm-openai-api-key (auth-source-pick-first-password :host "api.openai.com"))
-  (setq-default llm-deepseek-api-key (auth-source-pick-first-password :host "api.deepseek.com"))
-  (setq-default llm-google-api-key (auth-source-pick-first-password :host "generativelanguage.googleapis.com"))
-  (setq-default llm-google-model "gemini-2.5-flash-lite"))
+  (setq ob-mermaid-cli-path "mmdc"))
 
 (use-package org-ai
   :ensure (:type git :host github :repo "rksm/org-ai" :branch "master")
@@ -363,6 +356,74 @@
                 "Act like a wizard that can only generate raw text. Your response should not contain any Markdown formatting. I need to copy and paste your output into a plain text editor without losing any information.")
   (setq-default org-ai-default-inject-sys-prompt-for-all-messages t)
   (setq-default org-ai-default-chat-model llm-google-model))
+
+
+;; ============================================================================
+;;  MARKDOWN
+;; ============================================================================
+
+
+(use-package markdown-mode
+  :ensure (:type git :host github :repo "emacsmirror/markdown-mode" :branch "master")
+  :init 
+  (setq-default markdown-command "multimarkdown")
+  :config
+  (setq-default markdown-enable-math t)
+  (setq markdown-fontify-code-blocks-natively t)
+  (add-to-list 'markdown-code-lang-modes '("mermaid" . mermaid-ts)))
+
+(use-package markdown-ts-mode
+  :ensure (:type git :host github :repo "emacsmirror/markdown-ts-mode" :branch "master")
+  :mode ("README\\.md\\'" . markdown-ts-mode)
+  :mode ("\\.md\\'" . markdown-ts-mode)
+  :bind (:map markdown-ts-mode-map
+              ("C-c C-e" . markdown-do)))
+
+
+;; ============================================================================
+;;  MERMAID & DIAGRAMS
+;; ============================================================================
+
+
+(use-package markdown-mermaid
+  :ensure (:type git :host github :repo "emacsmirror/markdown-mermaid" :branch "master")
+  :after markdown-mode
+  :bind (:map markdown-mode-map
+              ("C-c C-c m" . markdown-mermaid)
+         :map markdown-ts-mode-map
+              ("C-c C-c m" . markdown-mermaid))
+  :config
+  (setq markdown-mermaid-command "mmdc"))
+
+(use-package mermaid-mode
+  :ensure (:type git :host github :repo "emacsmirror/mermaid-mode" :branch "master")
+  :defer t
+  :config
+  (setq mermaid-mmdc-location "mmdc")
+  (setq mermaid-output-format "png"))
+
+(use-package mermaid-ts-mode
+  :ensure (:type git :host github :repo "emacsmirror/mermaid-ts-mode" :branch "master")
+  :mode ("\\.mermaid\\'" . mermaid-ts-mode)
+  :mode ("\\.mmd\\'" . mermaid-ts-mode)
+  :config
+  (setq mermaid-mmdc-location "mmdc")
+  (setq mermaid-output-format "png"))
+
+
+;; ============================================================================
+;;  LLM & AI
+;; ============================================================================
+
+
+(use-package llm
+  :ensure (:type git :host github :repo "emacsmirror/llm" :branch "master")
+  :defer t
+  :config
+  (setq-default llm-openai-api-key (auth-source-pick-first-password :host "api.openai.com"))
+  (setq-default llm-deepseek-api-key (auth-source-pick-first-password :host "api.deepseek.com"))
+  (setq-default llm-google-api-key (auth-source-pick-first-password :host "generativelanguage.googleapis.com"))
+  (setq-default llm-google-model "gemini-2.5-flash-lite"))
 
 (use-package gptel
   :ensure (:type git :host github :repo "emacsmirror/gptel" :branch "master")
@@ -554,7 +615,7 @@
   :ensure (:type git :host github :repo "emacsmirror/pdf-tools" :branch "master")
   :mode ("\\.pdf\\'" . pdf-view-mode)
   :config
-  (pdf-tools-install)
+  (pdf-tools-install :no-query)
   (when-windows
    (setq-default pdf-tools-msys2-directory "C:/msys64"))
   (setq-default pdf-view-use-scaling nil)

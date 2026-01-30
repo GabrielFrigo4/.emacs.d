@@ -51,6 +51,8 @@
  (ok) => zig-ts-mode
  (not) => erts-ts-mode
  (not) => glsl-ts-mode
+ (not) => markdown-ts-mode
+ (not) => mermaid-ts-mode
  ```
 
  Custom \*ts-mode\* in Emacs 30.1

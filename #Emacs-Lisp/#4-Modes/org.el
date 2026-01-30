@@ -65,6 +65,41 @@
 
 
 ;; ============================================================================
+;;  SOFTWARE CONFIGURATION
+;; ============================================================================
+
+
+(setq org-babel-C-compiler "clang")
+(setq org-babel-C++-compiler "clang++")
+
+(setq-default org-confirm-babel-evaluate nil)
+
+(when-unix
+ (setq-default org-babel-sh-command "zsh"))
+
+(when-windows
+ (setq-default org-babel-sh-command "cmdproxy.exe"))
+
+
+;; ============================================================================
+;;  BLOCK THEMES
+;; ============================================================================
+
+
+(defface org-block-begin-line
+  '((t (:underline "#646260" :foreground "#10CFFC" :background "#41403F" :extend t)))
+  "Face used for the line delimiting the begin of source blocks.")
+
+(defface org-block
+  '((t (:background "#3A3938" :extend t)))
+  "Face used for the source block background.")
+
+(defface org-block-end-line
+  '((t (:underline "#646260" :foreground "#10CFFC" :background "#41403F" :extend t)))
+  "Face used for the line delimiting the end of source blocks.")
+
+
+;; ============================================================================
 ;;  SOURCE BLOCKS & LANGUAGES
 ;; ============================================================================
 
@@ -96,7 +131,7 @@
                           ("lua" . lua-ts)
                           ("python" . python-ts)
                           ("ruby" . ruby-ts)
-                          ("common-lisp" . common-lisp-ts)
+                          ;;("common-lisp" . common-lisp-ts)
                           ("lisp" . common-lisp-ts)
                           ;; WEB
                           ("js" . js-ts)
@@ -106,14 +141,15 @@
                           ("html" . html-ts)
                           ("css" . css-ts)
                           ;; EMACS
-                          ("emacs-lisp" . emacs-lisp-ts)
-                          ("elisp" . emacs-lisp-ts)
+                          ;;("emacs-lisp" . emacs-lisp-ts)
+                          ;;("elisp" . emacs-lisp-ts)
                           ;; SHELL
                           ("bash" . bash-ts)
                           ;; MAKE
                           ("cmake" . cmake-ts)
                           ;; CONFIG
                           ("dockerfile" . dockerfile-ts)
+                          ("markdown" . markdown-ts)
                           ;; DATA
                           ("json" . json-ts)
                           ("toml" . toml-ts)
@@ -122,36 +158,9 @@
 
 
 ;; ============================================================================
-;;  BABEL CONFIGURATION
+;;  LOAD LANGUAGES
 ;; ============================================================================
 
-
-(setq org-babel-C-compiler "clang")
-(setq org-babel-C++-compiler "clang++")
-
-(setq-default org-confirm-babel-evaluate nil)
-
-(when-unix
- (setq-default org-babel-sh-command "zsh"))
-
-(when-windows
- (setq-default org-babel-sh-command "cmdproxy.exe"))
-
-;; --- Block Themes ---
-
-(defface org-block-begin-line
-  '((t (:underline "#646260" :foreground "#10CFFC" :background "#41403F" :extend t)))
-  "Face used for the line delimiting the begin of source blocks.")
-
-(defface org-block
-  '((t (:background "#3A3938" :extend t)))
-  "Face used for the source block background.")
-
-(defface org-block-end-line
-  '((t (:underline "#646260" :foreground "#10CFFC" :background "#41403F" :extend t)))
-  "Face used for the line delimiting the end of source blocks.")
-
-;; --- Load Languages ---
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -177,10 +186,15 @@
    (makefile . t)
    ;; CONFIG
    (org . t)
+   (mermaid . t)
    ;; TEX / LATEX
    (latex . t)))
 
-;; --- Lua Execution Fix ---
+
+;; ============================================================================
+;;  LUA EXECUTION FIX
+;; ============================================================================
+
 
 (defun org-babel-execute-lua (body params)
   "Execute a block of Lua code with Babel using an external Lua process."

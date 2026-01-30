@@ -1,10 +1,17 @@
 ;; ============================================================================
-;;  CORE CONFIGURATION
+;;  DEPENDENCIES
 ;; ============================================================================
 
 
 (require 'tex)
 (require 'latex)
+(require 'reftex)
+
+
+;; ============================================================================
+;;  CORE CONFIGURATION
+;; ============================================================================
+
 
 (setq-default enable-preview-latex t)
 
@@ -14,16 +21,13 @@
 ;; ============================================================================
 
 
-;; Setup Emacs TeX (and LaTeX) Tab Width
 (defun tex-setup-tab-width ()
   (setq-local tab-width 4)
   (setq-local tex-indent-basic tab-width)
   (setq-local indent-tabs-mode nil))
-
 (add-hook 'tex-mode-hook #'tex-setup-tab-width)
 (add-hook 'latex-mode-hook #'tex-setup-tab-width)
 
-;; Setup AUCTeX Tex (and LaTeX) Tab Width
 (defun TeX-setup-tab-width ()
   (setq-local tab-width 4)
   (setq-local TeX-indent-basic tab-width)
@@ -33,7 +37,6 @@
   (setq-local LaTeX-item-indent tab-width)
   (setq-local LaTeX-math-indent tab-width)
   (setq-local indent-tabs-mode nil))
-
 (add-hook 'TeX-mode-hook #'TeX-setup-tab-width)
 (add-hook 'LaTeX-mode-hook #'TeX-setup-tab-width)
 
@@ -105,8 +108,6 @@
 ;;  REFTEX
 ;; ============================================================================
 
-
-(require 'reftex)
 
 (add-hook 'tex-mode-hook   'reftex-mode)
 (add-hook 'TeX-mode-hook   'reftex-mode)

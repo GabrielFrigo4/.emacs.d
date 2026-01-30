@@ -1,21 +1,25 @@
 ;; ============================================================================
-;;  EVIL CONFIGURATION
+;;  DEPENDENCIES
 ;; ============================================================================
 
 
-;; Import *evil*
 (require 'evil)
 
-;; Enable *evil-mode*
-(evil-mode t)
 
-;; Set Initial State
-(setq-default evil-default-state 'emacs)
+;; ============================================================================
+;;  CONFIGURATION
+;; ============================================================================
+
+
+(evil-mode t)
 
 
 ;; ============================================================================
 ;;  STATE CONFIGURATION
 ;; ============================================================================
+
+
+(setq-default evil-default-state 'emacs)
 
 (dolist (mode-list '(evil-motion-state-modes
                      evil-insert-state-modes
