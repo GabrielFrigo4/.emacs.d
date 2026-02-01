@@ -106,7 +106,7 @@
 
 (with-eval-after-load 'org
   (setq-default org-src-lang-modes
-                (append '(;; BIN
+                (append '(;; CPU
                           ("c" . c-ts)
                           ("C" . c-ts)
                           ("cc" . c-ts)
@@ -164,7 +164,7 @@
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '(;; BIN
+ '(;; CPU
    (C . t)
    (haskell . t)
    ;; JIT
