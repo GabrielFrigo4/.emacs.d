@@ -264,6 +264,12 @@
 (use-package treemacs-nerd-icons
   :ensure (:type git :host github :repo "emacsmirror/treemacs-nerd-icons" :branch "master"))
 
+(use-package lsp-treemacs
+  :ensure (:type git :host github :repo "emacsmirror/lsp-treemacs" :branch "master")
+  :after (lsp-mode treemacs)
+  :config
+  (lsp-treemacs-sync-mode 1))
+
 (use-package treemacs
   :ensure (:type git :host github :repo "emacsmirror/treemacs" :branch "master")
   :defer t
@@ -272,8 +278,8 @@
    ("M-\\" . treemacs)
    ("C-c t" . treemacs))
   :config
-  (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t)
+  (treemacs-follow-mode 1)
+  (treemacs-filewatch-mode 1)
   (treemacs-fringe-indicator-mode 'always))
 
 (use-package treemacs-evil
@@ -365,7 +371,7 @@
 
 (use-package markdown-mode
   :ensure (:type git :host github :repo "emacsmirror/markdown-mode" :branch "master")
-  :init 
+  :init
   (setq-default markdown-command "multimarkdown")
   :config
   (setq-default markdown-enable-math t)
@@ -606,7 +612,7 @@
   (setq-default TeX-auto-save nil)
   (setq-default TeX-master t)
   (setq-default TeX-output-dir (expand-file-name "emacs-tex-out" temporary-file-directory))
-  (setq-default TeX-PDF-mode nil)
+  (setq-default TeX-PDF-mode -1)
   (setq-default TeX-view-program-selection '((output-pdf "PDF Tools")))
   (setq-default TeX-source-correlate-method 'synctex))
 
@@ -626,7 +632,7 @@
   :hook
   (pdf-view-mode . (lambda ()
                      (display-line-numbers-mode -1)
-                     (pdf-view-midnight-minor-mode t))))
+                     (pdf-view-midnight-minor-mode 1))))
 
 
 ;; ============================================================================
