@@ -49,7 +49,7 @@
  ```
  (ok) => haskell-ts-mode
  (ok) => zig-ts-mode
- (ok) => glsl-ts-mode
+ (err) => glsl-ts-mode
  (ok) => markdown-ts-mode
  (ok) => mermaid-ts-mode
  ```
