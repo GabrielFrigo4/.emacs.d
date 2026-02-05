@@ -92,12 +92,10 @@
     ;; CPU
     (haskell    . ("https://github.com/tree-sitter/tree-sitter-haskell"           "master"  "src"))
     (zig        . ("https://github.com/maxxnino/tree-sitter-zig"                  "main"    "src"))
-    ;; JIT
-    (erts       . ("https://github.com/WhatsApp/tree-sitter-erlang"               "main"    "src"))
     ;; GPU
     (glsl       . ("https://github.com/tree-sitter-grammars/tree-sitter-glsl"     "master"  "src"))
     ;; DOC
-    (markdown   . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown" "master"  "src"))
+    (markdown   . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser"  "tree-sitter-markdown/src"))
     (mermaid    . ("https://github.com/monaqa/tree-sitter-mermaid"                "master"  "src"))
 
     ;; Emacs Custom Treesit
@@ -106,81 +104,85 @@
     ;; EMACS
     ;;(elisp      . ("https://github.com/Wilfred/tree-sitter-elisp"                   "main"    "src"))
     )
-    "List of grammars with branching to check the latest versions.")
+  "List of grammars with branching to check the latest versions.")
 
 
-  ;; ============================================================================
-  ;;  MODE REMAPPING
-  ;; ============================================================================
+;; ============================================================================
+;;  MODE REMAPPING
+;; ============================================================================
 
 
-  (setq-default major-mode-remap-alist
-                '(;; Emacs Oficial Treesit
-                  ;; CPU
-                  (c-mode           . c-ts-mode)
-                  (c++-mode         . c++-ts-mode)
-                  (c-or-c++-mode    . c-or-c++-ts-mode)
-                  (rust-mode        . rust-ts-mode)
-                  (go-mode          . go-ts-mode)
-                  ;; JIT
-                  (csharp-mode      . csharp-ts-mode)
-                  (java-mode        . java-ts-mode)
-                  (elixir-mode      . elixir-ts-mode)
-                  (php-mode         . php-ts-mode)
-                  ;; VM
-                  (lua-mode         . lua-ts-mode)
-                  (python-mode      . python-ts-mode)
-                  (ruby-mode        . ruby-ts-mode)
-                  ;; WEB
-                  (js2-mode         . js-ts-mode)
-                  (javascript-mode  . js-ts-mode)
-                  (typescript-mode  . typescript-ts-mode)
-                  (tsx-mode         . tsx-ts-mode)
-                  (html-mode        . html-ts-mode)
-                  (css-mode         . css-ts-mode)
-                  ;; SHELL
-                  (sh-mode          . bash-ts-mode)
-                  ;; MAKE
-                  (cmake-mode       . cmake-ts-mode)
-                  ;; CONFIG
-                  (dockerfile-mode  . dockerfile-ts-mode)
-                  ;; DATA
-                  (json-mode        . json-ts-mode)
-                  (conf-toml-mode   . toml-ts-mode)
-                  (yaml-mode        . yaml-ts-mode)
+(setq-default major-mode-remap-alist
+              '(;; Emacs Oficial Treesit
+                ;; CPU
+                (c-mode           . c-ts-mode)
+                (c++-mode         . c++-ts-mode)
+                (c-or-c++-mode    . c-or-c++-ts-mode)
+                (rust-mode        . rust-ts-mode)
+                (go-mode          . go-ts-mode)
+                ;; JIT
+                (csharp-mode      . csharp-ts-mode)
+                (java-mode        . java-ts-mode)
+                (elixir-mode      . elixir-ts-mode)
+                (php-mode         . php-ts-mode)
+                ;; VM
+                (lua-mode         . lua-ts-mode)
+                (python-mode      . python-ts-mode)
+                (ruby-mode        . ruby-ts-mode)
+                ;; WEB
+                (js2-mode         . js-ts-mode)
+                (javascript-mode  . js-ts-mode)
+                (typescript-mode  . typescript-ts-mode)
+                (tsx-mode         . tsx-ts-mode)
+                (html-mode        . html-ts-mode)
+                (css-mode         . css-ts-mode)
+                ;; SHELL
+                (sh-mode          . bash-ts-mode)
+                ;; MAKE
+                (cmake-mode       . cmake-ts-mode)
+                ;; CONFIG
+                (dockerfile-mode  . dockerfile-ts-mode)
+                ;; DATA
+                (json-mode        . json-ts-mode)
+                (conf-toml-mode   . toml-ts-mode)
+                (yaml-mode        . yaml-ts-mode)
 
-                  ;; Emacs Unoficial Treesit
-                  (haskell-mode     . haskell-ts-mode)
-                  (zig-mode         . zig-ts-mode)
-                  (erts-ts-mode     . erts-mode)
-                  (glsl-ts-mode     . glsl-mode)
-                  (markdown-ts-mode . markdown-mode)
-                  (mermaid-ts-mode  . mermaid-mode)
+                ;; Emacs Unoficial Treesit
+                ;; CPU
+                (haskell-mode     . haskell-ts-mode)
+                (zig-mode         . zig-ts-mode)
+                ;; GPU
+                (glsl-ts-mode     . glsl-mode)
+                ;; DOC
+                (markdown-ts-mode . markdown-mode)
+                (mermaid-ts-mode  . mermaid-mode)
 
-                  ;; Emacs Custom Treesit
-                  ;;(common-lisp-mode . common-lisp-ts-mode)
-                  ;;(emacs-lisp-mode  . emacs-lisp-ts-mode)
-                  ))
+                ;; Emacs Custom Treesit
+                ;; VM
+                ;;(common-lisp-mode . common-lisp-ts-mode)
+                ;; EMACS
+                ;;(emacs-lisp-mode  . emacs-lisp-ts-mode)
+                ))
 
 
-  ;; ============================================================================
-  ;;  SETUP COMMANDS
-  ;; ============================================================================
+;; ============================================================================
+;;  SETUP COMMANDS
+;; ============================================================================
 
 
-  (setq-default treesit-load-name-override-list '())
+(setq-default treesit-load-name-override-list '())
 
-  (setq-default treesit-language-source-alist
-                (mapcar (lambda (item)
-                          (let ((lang (car item))
-                                (spec (cdr item)))
-                            (list lang (nth 0 spec) (nth 1 spec) (nth 2 spec))))
-                        treesit-language-source-branch-alist))
+(setq-default treesit-language-source-alist
+              (mapcar (lambda (item)
+                        (let ((lang (car item))
+                              (spec (cdr item)))
+                          (list lang (nth 0 spec) (nth 1 spec) (nth 2 spec))))
+                      treesit-language-source-branch-alist))
 
-  (defun tree-sitter-setup ()
-    (interactive)
-    (message "Fetching latest grammar versions from GitHub...")
-    (setq treesit-language-source-alist (treesit-generate-stable-list-from-github))
-    (dolist (source treesit-language-source-alist)
-      (treesit-install-language-grammar (car source)))
-    (message "Tree-sitter setup completed."))
+(defun tree-sitter-setup ()
+  (interactive)
+  (message "Fetching latest grammar versions from GitHub...")
+  (setq treesit-language-source-alist (treesit-generate-stable-list-from-github))
+  (dolist (source treesit-language-source-alist)
+    (treesit-install-language-grammar (car source)))
+  (message "Tree-sitter setup completed."))

@@ -283,15 +283,15 @@
   (treemacs-fringe-indicator-mode 'always))
 
 (use-package treemacs-evil
-  :ensure nil
+  :ensure (:type git :host github :repo "emacsmirror/treemacs" :branch "master")
   :after (treemacs evil))
 
 (use-package treemacs-icons-dired
-  :ensure nil
+  :ensure (:type git :host github :repo "emacsmirror/treemacs" :branch "master")
   :hook (dired-mode . treemacs-icons-dired-mode))
 
 (use-package treemacs-magit
-  :ensure nil
+  :ensure (:type git :host github :repo "emacsmirror/treemacs" :branch "master")
   :after (treemacs magit))
 
 

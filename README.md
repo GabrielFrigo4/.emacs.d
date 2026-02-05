@@ -49,10 +49,9 @@
  ```
  (ok) => haskell-ts-mode
  (ok) => zig-ts-mode
- (not) => erts-ts-mode
- (not) => glsl-ts-mode
- (not) => markdown-ts-mode
- (not) => mermaid-ts-mode
+ (ok) => glsl-ts-mode
+ (ok) => markdown-ts-mode
+ (ok) => mermaid-ts-mode
  ```
 
  Custom \*ts-mode\* in Emacs 30.1
