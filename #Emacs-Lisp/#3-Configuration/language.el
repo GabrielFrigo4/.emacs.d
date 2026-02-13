@@ -4,7 +4,7 @@
 
 
 (setq-default tab-width 4)
-(setq-default indent-tabs-mode t)
+(setq-default indent-tabs-mode 1)
 
 (setq-default c-basic-offset 4)
 (setq-default c-default-style "bsd")
@@ -56,14 +56,14 @@
 
 
 ;; ============================================================================
-;;  COMMON HOOKS
+;;  LANGUAGE COMMON HOOKS
 ;; ============================================================================
 
 
 (defun my-prog-mode-setup ()
   "Settings applicable to all programming modes."
   (setq-local tab-width 4)
-  (setq-local indent-tabs-mode t)
+  (setq-local indent-tabs-mode 1)
   (setq-local truncate-lines t)
   (superword-mode 1)
   (when (fboundp 'highlight-numbers-mode)
@@ -80,12 +80,12 @@
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (setq-local tab-width 2
-                        indent-tabs-mode nil)))
+                        indent-tabs-mode -1)))
 
 (add-hook 'emacs-lisp-ts-mode-hook
           (lambda ()
             (setq-local tab-width 2
-                        indent-tabs-mode nil)))
+                        indent-tabs-mode -1)))
 
 (add-hook 'asm-mode-hook
           (lambda ()

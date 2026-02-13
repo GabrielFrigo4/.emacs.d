@@ -17,14 +17,14 @@
 
 
 ;; ============================================================================
-;;  HOOKS & INDENTATION
+;;  INDENTATION HOOKS
 ;; ============================================================================
 
 
 (defun tex-setup-tab-width ()
   (setq-local tab-width 4)
   (setq-local tex-indent-basic tab-width)
-  (setq-local indent-tabs-mode nil))
+  (setq-local indent-tabs-mode -1))
 (add-hook 'tex-mode-hook #'tex-setup-tab-width)
 (add-hook 'latex-mode-hook #'tex-setup-tab-width)
 
@@ -36,7 +36,7 @@
   (setq-local LaTeX-indent-level tab-width)
   (setq-local LaTeX-item-indent tab-width)
   (setq-local LaTeX-math-indent tab-width)
-  (setq-local indent-tabs-mode nil))
+  (setq-local indent-tabs-mode -1))
 (add-hook 'TeX-mode-hook #'TeX-setup-tab-width)
 (add-hook 'LaTeX-mode-hook #'TeX-setup-tab-width)
 

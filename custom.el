@@ -3,20 +3,20 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(column-number-mode t)
+ '(column-number-mode 1)
  '(custom-enabled-themes '(doom-dark+))
  '(custom-safe-themes
    '("f33b5dfb5c5fb99b5a90feab9158cadc2588c6840211b995622a35419c450b04"
 	   "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8"
 	   default))
- '(display-battery-mode t)
+ '(display-battery-mode 1)
  '(display-line-numbers-type 'relative)
- '(display-time-mode t)
- '(global-display-line-numbers-mode t)
+ '(display-time-mode 1)
+ '(global-display-line-numbers-mode 1)
  '(inhibit-startup-screen t)
- '(menu-bar-mode nil)
- '(size-indication-mode t)
- '(tool-bar-mode nil)
+ '(menu-bar-mode -1)
+ '(size-indication-mode 1)
+ '(tool-bar-mode -1)
  '(xterm-mouse-mode 1))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

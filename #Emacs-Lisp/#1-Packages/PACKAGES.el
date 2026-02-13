@@ -83,6 +83,12 @@
   :defer t
   :ensure (:type git :host github :repo "jcs-elpa/msgu" :branch "master"))
 
+(use-package dash
+  :defer t
+  :ensure (:type git :host github :repo "emacsmirror/dash" :branch "master")
+  :config
+  (global-dash-fontify-mode))
+
 (elpaca-wait)
 
 
@@ -156,7 +162,7 @@
 
 
 ;; ============================================================================
-;;  EDITING & NAVIGATION
+;;  TEXT/CODE EDITING
 ;; ============================================================================
 
 
@@ -181,6 +187,16 @@
   (setq-default sp-autoskip-closing-pair t)
   (setq-default sp-highlight-pair-overlay nil))
 
+(use-package multiple-cursors
+  :defer t
+  :ensure (:type git :host github :repo "emacsmirror/multiple-cursors" :branch "master"))
+
+
+;; ============================================================================
+;;  TEXT/CODE HIGHLIGHT
+;; ============================================================================
+
+
 (use-package highlight-numbers
   :ensure (:type git :host github :repo "emacsmirror/highlight-numbers" :branch "master")
   :hook (prog-mode . highlight-numbers-mode))
@@ -188,26 +204,6 @@
 (use-package rainbow-delimiters
   :ensure (:type git :host github :repo "emacsmirror/rainbow-delimiters" :branch "master")
   :hook (prog-mode . rainbow-delimiters-mode))
-
-(use-package dash
-  :defer t
-  :ensure (:type git :host github :repo "emacsmirror/dash" :branch "master")
-  :config
-  (global-dash-fontify-mode))
-
-(use-package goto-chg
-  :defer t
-  :bind ("C-." . goto-last-change)
-  :ensure (:type git :host github :repo "emacsmirror/goto-chg" :branch "master"))
-
-(use-package ace-window
-  :defer t
-  :ensure (:type git :host github :repo "emacsmirror/ace-window" :branch "master")
-  :bind (("M-o" . ace-window)))
-
-(use-package multiple-cursors
-  :defer t
-  :ensure (:type git :host github :repo "emacsmirror/multiple-cursors" :branch "master"))
 
 (use-package visual-regexp
   :defer t
@@ -219,7 +215,23 @@
 
 
 ;; ============================================================================
-;;  COMPLETION & FILE MANAGEMENT
+;;  TEXT/CODE NAVIGATION
+;; ============================================================================
+
+
+(use-package goto-chg
+  :defer t
+  :bind ("C-." . goto-last-change)
+  :ensure (:type git :host github :repo "emacsmirror/goto-chg" :branch "master"))
+
+(use-package ace-window
+  :defer t
+  :ensure (:type git :host github :repo "emacsmirror/ace-window" :branch "master")
+  :bind (("M-o" . ace-window)))
+
+
+;; ============================================================================
+;;  TEXT COMPLETION
 ;; ============================================================================
 
 
@@ -249,6 +261,12 @@
   :bind
   (("C-c f" . consult-fd)
    ("C-c h" . (lambda () (interactive) (consult-fd default-directory)))))
+
+
+;; ============================================================================
+;;  FILE MANAGEMENT
+;; ============================================================================
+
 
 (use-package dired
   :ensure nil
@@ -365,7 +383,7 @@
 
 
 ;; ============================================================================
-;;  MARKDOWN
+;;  MARKDOWN MODE
 ;; ============================================================================
 
 
@@ -387,7 +405,7 @@
 
 
 ;; ============================================================================
-;;  MERMAID & DIAGRAMS
+;;  MERMAID MODE
 ;; ============================================================================
 
 
@@ -396,7 +414,7 @@
   :after markdown-mode
   :bind (:map markdown-mode-map
               ("C-c C-c m" . markdown-mermaid)
-         :map markdown-ts-mode-map
+              :map markdown-ts-mode-map
               ("C-c C-c m" . markdown-mermaid))
   :config
   (setq markdown-mermaid-command "mmdc"))
@@ -418,7 +436,7 @@
 
 
 ;; ============================================================================
-;;  LLM & AI
+;;  LLM-AI MODE
 ;; ============================================================================
 
 
@@ -466,53 +484,41 @@
 
 
 (use-package rust-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/rust-mode" :branch "master")
   :config (setq-default rust-mode-treesitter-derive t)
   :bind (("C-c r f" . rust-format-buffer)))
 
 (use-package zig-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/zig-mode" :branch "master"))
 
 (use-package haskell-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/haskell-mode" :branch "master"))
 
 (use-package ada-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/ada-mode" :branch "master"))
 
 (use-package lua-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/lua-mode" :branch "master"))
 
 (use-package elixir-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/elixir-mode" :branch "master"))
 
 (use-package js2-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/js2-mode" :branch "master"))
 
 (use-package typescript-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/typescript-mode" :branch "master"))
 
 (use-package php-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/php-mode" :branch "master"))
 
 (use-package fasm-mode
-  :defer t
   :ensure (:type git :host github :repo "GabrielFrigo4/fasm-mode" :branch "main"))
 
 (use-package nasm-mode
-  :defer t
   :ensure (:type git :host github :repo "GabrielFrigo4/nasm-mode" :branch "master"))
 
 (use-package riscv-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/riscv-mode" :branch "master"))
 
 (use-package cuda-mode
@@ -524,40 +530,40 @@
   :ensure (:type git :host github :repo "emacsmirror/opencl-c-mode" :branch "master"))
 
 (use-package glsl-mode
-  :defer t
-  :ensure (:type git :host github :repo "emacsmirror/glsl-mode" :branch "master"))
+  :ensure (:type git :host github :repo "emacsmirror/glsl-mode" :branch "master")
+  :config
+	(require 'treesit)
+	(require 'c-ts-mode))
 
 (use-package json-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/json-mode" :branch "master"))
 
 (use-package yaml-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/yaml-mode" :branch "master"))
 
 (use-package dockerfile-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/dockerfile-mode" :branch "master"))
 
 (use-package vimrc-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/vimrc-mode" :branch "master"))
 
 (use-package emacs-lisp-ts-mode
-  :defer t
   :ensure (:type git :host github :repo "GabrielFrigo4/emacs-lisp-ts-mode" :branch "main"))
 
 (use-package common-lisp-ts-mode
-  :defer t
   :ensure (:type git :host github :repo "GabrielFrigo4/common-lisp-ts-mode" :branch "main"))
 
 (use-package zig-ts-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/zig-ts-mode" :branch "master"))
 
 (use-package haskell-ts-mode
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/haskell-ts-mode" :branch "master"))
+
+
+;; ============================================================================
+;;  PROGRAMMING FRAMEWORKS
+;; ============================================================================
+
 
 (use-package slime
   :defer t

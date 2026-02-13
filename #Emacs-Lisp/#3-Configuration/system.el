@@ -23,7 +23,7 @@
 ;; ============================================================================
 
 
-(global-auto-revert-mode t)
+(global-auto-revert-mode 1)
 (setq-default global-auto-revert-non-file-buffers t)
 
 
@@ -46,7 +46,7 @@
 
 
 (when (fboundp 'global-completion-preview-mode)
-  (global-completion-preview-mode t))
+  (global-completion-preview-mode 1))
 
 
 ;; ============================================================================

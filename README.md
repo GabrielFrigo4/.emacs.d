@@ -1,6 +1,4 @@
-# Emacs
- Emacs config
-
+# Gabriel Frigo's Emacs Configuration
  This repository is the configuration of the Emacs code editor that Gabriel Frigo uses
 
 ## TODO
@@ -8,6 +6,8 @@
  ```
  Update: [Common Lisp]
  Update: [Emacs Lisp]
+ Remake: [Aweshell]
+ Remake: [Aweww]
  ```
 
  Todo List (Emacs 31)
@@ -49,20 +49,20 @@
  ```
  (ok) => haskell-ts-mode
  (ok) => zig-ts-mode
- (err) => glsl-ts-mode
+ (ok) => glsl-ts-mode
  (ok) => markdown-ts-mode
  (ok) => mermaid-ts-mode
  ```
 
  Custom \*ts-mode\* in Emacs 30.1
  ```
- (err) => common-lisp-ts-mode
- (err) => emacs-lisp-ts-mode
+ (up) => common-lisp-ts-mode
+ (up) => emacs-lisp-ts-mode
  ```
 
  Debug Grammar / Explore Grammar
  ```elisp
- (treesit-explore-mode t)
+ (treesit-explore-mode 1)
  ```
 
 ## Elisp Symbols

@@ -10,7 +10,7 @@
 
 
 ;; ============================================================================
-;;  TODO & CHECKBOXES
+;;  TODO FACES
 ;; ============================================================================
 
 
@@ -33,6 +33,12 @@
               '(("TODO" . org-todo-custom-face)
                 ("WORK" . org-work-custom-face)
                 ("DONE" . org-done-custom-face)))
+
+
+;; ============================================================================
+;;  CHECKBOX FACES
+;; ============================================================================
+
 
 (set-face-attribute 'org-checkbox nil :weight 'bold)
 
@@ -82,7 +88,7 @@
 
 
 ;; ============================================================================
-;;  BLOCK THEMES
+;;  SOURCE BLOCK THEMES
 ;; ============================================================================
 
 
@@ -100,7 +106,7 @@
 
 
 ;; ============================================================================
-;;  SOURCE BLOCKS & LANGUAGES
+;;  SOURCE BLOCKS LANGUAGES
 ;; ============================================================================
 
 
@@ -131,7 +137,7 @@
                           ("lua" . lua-ts)
                           ("python" . python-ts)
                           ("ruby" . ruby-ts)
-                          ;;("common-lisp" . common-lisp-ts)
+                          ("common-lisp" . common-lisp-ts)
                           ("lisp" . common-lisp-ts)
                           ;; WEB
                           ("js" . js-ts)
@@ -141,8 +147,8 @@
                           ("html" . html-ts)
                           ("css" . css-ts)
                           ;; EMACS
-                          ;;("emacs-lisp" . emacs-lisp-ts)
-                          ;;("elisp" . emacs-lisp-ts)
+                          ("emacs-lisp" . emacs-lisp-ts)
+                          ("elisp" . emacs-lisp-ts)
                           ;; SHELL
                           ("bash" . bash-ts)
                           ;; MAKE

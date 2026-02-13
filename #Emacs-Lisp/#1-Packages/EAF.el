@@ -14,7 +14,7 @@
 
 
 ;; ============================================================================
-;;  SETUP & INITIALIZATION
+;;  SETUP APPLICATIONS
 ;; ============================================================================
 
 
@@ -47,7 +47,7 @@
 ;; ============================================================================
 
 
-(setq eaf-browser-dark-mode nil)
+(setq eaf-browser-dark-mode -1)
 (setq eaf-pyqterminal-font-family "JetBrains Mono")
 (setq eaf-pyqterminal-font-size 20)
 
