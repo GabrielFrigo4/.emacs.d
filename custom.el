@@ -14,9 +14,9 @@
  '(display-time-mode 1)
  '(global-display-line-numbers-mode 1)
  '(inhibit-startup-screen t)
- '(menu-bar-mode -1)
+ '(menu-bar-mode nil)
  '(size-indication-mode 1)
- '(tool-bar-mode -1)
+ '(tool-bar-mode nil)
  '(xterm-mouse-mode 1))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
