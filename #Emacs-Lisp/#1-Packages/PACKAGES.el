@@ -93,6 +93,18 @@
 
 
 ;; ============================================================================
+;;  USER ENVIRONMENT
+;; ============================================================================
+
+
+(use-package no-littering
+  :ensure t
+  :config
+  (setq auto-save-file-name-transforms
+        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+
+
+;; ============================================================================
 ;;  USER INTERFACE
 ;; ============================================================================
 
@@ -567,7 +579,7 @@
 
 (use-package slime
   :defer t
-  :ensure (:type git :host github :repo "emacsmirror/slime" :branch "master")
+  :ensure (:type git :host github :repo "slime/slime" :branch "master")
   :init
   (setq-default inferior-lisp-program "sbcl")
   :config
