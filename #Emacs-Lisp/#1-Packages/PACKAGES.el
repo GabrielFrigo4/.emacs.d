@@ -98,7 +98,7 @@
 
 
 (use-package no-littering
-  :ensure t
+  :ensure (:type git :host github :repo "emacsmirror/no-littering" :branch "master")
   :config
   (setq auto-save-file-name-transforms
         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
