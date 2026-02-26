@@ -8,6 +8,7 @@
  Update: [Emacs Lisp]
  Remake: [Aweshell]
  Remake: [Aweww]
+ Directory: Unix-Like
  ```
 
  Todo List (Emacs 31)
