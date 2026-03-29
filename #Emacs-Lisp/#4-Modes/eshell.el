@@ -41,8 +41,9 @@
 ;; ============================================================================
 
 
-(defalias 'eshell/cls   'eshell/clear)
-(defalias 'eshell/clr   'eshell/clear)
+(defalias 'eshell/clear 'eshell/clear-scrollback)
+(defalias 'eshell/cls   'eshell/clear-scrollback)
+(defalias 'eshell/clr   'eshell/clear-scrollback)
 
 (defalias 'eshell/where 'eshell/which)
 (defalias 'eshell/wh    'eshell/which)
