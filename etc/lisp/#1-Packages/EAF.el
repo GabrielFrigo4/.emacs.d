@@ -22,7 +22,7 @@
   "Setup Emacs Application Framework (EAF)."
   (interactive)
   (unless (featurep 'eaf)
-    (add-to-list 'load-path (expand-file-name "eaf/emacs-application-framework" emacs-dir))
+    (add-to-list 'load-path (expand-file-name "eaf/emacs-application-framework" opt-dir))
     (advice-add 'eaf-start-process :override #'ignore)
     (require 'eaf)
     (let ((eaf-apps '(eaf-browser eaf-pdf-viewer eaf-music-player

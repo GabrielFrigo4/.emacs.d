@@ -8,7 +8,7 @@
 (setq-default elpaca-lock-file (expand-file-name "elpaca.lock" lock-dir))
 
 (defvar elpaca-installer-version 0.11)
-(defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
+(defvar elpaca-directory (expand-file-name "lib/elpaca/" var-dir))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
 
@@ -138,6 +138,7 @@
   :ensure (:type git :host github :repo "emacsmirror/dashboard" :branch "master")
   :config
   (dashboard-setup-startup-hook)
+  (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
   (setq dashboard-center-content t)
   (setq dashboard-show-shortcuts nil)
   (setq dashboard-items '((recents  . 5)
@@ -202,6 +203,10 @@
 (use-package multiple-cursors
   :defer t
   :ensure (:type git :host github :repo "emacsmirror/multiple-cursors" :branch "master"))
+
+(use-package apheleia
+  :ensure (:type git :host github :repo "emacsmirror/apheleia" :branch "master")
+  :hook (prog-mode . apheleia-mode))
 
 
 ;; ============================================================================
@@ -488,6 +493,33 @@
             (setq gptel-model (intern selected-model))
             (message "gptel-model defined as: %s" gptel-model))
         (message "Model selection canceled.")))))
+
+
+;; ============================================================================
+;;  LANGUAGE SERVERS
+;; ============================================================================
+
+
+(use-package lsp-mode
+  :ensure (:type git :host github :repo "emacs-lsp/lsp-mode" :branch "master")
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :hook ((c-mode . lsp-deferred)
+         (c++-mode . lsp-deferred)
+         (c-ts-mode . lsp-deferred)
+         (c++-ts-mode . lsp-deferred)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands (lsp lsp-deferred)
+  :custom
+  (lsp-clients-clangd-args '("-j=4"
+                             "--background-index"
+                             "--clang-tidy"
+                             "--completion-style=detailed"
+                             "--header-insertion=iwyu")))
+
+(use-package lsp-ui
+  :ensure (:type git :host github :repo "emacs-lsp/lsp-ui" :branch "master")
+  :commands lsp-ui-mode)
 
 
 ;; ============================================================================

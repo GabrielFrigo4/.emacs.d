@@ -38,7 +38,8 @@
 
 (setq-default treesit-font-lock-level 4)
 
-(defvar treesit-language-fixed-version-alist '()
+(defvar treesit-language-fixed-version-alist
+  '()
   "List of grammars with fixed versions.")
 
 
@@ -183,6 +184,8 @@
   (interactive)
   (message "Fetching latest grammar versions from GitHub...")
   (setq treesit-language-source-alist (treesit-generate-stable-list-from-github))
-  (dolist (source treesit-language-source-alist)
-    (treesit-install-language-grammar (car source)))
+  (let ((out-dir (expand-file-name "lib/tree-sitter" var-dir)))
+    (unless (file-exists-p out-dir) (make-directory out-dir t))
+    (dolist (source treesit-language-source-alist)
+      (treesit-install-language-grammar (car source) out-dir)))
   (message "Tree-sitter setup completed."))

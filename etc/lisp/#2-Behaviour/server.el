@@ -2,6 +2,8 @@
 ;;  CONFIGURATION
 ;; ============================================================================
 
+(setq server-socket-dir (expand-file-name "~/.emacs.d/var/server/auth/"))
+(setq server-name "server")
 
 ;; ============================================================================
 ;;  HOOKS
