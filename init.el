@@ -22,6 +22,7 @@
 (setq opt-dir (expand-file-name "opt/" emacs-dir))
 (setq lib-dir (expand-file-name "lib/" emacs-dir))
 (setq tmp-dir (expand-file-name "tmp/" emacs-dir))
+(setq temporary-file-directory tmp-dir)
 
 (setq package-gnupghome-dir (expand-file-name "lib/elpa/gnupg" var-dir))
 (setq download-directory (expand-file-name "Downloads" home-dir))
@@ -106,10 +107,12 @@
 (let ((default-directory (expand-file-name "lisp/" etc-dir)))
   (normal-top-level-add-subdirs-to-load-path))
 
-(mapc 'load (directory-files (expand-file-name "lisp/#1-Packages/" etc-dir) t "\\.el$"))
-(mapc 'load (directory-files (expand-file-name "lisp/#2-Behaviour/" etc-dir) t "\\.el$"))
-(mapc 'load (directory-files (expand-file-name "lisp/#3-Configuration/" etc-dir) t "\\.el$"))
-(mapc 'load (directory-files (expand-file-name "lisp/#4-Modes/" etc-dir) t "\\.el$"))
+(let ((lisp-dir (expand-file-name "lisp/" etc-dir)))
+  (mapc (lambda (dir)
+          (let ((dir-path (expand-file-name dir lisp-dir)))
+            (when (file-directory-p dir-path)
+              (mapc 'load (directory-files dir-path t "\\.el$")))))
+        '("packages" "behaviour" "config" "modes" "custom")))
 
 
 ;; ============================================================================
