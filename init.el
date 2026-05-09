@@ -105,7 +105,7 @@
   ;;  CORE INITIALIZATION
   ;; ----------------------------------------------------------------------------
   (mapc (lambda (file) (load (expand-file-name (format "init/%s" file) elisp-dir)))
-        '("bootstrap" "ui" "settings"))
+        '("packages" "interface" "settings" "keybindings"))
 
   ;; ----------------------------------------------------------------------------
   ;;  FEATURE MODULES

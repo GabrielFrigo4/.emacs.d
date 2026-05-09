@@ -1,5 +1,5 @@
 ;; ============================================================================
-;;  TEX FEATURE
+;;  LATEX FEATURE
 ;; ============================================================================
 
 (use-package auctex
@@ -79,4 +79,4 @@
   :defer t
   :ensure (:type git :host github :repo "emacsmirror/cdlatex" :branch "master"))
 
-(provide 'feature-tex)
+(provide 'feature-latex)

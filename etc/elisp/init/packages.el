@@ -57,4 +57,4 @@
 
 (elpaca-wait)
 
-(provide 'init-bootstrap)
+(provide 'init-packages)

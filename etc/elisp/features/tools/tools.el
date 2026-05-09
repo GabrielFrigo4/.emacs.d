@@ -12,4 +12,4 @@
 (use-package mixed-pitch :ensure t)
 (use-package goto-chg :ensure t :bind ("C-." . goto-last-change))
 
-(provide 'feature-common)
+(provide 'feature-tools)

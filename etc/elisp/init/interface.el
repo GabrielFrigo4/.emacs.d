@@ -146,4 +146,4 @@
 (setq server-socket-dir (expand-file-name "var/server/auth/" emacs-dir))
 (setq server-name "server")
 
-(provide 'init-ui)
+(provide 'init-interface)

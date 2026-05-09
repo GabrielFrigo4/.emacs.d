@@ -9,7 +9,6 @@ This repository is the configuration of the Emacs code editor that Gabriel Frigo
 ### Todo List (Emacs Current)
 
 ```
-Directory: [Init]
 Autocomplete: [C/C++, ...]
 Formatter: [Lua,...]
 Fix: [TreeSitter]
