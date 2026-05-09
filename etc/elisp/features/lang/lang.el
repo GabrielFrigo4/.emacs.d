@@ -6,7 +6,10 @@
 (use-package zig-mode :ensure t)
 (use-package haskell-mode :ensure t)
 (use-package ada-mode :ensure t)
-(use-package lua-mode :ensure t)
+(use-package lua-mode
+  :ensure t
+  :custom (lua-indent-level 4)
+  :hook (lua-mode . (lambda () (setq indent-tabs-mode t))))
 (use-package elixir-mode :ensure t)
 (use-package js2-mode :ensure t)
 (use-package typescript-mode :ensure t)
@@ -28,7 +31,7 @@
 (use-package haskell-ts-mode :ensure t)
 
 (use-package cc-mode
-  :ensure t
+  :ensure nil
   :config
   (setq-default c-basic-offset 4)
   (setq-default c-default-style "linux"))

@@ -9,13 +9,11 @@ This repository is the configuration of the Emacs code editor that Gabriel Frigo
 ### Todo List (Emacs Current)
 
 ```
-Autocomplete: [C/C++, ...]
-Formatter: [Lua,...]
 Fix: [TreeSitter]
-Remake: [Aweshell]
-Remake: [Aweww]
 Fix: [EPUB]
 Fix: [PDF]
+Remake: [Aweshell]
+Remake: [Aweww]
 ```
 
 ### Todo List (Emacs 31)

@@ -40,6 +40,9 @@
   :ensure (:type git :host github :repo "emacsmirror/apheleia" :branch "master")
   :hook (prog-mode . apheleia-mode)
   :config
+  (setq apheleia-formatters
+        (append '((stylua . ("stylua" "--indent-type" "Tabs" "--indent-width" "4" "-")))
+                apheleia-formatters))
   (setq apheleia-mode-alist
         (append '((js-mode . prettier)
                   (js2-mode . prettier)
@@ -59,7 +62,13 @@
                   (yaml-ts-mode . prettier)
                   (markdown-mode . prettier)
                   (markdown-ts-mode . prettier)
-                  (graphql-mode . prettier))
+                  (graphql-mode . prettier)
+                  (lua-mode . stylua)
+                  (lua-ts-mode . stylua)
+                  (c-mode . clang-format)
+                  (c++-mode . clang-format)
+                  (c-ts-mode . clang-format)
+                  (c++-ts-mode . clang-format))
                 apheleia-mode-alist)))
 
 (provide 'feature-editor)
