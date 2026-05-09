@@ -9,16 +9,22 @@ This repository is the configuration of the Emacs code editor that Gabriel Frigo
 ### Todo List (Emacs Current)
 
 ```
-Update: [Common Lisp]
-Update: [Emacs Lisp]
+Directory: [Init]
+Autocomplete: [C/C++, ...]
+Formatter: [Lua,...]
+Fix: [TreeSitter]
 Remake: [Aweshell]
 Remake: [Aweww]
+Fix: [EPUB]
+Fix: [PDF]
 ```
 
 ### Todo List (Emacs 31)
 
 ```
 Add: [DirectWrite BackEngine Font on Windows]
+Update: [Common Lisp]
+Update: [Emacs Lisp]
 ```
 
 ---

@@ -1,9 +1,6 @@
-;;; core.el --- Core functions and macros -*- lexical-binding: t -*-
-
 ;; ============================================================================
 ;;  SYSTEM MACROS
 ;; ============================================================================
-
 
 (defun system-is-unix-p ()
   "Return true if the system is generic Unix-like (Linux, BSD, Darwin/macOS)."
@@ -35,11 +32,9 @@
 (defmacro if-haiku    (&rest body) `(if-system haiku ,@body))
 (defmacro if-android  (&rest body) `(if-system android ,@body))
 
-
 ;; ============================================================================
 ;;  UTILITY FUNCTIONS
 ;; ============================================================================
-
 
 (defun async-sleep (seconds)
   "Sleep for SECONDS without freezing Emacs."

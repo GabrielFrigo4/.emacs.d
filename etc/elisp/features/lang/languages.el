@@ -1,0 +1,36 @@
+;; ============================================================================
+;;  LANGUAGES FEATURE
+;; ============================================================================
+
+(use-package rust-mode :ensure t :config (setq-default rust-mode-treesitter-derive t))
+(use-package zig-mode :ensure t)
+(use-package haskell-mode :ensure t)
+(use-package ada-mode :ensure t)
+(use-package lua-mode :ensure t)
+(use-package elixir-mode :ensure t)
+(use-package js2-mode :ensure t)
+(use-package typescript-mode :ensure t)
+(use-package php-mode :ensure t)
+(use-package fasm-mode :ensure (:type git :host github :repo "GabrielFrigo4/fasm-mode"))
+(use-package nasm-mode :ensure (:type git :host github :repo "GabrielFrigo4/nasm-mode"))
+(use-package riscv-mode :ensure t)
+(use-package cuda-mode :defer t :ensure t)
+(use-package opencl-c-mode :defer t :ensure t)
+(use-package glsl-mode :ensure t :config (require 'treesit) (require 'c-ts-mode))
+(use-package json-mode :ensure t)
+(use-package yaml-mode :ensure t :hook (yaml-mode . apheleia-mode))
+(use-package yaml-ts-mode :ensure nil :hook (yaml-ts-mode . apheleia-mode))
+(use-package dockerfile-mode :ensure t)
+(use-package vimrc-mode :ensure t)
+(use-package emacs-lisp-ts-mode :ensure (:type git :host github :repo "GabrielFrigo4/emacs-lisp-ts-mode"))
+(use-package common-lisp-ts-mode :ensure (:type git :host github :repo "GabrielFrigo4/common-lisp-ts-mode"))
+(use-package zig-ts-mode :ensure t)
+(use-package haskell-ts-mode :ensure t)
+
+(use-package cc-mode
+  :ensure t
+  :config
+  (setq-default c-basic-offset 4)
+  (setq-default c-default-style "linux"))
+
+(provide 'feature-languages)
