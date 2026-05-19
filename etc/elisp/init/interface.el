@@ -59,6 +59,12 @@
 ;;  FRAME MANAGEMENT
 ;; ----------------------------------------------------------------------------
 
+(setq frame-resize-pixelwise t)
+(add-to-list 'default-frame-alist '(width . 87))
+(add-to-list 'default-frame-alist '(height . 29))
+(add-to-list 'initial-frame-alist '(width . 87))
+(add-to-list 'initial-frame-alist '(height . 29))
+
 (defun set-frame-center-screen (&optional frame)
   "Center Frame (or the Current Frame) on the Screen."
   (interactive)
@@ -73,7 +79,6 @@
 
 (defun new-frame-setup (frame)
   (select-frame frame)
-  (set-frame-size frame 87 29)
   (if-windows
    (sleep-for 0.036)
    (sleep-for 0.032))

@@ -1,37 +1,66 @@
-# Gabriel Frigo's Emacs Configuration
+# 🌟 Gabriel Frigo's Emacs Configuration
 
-This repository is the configuration of the Emacs code editor that Gabriel Frigo uses.
-
----
-
-## TODO
-
-### Todo List (Emacs Current)
-
-```
-Fix: [EPUB]
-Fix: [PDF]
-Add: [IA/LLM]
-Remake: [Aweshell]
-Remake: [Aweww]
-```
-
-### Todo List (Emacs 31)
-
-```
-Fix: [TreeSitter]
-Add: [DirectWrite BackEngine Font on Windows]
-Update: [Common Lisp]
-Update: [Emacs Lisp]
-```
+> This repository contains the custom Emacs code editor configuration used by Gabriel Frigo.
 
 ---
 
-## Treesit
+## 🧠 AI Assistance
 
-### Oficial \*ts-mode\* in Emacs 30.1
+### 🤖 Eglot (GNU Universal Language Server Protocol Client)
 
+**Eglot** is a lightweight and efficient client for the Language Server Protocol (LSP), developed by the GNU project itself.
+
+- **Status:** ✅ **Active & Recommended** (Primary LSP client)
+- **Documentation:** [GNU Eglot Manual](https://www.gnu.org/software/emacs/manual/eglot.html)
+- **Installation:** `(use-package eglot)`
+
+**Common Configurations:**
+
+```elisp
+;; Enable Eglot globally
+(with-eval-after-load 'eglot
+  (eglot-ensure)
+  (add-hook 'prog-mode-hook #'eglot-ensure))
+
+;; Add keyboard shortcuts
+(with-eval-after-load 'eglot-ui
+  (define-key eglot-mode-map (kbd "M-d") #'eglot-find-definition)
+  (define-key eglot-mode-map (kbd "M-r") #'eglot-find-references)
+  (define-key eglot-mode-map (kbd "M-\\\\") #'eglot-toggle-symbols-same-buffer))
 ```
+
+### 🤖 Copilot
+
+**GitHub Copilot** is an AI pair programmer that suggests code and entire functions in real-time.
+
+- **Status:** ✅ **Active**
+- **Configuration:** Managed via `elpaca` (Emacs Package Manager)
+- **Installation:** `(elpaca copilot)`
+- **Documentation:** [GitHub Copilot](https://github.com/features/copilot)
+
+**Common Configurations:**
+
+```elisp
+;; Enable Copilot in relevant modes
+(with-eval-after-load 'copilot
+  (copilot-mode 1))
+
+;; Add keybindings (Tab for accept, Alt+C for inline chat)
+(with-eval-after-load 'copilot-ui
+  (define-key copilot-mode-map (kbd "\C-j") #'copilot-accept)
+  (define-key copilot-mode-map (kbd "\M-c") #'copilot-inline-chat))
+
+;; Configure inline suggestions (alternative to `corfu`)
+(setq copilot-inline-suggestions-enabled t)
+```
+
+---
+
+## 🌳 Treesit
+
+### 🔹 Official `*ts-mode*` in Emacs 30.1
+
+```text
 (ok) => c-ts-mode
 (ok) => go-ts-mode
 (ok) => js-ts-mode
@@ -59,9 +88,9 @@ Update: [Emacs Lisp]
 (ok) => typescript-ts-mode
 ```
 
-### Unoficial \*ts-mode\* in Emacs 30.1
+### 🔸 Unofficial `*ts-mode*` in Emacs 30.1
 
-```
+```text
 (ok) => haskell-ts-mode
 (ok) => zig-ts-mode
 (ok) => glsl-ts-mode
@@ -69,14 +98,14 @@ Update: [Emacs Lisp]
 (ok) => mermaid-ts-mode
 ```
 
-### Custom \*ts-mode\* in Emacs 30.1
+### 🔸 Custom `*ts-mode*` in Emacs 30.1
 
-```
+```text
 (up) => common-lisp-ts-mode
 (up) => emacs-lisp-ts-mode
 ```
 
-### Debug Grammar / Explore Grammar
+### 🐞 Debug Grammar / Explore Grammar
 
 ```elisp
 (treesit-explore-mode 1)
@@ -84,9 +113,9 @@ Update: [Emacs Lisp]
 
 ---
 
-## Elisp Symbols
+## 🔣 Elisp Symbols
 
-### Get Symbols
+### 🔍 Get Symbols
 
 ```elisp
 (setq-local variable-names '())
@@ -107,7 +136,7 @@ Update: [Emacs Lisp]
 (setq macro-names (cl-sort macro-names 'string-lessp :key 'downcase))
 ```
 
-### Show Variables
+### 📖 Show Variables
 
 ```elisp
 (let ((xbuff (generate-new-buffer "*output-variables*")))
@@ -117,7 +146,7 @@ Update: [Emacs Lisp]
     ))
 ```
 
-### Show Functions
+### 📖 Show Functions
 
 ```elisp
 (let ((xbuff (generate-new-buffer "*output-functions*")))
@@ -127,7 +156,7 @@ Update: [Emacs Lisp]
     ))
 ```
 
-### Show Macros
+### 📖 Show Macros
 
 ```elisp
 (let ((xbuff (generate-new-buffer "*output-macros*")))
@@ -139,9 +168,9 @@ Update: [Emacs Lisp]
 
 ---
 
-## Font
+## 🔠 Font
 
-### RobotoMono Nerd Font - Italic
+### 🖋️ RobotoMono Nerd Font - Italic
 
 ```elisp
 ;; For "RobotoMono Nerd Font", We Need to Separately Specify the Italic Mode to Work
@@ -150,12 +179,13 @@ Update: [Emacs Lisp]
 
 ---
 
-## Install Emacs Application Framework (EAF)
+## 🚀 Install Emacs Application Framework (EAF)
 
 [**Install Emacs Application Framework**](https://github.com/emacs-eaf/emacs-application-framework) is a free/libre and open-source extensible framework that revolutionizes the graphical capabilities of Emacs.
-The key to ultimately Live in Emacs.
 
-### Linux
+> The key to ultimately Live in Emacs.
+
+### 🐧 Linux
 
 ```zsh
 git clone --depth=1 -b master "https://github.com/emacs-eaf/emacs-application-framework.git" "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
@@ -174,7 +204,7 @@ chmod +x ./install-eaf.py
 ./install-eaf.py --install "git"
 ```
 
-### Windows
+### 🪟 Windows
 
 ```pwsh
 git clone --depth=1 -b master "https://github.com/emacs-eaf/emacs-application-framework.git" "$HOME/.emacs.d/opt/eaf/emacs-application-framework/"
@@ -194,7 +224,7 @@ python install-eaf.py --install "git"
 
 ---
 
-## Nerd-Icons
+## 🤓 Nerd-Icons
 
 Install **Nerd-Icons** from within Emacs:
 
@@ -202,7 +232,7 @@ Install **Nerd-Icons** from within Emacs:
 M-x nerd-icons-install-fonts
 ```
 
-### Linux
+### 🐧 Linux
 
 On Linux, you can also install the fonts manually to your system:
 
@@ -216,17 +246,17 @@ fc-cache -fv
 cd -
 ```
 
-### Windows
+### 🪟 Windows
 
 On Windows, running the `M-x nerd-icons-install-fonts` function inside Emacs will prompt for a download directory for you to install the fonts manually.
 
 ---
 
-## Emacs Server / Daemon Configuration
+## ⚙️ Emacs Server / Daemon Configuration
 
 When running Emacs as a daemon (`emacs --daemon`) and connecting via `emacsclient`, there is a key difference between Unix-like systems (Linux, FreeBSD, macOS) and Windows.
 
-### Unix-like (Linux / FreeBSD / macOS)
+### 🐧 Unix-like (Linux / FreeBSD / macOS)
 
 On Unix systems, Emacs uses **Unix Domain Sockets** for communication, which are faster and more secure.
 
@@ -247,7 +277,7 @@ In your terminal configuration (`.bashrc` ou `.zshrc`), export the path using `E
 export EMACS_SOCKET_NAME="${HOME}/.emacs.d/var/server/auth/server"
 ```
 
-### Windows
+### 🪟 Windows
 
 On Windows, Emacs traditionally uses a **TCP Server** instead of local sockets. It writes a plain text file containing the connection credentials (IP, port, and a secure auth key).
 
@@ -264,34 +294,34 @@ $env:EMACS_SERVER_FILE = "$HOME\.emacs.d\var\server\auth\server"
 
 If you are running Emacs on Windows, the following configurations are **mandatory** to avoid installation errors and encoding issues.
 
-### 1. Enable Developer Mode (Crucial for Elpaca)
+### 1️⃣ Enable Developer Mode _(Crucial for Elpaca)_
 
 To allow the package manager (`elpaca`) to create symbolic links and avoid _"Operation not permitted"_ errors:
 
-1.  Open **Settings**.
-2.  Navigate to:
+1. Open **Settings**.
+2. Navigate to:
     - **Windows 11:** `System > For developers`
     - **Windows 10:** `Update & Security > For developers`
-3.  Switch the **Developer Mode** toggle to **"On"**.
+3. Switch the **Developer Mode** toggle to **"On"**.
 
-### 2. Windows Defender Exclusions (Performance & Stability)
+### 2️⃣ Windows Defender Exclusions _(Performance & Stability)_
 
 To prevent Git processes from being blocked (causing _"Too many open files"_ errors) and to speed up package installation:
 
-1.  Go to **Settings > Privacy & security > Windows Security**.
-2.  Click on **Virus & threat protection**.
-3.  Under _Virus & threat protection settings_, click **Manage settings**.
-4.  Scroll down to _Exclusions_ and click **Add or remove exclusions**.
-5.  Add your Emacs configuration folder: `C:\Users\YOUR_USERNAME\.emacs.d`
+1. Go to **Settings > Privacy & security > Windows Security**.
+2. Click on **Virus & threat protection**.
+3. Under _Virus & threat protection settings_, click **Manage settings**.
+4. Scroll down to _Exclusions_ and click **Add or remove exclusions**.
+5. Add your Emacs configuration folder: `C:\Users\YOUR_USERNAME\.emacs.d`
 
-### 3. Enable Global UTF-8 Support
+### 3️⃣ Enable Global UTF-8 Support
 
 To ensure `emacsclient` functions correctly and to prevent character encoding bugs:
 
-1.  Go to **Settings > Time & Language > Language & Region**.
-2.  Click on **Administrative language settings** (or related settings).
-3.  Click **Change system locale...**
-4.  Check the box: **"Beta: Use Unicode UTF-8 for worldwide language support"**.
-5.  Restart your computer.
+1. Go to **Settings > Time & Language > Language & Region**.
+2. Click on **Administrative language settings** (or related settings).
+3. Click **Change system locale...**
+4. Check the box: **"Beta: Use Unicode UTF-8 for worldwide language support"**.
+5. Restart your computer.
 
 > **Guides:** [Windows 10 Guide](https://scholarslab.lib.virginia.edu/learn-twarc/08-win-region-settings) | [Windows 11 Guide](https://windows.atsit.in/32315/)

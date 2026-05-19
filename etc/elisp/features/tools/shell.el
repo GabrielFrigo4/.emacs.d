@@ -9,9 +9,7 @@
   :bind ("C-c v" . vterm))
 
 (use-package aweshell
-  :defer t
   :commands (aweshell-new aweshell-toggle)
-  :ensure (:type git :host github :repo "GabrielFrigo4/aweshell" :branch "master")
   :config
   (setq-default aweshell-validate-executable nil)
   (setq-default aweshell-auto-suggestion-p t)

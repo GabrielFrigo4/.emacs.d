@@ -108,11 +108,20 @@
   :config
   (pdf-tools-install :no-query)
   (when-windows (setq-default pdf-tools-msys2-directory "C:/msys64"))
-  (setq-default pdf-view-use-scaling nil)
+  (setq-default pdf-view-use-scaling t)
   (setq-default pdf-view-image-relief 2)
-  (setq-default pdf-view-use-imagemagick t)
+  (setq-default pdf-view-use-imagemagick nil)
   (defadvice pdf-cache--prefetch-start (around suppress-timer activate)
     (cancel-function-timers 'pdf-cache--prefetch-start))
+  
+  (defun pdf-view-toggle-dark-mode ()
+    "Toggle dark mode (midnight mode) in pdf-view."
+    (interactive)
+    (pdf-view-midnight-minor-mode 'toggle))
+
+  (with-eval-after-load 'pdf-view
+    (define-key pdf-view-mode-map (kbd "D") #'pdf-view-toggle-dark-mode))
+
   :hook (pdf-view-mode . (lambda ()
                            (display-line-numbers-mode -1)
                            (pdf-view-midnight-minor-mode 1))))
