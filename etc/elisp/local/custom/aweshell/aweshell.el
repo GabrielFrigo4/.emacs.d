@@ -474,8 +474,7 @@ Create new one if no eshell buffer exists."
   "Clear eshell buffer."
   (interactive)
   (let ((inhibit-read-only t))
-    (erase-buffer)
-    (eshell-send-input)))
+    (eshell/clear-scrollback)))
 
 (defun aweshell-sudo-toggle ()
   "Toggle sudo with current command."
@@ -897,14 +896,8 @@ Otherwise return nil."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; EShell extensions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; eshell-up.el
-;; Quickly go to a specific parent directory in eshell
-(require 'eshell-up)
 (defalias 'eshell/up 'eshell-up)
 (defalias 'eshell/up-peek 'eshell-up-peek)
-
-;; eshell-prompt-extras
-;; Display extra information and color for your eshell prompt.
-(require 'eshell-prompt-extras)
 
 (defcustom aweshell-theme 'epe-theme-zshrc
   "The eshell prompt theme to use.
@@ -917,9 +910,29 @@ Available themes:
   :type 'function
   :group 'aweshell)
 
+(defvar aweshell-themes-list
+  '(epe-theme-lambda
+    epe-theme-dakrone
+    epe-theme-pipeline
+    epe-theme-zshrc
+    epe-theme-multiline-with-status)
+  "Lista de temas disponíveis para Aweshell.")
+
+(defun aweshell-select-theme ()
+  "Seleciona interativamente um tema para o Aweshell e aplica imediatamente."
+  (interactive)
+  (let ((selected (completing-read
+                   "Selecionar tema: "
+                   (mapcar #'symbol-name aweshell-themes-list) nil t nil nil
+                   (symbol-name aweshell-theme))))
+    (unless (string-empty-p selected)
+      (setq aweshell-theme (intern selected))
+      (setq eshell-prompt-function aweshell-theme)
+      (message "Tema definido para: %s" aweshell-theme))))
+
 (with-eval-after-load "esh-opt"
-  (setq eshell-highlight-prompt nil
-        eshell-prompt-function aweshell-theme))
+  (setq-default eshell-highlight-prompt nil)
+  (setq-default eshell-prompt-function aweshell-theme))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Unix-like Aliases ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -930,25 +943,19 @@ Available themes:
 
 (defun aweshell-setup-aliases ()
   "Setup Unix-like aliases for a familiar shell experience."
-  ;; ls variants
   (eshell/alias "ll" "ls -la $*")
   (eshell/alias "la" "ls -a $*")
   (eshell/alias "l"  "ls -l $*")
-  ;; directory navigation
   (eshell/alias ".." "cd ..")
   (eshell/alias "..." "cd ../..")
   (eshell/alias "...." "cd ../../..")
-  ;; mkdir with parents by default
   (eshell/alias "mkdirp" "mkdir -p $*")
-  ;; human-readable disk utilities
   (eshell/alias "df" "df -h $*")
   (eshell/alias "du" "du -h $*")
   (eshell/alias "free" "free -h $*")
-  ;; safety nets
   (eshell/alias "rm" "rm -i $*")
   (eshell/alias "cp" "cp -i $*")
   (eshell/alias "mv" "mv -i $*")
-  ;; open file in emacs
   (eshell/alias "e" "find-file $1")
   (eshell/alias "ee" "find-file-other-window $1"))
 

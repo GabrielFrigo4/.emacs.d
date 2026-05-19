@@ -8,9 +8,17 @@
 (setq-default elpaca-lock-file (expand-file-name "elpaca.lock" lock-dir))
 
 (defvar elpaca-installer-version 0.11)
-(defvar elpaca-directory (expand-file-name "lib/elpaca/" var-dir))
+(defvar elpaca-directory       (expand-file-name "lib/elpaca/"          var-dir))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
-(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-repos-directory  (expand-file-name "repos/"  elpaca-directory))
+(defvar elpaca-cache-directory  (expand-file-name "cache/"  elpaca-directory))
+
+(dolist (dir (list elpaca-directory
+                   elpaca-builds-directory
+                   elpaca-repos-directory
+                   elpaca-cache-directory))
+  (unless (file-exists-p dir)
+    (make-directory dir t)))
 
 (defvar elpaca-order
   '(elpaca :repo "https://github.com/progfolio/elpaca.git"

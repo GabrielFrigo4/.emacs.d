@@ -396,70 +396,78 @@ returns a string."
       (tramp-file-name-real-host (tramp-dissect-file-name default-directory))
     (tramp-file-name-host (tramp-dissect-file-name default-directory))))
 
-;; git info
-;; (defun epe-git-p ()
-;;   "If you installed git and in a git project."
-;;   (let ((command "git rev-parse --is-inside-work-tree 2> /dev/null"))
-;;     (and (eshell-search-path "git")
-;;          (string= "true" (epe-trim-newline (shell-command-to-string command))))))
+;; ---------------------------------------------------------------------------
+;; Git info — implementação rápida com cache por buffer
+;; Inspirada no git_branch() do .zshrc: usa git branch --show-current
+;; e git status --short -uno (ignora untracked, muito mais rápido).
+;; ---------------------------------------------------------------------------
 
 (defvar epe-git-enable t
   "Enable git status in Eshell.")
 
+(defcustom epe-git-cache-ttl 2.0
+  "Time-to-live (segundos) para o cache de git por buffer."
+  :group 'epe
+  :type 'number)
+
+;; Cache por buffer: (TIMESTAMP branch . dirty-p)
+(defvar-local epe--git-cache nil
+  "Cache de git por buffer. Formato: (TIMESTAMP branch . dirty-p).")
+
+(defun epe--git-cache-valid-p ()
+  "Return non-nil se o cache do buffer atual ainda é válido."
+  (when epe--git-cache
+    (< (- (float-time) (car epe--git-cache)) epe-git-cache-ttl)))
+
+(defun epe--git-info-fetch ()
+  "Busca informações git do diretório atual de forma rápida.
+Retorna (branch . dirty-p) ou nil se fora de um repositório."
+  (when (and epe-git-enable
+             (not (epe-remote-p))
+             (eshell-search-path "git"))
+    (with-temp-buffer
+      ;; Verifica se está dentro de um repositório git
+      (when (zerop (call-process "git" nil t nil
+                                 "rev-parse" "--is-inside-work-tree"))
+        (erase-buffer)
+        ;; Pega o nome do branch atual (rápido)
+        (call-process "git" nil t nil "branch" "--show-current")
+        (let ((branch (string-trim (buffer-string))))
+          ;; Se não há branch (detached HEAD), usa o SHA curto
+          (when (string-empty-p branch)
+            (erase-buffer)
+            (call-process "git" nil t nil "rev-parse" "--short" "HEAD")
+            (setq branch (string-trim (buffer-string))))
+          (erase-buffer)
+          ;; Verifica modificações (ignora untracked — muito mais rápido)
+          (call-process "git" nil t nil "status" "--short" "-uno")
+          (let ((dirty (not (string-empty-p (string-trim (buffer-string))))))
+            (cons branch dirty)))))))
+
+(defun epe--git-info ()
+  "Retorna (branch . dirty-p) com cache por buffer (TTL: `epe-git-cache-ttl')."
+  (if (epe--git-cache-valid-p)
+      (cdr epe--git-cache)
+    (let ((result (epe--git-info-fetch)))
+      (setq epe--git-cache (cons (float-time) result))
+      result)))
+
 (defun epe-git-p ()
-  "If you installed git and in a git project."
-  (unless (epe-remote-p)                ; Work-around for issue #20
-    (if (eq epe-git-enable t)
-        (and (eshell-search-path "git") (vc-find-root (eshell/pwd) ".git"))
-      nil)))
+  "Return non-nil se está em um repositório git."
+  (not (null (car (epe--git-info)))))
+
+(defun epe-git-branch ()
+  "Return o nome do branch atual (ou SHA curto em detached HEAD)."
+  (car (epe--git-info)))
+
 
 (defun epe-git-short-sha1 ()
   "Return the short sha1 of your git commit."
   (epe-trim-newline (shell-command-to-string "git rev-parse --short HEAD")))
 
-;; (defun epe-git-branch ()
-;;   "Return your git branch name."
-;;   (let ((name (shell-command-to-string "git symbolic-ref HEAD --short || echo -n 'detached'")))
-;;     (if (string-match "detached" name)
-;;         (concat epe-git-detached-HEAD-char (epe-git-short-sha1))
-;;       (epe-trim-newline name))))
-
-(defun epe-git-branch ()
-  "Return your git branch name."
-  (let ((branch (car (vc-git-branches))))
-    (cond
-     ((null branch) "no-branch")
-     ((string-match "^(HEAD detached at \\(.+\\))$" branch)
-      (concat epe-git-detached-HEAD-char (match-string 1 branch)))
-     (t branch))))
-
-(defun epe-git-tag (&optional rev with-distance)
-  ;; Inspired by `magit-get-current-tag'.
-  "Return the closest tag reachable from REV.
-
-If optional REV is nil, then default to `HEAD'.
-If optional WITH-DISTANCE is non-nil then return (TAG COMMITS),
-if it is `dirty' return (TAG COMMIT DIRTY). COMMITS is the number
-of commits in `HEAD' but not in TAG and DIRTY is t if there are
-uncommitted changes, nil otherwise."
-  (let ((it (with-output-to-string
-              (with-current-buffer standard-output
-                (apply #'call-process "git" nil t nil "describe" "--long" "--tags"
-                       (delq nil (list (and (eq with-distance 'dirty) "--dirty") rev)))))))
-    (unless (string-empty-p it)
-      (save-match-data
-        (string-match
-         "\\(.+\\)-\\(?:0[0-9]*\\|\\([0-9]+\\)\\)-g[0-9a-z]+\\(-dirty\\)?$" it)
-        (if with-distance
-            `(,(match-string 1 it)
-              ,(string-to-number (or (match-string 2 it) "0"))
-              ,@(and (match-string 3 it) (list t)))
-          (match-string 1 it))))))
-
 (defun epe-git-dirty ()
   "Return if your git is \"dirty\"."
-  (if (string-match "dirty"
-                    (shell-command-to-string "git diff-index --quiet HEAD -- || echo -n 'dirty'"))
+  (if (cdr (epe--git-info))
       epe-git-dirty-char ""))
 
 (defun epe-git-unpushed-number ()

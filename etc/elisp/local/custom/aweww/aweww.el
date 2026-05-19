@@ -148,7 +148,7 @@ Replaces three or more consecutive newlines with exactly two."
     (let ((inhibit-read-only t))
       (save-excursion
         (goto-char (point-min))
-        (while (re-search-forward "\\(\\s*\n\\)\\{3,\\}" nil t)
+        (while (re-search-forward "\n\n\n+" nil t)
           (replace-match "\n\n"))))))
 
 (defun aweww-cleanup-newlines-deferred ()
@@ -190,9 +190,17 @@ Runs `shrface-regexp' unless `shrface-toggle-bullets' is disabled."
   (define-key eww-mode-map (kbd "H") #'eww-list-histories)
   (define-key eww-mode-map (kbd "B") #'eww-back-url)
   (define-key eww-mode-map (kbd "F") #'eww-forward-url)
+  (define-key eww-mode-map (kbd "s") #'eww-search-words)
   (define-key eww-mode-map (kbd "q") #'quit-window))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Entry Point ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;###autoload
+(defun aweww-open-url (url)
+  "Abrir URL no AWEWW (EWW com melhorias).
+Interativamente solicita uma URL."
+  (interactive "sURL: ")
+  (eww url))
 
 ;;;###autoload
 (defalias 'aweww 'eww

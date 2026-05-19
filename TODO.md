@@ -8,9 +8,7 @@
 
 > Tarefas imediatas a serem aplicadas ou resolvidas na configuração e nas dependências da versão atual do Emacs.
 
-- [ ] Fix: Aweshell
-- [ ] Update: Org IA
-- [ ] Update: LLM / IA
+- [ ] None
 
 ---
 
