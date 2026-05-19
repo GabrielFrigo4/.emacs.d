@@ -26,9 +26,9 @@
 
 | Key | Command                 | Description              |
 | --- | ----------------------- | ------------------------ |
-| `R` | `aweww-toggle-readable` | Toggle readable mode     |
-| `I` | `aweww-toggle-images`   | Toggle images on/off     |
-| `C` | `aweww-toggle-colors`   | Toggle CSS colors on/off |
+| `R` | `aweww/toggle-readable` | Toggle readable mode     |
+| `I` | `aweww/toggle-images`   | Toggle images on/off     |
+| `C` | `aweww/toggle-colors`   | Toggle CSS colors on/off |
 | `H` | `eww-list-histories`    | Show browsing history    |
 | `B` | `eww-back-url`          | Go back                  |
 | `F` | `eww-forward-url`       | Go forward               |
@@ -69,10 +69,10 @@ Add the aweww directory to your `load-path`:
 (require 'aweww)
 
 ;; Enable auto-readable mode (disabled by default)
-(setq aweww-auto-readable t)
+(setq aweww/auto-readable t)
 
 ;; Adjust width offset (default: 8 columns from frame edge)
-(setq aweww-default-width-offset 8)
+(setq aweww/default-width-offset 8)
 ```
 
 ---

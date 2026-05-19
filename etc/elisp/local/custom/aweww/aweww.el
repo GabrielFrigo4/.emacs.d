@@ -65,12 +65,12 @@
   "Awesome EWW configuration."
   :group 'eww)
 
-(defcustom aweww-default-width-offset 8
+(defcustom aweww/default-width-offset 8
   "Number of columns to subtract from frame width for dynamic SHR width."
   :type 'integer
   :group 'aweww)
 
-(defcustom aweww-auto-readable nil
+(defcustom aweww/auto-readable nil
   "If non-nil, automatically call `eww-readable' after each page render."
   :type 'boolean
   :group 'aweww)
@@ -85,15 +85,15 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Dynamic Width ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun aweww-set-shr-width (&rest _args)
+(defun aweww/set-shr-width (&rest _args)
   "Adjust `shr-width' based on the current frame width, buffer-locally."
   (when (and (frame-live-p (selected-frame))
              (display-graphic-p (selected-frame)))
-    (setq-local shr-width (- (frame-width) aweww-default-width-offset))))
+    (setq-local shr-width (- (frame-width) aweww/default-width-offset))))
 
-(advice-add 'eww-render :before #'aweww-set-shr-width)
+(advice-add 'eww-render :before #'aweww/set-shr-width)
 
-(defun aweww-build-rendering-functions ()
+(defun aweww/build-rendering-functions ()
   "Build and set the SHR rendering functions list.
 Called lazily to ensure shrface and shr-tag-pre-highlight are loaded."
   (setq shr-external-rendering-functions
@@ -113,17 +113,17 @@ Called lazily to ensure shrface and shr-tag-pre-highlight are loaded."
                   shrface-supported-faces-alist))))
 
 ;; Build rendering functions when EWW is first used (shrface will be loaded by then)
-(add-hook 'eww-mode-hook #'aweww-build-rendering-functions)
+(add-hook 'eww-mode-hook #'aweww/build-rendering-functions)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Interactive Commands ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun aweww-toggle-readable ()
+(defun aweww/toggle-readable ()
   "Toggle `eww-readable' in the current EWW buffer."
   (interactive)
   (when (derived-mode-p 'eww-mode)
     (eww-readable)))
 
-(defun aweww-toggle-images ()
+(defun aweww/toggle-images ()
   "Toggle images in the current EWW buffer and reload."
   (interactive)
   (when (derived-mode-p 'eww-mode)
@@ -131,7 +131,7 @@ Called lazily to ensure shrface and shr-tag-pre-highlight are loaded."
     (eww-reload)
     (message "Images %s" (if shr-inhibit-images "disabled" "enabled"))))
 
-(defun aweww-toggle-colors ()
+(defun aweww/toggle-colors ()
   "Toggle color rendering in the current EWW buffer and reload."
   (interactive)
   (when (derived-mode-p 'eww-mode)
@@ -141,7 +141,7 @@ Called lazily to ensure shrface and shr-tag-pre-highlight are loaded."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Hooks ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun aweww-cleanup-newlines ()
+(defun aweww/cleanup-newlines ()
   "Remove excessive blank lines in AWEWW buffers.
 Replaces three or more consecutive newlines with exactly two."
   (when (derived-mode-p 'eww-mode)
@@ -151,12 +151,12 @@ Replaces three or more consecutive newlines with exactly two."
         (while (re-search-forward "\n\n\n+" nil t)
           (replace-match "\n\n"))))))
 
-(defun aweww-cleanup-newlines-deferred ()
+(defun aweww/cleanup-newlines-deferred ()
   "Run newline cleanup after EWW finishes rendering.
 Uses a 0-second timer to ensure this runs after the render completes."
-  (run-at-time 0 nil #'aweww-cleanup-newlines))
+  (run-at-time 0 nil #'aweww/cleanup-newlines))
 
-(defun aweww-mode-setup ()
+(defun aweww/mode-setup ()
   "Configure buffer-local settings for EWW buffers."
   (visual-line-mode 1)
   (display-line-numbers-mode -1)
@@ -170,23 +170,23 @@ Runs `shrface-regexp' unless `shrface-toggle-bullets' is disabled."
     (unless shrface-toggle-bullets
       (shrface-regexp))))
 
-(defun aweww-auto-readable ()
-  "Call `eww-readable' if `aweww-auto-readable' is non-nil."
-  (when aweww-auto-readable
+(defun aweww/auto-readable ()
+  "Call `eww-readable' if `aweww/auto-readable' is non-nil."
+  (when aweww/auto-readable
     (eww-readable)))
 
 ;; Hooks
-(add-hook 'eww-mode-hook #'aweww-mode-setup)
+(add-hook 'eww-mode-hook #'aweww/mode-setup)
 (add-hook 'eww-after-render-hook #'shrface-eww-setup)
-(add-hook 'eww-after-render-hook #'aweww-cleanup-newlines-deferred)
-(add-hook 'eww-after-render-hook #'aweww-auto-readable)
+(add-hook 'eww-after-render-hook #'aweww/cleanup-newlines-deferred)
+(add-hook 'eww-after-render-hook #'aweww/auto-readable)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Keybindings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (with-eval-after-load 'eww
-  (define-key eww-mode-map (kbd "R") #'aweww-toggle-readable)
-  (define-key eww-mode-map (kbd "I") #'aweww-toggle-images)
-  (define-key eww-mode-map (kbd "C") #'aweww-toggle-colors)
+  (define-key eww-mode-map (kbd "R") #'aweww/toggle-readable)
+  (define-key eww-mode-map (kbd "I") #'aweww/toggle-images)
+  (define-key eww-mode-map (kbd "C") #'aweww/toggle-colors)
   (define-key eww-mode-map (kbd "H") #'eww-list-histories)
   (define-key eww-mode-map (kbd "B") #'eww-back-url)
   (define-key eww-mode-map (kbd "F") #'eww-forward-url)
@@ -196,7 +196,7 @@ Runs `shrface-regexp' unless `shrface-toggle-bullets' is disabled."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Entry Point ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;###autoload
-(defun aweww-open-url (url)
+(defun aweww/open-url (url)
   "Abrir URL no AWEWW (EWW com melhorias).
 Interativamente solicita uma URL."
   (interactive "sURL: ")

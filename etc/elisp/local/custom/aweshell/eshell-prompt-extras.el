@@ -769,69 +769,89 @@ The status is displayed on the last line."
 ;;; Zshrc-style theme faces
 
 (defface epe-zshrc-delimiter-face
-  '((t (:foreground "yellow")))
+  '((t (:foreground "#ff9e64" :bold t)))
   "Face for zshrc-style delimiter characters."
   :group 'epe)
 
 (defface epe-zshrc-time-face
-  '((t (:foreground "green" :bold t)))
+  '((t (:foreground "#9ece6a" :bold t)))
   "Face for time in zshrc-style theme."
   :group 'epe)
 
 (defface epe-zshrc-date-face
-  '((t (:foreground "green" :bold t)))
+  '((t (:foreground "#9ece6a" :bold t)))
   "Face for date in zshrc-style theme."
   :group 'epe)
 
 (defface epe-zshrc-dir-face
-  '((t (:foreground "cyan")))
+  '((t (:foreground "#e0af68" :bold t)))
   "Face for directory in zshrc-style theme."
   :group 'epe)
 
 (defface epe-zshrc-user-face
-  '((t (:foreground "green" :bold t)))
+  '((t (:foreground "#9ece6a" :bold t)))
   "Face for user in zshrc-style theme."
   :group 'epe)
 
 (defface epe-zshrc-root-face
-  '((t (:foreground "red" :bold t)))
+  '((t (:foreground "#f7768e" :bold t)))
   "Face for root user in zshrc-style theme."
   :group 'epe)
 
 (defface epe-zshrc-os-face
-  '((t (:foreground "blue" :bold t)))
+  '((t (:foreground "#bb9af7" :bold t)))
   "Face for OS version in zshrc-style header."
   :group 'epe)
 
+(defface epe-zshrc-os-icon-face
+  '((t (:foreground "#7aa2f7" :bold t)))
+  "Face for Emacs icon in zshrc-style header."
+  :group 'epe)
+
 (defface epe-zshrc-shell-face
-  '((t (:foreground "magenta" :bold t)))
+  '((t (:foreground "#bb9af7" :bold t)))
   "Face for shell name in zshrc-style header."
   :group 'epe)
 
+(defface epe-zshrc-shell-icon-face
+  '((t (:foreground "#7aa2f7" :bold t)))
+  "Face for shell icon in zshrc-style header."
+  :group 'epe)
+
 (defface epe-zshrc-git-branch-face
-  '((t (:foreground "magenta" :bold t)))
+  '((t (:foreground "#bb9af7" :bold t)))
   "Face for git branch in zshrc-style theme."
   :group 'epe)
 
+(defface epe-zshrc-git-icon-face
+  '((t (:foreground "#f7768e" :bold t)))
+  "Face for git icon in zshrc-style theme."
+  :group 'epe)
+
 (defface epe-zshrc-git-dirty-face
-  '((t (:foreground "yellow" :bold t)))
+  '((t (:foreground "#e0af68" :bold t)))
   "Face for git dirty indicator in zshrc-style theme."
   :group 'epe)
 
+(defface epe-zshrc-user-icon-face
+  '((t (:foreground "#7aa2f7" :bold t)))
+  "Face for user icon in zshrc-style theme."
+  :group 'epe)
+
 (defvar epe-zshrc--os-version
-  (string-trim (shell-command-to-string "uname -r"))
+  (format "GNU Emacs %s" emacs-version)
   "Cached OS version string for the zshrc prompt.")
 
 (defun epe-theme-zshrc ()
   "An eshell-prompt theme replicating a zsh configuration style.
 Multi-line prompt with OS info, time, date, directory, user, and git."
-  (setq eshell-prompt-regexp "^└─ λ[#]* ")
+  (setq eshell-prompt-regexp "^└─❯ ")
   (let* ((delimiter-face 'epe-zshrc-delimiter-face)
          (user-face (if (= (user-uid) 0) 'epe-zshrc-root-face 'epe-zshrc-user-face))
          (os-ver epe-zshrc--os-version)
-         (shell-name "eshell")
+         (shell-name "aweshell")
          (time-str (format-time-string "%H:%M:%S" (current-time)))
-         (date-str (format-time-string "%d/%m/%y" (current-time)))
+         (date-str (format-time-string "%y/%m/%d" (current-time)))
          (dir-str (epe-abbrev-dir-name (epe-pwd)))
          (user-str (if (epe-remote-p) (epe-remote-user) (user-login-name)))
          (git-info (when (epe-git-p)
@@ -842,19 +862,18 @@ Multi-line prompt with OS info, time, date, directory, user, and git."
                                          "")))
                        (concat
                         (epe-colorize-with-face "❮" delimiter-face)
-                        (epe-colorize-with-face " " 'epe-zshrc-git-branch-face)
-                        (epe-colorize-with-face " " delimiter-face)
+                        (epe-colorize-with-face "  " 'epe-zshrc-git-icon-face)
                         (epe-colorize-with-face branch 'epe-zshrc-git-branch-face)
                         indicator
-                        (epe-colorize-with-face "❯" delimiter-face))))))
+                        (epe-colorize-with-face " ❯" delimiter-face))))))
     (concat
      ;; Line 1: OS version and shell name
      "\n"
      (epe-colorize-with-face "" delimiter-face)
-     (epe-colorize-with-face "" 'epe-zshrc-os-face)
+     (epe-colorize-with-face "" 'epe-zshrc-os-icon-face)
      (epe-colorize-with-face (concat " " os-ver) 'epe-zshrc-os-face)
      (epe-colorize-with-face "─" delimiter-face)
-     (epe-colorize-with-face "" 'epe-zshrc-shell-face)
+     (epe-colorize-with-face "" 'epe-zshrc-shell-icon-face)
      (epe-colorize-with-face (concat " " shell-name) 'epe-zshrc-shell-face)
      (epe-colorize-with-face "" delimiter-face)
      "\n"
@@ -868,16 +887,16 @@ Multi-line prompt with OS info, time, date, directory, user, and git."
      (epe-colorize-with-face " ❯─❮ " delimiter-face)
      (epe-colorize-with-face "" 'epe-zshrc-dir-face)
      (epe-colorize-with-face (concat " " dir-str) 'epe-zshrc-dir-face)
-     (epe-colorize-with-face " ❯─ " delimiter-face)
+     (epe-colorize-with-face " ❯─ " delimiter-face)
      (epe-colorize-with-face "❮" delimiter-face)
-     (epe-colorize-with-face "" user-face)
+     (epe-colorize-with-face "" 'epe-zshrc-user-icon-face)
      (epe-colorize-with-face (concat " " user-str) user-face)
      (epe-colorize-with-face "❯" delimiter-face)
-     (if git-info (concat " " git-info) "")
+     (if git-info (concat "─" git-info) "")
      "\n"
      ;; Line 3: Input prompt
      (epe-colorize-with-face "└─" delimiter-face)
-     (epe-colorize-with-face "" 'epe-symbol-face)
+     (epe-colorize-with-face "" delimiter-face)
      (epe-colorize-with-face (if (= (user-uid) 0) "#" "") 'epe-sudo-symbol-face)
      " ")))
 

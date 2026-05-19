@@ -10,11 +10,11 @@
 
 ;; Aweshell config (loaded from local/custom/aweshell/)
 (with-eval-after-load 'aweshell
-  (setq-default aweshell-validate-executable nil)
-  (setq-default aweshell-auto-suggestion-p t)
+  (setq-default aweshell/validate-executable nil)
+  (setq-default aweshell/auto-suggestion-p t)
   (if-windows
-      (setq-default aweshell-validate-delay (expt 2 -0.5))
-    (setq-default aweshell-validate-delay (expt 2 -1))))
+      (setq-default aweshell/validate-delay (expt 2 -0.5))
+    (setq-default aweshell/validate-delay (expt 2 -1))))
 
 ;; Shell Configuration
 (when-unix
@@ -33,7 +33,7 @@
 (use-package eshell
   :ensure nil
   :config
-  (setq-default epe-git-enable nil)
+  (setq-default epe-git-enable t)
   (setq-default eshell-bad-command-tolerance (expt 2 64))
 
   (defalias 'eshell/cls   'eshell/clear-scrollback)

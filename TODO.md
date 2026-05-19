@@ -8,10 +8,10 @@
 
 > Tarefas imediatas a serem aplicadas ou resolvidas na configuração e nas dependências da versão atual do Emacs.
 
-- [ ] Fazer funcionar o TreeSitter
-- [ ] Refatorar o Aweshell
-- [ ] Refatorar o Aweww
+- [x] Refatorar o Aweshell
+- [x] Refatorar o Aweww
 - [ ] Refatorar as Váriaveis (my/)
+- [ ] Fazer funcionar o TreeSitter
 
 ---
 

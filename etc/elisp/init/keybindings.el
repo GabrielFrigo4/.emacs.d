@@ -51,7 +51,7 @@
 (global-set-key (kbd "C-c M-v")  'vterm)
 (global-set-key (kbd "C-c e")    'eshell)
 (global-set-key (kbd "C-c C-s")  'shell-command)
-(global-set-key (kbd "C-c C-a")  'aweshell-toggle)
+(global-set-key (kbd "C-c C-a")  'aweshell/toggle)
 
 ;; Multiple Cursors
 (global-unset-key (kbd "M-<down-mouse-1>"))
