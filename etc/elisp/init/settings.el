@@ -69,4 +69,14 @@
 (add-hook 'nasm-mode-hook (lambda () (setq-local comment-start "; ")))
 (add-hook 'fasm-mode-hook (lambda () (setq-local comment-start "; ")))
 
+;; ----------------------------------------------------------------------------
+;;  ASYNC ENCODING
+;; ----------------------------------------------------------------------------
+
+(with-eval-after-load 'ob-async
+  (add-hook 'ob-async-pre-execute-src-block-hook
+            (lambda ()
+              (set-language-environment "UTF-8")
+              (prefer-coding-system 'utf-8))))
+
 (provide 'init-settings)

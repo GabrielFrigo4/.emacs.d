@@ -26,7 +26,7 @@
   (setq-default shell-command-switch "-c"))
 
 (when-windows
-  (setq-default w3 w32-quote-process-args t))
+  (setq-default w32-quote-process-args t))
 
 ;; ============================================================================
 ;;  TERMINAL FEATURE

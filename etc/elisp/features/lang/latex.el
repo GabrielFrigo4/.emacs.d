@@ -2,6 +2,8 @@
 ;;  LATEX FEATURE
 ;; ============================================================================
 
+(setq-default enable-preview-latex t)
+
 (use-package auctex
   :ensure (:type git :host github :repo "emacsmirror/auctex" :branch "master")
   :hook ((LaTeX-mode . TeX-source-correlate-mode)
@@ -9,7 +11,11 @@
          (tex-mode . reftex-mode)
          (TeX-mode . reftex-mode)
          (latex-mode . reftex-mode)
-         (LaTeX-mode . reftex-mode))
+         (LaTeX-mode . reftex-mode)
+         (tex-mode . turn-on-reftex)
+         (TeX-mode . turn-on-reftex)
+         (latex-mode . turn-on-reftex)
+         (LaTeX-mode . turn-on-reftex))
   :config
   (setq-default TeX-parse-self nil)
   (setq-default TeX-save-parse nil)
@@ -21,10 +27,19 @@
   (setq-default TeX-view-program-selection '((output-pdf "PDF Tools")))
   (setq-default TeX-source-correlate-method 'synctex)
 
+  (setq-default reftex-plug-into-AUCTeX t)
+  (setq-default reftex-cite-format 'natbib)
+
+  ;; Preview Configuration
   (setq-default preview-image-type 'dvipng)
   (setq-default preview-auto-cache-preamble t)
   (setq-default preview-pdf-color-adjust-method t)
+  (setq-default preview-default-option-list
+                '("displaymath" "floats" "graphics" "textmath" "sections" "footnotes"
+                  "graphicx" "fontenc" "mathtools" "mathrsfs" "amssymb" "amsthm"
+                  "amsmath"))
 
+  ;; Indentation Hooks
   (defun tex-setup-tab-width ()
     (setq-local tab-width 4)
     (setq-local tex-indent-basic tab-width)
@@ -44,21 +59,44 @@
   (add-hook 'TeX-mode-hook #'TeX-setup-tab-width)
   (add-hook 'LaTeX-mode-hook #'TeX-setup-tab-width)
 
+  ;; LaTeX Compilation & Viewing
   (defun view-latex ()
-    "Compile LaTeX and view PDF."
+    "Compile LaTeX with LaTeXMk and Dvipdfmx, then view the PDF in a split window."
     (interactive)
     (let ((orig-buffer (current-buffer)))
       (TeX-command "LaTeXMk" 'TeX-master-file)
-      (if-windows (async-sleep (expt 2 2.5)) (async-sleep (expt 2 1.5)))
+      (if-windows
+       (async-sleep (expt 2 2.5))
+       (async-sleep (expt 2 1.5)))
       (switch-to-buffer orig-buffer)
       (TeX-command "Dvipdfmx" 'TeX-master-file)
-      (if-windows (async-sleep (expt 2 1)) (async-sleep (expt 2 0)))
+      (if-windows
+       (async-sleep (expt 2 1))
+       (async-sleep (expt 2 0)))
       (switch-to-buffer orig-buffer)
       (split-window-below)
       (other-window 1)
       (find-file (concat TeX-output-dir "/" (TeX-master-file) ".pdf"))))
 
-  (defun preview-latex () (interactive) (preview-region (point-min) (point-max))))
+  ;; Preview LaTeX
+  (defun preview-latex ()
+    "Preview Inline LaTeX Without Break Colors"
+    (interactive)
+    (preview-region (point-min) (point-max)))
+
+  ;; Automatic Preview on Open/Save
+  (defun setup-preview-latex ()
+    (when (and
+           (and
+            (not (zerop (buffer-size)))
+            (eq major-mode 'LaTeX-mode))
+           (eq enable-preview-latex t))
+      (let ((__latex-buffer__ (current-buffer)))
+        (preview-latex)
+        (switch-to-buffer __latex-buffer__))))
+
+  (add-hook 'find-file-hook #'setup-preview-latex)
+  (add-hook 'after-save-hook #'setup-preview-latex))
 
 ;; ============================================================================
 ;;  PDF FEATURE
@@ -73,7 +111,11 @@
   (setq-default pdf-view-use-scaling nil)
   (setq-default pdf-view-image-relief 2)
   (setq-default pdf-view-use-imagemagick t)
-  :hook (pdf-view-mode . (lambda () (display-line-numbers-mode -1) (pdf-view-midnight-minor-mode 1))))
+  (defadvice pdf-cache--prefetch-start (around suppress-timer activate)
+    (cancel-function-timers 'pdf-cache--prefetch-start))
+  :hook (pdf-view-mode . (lambda ()
+                           (display-line-numbers-mode -1)
+                           (pdf-view-midnight-minor-mode 1))))
 
 (use-package cdlatex
   :defer t

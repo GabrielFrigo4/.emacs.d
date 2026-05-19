@@ -9,9 +9,9 @@ This repository is the configuration of the Emacs code editor that Gabriel Frigo
 ### Todo List (Emacs Current)
 
 ```
-Fix: [TreeSitter]
 Fix: [EPUB]
 Fix: [PDF]
+Add: [IA/LLM]
 Remake: [Aweshell]
 Remake: [Aweww]
 ```
@@ -19,6 +19,7 @@ Remake: [Aweww]
 ### Todo List (Emacs 31)
 
 ```
+Fix: [TreeSitter]
 Add: [DirectWrite BackEngine Font on Windows]
 Update: [Common Lisp]
 Update: [Emacs Lisp]

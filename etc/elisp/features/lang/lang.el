@@ -2,7 +2,16 @@
 ;;  LANGUAGES FEATURE
 ;; ============================================================================
 
-(use-package rust-mode :ensure t :config (setq-default rust-mode-treesitter-derive t))
+;; ----------------------------------------------------------------------------
+;;  LANGUAGE PACKAGES
+;; ----------------------------------------------------------------------------
+
+(use-package rust-mode
+  :ensure t
+  :config
+  (setq-default rust-mode-treesitter-derive t)
+  :bind (("C-c r f" . rust-format-buffer)))
+
 (use-package go-mode :ensure t)
 (use-package zig-mode :ensure t)
 (use-package haskell-mode :ensure t)
@@ -31,10 +40,71 @@
 (use-package zig-ts-mode :ensure t)
 (use-package haskell-ts-mode :ensure t)
 
+(use-package pyvenv
+  :ensure (:type git :host github :repo "emacsmirror/pyvenv" :branch "master")
+  :defer t
+  :hook (python-mode . pyvenv-mode))
+
+(use-package jupyter
+  :ensure (:type git :host github :repo "emacsmirror/jupyter" :branch "master")
+  :defer t)
+
+(use-package ob-async
+  :ensure (:type git :host github :repo "emacsmirror/ob-async" :branch "master")
+  :defer t)
+
+;; ----------------------------------------------------------------------------
+;;  C/C++ CONFIGURATION
+;; ----------------------------------------------------------------------------
+
 (use-package cc-mode
   :ensure nil
   :config
   (setq-default c-basic-offset 4)
-  (setq-default c-default-style "linux"))
+  (setq-default c-default-style "bsd"))
+
+;; ----------------------------------------------------------------------------
+;;  INDENTATION DEFAULTS
+;; ----------------------------------------------------------------------------
+
+(setq-default ruby-indent-level 4)
+(setq-default sgml-basic-offset 4)
+(setq-default sh-basic-offset 4)
+(setq-default cperl-indent-level 4)
+
+(setq-default js-indent-level 4)
+(setq-default js2-basic-offset 4)
+(setq-default typescript-indent-level 4)
+
+(setq-default rust-indent-offset 4)
+(setq-default rust-format-on-save t)
+
+(setq-default python-indent-offset 4)
+
+;; ----------------------------------------------------------------------------
+;;  TREESITTER INDENT SPECIFICS
+;; ----------------------------------------------------------------------------
+
+(setq-default c-ts-mode-indent-offset 4)
+(setq-default c-ts-mode-indent-style 'bsd)
+(setq-default python-indent-guess-indent-offset t)
+
+;; ----------------------------------------------------------------------------
+;;  FILE ASSOCIATIONS
+;; ----------------------------------------------------------------------------
+
+(dolist (ext '("\\.s\\'" "\\.i\\'" "\\.S\\'" "\\.I\\'" "\\.masm\\'"
+               "\\.minc\\'" "\\.x86\\'" "\\.x64\\'" "\\.xinc\\'"
+               "\\.arm\\'" "\\.ainc\\'"))
+  (add-to-list 'auto-mode-alist (cons ext 'asm-mode)))
+
+(add-to-list 'auto-mode-alist '("\\.fasm\\'"  . fasm-mode))
+(add-to-list 'auto-mode-alist '("\\.finc\\'"  . fasm-mode))
+(add-to-list 'auto-mode-alist '("\\.nasm\\'"  . nasm-mode))
+(add-to-list 'auto-mode-alist '("\\.asm\\'"   . nasm-mode))
+(add-to-list 'auto-mode-alist '("\\.inc\\'"   . nasm-mode))
+(add-to-list 'auto-mode-alist '("\\.riscv\\'" . riscv-mode))
+
+(add-to-list 'auto-mode-alist '("\\go.mod\\'" . go-mod-ts-mode))
 
 (provide 'feature-lang)

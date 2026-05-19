@@ -61,4 +61,8 @@
 (global-set-key (kbd "C-S-a")          'mc/mark-all-like-this)
 (global-set-key (kbd "C->")            'mc/mark-next-like-this)
 
+;; LaTeX
+(global-set-key (kbd "C-c v")  #'view-latex)
+(global-set-key (kbd "C-c p")  #'preview-latex)
+
 (provide 'init-keybindings)
