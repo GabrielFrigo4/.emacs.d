@@ -850,33 +850,34 @@ Multi-line prompt with OS info, time, date, directory, user, and git."
     (concat
      ;; Line 1: OS version and shell name
      "\n"
-     (epe-colorize-with-face " " delimiter-face)
-     (epe-colorize-with-face " " 'epe-zshrc-os-face)
+     (epe-colorize-with-face "" delimiter-face)
+     (epe-colorize-with-face "" 'epe-zshrc-os-face)
      (epe-colorize-with-face (concat " " os-ver) 'epe-zshrc-os-face)
-     (epe-colorize-with-face "─" delimiter-face)
-     (epe-colorize-with-face " " 'epe-zshrc-shell-face)
+     (epe-colorize-with-face "─" delimiter-face)
+     (epe-colorize-with-face "" 'epe-zshrc-shell-face)
      (epe-colorize-with-face (concat " " shell-name) 'epe-zshrc-shell-face)
+     (epe-colorize-with-face "" delimiter-face)
      "\n"
      ;; Line 2: Time, Date, Dir, User, Git
      (epe-colorize-with-face "┌──❮ " delimiter-face)
-     (epe-colorize-with-face " " 'epe-zshrc-time-face)
+     (epe-colorize-with-face "" 'epe-zshrc-time-face)
      (epe-colorize-with-face (concat " " time-str) 'epe-zshrc-time-face)
      (epe-colorize-with-face " ❯─❮ " delimiter-face)
-     (epe-colorize-with-face " " 'epe-zshrc-date-face)
+     (epe-colorize-with-face "" 'epe-zshrc-date-face)
      (epe-colorize-with-face (concat " " date-str) 'epe-zshrc-date-face)
      (epe-colorize-with-face " ❯─❮ " delimiter-face)
-     (epe-colorize-with-face " " 'epe-zshrc-dir-face)
+     (epe-colorize-with-face "" 'epe-zshrc-dir-face)
      (epe-colorize-with-face (concat " " dir-str) 'epe-zshrc-dir-face)
      (epe-colorize-with-face " ❯─ " delimiter-face)
      (epe-colorize-with-face "❮" delimiter-face)
-     (epe-colorize-with-face " " user-face)
+     (epe-colorize-with-face "" user-face)
      (epe-colorize-with-face (concat " " user-str) user-face)
      (epe-colorize-with-face "❯" delimiter-face)
      (if git-info (concat " " git-info) "")
      "\n"
      ;; Line 3: Input prompt
      (epe-colorize-with-face "└─" delimiter-face)
-     (epe-colorize-with-face " λ" 'epe-symbol-face)
+     (epe-colorize-with-face "" 'epe-symbol-face)
      (epe-colorize-with-face (if (= (user-uid) 0) "#" "") 'epe-sudo-symbol-face)
      " ")))
 

@@ -936,13 +936,9 @@ Available themes:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Unix-like Aliases ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; clear: full screen clear (elisp function, not alias)
-(defun eshell/clear ()
-  "Clear the eshell buffer completely, like Linux `clear'."
-  (aweshell-clear-buffer))
-
 (defun aweshell-setup-aliases ()
   "Setup Unix-like aliases for a familiar shell experience."
+  (eshell/alias "clear" "clear-scrollback")
   (eshell/alias "ll" "ls -la $*")
   (eshell/alias "la" "ls -a $*")
   (eshell/alias "l"  "ls -l $*")

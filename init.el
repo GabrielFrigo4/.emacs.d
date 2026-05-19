@@ -52,9 +52,9 @@
 ;;  FEATURE TOGGLES
 ;; ============================================================================
 
-(defvar my/enable-treesitter nil)
-(defvar my/enable-ai nil)
-(defvar my/enable-minuet nil)
+(setq my/enable-treesitter nil)
+(setq my/enable-ai nil)
+(setq my/enable-minuet nil)
 
 ;; ============================================================================
 ;;  CORE LIBRARIES

@@ -13,3 +13,4 @@ alias .. cd ..
 alias l ls -l $*
 alias la ls -a $*
 alias ll ls -la $*
+alias clear clear-scrollback
