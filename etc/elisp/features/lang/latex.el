@@ -124,8 +124,7 @@
   (with-eval-after-load 'pdf-view
     (define-key pdf-view-mode-map (kbd "D") #'pdf-view-toggle-dark-mode)
     (define-key pdf-view-mode-map [down-mouse-1] nil)
-    (define-key pdf-view-mode-map [drag-mouse-1] nil)
-    (define-key pdf-view-mode-map [mouse-1] #'pdf-view-mouse-set-region))
+    (define-key pdf-view-mode-map [drag-mouse-1] nil))
 
   :hook (pdf-view-mode . (lambda ()
                            (display-line-numbers-mode -1)

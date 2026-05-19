@@ -3,12 +3,12 @@
 ;; ============================================================================
 
 (use-package shr-tag-pre-highlight
-  :defer t
-  :ensure (:type git :host github :repo "emacsmirror/shr-tag-pre-highlight" :branch "master"))
+  :ensure (:type git :host github :repo "emacsmirror/shr-tag-pre-highlight" :branch "master")
+  :commands (shr-tag-pre-highlight))
 
 (use-package shrface
-  :defer t
   :ensure (:type git :host github :repo "emacsmirror/shrface" :branch "master")
+  :commands (shrface-basic shrface-regexp shrface-tag-code)
   :config
   (setq-default shrface-toggle-bullets nil)
   (setq-default shrface-href-versatile t)
@@ -26,11 +26,17 @@
   (defun my-nov-mode-hook ()
     (visual-line-mode 1)
     (display-line-numbers-mode -1)
-    (setq-local header-line-format nil)
-    (setq-local nov-text-width (max 60 (- (window-width) 4)))
-    (nov-render-document))
+    (setq-local header-line-format nil))
+
+  (defun my-nov-window-size-change (frame)
+    "Re-render nov documents when the window is resized."
+    (dolist (win (window-list frame))
+      (with-current-buffer (window-buffer win)
+        (when (eq major-mode 'nov-mode)
+          (ignore-errors (nov-render-document))))))
 
   (add-hook 'nov-mode-hook 'my-nov-mode-hook)
+  (add-hook 'window-size-change-functions 'my-nov-window-size-change)
 
   (with-eval-after-load 'nov
     (define-key nov-mode-map (kbd "n") 'nov-next-document)

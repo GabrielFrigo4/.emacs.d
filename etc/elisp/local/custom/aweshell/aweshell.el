@@ -906,13 +906,13 @@ Otherwise return nil."
 ;; Display extra information and color for your eshell prompt.
 (require 'eshell-prompt-extras)
 
-(defcustom aweshell-theme 'epe-theme-pipeline
+(defcustom aweshell-theme 'epe-theme-zshrc
   "The eshell prompt theme to use.
 Available themes:
   `epe-theme-lambda'     - Minimal lambda theme
   `epe-theme-dakrone'    - Lambda with directory shrinking
-  `epe-theme-pipeline'   - Oh-my-zsh style (default)
-  `epe-theme-zshrc'      - Replicates a zsh configuration style
+  `epe-theme-pipeline'   - Oh-my-zsh style
+  `epe-theme-zshrc'      - Replicates a zsh configuration style (default)
   `epe-theme-multiline-with-status' - Multiline with status info"
   :type 'function
   :group 'aweshell)
@@ -923,10 +923,13 @@ Available themes:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Unix-like Aliases ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; clear: full screen clear (elisp function, not alias)
+(defun eshell/clear ()
+  "Clear the eshell buffer completely, like Linux `clear'."
+  (aweshell-clear-buffer))
+
 (defun aweshell-setup-aliases ()
   "Setup Unix-like aliases for a familiar shell experience."
-  ;; clear: full screen clear (like Linux, not just scroll)
-  (eshell/alias "clear" "aweshell-clear-buffer")
   ;; ls variants
   (eshell/alias "ll" "ls -la $*")
   (eshell/alias "la" "ls -a $*")

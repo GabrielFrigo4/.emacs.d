@@ -8,9 +8,8 @@
   :defer t
   :bind ("C-c v" . vterm))
 
-(use-package aweshell
-  :commands (aweshell-new aweshell-toggle)
-  :config
+;; Aweshell config (loaded from local/custom/aweshell/)
+(with-eval-after-load 'aweshell
   (setq-default aweshell-validate-executable nil)
   (setq-default aweshell-auto-suggestion-p t)
   (if-windows
@@ -36,14 +35,7 @@
   :config
   (setq-default epe-git-enable nil)
   (setq-default eshell-bad-command-tolerance (expt 2 64))
-  (with-eval-after-load "esh-opt"
-    (autoload 'epe-theme-multiline-with-status "eshell-prompt-extras")
-    (setq-default eshell-highlight-prompt t
-                  eshell-prompt-function 'epe-theme-multiline-with-status
-                  epe-git-dirty-char "*"))
 
-  (defun eshell/clear () (let ((inhibit-read-only t)) (erase-buffer)))
-  (defalias 'eshell/clear 'eshell/clear-scrollback)
   (defalias 'eshell/cls   'eshell/clear-scrollback)
   (defalias 'eshell/clr   'eshell/clear-scrollback)
   (defalias 'eshell/where 'eshell/which)

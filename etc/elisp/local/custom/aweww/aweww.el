@@ -93,27 +93,27 @@
 
 (advice-add 'eww-render :before #'aweww-set-shr-width)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Rendering Functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun aweww-build-rendering-functions ()
+  "Build and set the SHR rendering functions list.
+Called lazily to ensure shrface and shr-tag-pre-highlight are loaded."
+  (setq shr-external-rendering-functions
+        (append '((title . eww-tag-title)
+                  (form . eww-tag-form)
+                  (input . eww-tag-input)
+                  (button . eww-form-submit)
+                  (textarea . eww-tag-textarea)
+                  (select . eww-tag-select)
+                  (link . eww-tag-link)
+                  (meta . eww-tag-meta))
+                (when (fboundp 'shrface-tag-code)
+                  '((code . shrface-tag-code)))
+                (when (fboundp 'shr-tag-pre-highlight)
+                  '((pre . shr-tag-pre-highlight)))
+                (when (boundp 'shrface-supported-faces-alist)
+                  shrface-supported-faces-alist))))
 
-(defvar aweww-rendering-functions
-  (append '((title . eww-tag-title)
-            (form . eww-tag-form)
-            (input . eww-tag-input)
-            (button . eww-form-submit)
-            (textarea . eww-tag-textarea)
-            (select . eww-tag-select)
-            (link . eww-tag-link)
-            (meta . eww-tag-meta))
-          (when (fboundp 'shrface-tag-code)
-            '((code . shrface-tag-code)))
-          (when (fboundp 'shr-tag-pre-highlight)
-            '((pre . shr-tag-pre-highlight)))
-          (when (boundp 'shrface-supported-faces-alist)
-            shrface-supported-faces-alist))
-  "AWEWW's list of rendering functions for SHR.
-Conditionally includes shrface and shr-tag-pre-highlight if available.")
-
-(setq-default shr-external-rendering-functions aweww-rendering-functions)
+;; Build rendering functions when EWW is first used (shrface will be loaded by then)
+(add-hook 'eww-mode-hook #'aweww-build-rendering-functions)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Interactive Commands ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
