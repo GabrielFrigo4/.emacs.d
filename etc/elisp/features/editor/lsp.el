@@ -10,6 +10,8 @@
          (c++-ts-mode . lsp-deferred)
          (c-or-c++-mode . lsp-deferred)
          (c-or-c++-ts-mode . lsp-deferred)
+         (go-mode . lsp-deferred)
+         (go-ts-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred)
   :custom

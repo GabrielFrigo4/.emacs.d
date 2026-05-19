@@ -3,6 +3,7 @@
 ;; ============================================================================
 
 (use-package rust-mode :ensure t :config (setq-default rust-mode-treesitter-derive t))
+(use-package go-mode :ensure t)
 (use-package zig-mode :ensure t)
 (use-package haskell-mode :ensure t)
 (use-package ada-mode :ensure t)
