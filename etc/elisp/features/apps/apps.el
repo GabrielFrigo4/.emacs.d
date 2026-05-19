@@ -21,15 +21,17 @@
   :ensure t
   :mode ("\\.epub\\'" . nov-mode)
   :config
-  (setq-default nov-text-width 80)
-  
+  (setq-default nov-text-width t)
+
   (defun my-nov-mode-hook ()
     (visual-line-mode 1)
     (display-line-numbers-mode -1)
-    (setq-local header-line-format nil))
-  
+    (setq-local header-line-format nil)
+    (setq-local nov-text-width (max 60 (- (window-width) 4)))
+    (nov-render-document))
+
   (add-hook 'nov-mode-hook 'my-nov-mode-hook)
-  
+
   (with-eval-after-load 'nov
     (define-key nov-mode-map (kbd "n") 'nov-next-document)
     (define-key nov-mode-map (kbd "p") 'nov-previous-document)

@@ -905,9 +905,51 @@ Otherwise return nil."
 ;; eshell-prompt-extras
 ;; Display extra information and color for your eshell prompt.
 (require 'eshell-prompt-extras)
+
+(defcustom aweshell-theme 'epe-theme-pipeline
+  "The eshell prompt theme to use.
+Available themes:
+  `epe-theme-lambda'     - Minimal lambda theme
+  `epe-theme-dakrone'    - Lambda with directory shrinking
+  `epe-theme-pipeline'   - Oh-my-zsh style (default)
+  `epe-theme-zshrc'      - Replicates a zsh configuration style
+  `epe-theme-multiline-with-status' - Multiline with status info"
+  :type 'function
+  :group 'aweshell)
+
 (with-eval-after-load "esh-opt"
   (setq eshell-highlight-prompt nil
-        eshell-prompt-function 'epe-theme-pipeline))
+        eshell-prompt-function aweshell-theme))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Unix-like Aliases ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun aweshell-setup-aliases ()
+  "Setup Unix-like aliases for a familiar shell experience."
+  ;; clear: full screen clear (like Linux, not just scroll)
+  (eshell/alias "clear" "aweshell-clear-buffer")
+  ;; ls variants
+  (eshell/alias "ll" "ls -la $*")
+  (eshell/alias "la" "ls -a $*")
+  (eshell/alias "l"  "ls -l $*")
+  ;; directory navigation
+  (eshell/alias ".." "cd ..")
+  (eshell/alias "..." "cd ../..")
+  (eshell/alias "...." "cd ../../..")
+  ;; mkdir with parents by default
+  (eshell/alias "mkdirp" "mkdir -p $*")
+  ;; human-readable disk utilities
+  (eshell/alias "df" "df -h $*")
+  (eshell/alias "du" "du -h $*")
+  (eshell/alias "free" "free -h $*")
+  ;; safety nets
+  (eshell/alias "rm" "rm -i $*")
+  (eshell/alias "cp" "cp -i $*")
+  (eshell/alias "mv" "mv -i $*")
+  ;; open file in emacs
+  (eshell/alias "e" "find-file $1")
+  (eshell/alias "ee" "find-file-other-window $1"))
+
+(add-hook 'eshell-mode-hook #'aweshell-setup-aliases)
 
 (defun aweshell-emacs (&rest args)
   "Open a file in Emacs with ARGS, Some habits die hard."

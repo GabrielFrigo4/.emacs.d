@@ -207,8 +207,8 @@ chmod +x ./install-eaf.py
 ### 🪟 Windows
 
 ```pwsh
-git clone --depth=1 -b master "https://github.com/emacs-eaf/emacs-application-framework.git" "$HOME/.emacs.d/opt/eaf/emacs-application-framework/"
-cd "$HOME/.emacs.d/opt/eaf/emacs-application-framework/"
+git clone --depth=1 -b master "https://github.com/emacs-eaf/emacs-application-framework.git" "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
+cd "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
 python install-eaf.py
 python install-eaf.py --install "browser"
 python install-eaf.py --install "pdf-viewer"
@@ -285,7 +285,7 @@ On Windows, Emacs traditionally uses a **TCP Server** instead of local sockets. 
 - **Setup**: In your terminal configuration, export the path using `EMACS_SERVER_FILE`. The `emacsclient` will read this text file to know how to connect over TCP.
 
 ```pwsh
-$env:EMACS_SERVER_FILE = "$HOME\.emacs.d\var\server\auth\server"
+$env:EMACS_SERVER_FILE = "${HOME}\.emacs.d\var\server\auth\server"
 ```
 
 ---
