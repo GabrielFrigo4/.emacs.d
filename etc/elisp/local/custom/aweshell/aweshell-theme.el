@@ -838,6 +838,16 @@ The status is displayed on the last line."
   "Face for user icon in zshrc-style theme."
   :group 'epe)
 
+(defface aweshell/theme-zshrc-dir-icon-face
+  '((t (:foreground "#ffc777" :bold t)))
+  "Face for directory icon in zshrc-style theme."
+  :group 'epe)
+
+(defface aweshell/theme-zshrc-prompt-delimiter-face
+  '((t (:foreground "#7aa2f7" :bold t)))
+  "Face for the final prompt delimiter in zshrc-style theme."
+  :group 'epe)
+
 (defvar aweshell/theme-zshrc--os-version
   (format "GNU Emacs %s" emacs-version)
   "Cached OS version string for the zshrc prompt.")
@@ -845,7 +855,7 @@ The status is displayed on the last line."
 (defun aweshell/theme-theme-zshrc ()
   "An eshell-prompt theme replicating a zsh configuration style.
 Multi-line prompt with OS info, time, date, directory, user, and git."
-  (setq eshell-prompt-regexp "^└─❯ ")
+  (setq eshell-prompt-regexp "^└─ ")
   (let* ((delimiter-face 'aweshell/theme-zshrc-delimiter-face)
          (user-face (if (= (user-uid) 0) 'aweshell/theme-zshrc-root-face 'aweshell/theme-zshrc-user-face))
          (os-ver aweshell/theme-zshrc--os-version)
@@ -861,11 +871,11 @@ Multi-line prompt with OS info, time, date, directory, user, and git."
                                            (aweshell/theme-colorize-with-face "*" 'aweshell/theme-zshrc-git-dirty-face)
                                          "")))
                        (concat
-                        (aweshell/theme-colorize-with-face "❮" delimiter-face)
-                        (aweshell/theme-colorize-with-face "  " 'aweshell/theme-zshrc-git-icon-face)
-                        (aweshell/theme-colorize-with-face branch 'aweshell/theme-zshrc-git-branch-face)
-                        indicator
-                        (aweshell/theme-colorize-with-face " ❯" delimiter-face))))))
+                         (aweshell/theme-colorize-with-face "❮" delimiter-face)
+                         (aweshell/theme-colorize-with-face "  " 'aweshell/theme-zshrc-git-icon-face)
+                         (aweshell/theme-colorize-with-face branch 'aweshell/theme-zshrc-git-branch-face)
+                         indicator
+                         (aweshell/theme-colorize-with-face " ❯" delimiter-face))))))
     (concat
      ;; Line 1: OS version and shell name
      "\n"
@@ -896,8 +906,7 @@ Multi-line prompt with OS info, time, date, directory, user, and git."
      "\n"
      ;; Line 3: Input prompt
      (aweshell/theme-colorize-with-face "└─" delimiter-face)
-     (aweshell/theme-colorize-with-face "" delimiter-face)
-     (aweshell/theme-colorize-with-face (if (= (user-uid) 0) "#" "") 'aweshell/theme-sudo-symbol-face)
+     (aweshell/theme-colorize-with-face "" 'aweshell/theme-zshrc-prompt-delimiter-face)
      " ")))
 
 (provide 'aweshell-theme)
