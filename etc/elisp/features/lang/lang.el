@@ -29,16 +29,23 @@
 (use-package riscv-mode :ensure t)
 (use-package cuda-mode :defer t :ensure t)
 (use-package opencl-c-mode :defer t :ensure t)
-(use-package glsl-mode :ensure t :config (require 'treesit) (require 'c-ts-mode))
+(use-package glsl-mode
+  :ensure t
+  :config
+  (when tressit/enable
+    (require 'treesit)
+    (require 'c-ts-mode)))
 (use-package json-mode :ensure t)
 (use-package yaml-mode :ensure t :hook (yaml-mode . apheleia-mode))
-(use-package yaml-ts-mode :ensure nil :hook (yaml-ts-mode . apheleia-mode))
 (use-package dockerfile-mode :ensure t)
 (use-package vimrc-mode :ensure t)
-(use-package emacs-lisp-ts-mode :ensure (:type git :host github :repo "GabrielFrigo4/emacs-lisp-ts-mode"))
-(use-package common-lisp-ts-mode :ensure (:type git :host github :repo "GabrielFrigo4/common-lisp-ts-mode"))
-(use-package zig-ts-mode :ensure t)
-(use-package haskell-ts-mode :ensure t)
+
+(when tressit/enable
+  (use-package yaml-ts-mode :ensure nil :hook (yaml-ts-mode . apheleia-mode))
+  (use-package emacs-lisp-ts-mode :ensure (:type git :host github :repo "GabrielFrigo4/emacs-lisp-ts-mode"))
+  (use-package common-lisp-ts-mode :ensure (:type git :host github :repo "GabrielFrigo4/common-lisp-ts-mode"))
+  (use-package zig-ts-mode :ensure t)
+  (use-package haskell-ts-mode :ensure t))
 
 (use-package pyvenv
   :ensure (:type git :host github :repo "emacsmirror/pyvenv" :branch "master")
@@ -105,6 +112,7 @@
 (add-to-list 'auto-mode-alist '("\\.inc\\'"   . nasm-mode))
 (add-to-list 'auto-mode-alist '("\\.riscv\\'" . riscv-mode))
 
-(add-to-list 'auto-mode-alist '("\\go.mod\\'" . go-mod-ts-mode))
+(when tressit/enable
+  (add-to-list 'auto-mode-alist '("\\go.mod\\'" . go-mod-ts-mode)))
 
 (provide 'feature-lang)

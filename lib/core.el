@@ -43,4 +43,22 @@
     (while (< (float-time) end-time)
       (accept-process-output nil (expt 10 -3)))))
 
+(defun tressit/get-mode (mode)
+  "Return the tree-sitter equivalent of MODE if `tressit/enable` is non-nil,
+otherwise return MODE."
+  (if (and (bound-and-true-p tressit/enable)
+           (symbolp mode))
+      (let* ((mode-name (symbol-name mode))
+             ;; Exceptions to the general "-mode" -> "-ts-mode" pattern
+             (exception (cdr (assoc mode '((js2-mode . js-ts-mode)
+                                           (javascript-mode . js-ts-mode)
+                                           (sh-mode . bash-ts-mode)
+                                           (conf-toml-mode . toml-ts-mode))))))
+        (or exception
+            (and (string-match "-mode$" mode-name)
+                 (intern (replace-regexp-in-string "-mode$" "-ts-mode" mode-name)))
+            mode))
+    mode))
+
 (provide 'core)
+

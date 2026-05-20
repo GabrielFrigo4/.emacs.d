@@ -9,15 +9,7 @@
 
 (use-package lsp-mode
   :ensure (:type git :host github :repo "emacs-lsp/lsp-mode" :branch "master")
-  :hook ((c-mode . lsp-deferred)
-         (c++-mode . lsp-deferred)
-         (c-ts-mode . lsp-deferred)
-         (c++-ts-mode . lsp-deferred)
-         (c-or-c++-mode . lsp-deferred)
-         (c-or-c++-ts-mode . lsp-deferred)
-         (go-mode . lsp-deferred)
-         (go-ts-mode . lsp-deferred)
-         (lsp-mode . lsp-enable-which-key-integration))
+  :hook ((lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred)
   :custom
   (lsp-keymap-prefix "C-c l")
@@ -32,8 +24,13 @@
     (setq-local apheleia-inhibit t)
     (add-hook 'before-save-hook #'lsp-organize-imports nil t)
     (add-hook 'before-save-hook #'lsp-format-buffer nil t))
-  (add-hook 'go-mode-hook #'lsp/go-install-save-hooks)
-  (add-hook 'go-ts-mode-hook #'lsp/go-install-save-hooks))
+
+  ;; Dynamically enable LSP for active modes
+  (dolist (mode '(c-mode c++-mode c-or-c++-mode go-mode))
+    (add-hook (intern (concat (symbol-name (tressit/get-mode mode)) "-hook")) #'lsp-deferred))
+
+  (add-hook (intern (concat (symbol-name (tressit/get-mode 'go-mode)) "-hook")) #'lsp/go-install-save-hooks))
+
 
 (use-package lsp-ui
   :ensure (:type git :host github :repo "emacs-lsp/lsp-ui" :branch "master")
