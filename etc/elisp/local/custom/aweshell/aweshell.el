@@ -1030,6 +1030,14 @@ suppressing minibuffer write messages."
 
 (add-hook 'eshell-mode-hook #'aweshell/setup-aliases)
 
+(defun aweshell/setup-environment ()
+  "Setup environment variables for Aweshell."
+  (setenv "TERM" "xterm-256color")
+  (setenv "FORCE_COLOR" "1")
+  (setenv "CLICOLOR_FORCE" "1"))
+
+(add-hook 'eshell-mode-hook #'aweshell/setup-environment)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Buffer Local Region Face ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun aweshell/setup-region-face ()

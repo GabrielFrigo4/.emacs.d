@@ -36,10 +36,6 @@
   (setq-default epe-git-enable t)
   (setq-default eshell-bad-command-tolerance (expt 2 64))
 
-  (add-hook 'eshell-mode-hook
-            (lambda ()
-              (setenv "TERM" "xterm-256color")))
-
   (defalias 'eshell/cls   'eshell/clear-scrollback)
   (defalias 'eshell/clr   'eshell/clear-scrollback)
   (defalias 'eshell/where 'eshell/which)
