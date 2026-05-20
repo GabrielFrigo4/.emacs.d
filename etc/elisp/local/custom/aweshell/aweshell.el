@@ -690,9 +690,15 @@ Otherwise return nil."
 (defvar aweshell/validate-executable t
   "Search executable in `exec-path` for validating eshell command.")
 
+(defun aweshell/on-input-line-p ()
+  "Return non-nil if the current line is the active eshell input line."
+  (and (derived-mode-p 'eshell-mode)
+       (fboundp 'eshell-beginning-of-input)
+       (>= (line-end-position) (eshell-beginning-of-input))))
+
 (defun aweshell/validate-command ()
   "Validate all commands in eshell input line."
-  (when (derived-mode-p 'eshell-mode)
+  (when (aweshell/on-input-line-p)
     (save-excursion
       (let ((line (buffer-substring-no-properties
                    (line-beginning-position)
@@ -772,7 +778,7 @@ Otherwise return nil."
 
 (defun aweshell/highlight-prompt ()
   "Highlight the eshell prompt with `aweshell/neutral-command-color`."
-  (when (derived-mode-p 'eshell-mode)
+  (when (aweshell/on-input-line-p)
     (save-excursion
       (let ((line (buffer-substring-no-properties
                    (line-beginning-position)
@@ -792,7 +798,7 @@ Otherwise return nil."
 
 (defun aweshell/highlight-command ()
   "Highlight all commands in eshell input line."
-  (when (derived-mode-p 'eshell-mode)
+  (when (aweshell/on-input-line-p)
     (save-excursion
       (let ((line (buffer-substring-no-properties
                    (line-beginning-position)
@@ -834,7 +840,7 @@ Otherwise return nil."
 
 (defun aweshell/highlight-separator ()
   "Highlight command separators ; | & in eshell input line, ignoring ones inside strings."
-  (when (derived-mode-p 'eshell-mode)
+  (when (aweshell/on-input-line-p)
     (save-excursion
       (let ((line (buffer-substring-no-properties
                    (line-beginning-position)
@@ -854,7 +860,7 @@ Otherwise return nil."
 
 (defun aweshell/highlight-string ()
   "Highlight quoted strings in eshell input line, including escaped characters inside quotes."
-  (when (derived-mode-p 'eshell-mode)
+  (when (aweshell/on-input-line-p)
     (save-excursion
       (let ((line (buffer-substring-no-properties
                    (line-beginning-position)
@@ -991,7 +997,12 @@ suppressing minibuffer write messages."
 
 (defun aweshell/setup-region-face ()
   "Locally remap region face in eshell to preserve text foreground colors when selected."
-  (face-remap-add-relative 'region '(:foreground unspecified)))
+  (let ((bg (face-background 'region nil t)))
+    (when (or (null bg)
+              (string= bg "unspecified-bg")
+              (string= bg "unspecified"))
+      (setq bg "#28344a"))
+    (face-remap-set-base 'region `(:background ,bg))))
 
 (add-hook 'eshell-mode-hook #'aweshell/setup-region-face)
 
