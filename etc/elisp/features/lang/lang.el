@@ -13,7 +13,8 @@
   :bind (("C-c r f" . rust-format-buffer)))
 
 (use-package go-mode :ensure t)
-(use-package zig-mode :ensure t)
+(use-package zig-mode
+  :ensure (:type git :repo "https://codeberg.org/ziglang/zig-mode.git" :depth nil))
 (use-package haskell-mode :ensure t)
 (use-package ada-mode :ensure t)
 (use-package lua-mode

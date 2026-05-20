@@ -100,13 +100,4 @@
   :after org
   :config (setq ob-mermaid-cli-path "mmdc"))
 
-(use-package org-ai
-  :ensure (:type git :host github :repo "rksm/org-ai" :branch "master")
-  :after (org llm)
-  :hook (org-mode . org-ai-mode)
-  :config
-  (setq-default org-ai-default-chat-system-prompt "Act like a wizard...")
-  (setq-default org-ai-default-inject-sys-prompt-for-all-messages t)
-  (setq-default org-ai-default-chat-model llm-google-model))
-
 (provide 'feature-org)
