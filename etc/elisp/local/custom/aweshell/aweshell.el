@@ -916,8 +916,8 @@ Otherwise return nil."
                                                           (aweshell/highlight-prompt)
                                                           (aweshell/highlight-command)
                                                           (aweshell/highlight-separator)
-                                                          (aweshell/highlight-string)
-                                                          (aweshell/highlight-number)))))
+                                                          (aweshell/highlight-number)
+                                                          (aweshell/highlight-string)))))
 
 (defun aweshell/stop-highlight-timer ()
   "Stop the idle timer used for command highlight."
