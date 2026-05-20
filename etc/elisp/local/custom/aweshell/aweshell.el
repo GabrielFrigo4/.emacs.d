@@ -234,7 +234,7 @@
 (when (and aweshell/use-aweshell/exec-path
            (featurep 'cocoa))
   ;; Initialize environment from user's shell to make eshell know every PATH by other shell.
-  (require 'aweshell/exec-path)
+  (require 'aweshell-exec-path)
   (aweshell/exec-path-initialize))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Customize ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -343,16 +343,24 @@ If this function affects you, disable this option."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Custom Functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun aweshell/update-custom-color ()
-  "Update custom colors with theme colors"
+  "Update custom colors with theme colors safely."
   (interactive)
-  (setq-default aweshell/possible-command-color (face-foreground 'warning))
-  (setq-default aweshell/valid-command-color (face-foreground 'success))
-  (setq-default aweshell/neutral-command-color (face-foreground 'default))
-  (setq-default aweshell/invalid-command-color (face-foreground 'error))
-  (setq-default aweshell/valid-separator-color (face-foreground 'font-lock-constant-face))
-  (setq-default aweshell/valid-constant-color (face-foreground 'font-lock-constant-face))
-  (setq-default aweshell/valid-string-color (face-foreground 'font-lock-string-face))
-  (setq-default aweshell/valid-scape-color (face-foreground 'font-lock-escape-face)))
+  (let ((get-color (lambda (face fallback)
+                     (let ((color (face-foreground face nil t)))
+                       (if (or (null color)
+                               (not (stringp color))
+                               (string= color "unspecified-fg")
+                               (string= color "unspecified-bg"))
+                           fallback
+                         color)))))
+    (setq-default aweshell/possible-command-color (funcall get-color 'warning "#e0af68"))
+    (setq-default aweshell/valid-command-color (funcall get-color 'success "#9ece6a"))
+    (setq-default aweshell/neutral-command-color (funcall get-color 'default "#c0caf5"))
+    (setq-default aweshell/invalid-command-color (funcall get-color 'error "#f7768e"))
+    (setq-default aweshell/valid-separator-color (funcall get-color 'font-lock-constant-face "#7dcfff"))
+    (setq-default aweshell/valid-constant-color (funcall get-color 'font-lock-constant-face "#7dcfff"))
+    (setq-default aweshell/valid-string-color (funcall get-color 'font-lock-string-face "#9ece6a"))
+    (setq-default aweshell/valid-scape-color (funcall get-color 'font-lock-escape-face "#ff9e64"))))
 (advice-add 'load-theme :after (lambda (&rest _)
                                  (run-at-time (expt 2 -1) nil #'aweshell/update-custom-color)))
 
@@ -942,25 +950,50 @@ Available themes:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Unix-like Aliases ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun aweshell/setup-aliases ()
-  "Setup Unix-like aliases for a familiar shell experience."
-  (eshell/alias "clear" "clear-scrollback")
-  (eshell/alias "ll" "ls -la $*")
-  (eshell/alias "la" "ls -a $*")
-  (eshell/alias "l"  "ls -l $*")
-  (eshell/alias ".." "cd ..")
-  (eshell/alias "..." "cd ../..")
-  (eshell/alias "...." "cd ../../..")
-  (eshell/alias "mkdirp" "mkdir -p $*")
-  (eshell/alias "df" "df -h $*")
-  (eshell/alias "du" "du -h $*")
-  (eshell/alias "free" "free -h $*")
-  (eshell/alias "rm" "rm -i $*")
-  (eshell/alias "cp" "cp -i $*")
-  (eshell/alias "mv" "mv -i $*")
-  (eshell/alias "e" "find-file $1")
-  (eshell/alias "ee" "find-file-other-window $1"))
+  "Setup Unix-like aliases for a familiar shell experience.
+Updates alias definitions in memory and writes to disk only when changed,
+suppressing minibuffer write messages."
+  (require 'em-alias)
+  (let ((aliases '(("clear" "clear-scrollback")
+                   ("ll" "ls -la $*")
+                   ("la" "ls -a $*")
+                   ("l"  "ls -l $*")
+                   (".." "cd ..")
+                   ("..." "cd ../..")
+                   ("...." "cd ../../..")
+                   ("mkdirp" "mkdir -p $*")
+                   ("df" "df -h $*")
+                   ("du" "du -h $*")
+                   ("free" "free -h $*")
+                   ("rm" "rm -i $*")
+                   ("cp" "cp -i $*")
+                   ("mv" "mv -i $*")
+                   ("e" "find-file $1")
+                   ("ee" "find-file-other-window $1")))
+        (changed nil))
+    (dolist (alias-def aliases)
+      (let* ((alias (car alias-def))
+             (def (cadr alias-def))
+             (existing (assoc alias eshell-command-aliases-list)))
+        (if existing
+            (unless (equal (cadr existing) def)
+              (setcdr existing (list def))
+              (setq changed t))
+          (push (list alias def) eshell-command-aliases-list)
+          (setq changed t))))
+    (when changed
+      (let ((inhibit-message t))
+        (eshell-write-aliases-list)))))
 
 (add-hook 'eshell-mode-hook #'aweshell/setup-aliases)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Buffer Local Region Face ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun aweshell/setup-region-face ()
+  "Locally remap region face in eshell to preserve text foreground colors when selected."
+  (face-remap-add-relative 'region '(:foreground unspecified)))
+
+(add-hook 'eshell-mode-hook #'aweshell/setup-region-face)
 
 (defun aweshell/emacs (&rest args)
   "Open a file in Emacs with ARGS, Some habits die hard."
@@ -1070,7 +1103,7 @@ Available themes:
             (run-with-idle-timer
              1 nil
              #'(lambda ()
-                 (require 'aweshell/did-you-mean)
+                 (require 'aweshell-did-you-mean)
                  (aweshell/did-you-mean-setup)
                  ))))
 
