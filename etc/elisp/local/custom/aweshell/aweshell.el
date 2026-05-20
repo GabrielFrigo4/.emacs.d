@@ -694,7 +694,11 @@ Otherwise return nil."
   "Return non-nil if the current line is the active eshell input line."
   (and (derived-mode-p 'eshell-mode)
        (fboundp 'eshell-beginning-of-input)
-       (>= (line-end-position) (eshell-beginning-of-input))))
+       (>= (line-end-position) (eshell-beginning-of-input))
+       (not (< (line-beginning-position)
+               (save-excursion
+                 (goto-char (eshell-beginning-of-input))
+                 (line-beginning-position))))))
 
 (defun aweshell/validate-command ()
   "Validate all commands in eshell input line."
@@ -878,6 +882,26 @@ Otherwise return nil."
             (put-text-property (match-beginning 0) (match-end 0)
                                'rear-nonsticky t)))))))
 
+(defun aweshell/highlight-number ()
+  "Highlight numbers in eshell input line."
+  (when (aweshell/on-input-line-p)
+    (save-excursion
+      (let ((line (buffer-substring-no-properties
+                   (line-beginning-position)
+                   (line-end-position)))
+            (prompt-regexp eshell-prompt-regexp))
+        (when (string-match prompt-regexp line)
+          (setq line (substring line (match-end 0))))
+        (goto-char (line-beginning-position))
+        (let ((case-fold-search nil))
+          (while (re-search-forward
+                  "\\<\\([0-9]+\\(?:\\.[0-9]+\\)?\\)\\>"
+                  (line-end-position) t)
+            (put-text-property (match-beginning 0) (match-end 0)
+                               'face `(:foreground ,aweshell/valid-constant-color))
+            (put-text-property (match-beginning 0) (match-end 0)
+                               'rear-nonsticky t)))))))
+
 (defvar aweshell/highlight-timer nil
   "Idle timer for highlight eshell command.")
 (make-variable-buffer-local 'aweshell/-highlight-timer)
@@ -892,7 +916,8 @@ Otherwise return nil."
                                                           (aweshell/highlight-prompt)
                                                           (aweshell/highlight-command)
                                                           (aweshell/highlight-separator)
-                                                          (aweshell/highlight-string)))))
+                                                          (aweshell/highlight-string)
+                                                          (aweshell/highlight-number)))))
 
 (defun aweshell/stop-highlight-timer ()
   "Stop the idle timer used for command highlight."
