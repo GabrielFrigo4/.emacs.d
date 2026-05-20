@@ -1,10 +1,10 @@
-;;; exec-path-from-shell.el --- Get environment variables such as $PATH from the shell  -*- lexical-binding: t -*-
+;;; aweshell/exec-path.el --- Get environment variables such as $PATH from the shell  -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2012-2014 Steve Purcell
 
 ;; Author: Steve Purcell <steve@sanityinc.com>
 ;; Keywords: unix, environment
-;; URL: https://github.com/purcell/exec-path-from-shell
+;; URL: https://github.com/purcell/aweshell/exec-path
 ;; Package-Version: 2.2
 ;; Package-Requires: ((emacs "24.4"))
 
@@ -44,7 +44,7 @@
 
 ;; Note that shell variables which have not been exported as
 ;; environment variables (e.g. using the "export" keyword) may not be
-;; visible to `exec-path-from-shell'.
+;; visible to `aweshell/exec-path'.
 
 ;; Installation:
 
@@ -54,22 +54,22 @@
 
 ;; Usage:
 ;;
-;;     (require 'exec-path-from-shell) ;; if not using the ELPA package
-;;     (exec-path-from-shell-initialize)
+;;     (require 'aweshell/exec-path) ;; if not using the ELPA package
+;;     (aweshell/exec-path-initialize)
 ;;
-;; Customize `exec-path-from-shell-variables' to modify the list of
+;; Customize `aweshell/exec-path-variables' to modify the list of
 ;; variables imported.
 ;;
 ;; If you use your Emacs config on other platforms, you can instead
 ;; make initialization conditional as follows:
 ;;
 ;;     (when (memq window-system '(mac ns))
-;;       (exec-path-from-shell-initialize))
+;;       (aweshell/exec-path-initialize))
 ;;
-;; Alternatively, you can use `exec-path-from-shell-copy-envs' or
-;; `exec-path-from-shell-copy-env' directly, e.g.
+;; Alternatively, you can use `aweshell/exec-path-copy-envs' or
+;; `aweshell/exec-path-copy-env' directly, e.g.
 ;;
-;;     (exec-path-from-shell-copy-env "PYTHONPATH")
+;;     (aweshell/exec-path-copy-env "PYTHONPATH")
 
 ;;; Code:
 
@@ -78,48 +78,48 @@
 (require 'cl-lib)
 (require 'json)
 
-(defgroup exec-path-from-shell nil
+(defgroup aweshell/exec-path nil
   "Make Emacs use shell-defined values for $PATH etc."
-  :prefix "exec-path-from-shell-"
+  :prefix "aweshell/exec-path-"
   :group 'environment)
 
-(defcustom exec-path-from-shell-variables
+(defcustom aweshell/exec-path-variables
   '("PATH" "MANPATH")
   "List of environment variables which are copied from the shell."
   :type '(repeat (string :tag "Environment variable"))
-  :group 'exec-path-from-shell)
+  :group 'aweshell/exec-path)
 
-(defcustom exec-path-from-shell-warn-duration-millis 500
+(defcustom aweshell/exec-path-warn-duration-millis 500
   "Print a warning if shell execution takes longer than this many milliseconds."
   :type 'integer)
 
-(defcustom exec-path-from-shell-shell-name nil
+(defcustom aweshell/exec-path-shell-name nil
   "If non-nil, use this shell executable.
 Otherwise, use either `shell-file-name' (if set), or the value of
 the SHELL environment variable."
   :type '(choice
           (file :tag "Shell executable")
           (const :tag "Use `shell-file-name' or $SHELL" nil))
-  :group 'exec-path-from-shell)
+  :group 'aweshell/exec-path)
 
-(defvar exec-path-from-shell-debug nil
+(defvar aweshell/exec-path-debug nil
   "Display debug info when non-nil.")
 
-(defun exec-path-from-shell--double-quote (s)
+(defun aweshell/exec-path--double-quote (s)
   "Double-quote S, escaping any double-quotes already contained in it."
   (concat "\"" (replace-regexp-in-string "\"" "\\\\\"" s) "\""))
 
-(defun exec-path-from-shell--shell ()
+(defun aweshell/exec-path--shell ()
   "Return the shell to use.
-See documentation for `exec-path-from-shell-shell-name'."
+See documentation for `aweshell/exec-path-shell-name'."
   (or
-   exec-path-from-shell-shell-name
+   aweshell/exec-path-shell-name
    shell-file-name
    (getenv "SHELL")
    (error "SHELL environment variable is unset")))
 
-(defcustom exec-path-from-shell-arguments
-  (let ((shell (exec-path-from-shell--shell)))
+(defcustom aweshell/exec-path-arguments
+  (let ((shell (aweshell/exec-path--shell)))
     (if (string-match-p "t?csh$" shell)
         (list "-d")
       (if (string-match-p "fish" shell)
@@ -129,35 +129,35 @@ See documentation for `exec-path-from-shell-shell-name'."
 
 The default value denotes an interactive login shell."
   :type '(repeat (string :tag "Shell argument"))
-  :group 'exec-path-from-shell)
+  :group 'aweshell/exec-path)
 
-(defun exec-path-from-shell--debug (msg &rest args)
+(defun aweshell/exec-path--debug (msg &rest args)
   "Print MSG and ARGS like `message', but only if debug output is enabled."
-  (when exec-path-from-shell-debug
+  (when aweshell/exec-path-debug
     (apply 'message msg args)))
 
-(defun exec-path-from-shell--nushell-p (shell)
+(defun aweshell/exec-path--nushell-p (shell)
   "Return non-nil if SHELL is nu."
   (string-match-p "nu$" shell))
 
-(defun exec-path-from-shell--standard-shell-p (shell)
+(defun aweshell/exec-path--standard-shell-p (shell)
   "Return non-nil iff SHELL supports the standard ${VAR-default} syntax."
   (not (string-match-p "\\(fish\\|nu\\|t?csh\\)$" shell)))
 
-(defmacro exec-path-from-shell--warn-duration (&rest body)
+(defmacro aweshell/exec-path--warn-duration (&rest body)
   "Evaluate BODY and warn if execution duration exceeds a time limit.
-The limit is given by `exec-path-from-shell-warn-duration-millis'."
+The limit is given by `aweshell/exec-path-warn-duration-millis'."
   (let ((start-time (cl-gensym))
         (duration-millis (cl-gensym)))
     `(let ((,start-time (current-time)))
        (prog1
            (progn ,@body)
          (let ((,duration-millis (* 1000.0 (float-time (time-subtract (current-time) ,start-time)))))
-           (if (> ,duration-millis exec-path-from-shell-warn-duration-millis)
-               (message "Warning: exec-path-from-shell execution took %dms. See the README for tips on reducing this." ,duration-millis)
-             (exec-path-from-shell--debug "Shell execution took %dms" ,duration-millis)))))))
+           (if (> ,duration-millis aweshell/exec-path-warn-duration-millis)
+               (message "Warning: aweshell/exec-path execution took %dms. See the README for tips on reducing this." ,duration-millis)
+             (aweshell/exec-path--debug "Shell execution took %dms" ,duration-millis)))))))
 
-(defun exec-path-from-shell-printf (str &optional args)
+(defun aweshell/exec-path-printf (str &optional args)
   "Return the result of printing STR in the user's shell.
 
 Executes the shell as interactive login shell.
@@ -173,18 +173,18 @@ shell-escaped, so they may contain $ etc."
          (printf-command
           (concat (shell-quote-argument printf-bin)
                   " '__RESULT\\000" str "\\000__RESULT' "
-                  (mapconcat #'exec-path-from-shell--double-quote args " ")))
-         (shell (exec-path-from-shell--shell))
-         (shell-args (append exec-path-from-shell-arguments
+                  (mapconcat #'aweshell/exec-path--double-quote args " ")))
+         (shell (aweshell/exec-path--shell))
+         (shell-args (append aweshell/exec-path-arguments
                              (list "-c"
-                                   (if (exec-path-from-shell--standard-shell-p shell)
+                                   (if (aweshell/exec-path--standard-shell-p shell)
                                        printf-command
                                      (concat "sh -c " (shell-quote-argument printf-command)))))))
     (with-temp-buffer
-      (exec-path-from-shell--debug "Invoking shell %s with args %S" shell shell-args)
-      (let ((exit-code (exec-path-from-shell--warn-duration
+      (aweshell/exec-path--debug "Invoking shell %s with args %S" shell shell-args)
+      (let ((exit-code (aweshell/exec-path--warn-duration
                         (apply #'call-process shell nil t nil shell-args))))
-        (exec-path-from-shell--debug "Shell printed: %S" (buffer-string))
+        (aweshell/exec-path--debug "Shell printed: %S" (buffer-string))
         (unless (zerop exit-code)
           (error "Non-zero exit code from shell %s invoked with args %S.  Output was:\n%S"
                  shell shell-args (buffer-string))))
@@ -193,33 +193,33 @@ shell-escaped, so they may contain $ etc."
           (match-string 1)
         (error "Expected printf output from shell, but got: %S" (buffer-string))))))
 
-(defun exec-path-from-shell-getenvs--nushell (names)
+(defun aweshell/exec-path-getenvs--nushell (names)
   "Use nushell to get the value of env vars with the given NAMES.
 
-Execute the shell according to `exec-path-from-shell-arguments'.
+Execute the shell according to `aweshell/exec-path-arguments'.
 The result is a list of (NAME . VALUE) pairs.
 
 Nushell sometimes produces output like e.g. flag deprecation warnings.
-These messages are written to an error buffer (*exec-path-from-shell:
+These messages are written to an error buffer (*aweshell/exec-path:
 nushell errors*); unless Nushell produces a non-zero exit code, this
 buffer is left undisplayed."
-  (let* ((shell (exec-path-from-shell--shell))
+  (let* ((shell (aweshell/exec-path--shell))
          (expr (format "[ %s ] | to json"
                        (string-join
                         (mapcar (lambda (name)
-                                  (format "$env.%s?" (exec-path-from-shell--double-quote name)))
+                                  (format "$env.%s?" (aweshell/exec-path--double-quote name)))
                                 names)
                         ", ")))
-         (shell-args (append exec-path-from-shell-arguments (list "-c" expr)))
-         (err-buff-name "*exec-path-from-shell: nushell errors*")
+         (shell-args (append aweshell/exec-path-arguments (list "-c" expr)))
+         (err-buff-name "*aweshell/exec-path: nushell errors*")
          (err-file (make-temp-file err-buff-name)))
     (with-temp-buffer
       (kill-buffer err-buff-name)
-      (exec-path-from-shell--debug "Invoking shell %s with args %S" shell shell-args)
-      (let ((exit-code (exec-path-from-shell--warn-duration
+      (aweshell/exec-path--debug "Invoking shell %s with args %S" shell shell-args)
+      (let ((exit-code (aweshell/exec-path--warn-duration
                         (apply #'call-process shell nil '(t err-file) nil shell-args)))
             (err-buff (generate-new-buffer err-buff-name)))
-        (exec-path-from-shell--debug "Shell printed: %S" (buffer-string))
+        (aweshell/exec-path--debug "Shell printed: %S" (buffer-string))
         (with-current-buffer err-buff (insert-file-contents err-file))
         (unless (zerop exit-code)
           (error "Non-zero exit code from shell %s invoked with args %S.  Output was:\n%S"
@@ -242,18 +242,18 @@ buffer is left undisplayed."
                   names (cdr names)))
           result)))))
 
-(defun exec-path-from-shell-getenvs (names)
+(defun aweshell/exec-path-getenvs (names)
   "Get the environment variables with NAMES from the user's shell.
 
-Execute the shell according to `exec-path-from-shell-arguments'.
+Execute the shell according to `aweshell/exec-path-arguments'.
 The result is a list of (NAME . VALUE) pairs."
   (when (file-remote-p default-directory)
-    (error "You cannot run exec-path-from-shell from a remote buffer (Tramp, etc.)"))
-  (if (exec-path-from-shell--nushell-p (exec-path-from-shell--shell))
-      (exec-path-from-shell-getenvs--nushell names)
+    (error "You cannot run aweshell/exec-path from a remote buffer (Tramp, etc.)"))
+  (if (aweshell/exec-path--nushell-p (aweshell/exec-path--shell))
+      (aweshell/exec-path-getenvs--nushell names)
     (let* ((random-default (md5 (format "%s%s%s" (emacs-pid) (random) (current-time))))
            (dollar-names (mapcar (lambda (n) (format "${%s-%s}" n random-default)) names))
-           (values (split-string (exec-path-from-shell-printf
+           (values (split-string (aweshell/exec-path-printf
                                   (mapconcat #'identity (make-list (length names) "%s") "\\000")
                                   dollar-names) "\0")))
       (let (result)
@@ -268,14 +268,14 @@ The result is a list of (NAME . VALUE) pairs."
                   names (cdr names))))
         result))))
 
-(defun exec-path-from-shell-getenv (name)
+(defun aweshell/exec-path-getenv (name)
   "Get the environment variable NAME from the user's shell.
 
 Execute the shell as interactive login shell, have it output the
 variable of NAME and return this output as string."
-  (cdr (assoc name (exec-path-from-shell-getenvs (list name)))))
+  (cdr (assoc name (aweshell/exec-path-getenvs (list name)))))
 
-(defun exec-path-from-shell-setenv (name value)
+(defun aweshell/exec-path-setenv (name value)
   "Set the value of environment var NAME to VALUE.
 Additionally, if NAME is \"PATH\" then also update the
 variables `exec-path' and `eshell-path-env'."
@@ -287,40 +287,40 @@ variables `exec-path' and `eshell-path-env'."
     (setq-default eshell-path-env value)))
 
 ;;;###autoload
-(defun exec-path-from-shell-copy-envs (names)
+(defun aweshell/exec-path-copy-envs (names)
   "Set the environment variables with NAMES from the user's shell.
 
 As a special case, if the variable is $PATH, then the variables
 `exec-path' and `eshell-path-env' are also set appropriately.
 The result is an alist, as described by
-`exec-path-from-shell-getenvs'."
-  (let ((pairs (exec-path-from-shell-getenvs names)))
+`aweshell/exec-path-getenvs'."
+  (let ((pairs (aweshell/exec-path-getenvs names)))
     (mapc (lambda (pair)
-            (exec-path-from-shell-setenv (car pair) (cdr pair)))
+            (aweshell/exec-path-setenv (car pair) (cdr pair)))
           pairs)))
 
 ;;;###autoload
-(defun exec-path-from-shell-copy-env (name)
+(defun aweshell/exec-path-copy-env (name)
   "Set the environment variable $NAME from the user's shell.
 
 As a special case, if the variable is $PATH, then the variables
 `exec-path' and `eshell-path-env' are also set appropriately.
 Return the value of the environment variable."
   (interactive "sCopy value of which environment variable from shell? ")
-  (cdar (exec-path-from-shell-copy-envs (list name))))
+  (cdar (aweshell/exec-path-copy-envs (list name))))
 
 ;;;###autoload
-(defun exec-path-from-shell-initialize ()
+(defun aweshell/exec-path-initialize ()
   "Initialize environment from the user's shell.
 
 The values of all the environment variables named in
-`exec-path-from-shell-variables' are set from the corresponding
+`aweshell/exec-path-variables' are set from the corresponding
 values used in the user's shell."
   (interactive)
-  (exec-path-from-shell-copy-envs exec-path-from-shell-variables))
+  (aweshell/exec-path-copy-envs aweshell/exec-path-variables))
 
 
-(provide 'exec-path-from-shell)
+(provide 'aweshell-exec-path)
 
 ;; Local Variables:
 ;; coding: utf-8
@@ -329,4 +329,4 @@ values used in the user's shell."
 ;; checkdoc-minor-mode: t
 ;; End:
 
-;;; exec-path-from-shell.el ends here
+;;; aweshell/exec-path.el ends here

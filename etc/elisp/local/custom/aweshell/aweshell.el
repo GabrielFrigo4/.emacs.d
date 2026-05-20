@@ -15,7 +15,7 @@
 ;;
 ;; Features that might be required by this library:
 ;;
-;; `eshell' `eshell-did-you-mean' `eshell-prompt-extras' `eshell-up.el' `exec-path-from-shell' `cl-lib' `subr-x'
+;; `eshell' `aweshell/did-you-mean' `aweshell-theme' `aweshell/up.el' `aweshell/exec-path' `cl-lib' `subr-x'
 ;;
 
 ;;; This file is NOT part of GNU Emacs
@@ -45,13 +45,13 @@
 ;; So i write `aweshell.el' to extension `eshell' with below features:
 ;; 1. Create and manage multiple eshell buffers.
 ;; 2. Add some useful commands, such as: clear buffer, toggle sudo etc.
-;; 3. Display extra information and color like zsh, powered by `eshell-prompt-extras'
+;; 3. Display extra information and color like zsh, powered by `aweshell-theme'
 ;; 4. Add Fish-like history autosuggestions.
 ;; 5. Validate and highlight command before post to eshell.
 ;; 6. Change buffer name by directory change.
 ;; 7. Add completions for git command.
 ;; 8. Fix error `command not found' in MacOS.
-;; 9. Integrate `eshell-up'.
+;; 9. Integrate `aweshell/up'.
 ;; 10. Unpack archive file.
 ;; 11. Open file with alias e.
 ;; 12. Output "did you mean ..." helper when you typo.
@@ -63,14 +63,13 @@
 
 ;;; Installation:
 ;;
-;; Put `aweshell.el', `eshell-did-you-mean.el', `eshell-prompt-extras.el', `eshell-up.el.el', `exec-path-from-shell.el' to your load-path.
+;; Put `aweshell.el', `aweshell/did-you-mean.el', `aweshell-theme.el', `aweshell/up.el.el', `aweshell/exec-path.el' to your load-path.
 ;; The load-path is usually ~/elisp/.
 ;; It's set in your ~/.emacs like this:
 ;; (add-to-list 'load-path (expand-file-name "~/elisp"))
 ;;
 ;; And the following to your ~/.emacs startup file.
 ;;
-;; (require 'aweshell)
 ;;
 ;; Binding your favorite key to functions:
 ;;
@@ -95,7 +94,7 @@
 ;; `aweshell/valid-command-color'
 ;; `aweshell/neutral-command-color'
 ;; `aweshell/invalid-command-color'
-;; `aweshell/use-exec-path-from-shell'
+;; `aweshell/use-aweshell/exec-path'
 ;; `aweshell/dedicated-window-height'
 ;;
 ;; All of the above can customize by:
@@ -130,7 +129,7 @@
 ;;      * Add interactive command `aweshell/switch-buffer'.
 ;;
 ;; 2019/04/07
-;;      * Increased startup speed, loaded `eshell-did-you-mean' plugin when idle
+;;      * Increased startup speed, loaded `aweshell/did-you-mean' plugin when idle
 ;;
 ;; 2019/1/2
 ;;      * When the command includes * or \ , the `pcomplete-completions' command will report an error,
@@ -160,16 +159,16 @@
 ;;      * Alert user when background process finished or aborted.
 ;;
 ;; 2018/09/19
-;;      * Make `exec-path-from-shell' optional. Disable with variable`aweshell/use-exec-path-from-shell'.
+;;      * Make `aweshell/exec-path' optional. Disable with variable`aweshell/use-aweshell/exec-path'.
 ;;
 ;; 2018/09/17
 ;;      * Use `ido-completing-read' instead `completing-read' to provide fuzz match.
 ;;
 ;; 2018/09/10
-;;      * Built-in `eshell-did-you-mean' plugin.
+;;      * Built-in `aweshell/did-you-mean' plugin.
 ;;
 ;; 2018/09/07
-;;      * Add docs about `eshell-up', `aweshell/emacs' and `aweshell/unpack'
+;;      * Add docs about `aweshell/up', `aweshell/emacs' and `aweshell/unpack'
 ;;      * Add `aweshell/cat-with-syntax-highlight' make cat file with syntax highlight.
 ;;
 ;; 2018/09/06
@@ -192,8 +191,8 @@
 ;;      * Fix error "wrong-type-argument stringp nil" by `aweshell/validate-command'
 ;;      * Add some handy aliases.
 ;;      * Make `aweshell/validate-command' works with eshell aliases.
-;;      * Synchronal buffer name with shell path by `epe-fish-path'.
-;;      * Use `epe-theme-pipeline' as default theme.
+;;      * Synchronal buffer name with shell path by `aweshell/theme-fish-path'.
+;;      * Use `aweshell/theme-theme-pipeline' as default theme.
 ;;      * Complete customize options in docs.
 ;;      * Redirect `clear' alias to `aweshell/clear-buffer'.
 ;;      * Add completions for git command.
@@ -220,17 +219,23 @@
 (require 'subr-x)
 (require 'seq)
 
+;; Aweshell Modules
+(require 'aweshell-theme)
+(require 'aweshell-history)
+(require 'aweshell-did-you-mean)
+(require 'aweshell-up)
+(require 'aweshell-exec-path)
 ;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; OS Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defvar aweshell/use-exec-path-from-shell t)
+(defvar aweshell/use-aweshell/exec-path t)
 
-(when (and aweshell/use-exec-path-from-shell
+(when (and aweshell/use-aweshell/exec-path
            (featurep 'cocoa))
   ;; Initialize environment from user's shell to make eshell know every PATH by other shell.
-  (require 'exec-path-from-shell)
-  (exec-path-from-shell-initialize))
+  (require 'aweshell/exec-path)
+  (aweshell/exec-path-initialize))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Customize ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -895,27 +900,27 @@ Otherwise return nil."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; EShell extensions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; eshell-up.el
-(defalias 'eshell/up 'eshell-up)
-(defalias 'eshell/up-peek 'eshell-up-peek)
+;; aweshell/up.el
+(defalias 'eshell/up 'aweshell/up)
+(defalias 'eshell/up-peek 'aweshell/up-peek)
 
-(defcustom aweshell/theme 'epe-theme-zshrc
+(defcustom aweshell/theme 'aweshell/theme-theme-zshrc
   "The eshell prompt theme to use.
 Available themes:
-  `epe-theme-lambda'     - Minimal lambda theme
-  `epe-theme-dakrone'    - Lambda with directory shrinking
-  `epe-theme-pipeline'   - Oh-my-zsh style
-  `epe-theme-zshrc'      - Replicates a zsh configuration style (default)
-  `epe-theme-multiline-with-status' - Multiline with status info"
+  `aweshell/theme-theme-lambda'     - Minimal lambda theme
+  `aweshell/theme-theme-dakrone'    - Lambda with directory shrinking
+  `aweshell/theme-theme-pipeline'   - Oh-my-zsh style
+  `aweshell/theme-theme-zshrc'      - Replicates a zsh configuration style (default)
+  `aweshell/theme-theme-multiline-with-status' - Multiline with status info"
   :type 'function
   :group 'aweshell)
 
 (defvar aweshell/themes-list
-  '(epe-theme-lambda
-    epe-theme-dakrone
-    epe-theme-pipeline
-    epe-theme-zshrc
-    epe-theme-multiline-with-status)
+  '(aweshell/theme-theme-lambda
+    aweshell/theme-theme-dakrone
+    aweshell/theme-theme-pipeline
+    aweshell/theme-theme-zshrc
+    aweshell/theme-theme-multiline-with-status)
   "Lista de temas disponíveis para Aweshell.")
 
 (defun aweshell/select-theme ()
@@ -998,7 +1003,7 @@ Available themes:
 (defun aweshell/sync-dir-buffer-name ()
   "Change aweshell buffer name by directory change."
   (when (equal major-mode 'eshell-mode)
-    (rename-buffer (format "Aweshell: %s" (epe-fish-path default-directory))
+    (rename-buffer (format "Aweshell: %s" (aweshell/theme-fish-path default-directory))
                    t)))
 
 (add-hook 'eshell-directory-change-hook #'aweshell/sync-dir-buffer-name)
@@ -1058,15 +1063,15 @@ Available themes:
       (while (pcomplete-here (pcomplete-entries))))))
   )
 
-;; eshell-did-you-mean
+;; aweshell/did-you-mean
 ;; command not found (“did you mean…” feature) in Eshell.
 (add-hook 'eshell-mode-hook
           (lambda ()
             (run-with-idle-timer
              1 nil
              #'(lambda ()
-                 (require 'eshell-did-you-mean)
-                 (eshell-did-you-mean-setup)
+                 (require 'aweshell/did-you-mean)
+                 (aweshell/did-you-mean-setup)
                  ))))
 
 ;; Make cat with syntax highlight.
@@ -1146,16 +1151,7 @@ Available themes:
             zsh_history))
       nil))
 
-  (defun aweshell/parse-shell-history ()
-    "Parse history from eshell/bash/zsh/ ."
-    (delete-dups
-     (mapcar
-      (lambda (str)
-        (string-trim (substring-no-properties str)))
-      (append
-       (ring-elements eshell-history-ring)
-       (aweshell/parse-bash-history)
-       (aweshell/parse-zsh-history)))))
+  
 
   (defun aweshell/autosuggest--prefix ()
     "Get current eshell input.

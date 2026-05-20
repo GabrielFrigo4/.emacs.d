@@ -1,10 +1,10 @@
-;;; eshell-up.el --- Quickly go to a specific parent directory in eshell -*- lexical-binding: t; -*-
+;;; aweshell/up.el --- Quickly go to a specific parent directory in eshell -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2016 Peter W. V. Tran-Jørgensen
 
 ;; Author: Peter W. V. Tran-Jørgensen <peter.w.v.jorgensen@gmail.com>
 ;; Maintainer: Peter W. V. Tran-Jørgensen <peter.w.v.jorgensen@gmail.com>
-;; URL: https://github.com/peterwvj/eshell-up
+;; URL: https://github.com/peterwvj/aweshell/up
 ;; Created: 14th October 2016
 ;; Version: 0.0.4
 ;; Package-Requires: ((emacs "24"))
@@ -27,7 +27,7 @@
 
 ;; Package for quickly navigating to a specific parent directory in
 ;; eshell without having to repeatedly typing 'cd ..'.  This is
-;; achieved using the 'eshell-up' function, which can be bound to an
+;; achieved using the 'aweshell/up' function, which can be bound to an
 ;; eshell alias such as 'up'.  As an example, assume that the current
 ;; working directory is:
 ;;
@@ -45,14 +45,14 @@
 ;; match is found then eshell changes to that directory, otherwise it
 ;; does nothing.
 ;;
-;; It is recommended to invoke 'eshell-up' using an alias as done in
+;; It is recommended to invoke 'aweshell/up' using an alias as done in
 ;; the example above.  To do that, add the following to your
 ;; .eshell.aliases file:
 ;;
-;; alias up eshell-up $1
+;; alias up aweshell/up $1
 ;;
-;; The complete description of eshell-up, including other features, is
-;; available at: https://github.com/peterwvj/eshell-up
+;; The complete description of aweshell/up, including other features, is
+;; available at: https://github.com/peterwvj/aweshell/up
 ;;
 ;; This package is inspired by 'bd', which uses bash to implement
 ;; similar functionality.
@@ -63,24 +63,24 @@
 
 ;; User-definable variables
 
-(defvar eshell-up-ignore-case t "Non-nil if searches must ignore case.")
+(defvar aweshell/up-ignore-case t "Non-nil if searches must ignore case.")
 
-(defvar eshell-up-print-parent-dir nil "Non-nil if the parent directory must be printed before ‘eshell-up’ changes to it.")
+(defvar aweshell/up-print-parent-dir nil "Non-nil if the parent directory must be printed before ‘aweshell/up’ changes to it.")
 
-(defun eshell-up-closest-parent-dir (file)
+(defun aweshell/up-closest-parent-dir (file)
   "Find the closest parent directory of a file.
 Argument FILE the file to find the closest parent directory for."
   (file-name-directory
    (directory-file-name
     (expand-file-name file))))
 
-(defun eshell-up-find-parent-dir (path &optional match)
+(defun aweshell/up-find-parent-dir (path &optional match)
   "Find the parent directory based on the user's input.
 Argument PATH the source directory to search from.
 Argument MATCH a string that identifies the parent directory to search for."
-  (let ((closest-parent (eshell-up-closest-parent-dir path)))
+  (let ((closest-parent (aweshell/up-closest-parent-dir path)))
     (if match
-        (let ((case-fold-search eshell-up-ignore-case))
+        (let ((case-fold-search aweshell/up-ignore-case))
           (locate-dominating-file closest-parent
                                   (lambda (parent)
                                     (let ((dir (file-name-nondirectory
@@ -92,32 +92,32 @@ Argument MATCH a string that identifies the parent directory to search for."
       closest-parent)))
 
 ;;;###autoload
-(defun eshell-up (&optional match)
+(defun aweshell/up (&optional match)
   "Go to a specific parent directory in eshell.
 Argument MATCH a string that identifies the parent directory to go
 to."
   (interactive)
   (let* ((path default-directory)
-         (parent-dir (eshell-up-find-parent-dir path match)))
+         (parent-dir (aweshell/up-find-parent-dir path match)))
     (progn
       (when parent-dir
         (eshell/cd parent-dir))
-      (when eshell-up-print-parent-dir
+      (when aweshell/up-print-parent-dir
         (if parent-dir
             (eshell/echo parent-dir)
           (eshell/echo path))))))
 
 ;;;###autoload
-(defun eshell-up-peek (&optional match)
+(defun aweshell/up-peek (&optional match)
   "Find a specific parent directory in eshell.
 Argument MATCH a string that identifies the parent directory to find"
   (interactive)
   (let* ((path default-directory)
-         (parent-dir (eshell-up-find-parent-dir path match)))
+         (parent-dir (aweshell/up-find-parent-dir path match)))
     (if parent-dir
         parent-dir
       path)))
 
-(provide 'eshell-up)
+(provide 'aweshell-up)
 
-;;; eshell-up.el ends here
+;;; aweshell/up.el ends here

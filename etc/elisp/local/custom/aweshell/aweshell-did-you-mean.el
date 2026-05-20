@@ -1,9 +1,9 @@
-;;; eshell-did-you-mean.el --- command not found ("did you mean…" feature) in Eshell  -*- lexical-binding: t; -*-
+;;; aweshell/did-you-mean.el --- command not found ("did you mean…" feature) in Eshell  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2015  Chunyang Xu
 
 ;; Author: Chunyang Xu <xuchunyang56@gmail.com>
-;; URL: https://github.com/xuchunyang/eshell-did-you-mean
+;; URL: https://github.com/xuchunyang/aweshell/did-you-mean
 ;; Package-Requires: ((emacs "24.1") (cl-lib "0.5"))
 ;; Keywords: eshell
 ;; Version: 0.2
@@ -24,7 +24,7 @@
 ;;; Commentary:
 
 ;; Setup:
-;;   (eshell-did-you-mean-setup)
+;;   (aweshell/did-you-mean-setup)
 
 ;;; Code:
 
@@ -32,7 +32,7 @@
 (require 'eshell)
 (require 'pcomplete)
 
-(defun eshell-did-you-mean--edit-distance (s1 s2)
+(defun aweshell/did-you-mean--edit-distance (s1 s2)
   "Return the edit (levenshtein) distance between strings S1 S2.
 
 Adapted from `org-babel-edit-distance'."
@@ -55,7 +55,7 @@ Adapted from `org-babel-edit-distance'."
                   (funcall in (1- i) (1- j)))))))
     (funcall in l1 l2)))
 
-(defun eshell-did-you-mean--edit-distances (string strings &optional threshold)
+(defun aweshell/did-you-mean--edit-distances (string strings &optional threshold)
   "Calculate edit distance of STRING to each element of STRINGS.
 Return a alist of result, the associated value is the edit distance.
 
@@ -63,31 +63,31 @@ If THRESHOLD is non-nil, use is as the maximum edit distance."
   (let ((res (cl-sort
               (mapcar
                (lambda (elt)
-                 (cons elt (eshell-did-you-mean--edit-distance string elt)))
+                 (cons elt (aweshell/did-you-mean--edit-distance string elt)))
                strings)
               '< :key 'cdr)))
     (if threshold
         (cl-subseq res 0 (cl-position threshold res :key 'cdr :test '<))
       res)))
 
-(defvar eshell-did-you-mean--all-commands nil
+(defvar aweshell/did-you-mean--all-commands nil
   "All available commands.")
 
-(defun eshell-did-you-mean--get-all-commands ()
-  "Feed `eshell-did-you-mean--all-commands'."
-  (unless eshell-did-you-mean--all-commands
-    (setq eshell-did-you-mean--all-commands (pcomplete-completions))))
+(defun aweshell/did-you-mean--get-all-commands ()
+  "Feed `aweshell/did-you-mean--all-commands'."
+  (unless aweshell/did-you-mean--all-commands
+    (setq aweshell/did-you-mean--all-commands (pcomplete-completions))))
 
-(defun eshell-did-you-mean-output-filter (output)
+(defun aweshell/did-you-mean-output-filter (output)
   "\"Did you mean\" filter for eshell OUTPUT.
 Should be added to `eshell-preoutput-filter-functions'."
   (if (and eshell-last-command-name
            (string-prefix-p (format "%s: command not found"
                                     eshell-last-command-name)
                             output))
-      (let ((guesses (eshell-did-you-mean--edit-distances
+      (let ((guesses (aweshell/did-you-mean--edit-distances
                       eshell-last-command-name
-                      eshell-did-you-mean--all-commands
+                      aweshell/did-you-mean--all-commands
                       2)))
         (if guesses
             (concat
@@ -102,12 +102,12 @@ Should be added to `eshell-preoutput-filter-functions'."
     output))
 
 ;;;###autoload
-(defun eshell-did-you-mean-setup ()
+(defun aweshell/did-you-mean-setup ()
   "`eshell-did-you' setup."
   (add-hook 'eshell-first-time-mode-hook
-            #'eshell-did-you-mean--get-all-commands)
+            #'aweshell/did-you-mean--get-all-commands)
   (add-to-list 'eshell-preoutput-filter-functions
-               #'eshell-did-you-mean-output-filter))
+               #'aweshell/did-you-mean-output-filter))
 
-(provide 'eshell-did-you-mean)
-;;; eshell-did-you-mean.el ends here
+(provide 'aweshell-did-you-mean)
+;;; aweshell/did-you-mean.el ends here
