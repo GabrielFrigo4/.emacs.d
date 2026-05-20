@@ -14,7 +14,7 @@
 ;;  CORE API FUNCTIONS
 ;; ----------------------------------------------------------------------------
 
-(defun github-fetch-latest-release-data (repo-input)
+(defun github/fetch-latest-release-data (repo-input)
   "Internal helper to fetch the latest release data for a GitHub repo.
 Returns the parsed JSON as an alist on success, or nil on failure."
   (let ((owner-repo (cond
@@ -53,11 +53,11 @@ Returns the parsed JSON as an alist on success, or nil on failure."
 ;;  INTERACTIVE UTILITIES
 ;; ----------------------------------------------------------------------------
 
-(defun github-fetch-latest-release-tag (repo-input)
+(defun github/fetch-latest-release-tag (repo-input)
   "For a GitHub URL or 'owner/repo' string, fetches the latest release tag name.
 Returns the tag name as a string or nil on failure."
   (interactive "sGitHub Repo (URL or owner/repo): ")
-  (let* ((json-data (github-fetch-latest-release-data repo-input))
+  (let* ((json-data (github/fetch-latest-release-data repo-input))
          (tag-name (when json-data
                      (cdr (assoc 'tag_name json-data)))))
     (if tag-name
@@ -67,12 +67,12 @@ Returns the tag name as a string or nil on failure."
       (message "Could not find release tag.")
       nil)))
 
-(defun github-download-latest-release (repo-input &optional download-dir)
+(defun github/download-latest-release (repo-input &optional download-dir)
   "For a GitHub repo, finds the latest release and prompts to download one of its assets."
   (interactive
    (list (read-string "GitHub Repo (URL or owner/repo): ")
          (if (boundp 'download-directory) download-directory "~/")))
-  (let* ((json-data (github-fetch-latest-release-data repo-input)))
+  (let* ((json-data (github/fetch-latest-release-data repo-input)))
     (unless download-dir
       (setq download-dir (if (boundp 'download-directory) download-directory "~/")))
     (if json-data

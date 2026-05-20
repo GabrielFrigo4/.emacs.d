@@ -44,7 +44,7 @@
 ;;  PROGRAMMING
 ;; ----------------------------------------------------------------------------
 
-(defun my-prog-mode-setup ()
+(defun prog-mode/setup ()
   "Settings applicable to all programming modes."
   (setq-local tab-width 4)
   (setq-local indent-tabs-mode 1)
@@ -54,7 +54,7 @@
     (highlight-numbers-mode 1))
   (visual-line-mode -1))
 
-(add-hook 'prog-mode-hook #'my-prog-mode-setup)
+(add-hook 'prog-mode-hook #'prog-mode/setup)
 
 (add-hook 'emacs-lisp-mode-hook (lambda () (setq-local tab-width 2 indent-tabs-mode -1)))
 (add-hook 'emacs-lisp-ts-mode-hook (lambda () (setq-local tab-width 2 indent-tabs-mode -1)))

@@ -2,7 +2,7 @@
 ;;  LATEX FEATURE
 ;; ============================================================================
 
-(setq-default enable-preview-latex t)
+(setq-default latex/preview-enable t)
 
 (use-package auctex
   :ensure (:type git :host github :repo "emacsmirror/auctex" :branch "master")
@@ -40,14 +40,14 @@
                   "amsmath"))
 
   ;; Indentation Hooks
-  (defun tex-setup-tab-width ()
+  (defun tex/setup-tab-width ()
     (setq-local tab-width 4)
     (setq-local tex-indent-basic tab-width)
     (setq-local indent-tabs-mode -1))
-  (add-hook 'tex-mode-hook #'tex-setup-tab-width)
-  (add-hook 'latex-mode-hook #'tex-setup-tab-width)
+  (add-hook 'tex-mode-hook #'tex/setup-tab-width)
+  (add-hook 'latex-mode-hook #'tex/setup-tab-width)
 
-  (defun TeX-setup-tab-width ()
+  (defun TeX/setup-tab-width ()
     (setq-local tab-width 4)
     (setq-local TeX-indent-basic tab-width)
     (setq-local TeX-brace-indent-level tab-width)
@@ -56,11 +56,11 @@
     (setq-local LaTeX-item-indent tab-width)
     (setq-local LaTeX-math-indent tab-width)
     (setq-local indent-tabs-mode -1))
-  (add-hook 'TeX-mode-hook #'TeX-setup-tab-width)
-  (add-hook 'LaTeX-mode-hook #'TeX-setup-tab-width)
+  (add-hook 'TeX-mode-hook #'TeX/setup-tab-width)
+  (add-hook 'LaTeX-mode-hook #'TeX/setup-tab-width)
 
   ;; LaTeX Compilation & Viewing
-  (defun view-latex ()
+  (defun latex/view ()
     "Compile LaTeX with LaTeXMk and Dvipdfmx, then view the PDF in a split window."
     (interactive)
     (let ((orig-buffer (current-buffer)))
@@ -79,24 +79,24 @@
       (find-file (concat TeX-output-dir "/" (TeX-master-file) ".pdf"))))
 
   ;; Preview LaTeX
-  (defun preview-latex ()
+  (defun latex/preview ()
     "Preview Inline LaTeX Without Break Colors"
     (interactive)
     (preview-region (point-min) (point-max)))
 
   ;; Automatic Preview on Open/Save
-  (defun setup-preview-latex ()
+  (defun latex/preview-setup ()
     (when (and
            (and
             (not (zerop (buffer-size)))
             (eq major-mode 'LaTeX-mode))
-           (eq enable-preview-latex t))
+           (eq latex/preview-enable t))
       (let ((__latex-buffer__ (current-buffer)))
-        (preview-latex)
+        (latex/preview)
         (switch-to-buffer __latex-buffer__))))
 
-  (add-hook 'find-file-hook #'setup-preview-latex)
-  (add-hook 'after-save-hook #'setup-preview-latex))
+  (add-hook 'find-file-hook #'latex/preview-setup)
+  (add-hook 'after-save-hook #'latex/preview-setup))
 
 ;; ============================================================================
 ;;  PDF FEATURE
@@ -114,7 +114,7 @@
   (defadvice pdf-cache--prefetch-start (around suppress-timer activate)
     (cancel-function-timers 'pdf-cache--prefetch-start))
   
-  (defun pdf-view-toggle-dark-mode ()
+  (defun pdf-view/toggle-dark-mode ()
     "Toggle dark mode (midnight mode) in pdf-view."
     (interactive)
     (pdf-view-midnight-minor-mode 'toggle))
@@ -122,7 +122,7 @@
   (setq-default pdf-view-display-size 'fit-width)
 
   (with-eval-after-load 'pdf-view
-    (define-key pdf-view-mode-map (kbd "D") #'pdf-view-toggle-dark-mode)
+    (define-key pdf-view-mode-map (kbd "D") #'pdf-view/toggle-dark-mode)
     (define-key pdf-view-mode-map [down-mouse-1] nil)
     (define-key pdf-view-mode-map [drag-mouse-1] nil))
 

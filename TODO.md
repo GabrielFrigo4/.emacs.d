@@ -8,7 +8,6 @@
 
 > Tarefas imediatas a serem aplicadas ou resolvidas na configuração e nas dependências da versão atual do Emacs.
 
-- [ ] Refatorar as Váriaveis (my/)
 - [ ] Fazer funcionar o TreeSitter
 
 ---

@@ -2,7 +2,7 @@
 ;;  TREE-SITTER FEATURE
 ;; ============================================================================
 
-(when my/enable-treesitter
+(when tressit/enable
 
   (require 'treesit)
 
@@ -12,24 +12,24 @@
   ;;  GITHUB INTEGRATION
   ;; ----------------------------------------------------------------------------
 
-  (defvar treesit-language-fixed-version-alist
+  (defvar tressit/language-fixed-version-alist
     '()
     "List of grammars with fixed versions.")
 
-  (defun treesit-generate-stable-list-from-github ()
+  (defun tressit/generate-stable-list-from-github ()
     "Generate a list of grammar sources using fixed versions or latest tags."
     (interactive)
     (message "Generating stable list for Tree-sitter grammars...")
     (let ((stable-list '()))
-      (dolist (source treesit-language-source-branch-alist)
+      (dolist (source tressit/language-source-branch-alist)
         (let* ((lang          (car source))
                (spec          (cdr source))
                (url           (car spec))
                (original-rev  (cadr spec))
                (subdir        (caddr spec))
-               (fixed-version (cdr (assoc lang treesit-language-fixed-version-alist)))
+               (fixed-version (cdr (assoc lang tressit/language-fixed-version-alist)))
                (latest-tag    (unless fixed-version
-                                (ignore-errors (github-fetch-latest-release-tag url))))
+                                (ignore-errors (github/fetch-latest-release-tag url))))
                (final-rev     (or fixed-version latest-tag original-rev)))
           (message "Language: %s -> Using revision: %s" lang final-rev)
           (push `(,lang ,url ,final-rev ,subdir) stable-list)))
@@ -39,7 +39,7 @@
   ;;  GRAMMAR SOURCES
   ;; ----------------------------------------------------------------------------
 
-  (defvar treesit-language-source-branch-alist
+  (defvar tressit/language-source-branch-alist
     '(;; Emacs Oficial Treesit
       ;; CPU
       (c          . ("https://github.com/tree-sitter/tree-sitter-c"                   "master"        "src"))
@@ -165,13 +165,13 @@
                           (let ((lang (car item))
                                 (spec (cdr item)))
                             (list lang (nth 0 spec) (nth 1 spec) (nth 2 spec))))
-                        treesit-language-source-branch-alist))
+                        tressit/language-source-branch-alist))
 
-  (defun tree-sitter-setup ()
+  (defun tressit/setup ()
     "Setup and install all Tree-sitter grammars (with GitHub latest release tags)."
     (interactive)
     (message "Fetching latest grammar versions from GitHub...")
-    (setq treesit-language-source-alist (treesit-generate-stable-list-from-github))
+    (setq treesit-language-source-alist (tressit/generate-stable-list-from-github))
     (let ((out-dir (expand-file-name "lib/tree-sitter" var-dir)))
       (unless (file-exists-p out-dir) (make-directory out-dir t))
       (dolist (source treesit-language-source-alist)

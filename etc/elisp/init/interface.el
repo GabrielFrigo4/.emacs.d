@@ -65,7 +65,7 @@
 (add-to-list 'initial-frame-alist '(width . 87))
 (add-to-list 'initial-frame-alist '(height . 29))
 
-(defun set-frame-center-screen (&optional frame)
+(defun frame/center-screen (&optional frame)
   "Center Frame (or the Current Frame) on the Screen."
   (interactive)
   (let* ((frame (or frame (selected-frame)))
@@ -77,17 +77,17 @@
          (pos-y (/ (- display-height frame-height) 2)))
     (set-frame-position frame pos-x pos-y)))
 
-(defun new-frame-setup (frame)
+(defun frame/new-setup (frame)
   (select-frame frame)
   (if-windows
    (sleep-for 0.036)
    (sleep-for 0.032))
-  (set-frame-center-screen frame))
+  (frame/center-screen frame))
 
 (dolist (frame (frame-list))
-  (new-frame-setup frame))
+  (frame/new-setup frame))
 
-(add-hook 'after-make-frame-functions 'new-frame-setup)
+(add-hook 'after-make-frame-functions 'frame/new-setup)
 
 ;; ----------------------------------------------------------------------------
 ;;  BUFFER MANAGEMENT
@@ -98,29 +98,29 @@
 (setq-default shell-buffers '("*Shell Configuration*"))
 (setq-default org-buffers '())
 
-(defun eaf-buffer-p (buffer)
+(defun eaf/buffer-p (buffer)
   "Return t if BUFFER is related to EAF (checks Major Mode or Name Prefix)."
   (let ((name (buffer-name buffer)))
     (or (with-current-buffer buffer (eq major-mode 'eaf-mode))
         (string-prefix-p "*eaf" name))))
 
-(defun kill-all-buffers ()
+(defun buffer/kill-all ()
   "Kill all Buffers. Kills EAF even with active processes, but protects other processes."
   (interactive)
   (async-sleep (expt 2 -8))
   (dolist (buffer (buffer-list))
-    (unless (and (get-buffer-process buffer) (not (eaf-buffer-p buffer)))
+    (unless (and (get-buffer-process buffer) (not (eaf/buffer-p buffer)))
       (ignore-errors (kill-buffer buffer)))))
 
-(defun kill-all-other-buffers ()
+(defun buffer/kill-all-other ()
   "Kill all other Buffers. Kills EAF even with active processes, but protects other processes."
   (interactive)
   (async-sleep (expt 2 -8))
   (dolist (buffer (delq (current-buffer) (buffer-list)))
-    (unless (and (get-buffer-process buffer) (not (eaf-buffer-p buffer)))
+    (unless (and (get-buffer-process buffer) (not (eaf/buffer-p buffer)))
       (ignore-errors (kill-buffer buffer)))))
 
-(defun kill-nstd-buffers ()
+(defun buffer/kill-nstd ()
   "Kill Non-Standard Buffers. PROTECTS EAF if it has active processes."
   (interactive)
   (dolist (buffer (buffer-list))
@@ -128,7 +128,7 @@
       (unless (or (member name standard-buffers) (get-buffer-process buffer))
         (ignore-errors (kill-buffer buffer))))))
 
-(defun kill-nstd-other-buffers ()
+(defun buffer/kill-nstd-other ()
   "Kill Non-Standard Buffers (except current). PROTECTS EAF if it has active processes."
   (interactive)
   (dolist (buffer (delq (current-buffer) (buffer-list)))
@@ -136,15 +136,15 @@
       (unless (or (member name standard-buffers) (get-buffer-process buffer))
         (ignore-errors (kill-buffer buffer))))))
 
-(defun kill-eaf-buffers ()
+(defun buffer/kill-eaf ()
   "Kill ALL EAF related buffers (App, EPC, Monitor, etc), regardless of process."
   (interactive)
   (async-sleep (expt 2 -8))
   (dolist (buffer (buffer-list))
-    (when (eaf-buffer-p buffer)
+    (when (eaf/buffer-p buffer)
       (ignore-errors (kill-buffer buffer)))))
 
-(defun kill-pkg-buffers ()
+(defun buffer/kill-pkg ()
   "Kill Package Manager Buffers ONLY if no process is running."
   (interactive)
   (async-sleep (expt 2 -8))
@@ -153,7 +153,7 @@
       (when (and buffer (not (get-buffer-process buffer)))
         (kill-buffer buffer)))))
 
-(defun kill-shell-buffers ()
+(defun buffer/kill-shell ()
   "Kill Shell Configuration Buffers ONLY if no process is running."
   (interactive)
   (async-sleep (expt 2 -8))
@@ -162,7 +162,7 @@
       (when (and buffer (not (get-buffer-process buffer)))
         (kill-buffer buffer)))))
 
-(defun kill-org-buffers ()
+(defun buffer/kill-org ()
   "Kill Org Mode Specific Buffers ONLY if no process is running."
   (interactive)
   (async-sleep (expt 2 -8))
@@ -171,23 +171,23 @@
       (when (and buffer (not (get-buffer-process buffer)))
         (kill-buffer buffer)))))
 
-(defun setup-buffer-eol ()
+(defun buffer/setup-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
   (interactive)
   (setq buffer-display-table (make-display-table))
   (aset buffer-display-table ?\^M []))
 
-(add-hook 'after-init-hook #'setup-buffer-eol)
+(add-hook 'after-init-hook #'buffer/setup-eol)
 
 (add-hook 'window-setup-hook
           (lambda ()
             (let ((delay (if (eq system-type 'windows-nt)
                              "2.4 sec"
                            "1.6 sec")))
-              (run-at-time delay nil #'kill-shell-buffers)
-              (run-at-time delay nil #'kill-org-buffers)
-              (run-at-time delay nil #'kill-pkg-buffers)
-              (run-at-time delay nil #'kill-eaf-buffers))))
+              (run-at-time delay nil #'buffer/kill-shell)
+              (run-at-time delay nil #'buffer/kill-org)
+              (run-at-time delay nil #'buffer/kill-pkg)
+              (run-at-time delay nil #'buffer/kill-eaf))))
 
 ;; ----------------------------------------------------------------------------
 ;;  SERVER CONFIGURATION

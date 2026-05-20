@@ -6,7 +6,7 @@
 ;;  TEMPLATE VARIABLES
 ;; ----------------------------------------------------------------------------
 
-(defvar unix-manual-template-list
+(defvar mandoc/template-list
   ["https://www.commandlinux.com/man-page/man%s/%s.%s.html"
    "https://www.man7.org/linux/man-pages/man%s/%s.%s.html"
    "https://man.cx/%s(%s)"
@@ -16,8 +16,8 @@
    "https://man.dragonflybsd.org/?command=%s&section=%s"]
   "Unix Manual Template List")
 
-(defvar unix-manual-active 0
-  "Index of the active manual template in `unix-manual-template-list`.")
+(defvar mandoc/active 0
+  "Index of the active manual template in `mandoc/template-list`.")
 
 ;; ----------------------------------------------------------------------------
 ;;  BROWSER BACKENDS
@@ -28,7 +28,7 @@
 BROWSER is the function to open the URL.
 SECTION is the manual section.
 COMMAND is the manual entry name."
-  (let* ((url-template (aref unix-manual-template-list unix-manual-active))
+  (let* ((url-template (aref mandoc/template-list mandoc/active))
          (number (if (and (> (length section) 0)
                           (not (string-match-p "[0-9]" (string (aref section (1- (length section)))))))
                      (substring section 0 (1- (length section)))

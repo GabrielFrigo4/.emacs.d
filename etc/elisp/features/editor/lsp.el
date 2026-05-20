@@ -28,12 +28,12 @@
   (with-eval-after-load 'flymake
     (remove-hook 'flymake-diagnostic-functions 'flymake-proc-legacy-flymake))
 
-  (defun lsp-go-install-save-hooks ()
+  (defun lsp/go-install-save-hooks ()
     (setq-local apheleia-inhibit t)
     (add-hook 'before-save-hook #'lsp-organize-imports nil t)
     (add-hook 'before-save-hook #'lsp-format-buffer nil t))
-  (add-hook 'go-mode-hook #'lsp-go-install-save-hooks)
-  (add-hook 'go-ts-mode-hook #'lsp-go-install-save-hooks))
+  (add-hook 'go-mode-hook #'lsp/go-install-save-hooks)
+  (add-hook 'go-ts-mode-hook #'lsp/go-install-save-hooks))
 
 (use-package lsp-ui
   :ensure (:type git :host github :repo "emacs-lsp/lsp-ui" :branch "master")

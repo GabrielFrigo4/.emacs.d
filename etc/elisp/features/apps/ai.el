@@ -2,7 +2,7 @@
 ;;  AI FEATURE
 ;; ============================================================================
 
-(when my/enable-ai
+(when ia/enable
 
   (use-package llm
     :ensure (:type git :host github :repo "emacsmirror/llm" :branch "master")
@@ -91,7 +91,7 @@
     (setq-default org-ai-default-inject-sys-prompt-for-all-messages t)
     (setq-default org-ai-default-chat-model llm-google-model))
 
-  (when my/enable-minuet
+  (when minuet/enable
     (use-package minuet
       :ensure t
       :bind

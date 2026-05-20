@@ -28,7 +28,7 @@
 (global-set-key (kbd "C-c b e")  'eval-buffer)
 (global-set-key (kbd "C-c b k")  'kill-current-buffer)
 (global-set-key (kbd "C-c w k")  'kill-buffer-and-window)
-(global-set-key (kbd "C-c n")    'kill-nstd-other-buffers)
+(global-set-key (kbd "C-c n")    'buffer/kill-nstd-other)
 
 ;; System / Editing
 (global-set-key (kbd "<apps>")   'execute-extended-command)
@@ -62,7 +62,7 @@
 (global-set-key (kbd "C->")            'mc/mark-next-like-this)
 
 ;; LaTeX
-(global-set-key (kbd "C-c v")  #'view-latex)
-(global-set-key (kbd "C-c p")  #'preview-latex)
+(global-set-key (kbd "C-c v")  #'latex/view)
+(global-set-key (kbd "C-c p")  #'latex/preview)
 
 (provide 'init-keybindings)
