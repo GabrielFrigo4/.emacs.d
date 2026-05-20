@@ -10,7 +10,8 @@
   :ensure (:type git :host github :repo "emacsmirror/no-littering" :branch "master")
   :config
   (setq auto-save-file-name-transforms
-        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+  (setq gnus-home-directory (expand-file-name "gnus/" var-dir)))
 
 (set-language-environment "UTF-8")
 (prefer-coding-system 'utf-8)

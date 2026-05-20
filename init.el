@@ -18,7 +18,11 @@
 (setq opt-dir (expand-file-name "opt/" emacs-dir))
 (setq lib-dir (expand-file-name "lib/" emacs-dir))
 (setq tmp-dir (expand-file-name "tmp/" emacs-dir))
+(setq usr-dir (expand-file-name "usr/" emacs-dir))
 (setq temporary-file-directory tmp-dir)
+
+(setq eshell-directory-name (expand-file-name "eshell/" var-dir))
+(setq eshell-aliases-file (expand-file-name "eshell/alias" usr-dir))
 
 (setq package-gnupghome-dir (expand-file-name "lib/elpa/gnupg" var-dir))
 (setq download-directory (expand-file-name "Downloads" home-dir))
@@ -37,6 +41,18 @@
 (unless (file-exists-p backup-dir) (make-directory backup-dir t))
 (unless (file-exists-p lock-dir) (make-directory lock-dir t))
 (unless (file-exists-p tmp-dir) (make-directory tmp-dir t))
+(unless (file-exists-p usr-dir) (make-directory usr-dir t))
+(unless (file-exists-p (file-name-directory eshell-aliases-file))
+  (make-directory (file-name-directory eshell-aliases-file) t))
+
+;; Clear temporary directory on startup
+(when (file-directory-p tmp-dir)
+  (dolist (file (directory-files tmp-dir t "^[^.]"))
+    (condition-case nil
+        (if (file-directory-p file)
+            (delete-directory file t)
+          (delete-file file))
+      (error nil))))
 
 (setq treesit-extra-load-path (list (expand-file-name "lib/tree-sitter/" var-dir)))
 
@@ -100,31 +116,31 @@
 ;;  MODULAR CONFIGURATION
 ;; ============================================================================
 
-(let ((elisp-dir (expand-file-name "elisp/" etc-dir)))
-  (defun load-directory-recursive (directory)
-    "Load all .el files in DIRECTORY and its sub-directories."
-    (when (file-directory-p directory)
-      (let ((files (directory-files-recursively directory "\\.el$")))
-        (dolist (file files)
-          (condition-case err
-              (load file)
-            (error (message "ERROR loading %s: %s" file (error-message-string err))))))))
+(defun load-directory-recursive (directory)
+  "Load all .el files in DIRECTORY and its sub-directories."
+  (when (file-directory-p directory)
+    (let ((files (directory-files-recursively directory "\\.el$")))
+      (dolist (file files)
+        (condition-case err
+            (load file)
+          (error (message "ERROR loading %s: %s" file (error-message-string err))))))))
 
-  ;; ----------------------------------------------------------------------------
-  ;;  CORE INITIALIZATION
-  ;; ----------------------------------------------------------------------------
-  (mapc (lambda (file) (load (expand-file-name (format "init/%s" file) elisp-dir)))
-        '("packages" "interface" "settings" "keybindings"))
+;; ----------------------------------------------------------------------------
+;;  CORE INITIALIZATION
+;; ----------------------------------------------------------------------------
+(mapc (lambda (file) (load (expand-file-name (format "init/%s" file) etc-dir)))
+      '("packages" "interface" "settings" "keybindings"))
 
-  ;; ----------------------------------------------------------------------------
-  ;;  FEATURE MODULES
-  ;; ----------------------------------------------------------------------------
-  (load-directory-recursive (expand-file-name "features/" elisp-dir))
+;; ----------------------------------------------------------------------------
+;;  FEATURE MODULES
+;; ----------------------------------------------------------------------------
+(dolist (feature '("apps" "editor" "lang" "tools"))
+  (load-directory-recursive (expand-file-name feature etc-dir)))
 
-  ;; ----------------------------------------------------------------------------
-  ;;  LOCAL MODES
-  ;; ----------------------------------------------------------------------------
-  (load-directory-recursive (expand-file-name "local/" elisp-dir)))
+;; ----------------------------------------------------------------------------
+;;  USER / LOCAL CONFIGURATION
+;; ----------------------------------------------------------------------------
+(load-directory-recursive usr-dir)
 
 ;; ============================================================================
 ;;  EMACS SERVER

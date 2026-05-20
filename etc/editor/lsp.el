@@ -4,6 +4,8 @@
 
 (use-package yasnippet
   :ensure t
+  :custom
+  (yas-snippet-dirs (list (expand-file-name "snippets" usr-dir)))
   :config
   (yas-global-mode 1))
 

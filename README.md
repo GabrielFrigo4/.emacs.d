@@ -188,6 +188,7 @@
 ### 🐧 Linux
 
 ```zsh
+mkdir -p "${HOME}/.emacs.d/opt/eaf/"
 git clone --depth=1 -b master "https://github.com/emacs-eaf/emacs-application-framework.git" "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
 cd "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
 chmod +x ./install-eaf.py
@@ -207,6 +208,7 @@ chmod +x ./install-eaf.py
 ### 🪟 Windows
 
 ```pwsh
+mkdir -p "${HOME}/.emacs.d/opt/eaf/"
 git clone --depth=1 -b master "https://github.com/emacs-eaf/emacs-application-framework.git" "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
 cd "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
 python install-eaf.py

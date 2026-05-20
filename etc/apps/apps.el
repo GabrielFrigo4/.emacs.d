@@ -50,7 +50,7 @@
 (use-package eww
   :ensure nil
   :config
-  (add-to-list 'load-path (expand-file-name "etc/elisp/local/custom/aweww" user-emacs-directory))
+  (add-to-list 'load-path (expand-file-name "usr/local/aweww" user-emacs-directory))
   (require 'aweww))
 
 (provide 'feature-apps)

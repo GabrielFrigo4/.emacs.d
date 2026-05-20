@@ -8,7 +8,7 @@
   :defer t
   :bind ("C-c v" . vterm))
 
-;; Aweshell config (loaded from local/custom/aweshell/)
+;; Aweshell config (loaded from usr/local/aweshell/)
 (with-eval-after-load 'aweshell
   (setq-default aweshell/validate-executable nil)
   (setq-default aweshell/auto-suggestion-p t)
