@@ -160,8 +160,8 @@
   "Prompt path name style."
   :group 'epe
   :type '(choice (const :tag "fish-style-dir-name" fish)
-          (const :tag "single-dir-name" single)
-          (const :tag "full-path-name" full)))
+                 (const :tag "single-dir-name" single)
+                 (const :tag "full-path-name" full)))
 
 (defcustom aweshell/theme-fish-path-max-len 30
   "Default maximum length for path in `aweshell/theme-fish-path'."
@@ -592,8 +592,8 @@ Retorna (branch . dirty-p) ou nil se fora de um repositório."
        (aweshell/theme-git-prompt-info)
        'aweshell/theme-git-face)))
    (aweshell/theme-colorize-with-face " λ" (if (zerop eshell-last-command-status)
-                                    'aweshell/theme-success-face
-                                  'aweshell/theme-error-face))
+                                               'aweshell/theme-success-face
+                                             'aweshell/theme-error-face))
    (aweshell/theme-colorize-with-face (if (= (user-uid) 0) "#" "") 'aweshell/theme-sudo-symbol-face)
    " "))
 
@@ -631,10 +631,10 @@ Retorna (branch . dirty-p) ou nil se fora de um repositório."
      (when (and aweshell/theme-show-python-info (bound-and-true-p venv-current-name))
        (aweshell/theme-colorize-with-face (concat "(" venv-current-name ") ") 'aweshell/theme-venv-face))
      (aweshell/theme-colorize-with-face (funcall
-                              shrink-paths
-                              (split-string (funcall pwd-repl-home (aweshell/theme-pwd))
-                                            "/"))
-                             'aweshell/theme-dir-face)
+                                         shrink-paths
+                                         (split-string (funcall pwd-repl-home (aweshell/theme-pwd))
+                                                       "/"))
+                                        'aweshell/theme-dir-face)
      (when (aweshell/theme-git-p)
        (concat
         (aweshell/theme-colorize-with-face ":" 'aweshell/theme-dir-face)
@@ -642,8 +642,8 @@ Retorna (branch . dirty-p) ou nil se fora de um repositório."
          (aweshell/theme-git-prompt-info)
          'aweshell/theme-git-face)))
      (aweshell/theme-colorize-with-face " λ" (if (zerop eshell-last-command-status)
-                                      'aweshell/theme-success-face
-                                    'aweshell/theme-error-face))
+                                                 'aweshell/theme-success-face
+                                               'aweshell/theme-error-face))
      (aweshell/theme-colorize-with-face (if (= (user-uid) 0) "#" "") 'aweshell/theme-sudo-symbol-face)
      " ")))
 
@@ -653,17 +653,17 @@ Retorna (branch . dirty-p) ou nil se fora de um repositório."
   (concat
    (if (aweshell/theme-remote-p)
        (progn
-	 (concat
-	  (aweshell/theme-colorize-with-face "┌─[" 'aweshell/theme-pipeline-delimiter-face)
-	  (aweshell/theme-colorize-with-face (aweshell/theme-remote-user) 'aweshell/theme-pipeline-user-face)
-	  (aweshell/theme-colorize-with-face "@" 'aweshell/theme-pipeline-delimiter-face)
-	  (aweshell/theme-colorize-with-face (aweshell/theme-remote-host) 'aweshell/theme-pipeline-host-face)))
+	       (concat
+	        (aweshell/theme-colorize-with-face "┌─[" 'aweshell/theme-pipeline-delimiter-face)
+	        (aweshell/theme-colorize-with-face (aweshell/theme-remote-user) 'aweshell/theme-pipeline-user-face)
+	        (aweshell/theme-colorize-with-face "@" 'aweshell/theme-pipeline-delimiter-face)
+	        (aweshell/theme-colorize-with-face (aweshell/theme-remote-host) 'aweshell/theme-pipeline-host-face)))
      (progn
        (concat
-	(aweshell/theme-colorize-with-face "┌─[" 'aweshell/theme-pipeline-delimiter-face)
-	(aweshell/theme-colorize-with-face (user-login-name) 'aweshell/theme-pipeline-user-face)
-	(aweshell/theme-colorize-with-face "@" 'aweshell/theme-pipeline-delimiter-face)
-	(aweshell/theme-colorize-with-face (system-name) 'aweshell/theme-pipeline-host-face))))
+	      (aweshell/theme-colorize-with-face "┌─[" 'aweshell/theme-pipeline-delimiter-face)
+	      (aweshell/theme-colorize-with-face (user-login-name) 'aweshell/theme-pipeline-user-face)
+	      (aweshell/theme-colorize-with-face "@" 'aweshell/theme-pipeline-delimiter-face)
+	      (aweshell/theme-colorize-with-face (system-name) 'aweshell/theme-pipeline-host-face))))
    (concat
     (aweshell/theme-colorize-with-face "]──[" 'aweshell/theme-pipeline-delimiter-face)
     (when aweshell/theme-pipeline-show-time
@@ -871,11 +871,11 @@ Multi-line prompt with OS info, time, date, directory, user, and git."
                                            (aweshell/theme-colorize-with-face "*" 'aweshell/theme-zshrc-git-dirty-face)
                                          "")))
                        (concat
-                         (aweshell/theme-colorize-with-face "❮" delimiter-face)
-                         (aweshell/theme-colorize-with-face "  " 'aweshell/theme-zshrc-git-icon-face)
-                         (aweshell/theme-colorize-with-face branch 'aweshell/theme-zshrc-git-branch-face)
-                         indicator
-                         (aweshell/theme-colorize-with-face " ❯" delimiter-face))))))
+                        (aweshell/theme-colorize-with-face "❮" delimiter-face)
+                        (aweshell/theme-colorize-with-face "  " 'aweshell/theme-zshrc-git-icon-face)
+                        (aweshell/theme-colorize-with-face branch 'aweshell/theme-zshrc-git-branch-face)
+                        indicator
+                        (aweshell/theme-colorize-with-face " ❯" delimiter-face))))))
     (concat
      ;; Line 1: OS version and shell name
      "\n"

@@ -13,17 +13,17 @@
   (setq-default aweshell/validate-executable nil)
   (setq-default aweshell/auto-suggestion-p t)
   (if-windows
-      (setq-default aweshell/validate-delay (expt 2 -0.5))
-    (setq-default aweshell/validate-delay (expt 2 -1))))
+   (setq-default aweshell/validate-delay (expt 2 -0.5))
+   (setq-default aweshell/validate-delay (expt 2 -1))))
 
 ;; Shell Configuration
 (when-unix
-  (setq-default explicit-shell-file-name "/bin/zsh")
-  (setq-default shell-file-name "zsh")
-  (setq-default shell-command-switch "-c"))
+ (setq-default explicit-shell-file-name "/bin/zsh")
+ (setq-default shell-file-name "zsh")
+ (setq-default shell-command-switch "-c"))
 
 (when-windows
-  (setq-default w32-quote-process-args t))
+ (setq-default w32-quote-process-args t))
 
 ;; ============================================================================
 ;;  TERMINAL FEATURE

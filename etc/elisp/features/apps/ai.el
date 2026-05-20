@@ -33,9 +33,9 @@
 
     (setq-default ollama-backend
                   (gptel-make-ollama "Ollama"
-                    :host "localhost:11434"
-                    :stream t
-                    :models '(llama3.2 mistral qwen2.5-coder gemma3)))
+                                     :host "localhost:11434"
+                                     :stream t
+                                     :models '(llama3.2 mistral qwen2.5-coder gemma3)))
 
     (setq-default gptel-model   'gemini-2.5-flash)
     (setq-default gptel-backend gemini-backend)

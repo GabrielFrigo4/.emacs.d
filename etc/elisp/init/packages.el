@@ -61,7 +61,7 @@
 (elpaca `(,@elpaca-order))
 
 (elpaca elpaca-use-package
-  (elpaca-use-package-mode))
+        (elpaca-use-package-mode))
 
 (elpaca-wait)
 
