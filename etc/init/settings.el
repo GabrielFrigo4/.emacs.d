@@ -11,7 +11,23 @@
   :config
   (setq auto-save-file-name-transforms
         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
-  (setq gnus-home-directory (expand-file-name "gnus/" var-dir)))
+
+  (setq gnus-home-directory (expand-file-name "gnus/" var-dir))
+  (setq gnus-init-file (expand-file-name "gnus/init.el" var-dir))
+  (setq gnus-startup-file (expand-file-name "gnus/newsrc" var-dir))
+  (setq gnus-dribble-directory (expand-file-name "gnus/dribble/" var-dir))
+  (setq eshell-aliases-file (expand-file-name "eshell/alias" usr-dir))
+  (setq eshell-login-script (expand-file-name "eshell/login" usr-dir))
+  (setq eshell-rc-script (expand-file-name "eshell/rc" usr-dir))
+
+  (let ((clean-empty-dir (lambda (dir)
+                           (when (and (file-directory-p dir)
+                                      (null (directory-files dir nil "^[^.]")))
+                             (delete-directory dir)))))
+    (with-eval-after-load 'eshell
+      (funcall clean-empty-dir (expand-file-name "eshell/" etc-dir)))
+    (with-eval-after-load 'gnus
+      (funcall clean-empty-dir (expand-file-name "gnus/" etc-dir)))))
 
 (set-language-environment "UTF-8")
 (prefer-coding-system 'utf-8)
