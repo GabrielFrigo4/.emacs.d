@@ -7,18 +7,23 @@
 (setq-default elpaca-log-level 'error)
 (setq-default elpaca-lock-file (expand-file-name "elpaca.lock" lock-dir))
 
-(defvar elpaca-installer-version 0.11)
-(defvar elpaca-directory       (expand-file-name "lib/elpaca/"          var-dir))
+(defvar elpaca-installer-version 0.12)
+(defvar elpaca-directory (expand-file-name "lib/elpaca/" var-dir))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
-(defvar elpaca-repos-directory  (expand-file-name "repos/"  elpaca-directory))
-(defvar elpaca-cache-directory  (expand-file-name "cache/"  elpaca-directory))
+(defvar elpaca-sources-directory (expand-file-name "sources/" elpaca-directory))
+(defvar elpaca-cache-directory (expand-file-name "cache/" elpaca-directory))
 
 (dolist (dir (list elpaca-directory
                    elpaca-builds-directory
-                   elpaca-repos-directory
+                   elpaca-sources-directory
                    elpaca-cache-directory))
   (unless (file-exists-p dir)
     (make-directory dir t)))
+
+(let ((melpa-dir (expand-file-name "melpa/" elpaca-cache-directory)))
+  (when (and (file-exists-p melpa-dir)
+             (not (file-exists-p (expand-file-name "recipes/" melpa-dir))))
+    (delete-directory melpa-dir t)))
 
 (defvar elpaca-order
   '(elpaca :repo "https://github.com/progfolio/elpaca.git"
@@ -26,9 +31,9 @@
            :depth 1
            :inherit ignore
            :files (:defaults "elpaca-test.el" (:exclude "extensions"))
-           :build (:not elpaca--activate-package)))
+           :build (:not elpaca-activate)))
 
-(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-sources-directory))
        (build (expand-file-name "elpaca/" elpaca-builds-directory))
        (order (cdr elpaca-order))
        (default-directory repo))

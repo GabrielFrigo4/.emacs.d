@@ -36,6 +36,7 @@
 (unless (file-exists-p cache-dir) (make-directory cache-dir t))
 (unless (file-exists-p backup-dir) (make-directory backup-dir t))
 (unless (file-exists-p lock-dir) (make-directory lock-dir t))
+(unless (file-exists-p tmp-dir) (make-directory tmp-dir t))
 
 (setq treesit-extra-load-path (list (expand-file-name "lib/tree-sitter/" var-dir)))
 
