@@ -30,13 +30,13 @@
 
 Aweshell supports multiple prompt themes out of the box via `aweshell-theme`:
 
-| Theme                                        | Style                                                 |
-| -------------------------------------------- | ----------------------------------------------------- |
-| `aweshell/theme-theme-pipeline`              | Oh-my-zsh style with user, time, and path             |
-| `aweshell/theme-theme-zshrc`                 | Multi-line zsh replica with OS info, time, date, git  |
-| `aweshell/theme-theme-lambda`                | Minimal lambda prompt                                 |
-| `aweshell/theme-theme-dakrone`               | Lambda with directory shrinking                       |
-| `aweshell/theme-theme-multiline-with-status` | Multiline with command duration                       |
+| Theme                                        | Style                                                |
+| -------------------------------------------- | ---------------------------------------------------- |
+| `aweshell/theme-theme-pipeline`              | Oh-my-zsh style with user, time, and path            |
+| `aweshell/theme-theme-zshrc`                 | Multi-line zsh replica with OS info, time, date, git |
+| `aweshell/theme-theme-lambda`                | Minimal lambda prompt                                |
+| `aweshell/theme-theme-dakrone`               | Lambda with directory shrinking                      |
+| `aweshell/theme-theme-multiline-with-status` | Multiline with command duration                      |
 
 Set your theme:
 
