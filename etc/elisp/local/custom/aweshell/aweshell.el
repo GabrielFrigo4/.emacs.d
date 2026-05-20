@@ -986,7 +986,7 @@ Available themes:
 Updates alias definitions in memory and writes to disk only when changed,
 suppressing minibuffer write messages."
   (require 'em-alias)
-  (let ((aliases '(("clear" "clear-scrollback")
+  (let ((aliases `(("clear" "clear-scrollback")
                    ("ll" "ls -la $*")
                    ("la" "ls -a $*")
                    ("l"  "ls -l $*")
@@ -1001,7 +1001,18 @@ suppressing minibuffer write messages."
                    ("cp" "cp -i $*")
                    ("mv" "mv -i $*")
                    ("e" "find-file $1")
-                   ("ee" "find-file-other-window $1")))
+                   ("ee" "find-file-other-window $1")
+                   ("gcc" "gcc -fdiagnostics-color=always $*")
+                   ("g++" "g++ -fdiagnostics-color=always $*")
+                   ("clang" ,(if (eq system-type 'windows-nt)
+                                 "clang -fcolor-diagnostics -fansi-escape-codes $*"
+                               "clang -fcolor-diagnostics $*"))
+                   ("clang++" ,(if (eq system-type 'windows-nt)
+                                   "clang++ -fcolor-diagnostics -fansi-escape-codes $*"
+                                 "clang++ -fcolor-diagnostics $*"))
+                   ("cc" "cc -fdiagnostics-color=always $*")
+                   ("CC" "CC -fdiagnostics-color=always $*")
+                   ("c++" "c++ -fdiagnostics-color=always $*")))
         (changed nil))
     (dolist (alias-def aliases)
       (let* ((alias (car alias-def))
