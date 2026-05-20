@@ -693,11 +693,12 @@ Otherwise return nil."
 (defun aweshell/on-input-line-p ()
   "Return non-nil if the current line is the active eshell input line."
   (and (derived-mode-p 'eshell-mode)
-       (fboundp 'eshell-beginning-of-input)
-       (>= (line-end-position) (eshell-beginning-of-input))
+       (boundp 'eshell-last-output-end)
+       (markerp eshell-last-output-end)
+       (>= (line-end-position) eshell-last-output-end)
        (not (< (line-beginning-position)
                (save-excursion
-                 (goto-char (eshell-beginning-of-input))
+                 (goto-char eshell-last-output-end)
                  (line-beginning-position))))))
 
 (defun aweshell/validate-command ()
@@ -1227,9 +1228,10 @@ suppressing minibuffer write messages."
 
 If this function return non-nil prefix, aweshell will popup completion menu in aweshell buffer.
 This function only return prefix when current point at eshell prompt line, avoid insert unnecessary indent char, such as ghci prompt. (See issue #49)."
-    (when (save-excursion
-            (beginning-of-line)
-            (looking-at-p eshell-prompt-regexp))
+    (when (and (aweshell/on-input-line-p)
+               (save-excursion
+                 (beginning-of-line)
+                 (looking-at-p eshell-prompt-regexp)))
       (string-trim-left
        (buffer-substring-no-properties
         (save-excursion

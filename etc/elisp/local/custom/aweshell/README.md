@@ -28,20 +28,20 @@
 
 ## Prompt Themes
 
-Aweshell supports multiple prompt themes via `eshell-prompt-extras`:
+Aweshell supports multiple prompt themes out of the box via `aweshell-theme`:
 
-| Theme                             | Style                                                |
-| --------------------------------- | ---------------------------------------------------- |
-| `epe-theme-pipeline`              | Oh-my-zsh style with user, time, and path (default)  |
-| `epe-theme-zshrc`                 | Multi-line zsh replica with OS info, time, date, git |
-| `epe-theme-lambda`                | Minimal lambda prompt                                |
-| `epe-theme-dakrone`               | Lambda with directory shrinking                      |
-| `epe-theme-multiline-with-status` | Multiline with command duration                      |
+| Theme                                        | Style                                                 |
+| -------------------------------------------- | ----------------------------------------------------- |
+| `aweshell/theme-theme-pipeline`              | Oh-my-zsh style with user, time, and path             |
+| `aweshell/theme-theme-zshrc`                 | Multi-line zsh replica with OS info, time, date, git  |
+| `aweshell/theme-theme-lambda`                | Minimal lambda prompt                                 |
+| `aweshell/theme-theme-dakrone`               | Lambda with directory shrinking                       |
+| `aweshell/theme-theme-multiline-with-status` | Multiline with command duration                       |
 
 Set your theme:
 
 ```elisp
-(setq aweshell-theme 'epe-theme-zshrc)
+(setq aweshell/theme 'aweshell/theme-theme-zshrc)
 ```
 
 ---
@@ -77,19 +77,19 @@ Add the aweshell directory to your `load-path`:
 
 ```elisp
 (use-package aweshell
-  :commands (aweshell-new aweshell-toggle)
+  :commands (aweshell/new aweshell/toggle)
   :config
   ;; Theme selection
-  (setq aweshell-theme 'epe-theme-zshrc)
+  (setq aweshell/theme 'aweshell/theme-theme-zshrc)
 
   ;; Disable executable validation for faster input
-  (setq aweshell-validate-executable nil)
+  (setq aweshell/validate-executable nil)
 
   ;; Enable fish-like auto-suggestions
-  (setq aweshell-auto-suggestion-p t)
+  (setq aweshell/auto-suggestion-p t)
 
   ;; Validation delay (lower = faster, higher = less CPU)
-  (setq aweshell-validate-delay (expt 2 -1)))
+  (setq aweshell/validate-delay (expt 2 -1)))
 ```
 
 ---
@@ -128,17 +128,17 @@ Add the aweshell directory to your `load-path`:
 
 | Command                     | Description                          |
 | --------------------------- | ------------------------------------ |
-| `aweshell-new`              | Create a new eshell buffer           |
-| `aweshell-next`             | Switch to next eshell buffer         |
-| `aweshell-prev`             | Switch to previous eshell buffer     |
-| `aweshell-toggle`           | Toggle eshell visibility             |
-| `aweshell-switch-buffer`    | Select eshell buffer with completion |
-| `aweshell-dedicated-toggle` | Toggle dedicated bottom panel        |
-| `aweshell-dedicated-open`   | Open dedicated panel                 |
-| `aweshell-dedicated-close`  | Close dedicated panel                |
-| `aweshell-clear-buffer`     | Clear the eshell buffer              |
-| `aweshell-sudo-toggle`      | Toggle sudo for current command      |
-| `aweshell-search-history`   | Search through shell history         |
+| `aweshell/new`              | Create a new eshell buffer           |
+| `aweshell/next`             | Switch to next eshell buffer         |
+| `aweshell/prev`             | Switch to previous eshell buffer     |
+| `aweshell/toggle`           | Toggle eshell visibility             |
+| `aweshell/switch-buffer`    | Select eshell buffer with completion |
+| `aweshell/dedicated-toggle` | Toggle dedicated bottom panel        |
+| `aweshell/dedicated-open`   | Open dedicated panel                 |
+| `aweshell/dedicated-close`  | Close dedicated panel                |
+| `aweshell/clear-buffer`     | Clear the eshell buffer              |
+| `aweshell/sudo-toggle`      | Toggle sudo for current command      |
+| `aweshell/search-history`   | Search through shell history         |
 
 ---
 
@@ -146,10 +146,10 @@ Add the aweshell directory to your `load-path`:
 
 All dependencies are bundled:
 
-- [`eshell-prompt-extras`](https://github.com/kaihaosw/eshell-prompt-extras) — Prompt themes
-- [`eshell-did-you-mean`](https://github.com/xuchunyang/eshell-did-you-mean) — Command correction
-- [`eshell-up`](https://github.com/peterwvj/eshell-up) — Quick parent directory navigation
-- [`exec-path-from-shell`](https://github.com/purcell/exec-path-from-shell) — macOS PATH fix
+- `eshell-prompt-extras` — Prompt themes (integrated as aweshell-theme)
+- `eshell-did-you-mean` — Command correction (integrated as aweshell-did-you-mean)
+- `eshell-up` — Quick parent directory navigation (integrated as aweshell-up)
+- `exec-path-from-shell` — macOS PATH fix (integrated as aweshell-exec-path)
 
 ---
 

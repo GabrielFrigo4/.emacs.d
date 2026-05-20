@@ -66,13 +66,13 @@ Add the aweww directory to your `load-path`:
 ## Configuration
 
 ```elisp
-(require 'aweww)
+(use-package aweww
+  :config
+  ;; Enable auto-readable mode (disabled by default)
+  (setq aweww/auto-readable t)
 
-;; Enable auto-readable mode (disabled by default)
-(setq aweww/auto-readable t)
-
-;; Adjust width offset (default: 8 columns from frame edge)
-(setq aweww/default-width-offset 8)
+  ;; Adjust width offset (default: 8 columns from frame edge)
+  (setq aweww/default-width-offset 8))
 ```
 
 ---
@@ -81,8 +81,8 @@ Add the aweww directory to your `load-path`:
 
 Aweww works standalone but is enhanced with these optional packages:
 
-- [`shrface`](https://github.com/chenyanming/shrface) — Better faces, headings, and org-like features
-- [`shr-tag-pre-highlight`](https://github.com/xuchunyang/shr-tag-pre-highlight.el) — Syntax highlighting for `<pre>` code blocks
+- `shrface` — Better faces, headings, and org-like features
+- `shr-tag-pre-highlight` — Syntax highlighting for `<pre>` code blocks
 
 If these are not installed, Aweww gracefully degrades to standard EWW rendering.
 
@@ -94,9 +94,9 @@ Simply use `M-x aweww` (or `M-x eww`) to start browsing. All enhancements are lo
 
 ---
 
-## Author
+## Credits
 
-**Gabriel Frigo** (gabriel.frigo4@gmail.com)
+- **Author:** Gabriel Frigo (gabriel.frigo4@gmail.com)
 
 ---
 
