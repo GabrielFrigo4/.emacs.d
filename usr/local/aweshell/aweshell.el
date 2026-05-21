@@ -1335,5 +1335,3 @@ This function only return prefix when current point at eshell prompt line, avoid
                 (setq-local company-backends '(aweshell/autosuggest))))))
 
 (provide 'aweshell)
-
-
