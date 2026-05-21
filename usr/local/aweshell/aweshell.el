@@ -735,38 +735,38 @@ Otherwise return nil."
   (when (aweshell/on-input-line-p)
     (let ((inhibit-read-only t))
       (save-excursion
-      (let ((line (buffer-substring-no-properties
-                   (line-beginning-position)
-                   (line-end-position)))
-            (prompt-regexp eshell-prompt-regexp))
-        (when (string-match prompt-regexp line)
-          (setq line (substring line (match-end 0))))
-        (let ((tokens (split-string line "\\([|&;]+\\|\\(?:[12&]\\)?>>?\\|<+\\)" t "[ ${}()\t\r\n\v\f]+")))
-          (goto-char (line-beginning-position))
-          (dolist (token tokens)
-            (let* ((command (car (split-string token "[ \t]+" t)))
-                   (pos (search-forward command (line-end-position) t)))
-              (when (and command pos)
-                (let ((beg (- pos (length command)))
-                      (end pos))
-                  (put-text-property
-                   beg end
-                   'face `(:foreground
-                           ,(if (or
-                                 (executable-find command)
-                                 (seq-contains-p (eshell-alias-completions "") command)
-                                 (seq-contains-p (eshell-alias-completions "eshell/") command)
-                                 (equal command "..")
-                                 (equal command ".")
-                                 (equal command "/")
-                                 (equal command "~")
-                                 (equal command "exit")
-                                 (or (member command (directory-files default-directory)) (file-exists-p command))
-                                 (functionp (intern command))
-                                 (functionp (intern (concat "eshell/" command))))
-                                aweshell/valid-command-color
-                              aweshell/invalid-command-color)))
-                  (put-text-property beg end 'rear-nonsticky t)))))))))))
+        (let ((line (buffer-substring-no-properties
+                     (line-beginning-position)
+                     (line-end-position)))
+              (prompt-regexp eshell-prompt-regexp))
+          (when (string-match prompt-regexp line)
+            (setq line (substring line (match-end 0))))
+          (let ((tokens (split-string line "\\([|&;]+\\|\\(?:[12&]\\)?>>?\\|<+\\)" t "[ ${}()\t\r\n\v\f]+")))
+            (goto-char (line-beginning-position))
+            (dolist (token tokens)
+              (let* ((command (car (split-string token "[ \t]+" t)))
+                     (pos (search-forward command (line-end-position) t)))
+                (when (and command pos)
+                  (let ((beg (- pos (length command)))
+                        (end pos))
+                    (put-text-property
+                     beg end
+                     'face `(:foreground
+                             ,(if (or
+                                   (executable-find command)
+                                   (seq-contains-p (eshell-alias-completions "") command)
+                                   (seq-contains-p (eshell-alias-completions "eshell/") command)
+                                   (equal command "..")
+                                   (equal command ".")
+                                   (equal command "/")
+                                   (equal command "~")
+                                   (equal command "exit")
+                                   (or (member command (directory-files default-directory)) (file-exists-p command))
+                                   (functionp (intern command))
+                                   (functionp (intern (concat "eshell/" command))))
+                                  aweshell/valid-command-color
+                                aweshell/invalid-command-color)))
+                    (put-text-property beg end 'rear-nonsticky t)))))))))))
 
 (defvar aweshell/validate-timer nil
   "Idle timer for validating eshell command.")
@@ -806,121 +806,121 @@ Otherwise return nil."
   (when (aweshell/on-input-line-p)
     (let ((inhibit-read-only t))
       (save-excursion
-      (let ((line (buffer-substring-no-properties
-                   (line-beginning-position)
-                   (line-end-position)))
-            (prompt-regexp eshell-prompt-regexp))
-        (when (string-match prompt-regexp line)
-          (setq line (substring line (match-end 0))))
-        (goto-char (line-beginning-position))
-        (let ((pos (search-forward line (line-end-position) t)))
-          (when (and line pos)
-            (let ((beg (- pos (length line)))
-                  (end pos))
-              (put-text-property
-               beg end
-               'face `(:foreground ,aweshell/neutral-command-color))
-              (put-text-property beg end 'rear-nonsticky t)))))))))
+        (let ((line (buffer-substring-no-properties
+                     (line-beginning-position)
+                     (line-end-position)))
+              (prompt-regexp eshell-prompt-regexp))
+          (when (string-match prompt-regexp line)
+            (setq line (substring line (match-end 0))))
+          (goto-char (line-beginning-position))
+          (let ((pos (search-forward line (line-end-position) t)))
+            (when (and line pos)
+              (let ((beg (- pos (length line)))
+                    (end pos))
+                (put-text-property
+                 beg end
+                 'face `(:foreground ,aweshell/neutral-command-color))
+                (put-text-property beg end 'rear-nonsticky t)))))))))
 
 (defun aweshell/highlight-command ()
   "Highlight all commands in eshell input line."
   (when (aweshell/on-input-line-p)
     (let ((inhibit-read-only t))
       (save-excursion
-      (let ((line (buffer-substring-no-properties
-                   (line-beginning-position)
-                   (line-end-position)))
-            (prompt-regexp eshell-prompt-regexp))
-        (when (string-match prompt-regexp line)
-          (setq line (substring line (match-end 0))))
-        (let ((tokens (split-string line "\\([|&;]+\\|\\(?:[12&]\\)?>>?\\|<+\\)" t "[ ${}()\t\r\n\v\f]+")))
-          (goto-char (line-beginning-position))
-          (dolist (token tokens)
-            (let* ((command (car (split-string token "[ \t]+" t)))
-                   (pos (search-forward command (line-end-position) t)))
-              (when (and command pos)
-                (let ((beg (- pos (length command)))
-                      (end pos))
-                  (put-text-property
-                   beg end
-                   'face `(:foreground
-                           ,(if (or
-                                 (seq-contains-p (eshell-alias-completions "") command)
-                                 (seq-contains-p (eshell-alias-completions "eshell/") command)
-                                 (equal command "..")
-                                 (equal command ".")
-                                 (equal command "/")
-                                 (equal command "~")
-                                 (equal command "exit")
-                                 (or (member command (directory-files default-directory)) (file-exists-p command))
-                                 (functionp (intern command))
-                                 (functionp (intern (concat "eshell/" command))))
-                                aweshell/valid-command-color
-                              aweshell/possible-command-color)))
-                  (put-text-property beg end 'rear-nonsticky t)))))))))))
+        (let ((line (buffer-substring-no-properties
+                     (line-beginning-position)
+                     (line-end-position)))
+              (prompt-regexp eshell-prompt-regexp))
+          (when (string-match prompt-regexp line)
+            (setq line (substring line (match-end 0))))
+          (let ((tokens (split-string line "\\([|&;]+\\|\\(?:[12&]\\)?>>?\\|<+\\)" t "[ ${}()\t\r\n\v\f]+")))
+            (goto-char (line-beginning-position))
+            (dolist (token tokens)
+              (let* ((command (car (split-string token "[ \t]+" t)))
+                     (pos (search-forward command (line-end-position) t)))
+                (when (and command pos)
+                  (let ((beg (- pos (length command)))
+                        (end pos))
+                    (put-text-property
+                     beg end
+                     'face `(:foreground
+                             ,(if (or
+                                   (seq-contains-p (eshell-alias-completions "") command)
+                                   (seq-contains-p (eshell-alias-completions "eshell/") command)
+                                   (equal command "..")
+                                   (equal command ".")
+                                   (equal command "/")
+                                   (equal command "~")
+                                   (equal command "exit")
+                                   (or (member command (directory-files default-directory)) (file-exists-p command))
+                                   (functionp (intern command))
+                                   (functionp (intern (concat "eshell/" command))))
+                                  aweshell/valid-command-color
+                                aweshell/possible-command-color)))
+                    (put-text-property beg end 'rear-nonsticky t)))))))))))
 
 (defun aweshell/highlight-separator ()
   "Highlight command separators ; | & in eshell input line, ignoring ones inside strings."
   (when (aweshell/on-input-line-p)
     (let ((inhibit-read-only t))
       (save-excursion
-      (let ((line (buffer-substring-no-properties
-                   (line-beginning-position)
-                   (line-end-position)))
-            (prompt-regexp eshell-prompt-regexp))
-        (when (string-match prompt-regexp line)
-          (setq line (substring line (match-end 0))))
-        (goto-char (line-beginning-position))
-        (let ((case-fold-search nil))
-          (while (re-search-forward
-                  "\\([;|&]+\\|\\(?:[12&]\\)?>>?\\|<+\\|\\$(\\|\\${\\|[(){}]\\)"
-                  (line-end-position) t)
-            (put-text-property (match-beginning 0) (match-end 0)
-                               'face `(:foreground ,aweshell/valid-separator-color))
-            (put-text-property (match-beginning 0) (match-end 0)
-                               'rear-nonsticky t))))))))
+        (let ((line (buffer-substring-no-properties
+                     (line-beginning-position)
+                     (line-end-position)))
+              (prompt-regexp eshell-prompt-regexp))
+          (when (string-match prompt-regexp line)
+            (setq line (substring line (match-end 0))))
+          (goto-char (line-beginning-position))
+          (let ((case-fold-search nil))
+            (while (re-search-forward
+                    "\\([;|&]+\\|\\(?:[12&]\\)?>>?\\|<+\\|\\$(\\|\\${\\|[(){}]\\)"
+                    (line-end-position) t)
+              (put-text-property (match-beginning 0) (match-end 0)
+                                 'face `(:foreground ,aweshell/valid-separator-color))
+              (put-text-property (match-beginning 0) (match-end 0)
+                                 'rear-nonsticky t))))))))
 
 (defun aweshell/highlight-string ()
   "Highlight quoted strings in eshell input line, including escaped characters inside quotes."
   (when (aweshell/on-input-line-p)
     (let ((inhibit-read-only t))
       (save-excursion
-      (let ((line (buffer-substring-no-properties
-                   (line-beginning-position)
-                   (line-end-position)))
-            (prompt-regexp eshell-prompt-regexp))
-        (when (string-match prompt-regexp line)
-          (setq line (substring line (match-end 0))))
-        (goto-char (line-beginning-position))
-        (let ((case-fold-search nil))
-          (while (re-search-forward
-                  "\\(\"\\(?:\\\\.\\|[^\"\\]\\)*\"\\|'\\([^']*\\)'\\)"
-                  (line-end-position) t)
-            (put-text-property (match-beginning 0) (match-end 0)
-                               'face `(:foreground ,aweshell/valid-string-color))
-            (put-text-property (match-beginning 0) (match-end 0)
-                               'rear-nonsticky t))))))))
+        (let ((line (buffer-substring-no-properties
+                     (line-beginning-position)
+                     (line-end-position)))
+              (prompt-regexp eshell-prompt-regexp))
+          (when (string-match prompt-regexp line)
+            (setq line (substring line (match-end 0))))
+          (goto-char (line-beginning-position))
+          (let ((case-fold-search nil))
+            (while (re-search-forward
+                    "\\(\"\\(?:\\\\.\\|[^\"\\]\\)*\"\\|'\\([^']*\\)'\\)"
+                    (line-end-position) t)
+              (put-text-property (match-beginning 0) (match-end 0)
+                                 'face `(:foreground ,aweshell/valid-string-color))
+              (put-text-property (match-beginning 0) (match-end 0)
+                                 'rear-nonsticky t))))))))
 
 (defun aweshell/highlight-number ()
   "Highlight numbers in eshell input line."
   (when (aweshell/on-input-line-p)
     (let ((inhibit-read-only t))
       (save-excursion
-      (let ((line (buffer-substring-no-properties
-                   (line-beginning-position)
-                   (line-end-position)))
-            (prompt-regexp eshell-prompt-regexp))
-        (when (string-match prompt-regexp line)
-          (setq line (substring line (match-end 0))))
-        (goto-char (line-beginning-position))
-        (let ((case-fold-search nil))
-          (while (re-search-forward
-                  "\\<\\([0-9]+\\(?:\\.[0-9]+\\)?\\)\\>"
-                  (line-end-position) t)
-            (put-text-property (match-beginning 0) (match-end 0)
-                               'face `(:foreground ,aweshell/valid-constant-color))
-            (put-text-property (match-beginning 0) (match-end 0)
-                               'rear-nonsticky t))))))))
+        (let ((line (buffer-substring-no-properties
+                     (line-beginning-position)
+                     (line-end-position)))
+              (prompt-regexp eshell-prompt-regexp))
+          (when (string-match prompt-regexp line)
+            (setq line (substring line (match-end 0))))
+          (goto-char (line-beginning-position))
+          (let ((case-fold-search nil))
+            (while (re-search-forward
+                    "\\<\\([0-9]+\\(?:\\.[0-9]+\\)?\\)\\>"
+                    (line-end-position) t)
+              (put-text-property (match-beginning 0) (match-end 0)
+                                 'face `(:foreground ,aweshell/valid-constant-color))
+              (put-text-property (match-beginning 0) (match-end 0)
+                                 'rear-nonsticky t))))))))
 
 (defvar aweshell/highlight-timer nil
   "Idle timer for highlight eshell command.")
@@ -1013,8 +1013,8 @@ Available themes:
       (when (< start end)
         (add-text-properties start end
                              '(read-only t
-                               front-sticky (read-only)
-                               rear-nonsticky (read-only)))))))
+                                         front-sticky (read-only)
+                                         rear-nonsticky (read-only)))))))
 
 (add-hook 'eshell-output-filter-functions #'aweshell/lock-output-filter)
 
@@ -1316,7 +1316,7 @@ This function only return prefix when current point at eshell prompt line, avoid
           suggest-completions)
         )))
 
-(defun aweshell/autosuggest (command &optional arg &rest ignored)
+  (defun aweshell/autosuggest (command &optional arg &rest ignored)
     "`company-mode' backend to provide eshell history suggestion."
     (interactive (list 'interactive))
     (cl-case command
