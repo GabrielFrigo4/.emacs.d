@@ -25,4 +25,18 @@
         (force-window-update win)
         (redisplay)))))
 
-(add-hook 'post-command-hook #'auto-scroll-bar)
+(if scroll/enable
+    (add-hook 'post-command-hook #'auto-scroll-bar)
+  (use-package yascroll
+    :ensure t
+    :config
+    (global-yascroll-bar-mode 1)))
+
+;; O Minimap fica sempre ativo, independente do scroll
+(use-package minimap
+  :ensure t
+  :config
+  (setq minimap-window-location 'right)
+  (setq minimap-minimum-width 12)
+  (setq minimap-width-fraction 0.1)
+  (minimap-mode 1))

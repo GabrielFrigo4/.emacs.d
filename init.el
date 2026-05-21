@@ -69,7 +69,7 @@
 ;;  FEATURE TOGGLES
 ;; ============================================================================
 
-(setq scroll/enable nil)
+(setq scroll/enable t)
 (setq tressit/enable nil)
 (setq minuet/enable nil)
 (setq ia/enable nil)

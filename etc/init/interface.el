@@ -60,10 +60,10 @@
 ;; ----------------------------------------------------------------------------
 
 (setq frame-resize-pixelwise t)
-(add-to-list 'default-frame-alist '(width . 90))
-(add-to-list 'default-frame-alist '(height . 30))
-(add-to-list 'initial-frame-alist '(width . 90))
-(add-to-list 'initial-frame-alist '(height . 30))
+(add-to-list 'default-frame-alist '(width . 100))
+(add-to-list 'default-frame-alist '(height . 31))
+(add-to-list 'initial-frame-alist '(width . 100))
+(add-to-list 'initial-frame-alist '(height . 31))
 
 (defun frame/center-screen (&optional frame)
   "Center Frame (or the Current Frame) on the Screen."
