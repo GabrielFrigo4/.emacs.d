@@ -11,6 +11,8 @@
   :config
   (setq auto-save-file-name-transforms
         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+  (setq auto-save-list-file-prefix
+        (expand-file-name "cache/auto-save-list/.saves-" var-dir))
 
   (setq gnus-home-directory (expand-file-name "gnus/" var-dir))
   (setq gnus-init-file (expand-file-name "gnus/init.el" var-dir))

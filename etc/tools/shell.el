@@ -33,7 +33,6 @@
   :ensure nil
   :config
   (setq-default epe-git-enable t)
-  (setq-default eshell-prompt-read-only t)
   (setq-default eshell-bad-command-tolerance (expt 2 64))
 
   (defalias 'eshell/cls   'eshell/clear-scrollback)

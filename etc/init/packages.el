@@ -70,4 +70,10 @@
 
 (elpaca-wait)
 
+;; Declarar recipe explícito do lv (dependência do lsp-mode via abo-abo/hydra).
+;; O clone padrão (treeless) deixa o sources/hydra/ vazio ao reinstalar;
+;; :depth nil força um clone completo e garante que lv.el seja encontrado.
+(use-package lv
+  :ensure (:repo "abo-abo/hydra" :fetcher github :files ("lv.el") :depth nil))
+
 (provide 'init-packages)
