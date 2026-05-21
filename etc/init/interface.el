@@ -186,8 +186,9 @@
                            "1.6 sec")))
               (run-at-time delay nil #'buffer/kill-shell)
               (run-at-time delay nil #'buffer/kill-org)
-              (run-at-time delay nil #'buffer/kill-pkg)
               (run-at-time delay nil #'buffer/kill-eaf))))
+
+(add-hook 'elpaca-after-init-hook #'buffer/kill-pkg)
 
 ;; ----------------------------------------------------------------------------
 ;;  SERVER CONFIGURATION

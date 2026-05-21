@@ -6,6 +6,7 @@
 (setq-default elpaca-queue-limit 5)
 (setq-default elpaca-log-level 'error)
 (setq-default elpaca-lock-file (expand-file-name "elpaca.lock" lock-dir))
+(setq-default elpaca-depth nil)
 
 (defvar elpaca-installer-version 0.12)
 (defvar elpaca-directory (expand-file-name "lib/elpaca/" var-dir))
@@ -69,11 +70,5 @@
         (elpaca-use-package-mode))
 
 (elpaca-wait)
-
-;; Declarar recipe explícito do lv (dependência do lsp-mode via abo-abo/hydra).
-;; O clone padrão (treeless) deixa o sources/hydra/ vazio ao reinstalar;
-;; :depth nil força um clone completo e garante que lv.el seja encontrado.
-(use-package lv
-  :ensure (:repo "abo-abo/hydra" :fetcher github :files ("lv.el") :depth nil))
 
 (provide 'init-packages)
