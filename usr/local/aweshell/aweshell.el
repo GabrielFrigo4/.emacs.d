@@ -969,12 +969,18 @@ Available themes:
 (defun aweshell/lock-output-filter ()
   "Applies read-only protection to Eshell output if `aweshell-lock-output' is non-nil."
   (when aweshell/lock-output
-    (let ((inhibit-read-only t))
-      (add-text-properties eshell-last-output-start
-                           eshell-last-output-end
-                           '(read-only t
-                             front-sticky (read-only)
-                             rear-nonsticky (read-only))))))
+    (let ((inhibit-read-only t)
+          (start eshell-last-output-start)
+          (end eshell-last-output-end))
+      (save-excursion
+        (goto-char start)
+        (when (re-search-forward eshell-prompt-regexp end t)
+          (setq end (match-beginning 0))))
+      (when (< start end)
+        (add-text-properties start end
+                             '(read-only t
+                               front-sticky (read-only)
+                               rear-nonsticky (read-only)))))))
 
 (add-hook 'eshell-output-filter-functions #'aweshell/lock-output-filter)
 
@@ -1241,7 +1247,8 @@ This function only return prefix when current point at eshell prompt line, avoid
       (string-trim-left
        (buffer-substring-no-properties
         (save-excursion
-          (eshell-bol))
+          (eshell-bol)
+          (point))
         (line-end-position)))))
 
   (defun aweshell/autosuggest-candidates (prefix)
