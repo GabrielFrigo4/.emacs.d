@@ -69,9 +69,10 @@
 ;;  FEATURE TOGGLES
 ;; ============================================================================
 
+(setq scroll/enable nil)
 (setq tressit/enable nil)
-(setq ia/enable nil)
 (setq minuet/enable nil)
+(setq ia/enable nil)
 
 ;; ============================================================================
 ;;  CORE LIBRARIES
