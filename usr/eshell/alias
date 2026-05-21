@@ -1,23 +1,23 @@
-alias c++ c++ -fdiagnostics-color=always $*
-alias CC CC -fdiagnostics-color=always $*
-alias cc cc -fdiagnostics-color=always $*
-alias clang++ clang++ -fcolor-diagnostics $*
-alias clang clang -fcolor-diagnostics $*
-alias g++ g++ -fdiagnostics-color=always $*
-alias gcc gcc -fdiagnostics-color=always $*
-alias ee find-file-other-window $1
-alias e find-file $1
-alias mv mv -i $*
-alias cp cp -i $*
-alias rm rm -i $*
-alias free free -h $*
-alias du du -h $*
-alias df df -h $*
-alias mkdirp mkdir -p $*
-alias .... cd ../../..
-alias ... cd ../..
-alias .. cd ..
-alias l ls -l $*
-alias la ls -a $*
-alias ll ls -la $*
 alias clear clear-scrollback
+alias ll ls -la $*
+alias la ls -a $*
+alias l ls -l $*
+alias .. cd ..
+alias ... cd ../..
+alias .... cd ../../..
+alias mkdirp mkdir -p $*
+alias df df -h $*
+alias du du -h $*
+alias free free -h $*
+alias rm rm -i $*
+alias cp cp -i $*
+alias mv mv -i $*
+alias e find-file $1
+alias ee find-file-other-window $1
+alias gcc gcc -fdiagnostics-color=always $*
+alias g++ g++ -fdiagnostics-color=always $*
+alias clang clang -fcolor-diagnostics -fansi-escape-codes $*
+alias clang++ clang++ -fcolor-diagnostics -fansi-escape-codes $*
+alias cc cc -fdiagnostics-color=always $*
+alias CC CC -fdiagnostics-color=always $*
+alias c++ c++ -fdiagnostics-color=always $*
