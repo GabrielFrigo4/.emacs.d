@@ -1,4 +1,6 @@
-;;; aweww.el --- An "Awesome" EWW Configuration -*- lexical-binding: t; -*-
+;; ============================================================================
+;;  AWEWW.EL
+;; ============================================================================
 
 ;; Filename: aweww.el
 ;; Description: Awesome EWW - Enhanced Emacs Web Wowser
@@ -13,9 +15,9 @@
 ;;
 ;; `eww' `shr' `shrface' `shr-tag-pre-highlight'
 
-;;; This file is NOT part of GNU Emacs
-
-;;; License:
+;; ============================================================================
+;;  LICENSE
+;; ============================================================================
 ;;
 ;; Permission is hereby granted, free of charge, to any person obtaining
 ;; a copy of this software and associated documentation files (the
@@ -37,7 +39,9 @@
 ;; CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ;; SOFTWARE.
 
-;;; Commentary:
+;; ============================================================================
+;;  COMMENTARY
+;; ============================================================================
 ;;
 ;; AWEWW (Awesome EWW) is a configuration layer and extension for the
 ;; built-in Emacs Web Wowser (EWW) browser. It enhances the browsing
@@ -50,16 +54,18 @@
 ;; 5. Toggles for readable mode, images, and colors.
 ;; 6. Visual-line-mode for comfortable reading.
 
-;;; Code:
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Dependencies ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  DEPENDENCIES
+;; ============================================================================
 
 (require 'eww)
 (require 'shr)
 (require 'shr-tag-pre-highlight nil t)
 (require 'shrface nil t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Customize ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  CUSTOMIZE
+;; ============================================================================
 
 (defgroup aweww nil
   "Awesome EWW configuration."
@@ -75,7 +81,9 @@
   :type 'boolean
   :group 'aweww)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; SHR Configuration ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  SHR CONFIGURATION
+;; ============================================================================
 
 (setq-default shr-nbsp ?\u00A0)
 (setq-default shr-inhibit-images nil)
@@ -83,7 +91,9 @@
 (setq-default shr-use-colors nil)
 (setq-default shr-width 80)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Dynamic Width ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  DYNAMIC WIDTH
+;; ============================================================================
 
 (defun aweww/set-shr-width (&rest _args)
   "Adjust `shr-width' based on the current frame width, buffer-locally."
@@ -114,7 +124,9 @@ Called lazily to ensure shrface and shr-tag-pre-highlight are loaded."
 
 (add-hook 'eww-mode-hook #'aweww/build-rendering-functions)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Interactive Commands ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  INTERACTIVE COMMANDS
+;; ============================================================================
 
 (defun aweww/toggle-readable ()
   "Toggle `eww-readable' in the current EWW buffer."
@@ -138,7 +150,9 @@ Called lazily to ensure shrface and shr-tag-pre-highlight are loaded."
     (eww-reload)
     (message "Colors %s" (if shr-use-colors "enabled" "disabled"))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Hooks ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  HOOKS
+;; ============================================================================
 
 (defun aweww/cleanup-newlines ()
   "Remove excessive blank lines in AWEWW buffers.
@@ -174,13 +188,18 @@ Runs `shrface-regexp' unless `shrface-toggle-bullets' is disabled."
   (when aweww/auto-readable
     (eww-readable)))
 
-;; Hooks
+;; ----------------------------------------------------------------------------
+;;  Setup Hooks
+;; ----------------------------------------------------------------------------
+
 (add-hook 'eww-mode-hook #'aweww/mode-setup)
 (add-hook 'eww-after-render-hook #'shrface-eww-setup)
 (add-hook 'eww-after-render-hook #'aweww/cleanup-newlines-deferred)
 (add-hook 'eww-after-render-hook #'aweww/auto-readable)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Keybindings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  KEYBINDINGS
+;; ============================================================================
 
 (with-eval-after-load 'eww
   (define-key eww-mode-map (kbd "R") #'aweww/toggle-readable)
@@ -192,12 +211,14 @@ Runs `shrface-regexp' unless `shrface-toggle-bullets' is disabled."
   (define-key eww-mode-map (kbd "s") #'eww-search-words)
   (define-key eww-mode-map (kbd "q") #'quit-window))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Entry Point ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  ENTRY POINT
+;; ============================================================================
 
 ;;;###autoload
 (defun aweww/open-url (url)
-  "Abrir URL no AWEWW (EWW com melhorias).
-Interativamente solicita uma URL."
+  "Open URL in AWEWW (EWW with enhancements).
+Interactively prompts for a URL."
   (interactive "sURL: ")
   (eww url))
 
@@ -207,5 +228,3 @@ Interativamente solicita uma URL."
 This is an alias for `eww' with AWEWW enhancements loaded.")
 
 (provide 'aweww)
-
-;;; aweww.el ends here

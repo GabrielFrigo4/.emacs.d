@@ -1,4 +1,6 @@
-;;; aweshell-theme.el --- Display extra information for your eshell prompt. -*- lexical-binding: t -*-
+;; ============================================================================
+;;  AWESHELL-THEME.EL
+;; ============================================================================
 
 ;; Copyright (C) 2014-2019 Wei Zhao
 
@@ -11,9 +13,9 @@
 ;; Keywords: eshell, prompt
 ;; Package-Requires: ((emacs "25"))
 
-;; This file is NOT part of GNU Emacs.
-
-;;; License:
+;; ============================================================================
+;;  LICENSE
+;; ============================================================================
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -30,7 +32,9 @@
 ;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 ;; Boston, MA 02110-1301, USA.
 
-;;; Commentary:
+;; ============================================================================
+;;  COMMENTARY
+;; ============================================================================
 
 ;; This library display remote user, remote host, python virtual
 ;; environment info, git branch, git dirty info and git unpushed
@@ -76,7 +80,9 @@
 ;;   (setq eshell-highlight-prompt nil
 ;;         eshell-prompt-function 'aweshell/theme-theme-lambda))
 
-;;; Code:
+;; ============================================================================
+;;  CODE
+;; ============================================================================
 (require 'em-ls)
 (require 'em-dirs)
 (require 'esh-ext)
@@ -401,7 +407,7 @@ returns a string."
   "Enable git status in Eshell.")
 
 (defcustom aweshell/theme-git-cache-ttl 2.0
-  "Time-to-live (segundos) para o cache de git por buffer."
+  "Time-to-live (seconds) for the git cache per buffer."
   :group 'epe
   :type 'number)
 
@@ -557,7 +563,10 @@ Retorna (branch . dirty-p) ou nil se fora de um repositório."
 (defvar venv-current-name)
 (defvar conda-env-current-name)
 
-;;; Themes
+;; ============================================================================
+;;  THEMES
+;; ============================================================================
+
 (defun aweshell/theme-theme-lambda ()
   "A eshell-prompt lambda theme."
   (setq eshell-prompt-regexp "^[^#\nλ]*[#λ] ")
@@ -753,7 +762,10 @@ The status is displayed on the last line."
                      (aweshell/theme-git-diverged))))
     (if (> (length (string-trim git-status)) 0)
         (concat "[" git-status "]"))))
-;;; Zshrc-style theme faces
+
+;; ============================================================================
+;;  ZSHRC-STYLE THEME FACES
+;; ============================================================================
 
 (defface aweshell/theme-zshrc-delimiter-face
   '((t (:foreground "#ff9e64" :bold t)))
@@ -895,4 +907,3 @@ Multi-line prompt with OS info, time, date, directory, user, and git."
 
 (provide 'aweshell-theme)
 
-;;; aweshell-theme.el ends here

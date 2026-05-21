@@ -1,46 +1,48 @@
-# Aweww — Awesome EWW
+# 🌐 Aweww — Awesome EWW
 
-> A configuration layer and extension for the built-in Emacs Web Wowser (EWW) browser, providing enhanced readability, code highlighting, and intuitive keybindings.
+> An elegant, readable, and modern extension for Emacs Web Wowser (EWW).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Emacs](https://img.shields.io/badge/Emacs-29.1+-purple.svg)](https://www.gnu.org/software/emacs/)
 
----
-
-## Features
-
-| Feature                 | Description                                                   |
-| ----------------------- | ------------------------------------------------------------- |
-| **Dynamic Width**       | Content width adapts to your frame size automatically         |
-| **Shrface Integration** | Enhanced faces, headings, and org-like rendering              |
-| **Code Highlighting**   | Syntax-highlighted `<pre>` blocks via `shr-tag-pre-highlight` |
-| **Readable Toggle**     | One-key toggle for `eww-readable` mode                        |
-| **Image Toggle**        | Enable/disable images with a keybinding                       |
-| **Color Toggle**        | Enable/disable CSS colors with a keybinding                   |
-| **Newline Cleanup**     | Removes excessive blank lines after rendering                 |
-| **Visual Line Mode**    | Comfortable word-wrap for reading                             |
+**Aweww** transforms the standard Emacs EWW browser into a powerful reading tool. It brings dynamic widths, beautiful typography, code highlighting, and one-key toggles for distraction-free browsing right into your Emacs frame.
 
 ---
 
-## Keybindings
+## ✨ Features
 
-| Key | Command                 | Description              |
-| --- | ----------------------- | ------------------------ |
-| `R` | `aweww/toggle-readable` | Toggle readable mode     |
-| `I` | `aweww/toggle-images`   | Toggle images on/off     |
-| `C` | `aweww/toggle-colors`   | Toggle CSS colors on/off |
-| `H` | `eww-list-histories`    | Show browsing history    |
-| `B` | `eww-back-url`          | Go back                  |
-| `F` | `eww-forward-url`       | Go forward               |
-| `q` | `quit-window`           | Close EWW buffer         |
+| Feature | Description |
+| :--- | :--- |
+| **Responsive Width** | The text content automatically scales to your frame size for comfortable reading. |
+| **Shrface Integration** | Enjoy enhanced typography, Org-mode-like headings, and polished faces. |
+| **Code Highlighting** | Automatic syntax highlighting for `<pre>` blocks using `shr-tag-pre-highlight`. |
+| **One-Click Readability** | Instantly toggle the `eww-readable` mode to remove web clutter. |
+| **Media & Style Toggles** | Swiftly enable or disable images and CSS colors to save bandwidth or reduce glare. |
+| **Smart Cleanup** | Automatically removes excessive whitespace and blank lines post-render. |
 
 ---
 
-## Installation
+## ⌨️ Keybindings
+
+Aweww provides a streamlined, modal-like experience when browsing:
+
+| Key | Command | Action |
+| :---: | :--- | :--- |
+| `R` | `aweww/toggle-readable` | Toggle distraction-free readable mode |
+| `I` | `aweww/toggle-images` | Toggle images rendering |
+| `C` | `aweww/toggle-colors` | Toggle CSS colors |
+| `H` | `eww-list-histories` | Open browsing history |
+| `B` | `eww-back-url` | Navigate backward |
+| `F` | `eww-forward-url` | Navigate forward |
+| `q` | `quit-window` | Close the EWW buffer gracefully |
+
+---
+
+## 🚀 Installation
 
 ### Local (Recommended)
 
-Add the aweww directory to your `load-path`:
+Clone the repository and add it to your Emacs `load-path`:
 
 ```elisp
 (add-to-list 'load-path (expand-file-name "path/to/aweww"))
@@ -63,43 +65,38 @@ Add the aweww directory to your `load-path`:
 
 ---
 
-## Configuration
+## ⚙️ Configuration
+
+Aweww comes with sensible defaults, but it is fully customizable:
 
 ```elisp
 (use-package aweww
   :config
-  ;; Enable auto-readable mode (disabled by default)
+  ;; Automatically trigger readable mode upon loading a page (default: nil)
   (setq aweww/auto-readable t)
 
-  ;; Adjust width offset (default: 8 columns from frame edge)
+  ;; Set the dynamic width margin from the frame edge (default: 8)
   (setq aweww/default-width-offset 8))
 ```
 
 ---
 
-## Dependencies
+## 📦 Dependencies
 
-Aweww works standalone but is enhanced with these optional packages:
+Aweww is designed to work standalone, gracefully falling back to standard EWW rendering. However, for the ultimate experience, we recommend having:
 
-- `shrface` — Better faces, headings, and org-like features
-- `shr-tag-pre-highlight` — Syntax highlighting for `<pre>` code blocks
-
-If these are not installed, Aweww gracefully degrades to standard EWW rendering.
+- [`shrface`](https://github.com/chenyanming/shrface) — For Org-like heading faces and beautiful typography.
+- [`shr-tag-pre-highlight`](https://github.com/xuchunyang/shr-tag-pre-highlight) — For robust syntax highlighting in code blocks.
 
 ---
 
-## Usage
+## 👨‍💻 Usage
 
-Simply use `M-x aweww` (or `M-x eww`) to start browsing. All enhancements are loaded automatically.
-
----
-
-## Credits
-
-- **Author:** Gabriel Frigo (gabriel.frigo4@gmail.com)
+Fire up your browser with `M-x aweww` or the standard `M-x eww`. All enhancements, custom faces, and keybindings will be loaded seamlessly.
 
 ---
 
-## License
+## 📄 License & Credits
 
-This project is licensed under the [MIT License](LICENSE).
+- **Author & Maintainer:** Gabriel Frigo (gabriel.frigo4@gmail.com)
+- **License:** MIT

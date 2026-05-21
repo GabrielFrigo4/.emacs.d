@@ -1,4 +1,6 @@
-;;; aweshell/exec-path.el --- Get environment variables such as $PATH from the shell  -*- lexical-binding: t -*-
+;; ============================================================================
+;;  AWESHELL-EXEC-PATH.EL
+;; ============================================================================
 
 ;; Copyright (C) 2012-2014 Steve Purcell
 
@@ -8,7 +10,7 @@
 ;; Package-Version: 2.2
 ;; Package-Requires: ((emacs "24.4"))
 
-;; This file is not part of GNU Emacs.
+
 
 ;; This file is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -23,7 +25,9 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this file.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Commentary:
+;; ============================================================================
+;;  COMMENTARY
+;; ============================================================================
 
 ;; On OS X (and perhaps elsewhere) the $PATH environment variable and
 ;; `exec-path' used by a windowed Emacs instance will usually be the
@@ -46,13 +50,17 @@
 ;; environment variables (e.g. using the "export" keyword) may not be
 ;; visible to `aweshell/exec-path'.
 
-;; Installation:
+;; ----------------------------------------------------------------------------
+;;  Installation
+;; ----------------------------------------------------------------------------
 
 ;; ELPA packages are available on Marmalade and MELPA.  Alternatively,
 ;; place this file on a directory in your `load-path', and explicitly
 ;; require it.
 
-;; Usage:
+;; ----------------------------------------------------------------------------
+;;  Usage
+;; ----------------------------------------------------------------------------
 ;;
 ;;     (require 'aweshell/exec-path) ;; if not using the ELPA package
 ;;     (aweshell/exec-path-initialize)
@@ -71,7 +79,9 @@
 ;;
 ;;     (aweshell/exec-path-copy-env "PYTHONPATH")
 
-;;; Code:
+;; ============================================================================
+;;  CODE
+;; ============================================================================
 
 (eval-when-compile (require 'eshell))
 (require 'cl-lib)
@@ -327,5 +337,3 @@ values used in the user's shell."
 ;; require-final-newline: t
 ;; checkdoc-minor-mode: t
 ;; End:
-
-;;; aweshell/exec-path.el ends here

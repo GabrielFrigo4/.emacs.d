@@ -52,13 +52,13 @@
         "mistral"
         "qwen2.5-coder"
         "gemma3")
-      "Modelos disponíveis para seleção no GPTEL.")
+      "Models available for selection in GPTEL.")
 
     (defun gptel-select-model ()
-      "Seleciona interativamente o modelo a usar com o GPTEL."
+      "Interactively select the model to use with GPTEL."
       (interactive)
       (let ((selected (completing-read
-                       "Selecionar modelo: "
+                       "Select model: "
                        gptel-models-list nil t nil nil
                        (symbol-name gptel-model))))
         (unless (string-empty-p selected)

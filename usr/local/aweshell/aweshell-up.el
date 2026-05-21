@@ -1,4 +1,6 @@
-;;; aweshell/up.el --- Quickly go to a specific parent directory in eshell -*- lexical-binding: t; -*-
+;; ============================================================================
+;;  AWESHELL-UP.EL
+;; ============================================================================
 
 ;; Copyright (C) 2016 Peter W. V. Tran-Jørgensen
 
@@ -23,7 +25,9 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this file.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Commentary:
+;; ============================================================================
+;;  COMMENTARY
+;; ============================================================================
 
 ;; Package for quickly navigating to a specific parent directory in
 ;; eshell without having to repeatedly typing 'cd ..'.  This is
@@ -59,7 +63,9 @@
 ;;
 ;; See: https://github.com/vigneshwaranr/bd
 
-;;; Code:
+;; ============================================================================
+;;  CODE
+;; ============================================================================
 
 ;; User-definable variables
 
@@ -119,5 +125,3 @@ Argument MATCH a string that identifies the parent directory to find"
       path)))
 
 (provide 'aweshell-up)
-
-;;; aweshell/up.el ends here

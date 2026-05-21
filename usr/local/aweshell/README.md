@@ -1,44 +1,45 @@
-# Aweshell — Awesome Eshell
+# 🐚 Aweshell — Awesome Eshell
 
-> A powerful Emacs Eshell extension with syntax highlighting, auto-suggestions, multiple buffers, and beautiful prompts.
+> A meticulously crafted, powerful Eshell extension bringing syntax highlighting, intelligent auto-suggestions, and a stunning terminal experience right into your Emacs.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Emacs](https://img.shields.io/badge/Emacs-27.1+-purple.svg)](https://www.gnu.org/software/emacs/)
 
----
-
-## Features
-
-| Feature                 | Description                                        |
-| ----------------------- | -------------------------------------------------- |
-| **Multiple Buffers**    | Create and manage multiple eshell sessions         |
-| **Syntax Highlighting** | Real-time command validation and highlighting      |
-| **Auto-suggestions**    | Fish-like history suggestions with completion      |
-| **"Did You Mean"**      | Typo correction for mistyped commands              |
-| **Prompt Themes**       | Multiple prompt themes including a zsh-style theme |
-| **Unix Aliases**        | Familiar aliases (`ll`, `la`, `clear`, `..`, etc.) |
-| **Dedicated Window**    | IDE-style bottom terminal panel                    |
-| **Git Completions**     | Tab-complete git commands and branches             |
-| **Sudo Toggle**         | Toggle sudo prefix with a keybinding               |
-| **Cat Highlighting**    | Syntax-highlighted `cat` output                    |
-| **Archive Unpacking**   | Built-in `unpack` command for common archives      |
-| **Background Alerts**   | Notifications when background processes finish     |
+**Aweshell** supercharges the default Emacs shell (Eshell) by bridging the gap between typical modern terminals (like Zsh/Fish) and the Emacs ecosystem. With dedicated IDE-like panels, gorgeous prompt themes, and typo-corrections, it creates a robust and aesthetically pleasing command-line workflow.
 
 ---
 
-## Prompt Themes
+## ✨ Features
 
-Aweshell supports multiple prompt themes out of the box via `aweshell-theme`:
+| Feature                 | Description                                                  |
+| :---------------------- | :----------------------------------------------------------- |
+| **Multiple Sessions**   | Effortlessly create, switch, and manage multiple shell buffers. |
+| **Syntax Highlighting** | Real-time command validation: valid commands are highlighted instantly. |
+| **Auto-Suggestions**    | Fish-style intelligent history suggestions with seamless completion. |
+| **"Did You Mean?"**     | Automatic typo detection and correction for mistyped commands. |
+| **Beautiful Prompts**   | Multiple out-of-the-box themes, including an Oh-My-Zsh replica. |
+| **Unix Aliases**        | Familiar Unix muscle memory (`ll`, `clear`, `..`, `unpack`). |
+| **Dedicated Panel**     | Pop up an IDE-style bottom terminal window on demand.        |
+| **Git Completions**     | Native tab-completion for Git commands, branches, and tags.  |
+| **Sudo Toggle**         | Swiftly prepend or toggle `sudo` for your current command line. |
+| **Highlighted Cat**     | Built-in syntax highlighting for `cat` command output.       |
+| **Background Alerts**   | Visual notifications when a background process finishes.     |
 
-| Theme                                        | Style                                                |
-| -------------------------------------------- | ---------------------------------------------------- |
-| `aweshell/theme-theme-pipeline`              | Oh-my-zsh style with user, time, and path            |
-| `aweshell/theme-theme-zshrc`                 | Multi-line zsh replica with OS info, time, date, git |
-| `aweshell/theme-theme-lambda`                | Minimal lambda prompt                                |
-| `aweshell/theme-theme-dakrone`               | Lambda with directory shrinking                      |
-| `aweshell/theme-theme-multiline-with-status` | Multiline with command duration                      |
+---
 
-Set your theme:
+## 🎨 Prompt Themes
+
+Aweshell supports multiple prompt themes powered by `aweshell-theme`. You can easily match your terminal's vibe to your Emacs setup.
+
+| Theme | Style |
+| :--- | :--- |
+| `aweshell/theme-theme-pipeline` | Oh-my-zsh style (Powerline) with user, time, and path blocks. |
+| `aweshell/theme-theme-zshrc` | Multi-line Zsh replica featuring OS info, date, time, and Git status. |
+| `aweshell/theme-theme-lambda` | Clean, minimal lambda prompt. |
+| `aweshell/theme-theme-dakrone` | Minimal lambda with smart directory shrinking. |
+| `aweshell/theme-theme-multiline-with-status` | Multi-line prompt that includes command execution duration. |
+
+**Setting your theme:**
 
 ```elisp
 (setq aweshell/theme 'aweshell/theme-theme-zshrc)
@@ -46,11 +47,11 @@ Set your theme:
 
 ---
 
-## Installation
+## 🚀 Installation
 
 ### Local (Recommended)
 
-Add the aweshell directory to your `load-path`:
+Clone the repository and add it to your Emacs `load-path`:
 
 ```elisp
 (add-to-list 'load-path (expand-file-name "path/to/aweshell"))
@@ -73,93 +74,79 @@ Add the aweshell directory to your `load-path`:
 
 ---
 
-## Configuration
+## ⚙️ Configuration
+
+A fully featured configuration utilizing `use-package`:
 
 ```elisp
 (use-package aweshell
   :commands (aweshell/new aweshell/toggle)
   :config
-  ;; Theme selection
+  ;; Select your favorite prompt theme
   (setq aweshell/theme 'aweshell/theme-theme-zshrc)
 
-  ;; Disable executable validation for faster input
-  (setq aweshell/validate-executable nil)
-
-  ;; Enable fish-like auto-suggestions
+  ;; Toggle Fish-style auto-suggestions
   (setq aweshell/auto-suggestion-p t)
 
-  ;; Validation delay (lower = faster, higher = less CPU)
+  ;; Enable or disable executable validation (disable for faster input)
+  (setq aweshell/validate-executable t)
+
+  ;; Adjust validation delay (lower = faster, higher = saves CPU)
   (setq aweshell/validate-delay (expt 2 -1)))
 ```
 
 ---
 
-## Keybindings
+## ⌨️ Keybindings & Shortcuts
 
-### Default Eshell Keybindings
+### Essential Eshell Bindings
 
-| Key     | Command             |
-| ------- | ------------------- |
-| `C-l`   | Clear buffer        |
-| `C-S-l` | Toggle sudo         |
-| `M-'`   | Search history      |
-| `M-h`   | Complete suggestion |
+| Key | Command | Action |
+| :---: | :--- | :--- |
+| `C-l` | `aweshell/clear-buffer` | Clear the terminal buffer |
+| `C-S-l` | `aweshell/sudo-toggle` | Toggle `sudo` on current command |
+| `M-'` | `aweshell/search-history` | Interactive history search |
+| `M-h` | `aweshell/insert-suggestion` | Accept auto-suggestion |
 
-### Unix-like Aliases
+### Interactive Panel & Buffer Management
 
-| Alias    | Expansion                    |
-| -------- | ---------------------------- |
-| `clear`  | Full screen clear            |
-| `ll`     | `ls -la`                     |
-| `la`     | `ls -a`                      |
-| `l`      | `ls -l`                      |
-| `..`     | `cd ..`                      |
-| `...`    | `cd ../..`                   |
-| `....`   | `cd ../../..`                |
-| `mkdirp` | `mkdir -p`                   |
-| `e`      | Open file in Emacs           |
-| `ee`     | Open file in other window    |
-| `up`     | Navigate to parent directory |
-| `unpack` | Extract archive files        |
+| Command | Description |
+| :--- | :--- |
+| `aweshell/new` | Spawn a brand new Eshell session |
+| `aweshell/next` | Cycle to the next Aweshell buffer |
+| `aweshell/prev` | Cycle to the previous Aweshell buffer |
+| `aweshell/switch-buffer` | Select a specific Aweshell buffer via prompt |
+| `aweshell/dedicated-toggle` | Toggle the IDE-style bottom panel |
 
----
+### Built-in Unix Aliases
 
-## Interactive Commands
+Aweshell automatically sets up aliases to save you keystrokes:
 
-| Command                     | Description                          |
-| --------------------------- | ------------------------------------ |
-| `aweshell/new`              | Create a new eshell buffer           |
-| `aweshell/next`             | Switch to next eshell buffer         |
-| `aweshell/prev`             | Switch to previous eshell buffer     |
-| `aweshell/toggle`           | Toggle eshell visibility             |
-| `aweshell/switch-buffer`    | Select eshell buffer with completion |
-| `aweshell/dedicated-toggle` | Toggle dedicated bottom panel        |
-| `aweshell/dedicated-open`   | Open dedicated panel                 |
-| `aweshell/dedicated-close`  | Close dedicated panel                |
-| `aweshell/clear-buffer`     | Clear the eshell buffer              |
-| `aweshell/sudo-toggle`      | Toggle sudo for current command      |
-| `aweshell/search-history`   | Search through shell history         |
+| Alias | Expansion |
+| :---: | :--- |
+| `ll` / `la` / `l` | `ls -la` / `ls -a` / `ls -l` |
+| `..` / `...` | `cd ..` / `cd ../..` |
+| `mkdirp` | `mkdir -p` |
+| `e` / `ee` | Open file in Emacs / Open in other window |
+| `up` | Quickly navigate up the directory tree |
+| `unpack` | Universal extraction for `.tar`, `.gz`, `.zip`, etc. |
 
 ---
 
-## Dependencies
+## 📦 Bundled Dependencies
 
-All dependencies are bundled:
+For your convenience, Aweshell tightly integrates and bundles its dependencies to provide a zero-friction setup:
 
-- `eshell-prompt-extras` — Prompt themes (integrated as aweshell-theme)
-- `eshell-did-you-mean` — Command correction (integrated as aweshell-did-you-mean)
-- `eshell-up` — Quick parent directory navigation (integrated as aweshell-up)
-- `exec-path-from-shell` — macOS PATH fix (integrated as aweshell-exec-path)
+- **Prompt Themes:** Integrated natively via `aweshell-theme`.
+- **Typo Correction:** Integrated natively via `aweshell-did-you-mean`.
+- **Fast Navigation:** Integrated natively via `aweshell-up`.
+- **Environment Parity:** Integrated natively via `aweshell-exec-path` (Fixes macOS/Linux GUI `$PATH` issues).
 
 ---
 
-## Credits
+## 👨‍💻 Credits & License
 
 - **Original Author:** Andy Stewart (lazycat.manatee@gmail.com)
 - **Maintainer:** Gabriel Frigo (gabriel.frigo4@gmail.com)
-
----
-
-## License
 
 This program is free software; you can redistribute it and/or modify it under the terms of the [GNU General Public License v3.0](LICENSE).

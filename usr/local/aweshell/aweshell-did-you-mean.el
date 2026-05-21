@@ -1,4 +1,6 @@
-;;; aweshell/did-you-mean.el --- command not found ("did you mean…" feature) in Eshell  -*- lexical-binding: t; -*-
+;; ============================================================================
+;;  AWESHELL/DID-YOU-MEAN.EL
+;; ============================================================================
 
 ;; Copyright (C) 2015  Chunyang Xu
 
@@ -21,12 +23,16 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Commentary:
+;; ============================================================================
+;;  COMMENTARY
+;; ============================================================================
 
 ;; Setup:
 ;;   (aweshell/did-you-mean-setup)
 
-;;; Code:
+;; ============================================================================
+;;  CODE
+;; ============================================================================
 
 (require 'cl-lib)
 (require 'eshell)
@@ -110,4 +116,3 @@ Should be added to `eshell-preoutput-filter-functions'."
                #'aweshell/did-you-mean-output-filter))
 
 (provide 'aweshell-did-you-mean)
-;;; aweshell/did-you-mean.el ends here

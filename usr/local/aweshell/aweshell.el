@@ -1,4 +1,6 @@
-;;; aweshell.el --- Awesome Eshell -*- lexical-binding: t; -*-
+;; ============================================================================
+;;  AWESHELL.EL
+;; ============================================================================
 
 ;; Filename: aweshell.el
 ;; Description: Awesome Eshell
@@ -18,9 +20,9 @@
 ;; `eshell' `aweshell/did-you-mean' `aweshell-theme' `aweshell/up.el' `aweshell/exec-path' `cl-lib' `subr-x'
 ;;
 
-;;; This file is NOT part of GNU Emacs
-
-;;; License
+;; ============================================================================
+;;  LICENSE
+;; ============================================================================
 ;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -37,7 +39,9 @@
 ;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
 ;; Floor, Boston, MA 02110-1301, USA.
 
-;;; Commentary:
+;; ============================================================================
+;;  COMMENTARY
+;; ============================================================================
 ;;
 ;; I created `multi-term.el' and use it many years.
 ;; Now I'm a big fans of `eshell'.
@@ -61,7 +65,9 @@
 ;; 16. Dedicated shell window like IDE bottom terminal window.
 ;;
 
-;;; Installation:
+;; ============================================================================
+;;  INSTALLATION
+;; ============================================================================
 ;;
 ;; Put `aweshell.el', `aweshell/did-you-mean.el', `aweshell-theme.el', `aweshell/up.el.el', `aweshell/exec-path.el' to your load-path.
 ;; The load-path is usually ~/elisp/.
@@ -84,7 +90,9 @@
 ;; `aweshell/dedicated-close'
 ;;
 
-;;; Customize:
+;; ============================================================================
+;;  CUSTOMIZE
+;; ============================================================================
 ;;
 ;; `aweshell/complete-selection-key'
 ;; `aweshell/clear-buffer-key'
@@ -101,8 +109,9 @@
 ;;      M-x customize-group RET aweshell RET
 ;;
 
-;;; Change log:
-;;;
+;; ============================================================================
+;;  CHANGE LOG
+;; ============================================================================
 ;; 2025/11/12
 ;;      * Fix: aweshell/validate-command displays incorrect color for command when aweshell/validate-executable is nil
 ;;
@@ -202,18 +211,25 @@
 ;;      * First released.
 ;;
 
-;;; Acknowledgements:
+;; ============================================================================
+;;  ACKNOWLEDGEMENTS
+;; ============================================================================
 ;;
 ;; Samray: copy `aweshell/clear-buffer', `aweshell/sudo-toggle' and `aweshell/search-history'
 ;; casouri: copy `aweshell/validate-command' and `aweshell/sync-dir-buffer-name'
 ;;
 
-;;; TODO
+;; ============================================================================
+;;  TODO
+;; ============================================================================
 ;;
 ;;
 ;;
 
-;;; Require
+;; ============================================================================
+;;  REQUIRE
+;; ============================================================================
+
 (require 'eshell)
 (require 'cl-lib)
 (require 'subr-x)
@@ -225,9 +241,13 @@
 (require 'aweshell-did-you-mean)
 (require 'aweshell-up)
 (require 'aweshell-exec-path)
-;;; Code:
+;; ============================================================================
+;;  CODE
+;; ============================================================================
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; OS Config ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  OS CONFIG
+;; ============================================================================
 
 (defvar aweshell/use-aweshell/exec-path t)
 
@@ -236,7 +256,9 @@
   (require 'aweshell-exec-path)
   (aweshell/exec-path-initialize))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Customize ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  CUSTOMIZE
+;; ============================================================================
 
 (defgroup aweshell nil
   "Multi eshell manager."
@@ -335,16 +357,22 @@ If this function affects you, disable this option."
   :type 'boolean
   :group 'aweshell)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Variable ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  VARIABLE
+;; ============================================================================
 
 (defvar aweshell/buffer-list nil
   "The list of non-dedicated eshell buffers.")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Hook ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  HOOK
+;; ============================================================================
 
 (add-hook 'kill-buffer-hook 'aweshell/kill-buffer-hook)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Custom Functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  CUSTOM FUNCTIONS
+;; ============================================================================
 
 (defun aweshell/update-custom-color ()
   "Update custom colors with theme colors safely."
@@ -374,7 +402,9 @@ If this function affects you, disable this option."
     (aweshell/update-custom-color)))
 (add-hook 'after-make-frame-functions #'aweshell/update-custom-color-on-frame)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Utilise Functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  UTILISE FUNCTIONS
+;; ============================================================================
 
 (defun aweshell/kill-buffer-hook ()
   "Function that hook `kill-buffer-hook'."
@@ -422,19 +452,18 @@ If this function affects you, disable this option."
           eshell-buffer-index-list)
       nil)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Interactive Functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  INTERACTIVE FUNCTIONS
+;; ============================================================================
 
 (defun aweshell/toggle (&optional arg)
   "Toggle Aweshell.
 If called with prefix argument, open Aweshell buffer in current directory when toggling on Aweshell. If there exists an Aweshell buffer with current directory, use that, otherwise create one."
   (interactive "p")
   (if (equal major-mode 'eshell-mode)
-      ;; toggle off
       (while (equal major-mode 'eshell-mode)
         (switch-to-prev-buffer))
-    ;; toggle on
     (if (eq arg 4)
-        ;; open in current dir
         (let* ((dir default-directory)
                (existing-buffer
                 (catch 'found
@@ -442,14 +471,11 @@ If called with prefix argument, open Aweshell buffer in current directory when t
                     (with-current-buffer aweshell/buffer
                       (when (equal dir default-directory)
                         (throw 'found aweshell/buffer)))))))
-          ;; found the buffer with the same dir
-          ;; or create a new one
           (if existing-buffer
               (switch-to-buffer existing-buffer)
             (message "No Aweshell buffer with current dir found, creating a new one.")
             (switch-to-buffer (car (last (aweshell/new))))
             (eshell/cd dir)))
-      ;; simply open
       (aweshell/next))))
 
 (defun aweshell/new ()
@@ -529,7 +555,7 @@ Create new one if no eshell buffer exists."
     (cond ((= 0 (length live-aweshell/buffer-list))
            (aweshell/new)
            (message "No Aweshell buffer yet, create a new one."))
-          ((= 1 (length live-aweshell/buffer-list)) ; only one Aweshell buffer, just switch to it
+          ((= 1 (length live-aweshell/buffer-list))
            (switch-to-buffer (nth 0 live-aweshell/buffer-list)))
           (t
            (let* ((completion-extra-properties '(:annotation-function aweshell/switch-buffer--annotate))
@@ -554,7 +580,9 @@ Create new one if no eshell buffer exists."
     (with-current-buffer candidate-buffer
       (format "  <%s> %s" (eshell-get-history 0) (if eshell-current-command "(Running)" "")))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Aweshell dedicated window ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  AWESHELL DEDICATED WINDOW
+;; ============================================================================
 
 (defvar aweshell/dedicated-window nil
   "The dedicated `aweshell' window.")
@@ -674,7 +702,9 @@ Otherwise return nil."
           (lambda ()
             (face-remap-add-relative 'hl-line :background (face-background 'default))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Aweshell keymap ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  AWESHELL KEYMAP
+;; ============================================================================
 
 (add-hook 'eshell-mode-hook
           (lambda ()
@@ -682,7 +712,9 @@ Otherwise return nil."
             (define-key eshell-mode-map (kbd aweshell/sudo-toggle-key) 'aweshell/sudo-toggle)
             (define-key eshell-mode-map (kbd aweshell/search-history-key) 'aweshell/search-history)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Aweshell Highlight ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  AWESHELL HIGHLIGHT
+;; ============================================================================
 
 (defvar aweshell/validate-executable t
   "Search executable in `exec-path` for validating eshell command.")
@@ -925,7 +957,9 @@ Otherwise return nil."
 (add-hook 'eshell-exit-hook #'aweshell/stop-highlight-timer)
 (add-hook 'buffer-list-update-hook #'aweshell/maybe-toggle-highlight-timer)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; EShell extensions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  ESHELL EXTENSIONS
+;; ============================================================================
 
 ;; aweshell/up.el
 (defalias 'eshell/up 'aweshell/up)
@@ -954,13 +988,13 @@ Available themes:
   "Interactively selects a theme for Aweshell and applies it immediately."
   (interactive)
   (let ((selected (completing-read
-                   "Selecionar tema: "
+                   "Select theme: "
                    (mapcar #'symbol-name aweshell/themes-list) nil t nil nil
                    (symbol-name aweshell/theme))))
     (unless (string-empty-p selected)
       (setq aweshell/theme (intern selected))
       (setq eshell-prompt-function aweshell/theme)
-      (message "Tema definido para: %s" aweshell/theme))))
+      (message "Theme set to: %s" aweshell/theme))))
 
 (with-eval-after-load "esh-opt"
   (setq-default eshell-highlight-prompt t)
@@ -984,7 +1018,9 @@ Available themes:
 
 (add-hook 'eshell-output-filter-functions #'aweshell/lock-output-filter)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Unix-like Aliases ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  UNIX-LIKE ALIASES
+;; ============================================================================
 
 (defun aweshell/setup-aliases ()
   "Setup Unix-like aliases for a familiar shell experience.
@@ -1043,7 +1079,9 @@ suppressing minibuffer write messages."
 
 (add-hook 'eshell-mode-hook #'aweshell/setup-environment)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Buffer Local Region Face ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ============================================================================
+;;  BUFFER LOCAL REGION FACE
+;; ============================================================================
 
 (defun aweshell/setup-region-face ()
   "Locally remap region face in eshell to preserve text foreground colors when selected."
@@ -1093,7 +1131,10 @@ suppressing minibuffer write messages."
 
 (defalias 'eshell/unpack 'aweshell/unpack)
 
-;; Synchronal buffer name by directory change.
+;; ----------------------------------------------------------------------------
+;;  Synchronal buffer name by directory change
+;; ----------------------------------------------------------------------------
+
 (defun aweshell/sync-dir-buffer-name ()
   "Change aweshell buffer name by directory change."
   (when (equal major-mode 'eshell-mode)
@@ -1295,4 +1336,4 @@ This function only return prefix when current point at eshell prompt line, avoid
 
 (provide 'aweshell)
 
-;;; aweshell.el ends here
+

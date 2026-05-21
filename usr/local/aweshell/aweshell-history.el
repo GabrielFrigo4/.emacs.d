@@ -1,4 +1,6 @@
-;;; aweshell-history.el --- History and autosuggestions for aweshell -*- lexical-binding: t; -*-
+;; ============================================================================
+;;  AWESHELL-HISTORY.EL
+;; ============================================================================
 
 
 (defun aweshell/parse-shell-history ()
@@ -13,4 +15,3 @@
      (aweshell/parse-zsh-history)))))
 
 (provide 'aweshell-history)
-;;; aweshell-history.el ends here
