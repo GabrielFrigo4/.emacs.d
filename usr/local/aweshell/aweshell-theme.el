@@ -254,8 +254,6 @@
   "Face of command status line (duration, termination timestamp)."
   :group 'epe)
 
-;; help definations
-;; (aweshell/theme-colorize-with-face "abc" 'font-lock-comment-face)
 (defmacro aweshell/theme-colorize-with-face (str face)
   "Colorize STR with FACE."
   `(propertize ,str 'face ,face))
@@ -309,7 +307,6 @@ to MAX-LEN."
   (let ((prefix path)
         git-component)
     (when (aweshell/theme-git-p)
-      ;; We need "--show-prefix and not "--top-level" when we don't follow symlinks.
       (let* ((git-file-path (abbreviate-file-name
                              (string-trim-right
                               (with-output-to-string
@@ -397,9 +394,7 @@ returns a string."
     (tramp-file-name-host (tramp-dissect-file-name default-directory))))
 
 ;; ---------------------------------------------------------------------------
-;; Git info — implementação rápida com cache por buffer
-;; Inspirada no git_branch() do .zshrc: usa git branch --show-current
-;; e git status --short -uno (ignora untracked, muito mais rápido).
+;; Git info
 ;; ---------------------------------------------------------------------------
 
 (defvar aweshell/theme-git-enable t
@@ -410,7 +405,6 @@ returns a string."
   :group 'epe
   :type 'number)
 
-;; Cache por buffer: (TIMESTAMP branch . dirty-p)
 (defvar-local aweshell/theme--git-cache nil
   "Cache de git por buffer. Formato: (TIMESTAMP branch . dirty-p).")
 
@@ -430,16 +424,13 @@ Retorna (branch . dirty-p) ou nil se fora de um repositório."
       (when (zerop (call-process "git" nil t nil
                                  "rev-parse" "--is-inside-work-tree"))
         (erase-buffer)
-        ;; Pega o nome do branch atual (rápido)
         (call-process "git" nil t nil "branch" "--show-current")
         (let ((branch (string-trim (buffer-string))))
-          ;; Se não há branch (detached HEAD), usa o SHA curto
           (when (string-empty-p branch)
             (erase-buffer)
             (call-process "git" nil t nil "rev-parse" "--short" "HEAD")
             (setq branch (string-trim (buffer-string))))
           (erase-buffer)
-          ;; Verifica modificações (ignora untracked — muito mais rápido)
           (call-process "git" nil t nil "status" "--short" "-uno")
           (let ((dirty (not (string-empty-p (string-trim (buffer-string))))))
             (cons branch dirty)))))))
@@ -567,8 +558,6 @@ Retorna (branch . dirty-p) ou nil se fora de um repositório."
 (defvar conda-env-current-name)
 
 ;;; Themes
-;; Please post your theme here if you want.
-;; Each theme should correctly set `eshell-prompt-regexp'
 (defun aweshell/theme-theme-lambda ()
   "A eshell-prompt lambda theme."
   (setq eshell-prompt-regexp "^[^#\nλ]*[#λ] ")
@@ -609,7 +598,7 @@ Retorna (branch . dirty-p) ou nil se fora de um repositório."
                                 (concat "~" (substring pwd home-len))
                               pwd))))
          (shrink-paths (lambda (p-lst)
-                         (if (> (length p-lst) 3) ;; shrink paths deeper than 3 dirs
+                         (if (> (length p-lst) 3)
                              (concat
                               (mapconcat (lambda (elm)
                                            (if (zerop (length elm)) ""
@@ -689,8 +678,6 @@ Retorna (branch . dirty-p) ou nil se fora de um repositório."
 (defun aweshell/theme-theme-multiline-with-status ()
   "A simple eshell-prompt theme with information on its own line.
 The status is displayed on the last line."
-  ;; If the prompt spans over multiple lines, the regexp should match
-  ;; last line only.
   (setq eshell-prompt-regexp "^> ")
   (concat
    (aweshell/theme-colorize-with-face (aweshell/theme-status) 'aweshell/theme-status-face)
@@ -861,7 +848,7 @@ Multi-line prompt with OS info, time, date, directory, user, and git."
          (os-ver aweshell/theme-zshrc--os-version)
          (shell-name "aweshell")
          (time-str (format-time-string "%H:%M:%S" (current-time)))
-         (date-str (format-time-string "%y/%m/%d" (current-time)))
+         (date-str (format-time-string "%d/%m/%y" (current-time)))
          (dir-str (aweshell/theme-abbrev-dir-name (aweshell/theme-pwd)))
          (user-str (if (aweshell/theme-remote-p) (aweshell/theme-remote-user) (user-login-name)))
          (git-info (when (aweshell/theme-git-p)
@@ -877,7 +864,6 @@ Multi-line prompt with OS info, time, date, directory, user, and git."
                         indicator
                         (aweshell/theme-colorize-with-face " ❯" delimiter-face))))))
     (concat
-     ;; Line 1: OS version and shell name
      "\n"
      (aweshell/theme-colorize-with-face "" delimiter-face)
      (aweshell/theme-colorize-with-face "" 'aweshell/theme-zshrc-os-icon-face)
@@ -887,7 +873,6 @@ Multi-line prompt with OS info, time, date, directory, user, and git."
      (aweshell/theme-colorize-with-face (concat " " shell-name) 'aweshell/theme-zshrc-shell-face)
      (aweshell/theme-colorize-with-face "" delimiter-face)
      "\n"
-     ;; Line 2: Time, Date, Dir, User, Git
      (aweshell/theme-colorize-with-face "┌──❮ " delimiter-face)
      (aweshell/theme-colorize-with-face "" 'aweshell/theme-zshrc-time-face)
      (aweshell/theme-colorize-with-face (concat " " time-str) 'aweshell/theme-zshrc-time-face)
@@ -904,7 +889,6 @@ Multi-line prompt with OS info, time, date, directory, user, and git."
      (aweshell/theme-colorize-with-face "❯" delimiter-face)
      (if git-info (concat "─" git-info) "")
      "\n"
-     ;; Line 3: Input prompt
      (aweshell/theme-colorize-with-face "└─" delimiter-face)
      (aweshell/theme-colorize-with-face "" 'aweshell/theme-zshrc-prompt-delimiter-face)
      " ")))

@@ -73,7 +73,6 @@
 
 ;;; Code:
 
-;; Satisfy the byte compiler
 (eval-when-compile (require 'eshell))
 (require 'cl-lib)
 (require 'json)

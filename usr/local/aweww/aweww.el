@@ -112,7 +112,6 @@ Called lazily to ensure shrface and shr-tag-pre-highlight are loaded."
                 (when (boundp 'shrface-supported-faces-alist)
                   shrface-supported-faces-alist))))
 
-;; Build rendering functions when EWW is first used (shrface will be loaded by then)
 (add-hook 'eww-mode-hook #'aweww/build-rendering-functions)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Interactive Commands ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

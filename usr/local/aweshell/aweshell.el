@@ -233,7 +233,6 @@
 
 (when (and aweshell/use-aweshell/exec-path
            (featurep 'cocoa))
-  ;; Initialize environment from user's shell to make eshell know every PATH by other shell.
   (require 'aweshell-exec-path)
   (aweshell/exec-path-initialize))
 
@@ -516,7 +515,6 @@ Create new one if no eshell buffer exists."
         (eshell-kill-input)
         (insert command)
         )))
-  ;; move cursor to eol
   (end-of-line))
 
 (defun aweshell/switch-buffer ()
@@ -534,7 +532,6 @@ Create new one if no eshell buffer exists."
 					                              live-aweshell/buffer-list))
                   (pwd default-directory)
                   (preselect))
-             ;; find most suitable preselect buffer
              (dolist (buffer live-aweshell/buffer-list)
                (with-current-buffer buffer
 		             (when (and
@@ -550,7 +547,6 @@ Create new one if no eshell buffer exists."
           (mapcar (lambda (buffer) `(,(buffer-name buffer) . ,buffer)) aweshell/buffer-list))
          (candidate-buffer (alist-get candidate buffer-alist nil nil #'equal)))
     (with-current-buffer candidate-buffer
-      ;; display the last command of aweshell buffer
       (format "  <%s> %s" (eshell-get-history 0) (if eshell-current-command "(Running)" "")))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Aweshell dedicated window ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -597,7 +593,6 @@ Otherwise return nil."
   (interactive)
   (if (aweshell/dedicated-exist-p)
       (let ((current-window (selected-window)))
-        ;; Remember height.
         (aweshell/dedicated-select-window)
         (delete-window aweshell/dedicated-window)
         (if (aweshell/window-exist-p current-window)
@@ -632,11 +627,9 @@ Otherwise return nil."
 
 (defun aweshell/dedicated-split-window ()
   "Split dedicated window at bottom of frame."
-  ;; Select bottom window of frame.
   (ignore-errors
     (dotimes (i 50)
       (windmove-down)))
-  ;; Split with dedicated window height.
   (split-window (selected-window) (- (aweshell/current-window-take-height) aweshell/dedicated-window-height))
   (other-window 1)
   (setq aweshell/dedicated-window (selected-window)))
@@ -686,7 +679,6 @@ Otherwise return nil."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Aweshell Highlight ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Validate prompt (command, separator and string) to eshell after delay.
 (defvar aweshell/validate-executable t
   "Search executable in `exec-path` for validating eshell command.")
 
@@ -709,14 +701,11 @@ Otherwise return nil."
                    (line-beginning-position)
                    (line-end-position)))
             (prompt-regexp eshell-prompt-regexp))
-        ;; Remove prompt to get actual command line
         (when (string-match prompt-regexp line)
           (setq line (substring line (match-end 0))))
-        ;; Split the line into tokens based on shell separators
         (let ((tokens (split-string line "[|&;]+" t "[ ()\t\r\n\v\f]+")))
           (goto-char (line-beginning-position))
           (dolist (token tokens)
-            ;; Remove leading/trailing spaces/quotes
             (let* ((command (car (split-string token "[ \t]+" t)))
                    (pos (search-forward command (line-end-position) t)))
               (when (and command pos)
@@ -726,23 +715,16 @@ Otherwise return nil."
                    beg end
                    'face `(:foreground
                            ,(if (or
-                                 ;; Command is an executable?
                                  (executable-find command)
-                                 ;; Or command is an alias?
                                  (seq-contains-p (eshell-alias-completions "") command)
-                                 ;; Or command is an eshell/alias?
                                  (seq-contains-p (eshell-alias-completions "eshell/") command)
-                                 ;; Or it is ../. ?
                                  (equal command "..")
                                  (equal command ".")
                                  (equal command "/")
                                  (equal command "~")
                                  (equal command "exit")
-                                 ;; Or it is a file in current dir?
                                  (member (file-name-base command) (directory-files default-directory))
-                                 ;; Or it is a elisp function
                                  (functionp (intern command))
-                                 ;; Or it is a eshell/elisp function
                                  (functionp (intern (concat "eshell/" command))))
                                 aweshell/valid-command-color
                               aweshell/invalid-command-color)))
@@ -823,21 +805,15 @@ Otherwise return nil."
                    beg end
                    'face `(:foreground
                            ,(if (or
-                                 ;; Command is an alias?
                                  (seq-contains-p (eshell-alias-completions "") command)
-                                 ;; Or command is an eshell/alias?
                                  (seq-contains-p (eshell-alias-completions "eshell/") command)
-                                 ;; Or it is ../. ?
                                  (equal command "..")
                                  (equal command ".")
                                  (equal command "/")
                                  (equal command "~")
                                  (equal command "exit")
-                                 ;; Or it is a file in current dir?
                                  (member (file-name-base command) (directory-files default-directory))
-                                 ;; Or it is a elisp function
                                  (functionp (intern command))
-                                 ;; Or it is a eshell/elisp function
                                  (functionp (intern (concat "eshell/" command))))
                                 aweshell/valid-command-color
                               aweshell/possible-command-color)))
@@ -1098,7 +1074,6 @@ suppressing minibuffer write messages."
 (add-hook 'eshell-directory-change-hook #'aweshell/sync-dir-buffer-name)
 (add-hook 'eshell-mode-hook #'aweshell/sync-dir-buffer-name)
 
-;; Add completions for git command.
 (when (executable-find "git")
   (defun pcmpl-git-commands ()
     "Return the most common git commands by parsing the git output."
@@ -1137,14 +1112,12 @@ suppressing minibuffer write messages."
 
   (defun pcomplete/git ()
     "Completion for `git'."
-    ;; Completion for the command argument.
     (pcomplete-here* pcmpl-git-commands)
     (cond
      ((pcomplete-match "help" 1)
       (pcomplete-here* pcmpl-git-commands))
      ((pcomplete-match (regexp-opt '("pull" "push")) 1)
       (pcomplete-here (pcmpl-git-remotes)))
-     ;; provide branch completion for the command `checkout'.
      ((pcomplete-match "checkout" 1)
       (pcomplete-here* (append (pcmpl-git-get-refs "heads")
                                (pcmpl-git-get-refs "tags"))))
@@ -1152,8 +1125,6 @@ suppressing minibuffer write messages."
       (while (pcomplete-here (pcomplete-entries))))))
   )
 
-;; aweshell/did-you-mean
-;; command not found (“did you mean…” feature) in Eshell.
 (add-hook 'eshell-mode-hook
           (lambda ()
             (run-with-idle-timer
@@ -1163,7 +1134,6 @@ suppressing minibuffer write messages."
                  (aweshell/did-you-mean-setup)
                  ))))
 
-;; Make cat with syntax highlight.
 (defun aweshell/cat-with-syntax-highlight (filename)
   "Like cat(1) but with syntax highlighting."
   (let ((existing-buffer (get-file-buffer filename))
@@ -1183,7 +1153,6 @@ suppressing minibuffer write messages."
 
 (advice-add 'eshell/cat :override #'aweshell/cat-with-syntax-highlight)
 
-;; Alert user when background process finished or aborted.
 (defun eshell-command-alert (process status)
   "Send `alert' with severity based on STATUS when PROCESS finished."
   (let* ((cmd (process-command process))
@@ -1197,9 +1166,6 @@ suppressing minibuffer write messages."
 
 (add-hook 'eshell-kill-hook #'eshell-command-alert)
 
-;; Auto suggestion.
-;; First completion candidate is best match that pick from shell history.
-;; Rest is completion arguments from shell completion.
 (when aweshell/auto-suggestion-p
   (defun aweshell/reload-shell-history ()
     (with-temp-message ""
@@ -1260,8 +1226,6 @@ This function only return prefix when current point at eshell prompt line, avoid
   (defun aweshell/autosuggest-candidates (prefix)
     "Select the first eshell history candidate and shell completions that starts with PREFIX."
     (unless (or
-             ;; When the command includes ", *, \ or [ characters, the `pcomplete-completions' command will report an error,
-             ;; So company menu will be disabled when these characters are included.
              (cl-search "\"" prefix)
              (cl-search "[" prefix)
              (cl-search "\*" prefix)
@@ -1277,7 +1241,6 @@ This function only return prefix when current point at eshell prompt line, avoid
                                     (cl-remove-if-not (lambda (c) (string-prefix-p command-last-arg c)) completions)
                                   nil))
              (suggest-completions (mapcar (lambda (c) (string-trim (concat command-prefix-args " " c))) shell-completions)))
-        ;; Mix best history and complete arguments just when history not exist in completion arguments.
         (if (and most-similar
                  (not (member most-similar suggest-completions)))
             (append (list most-similar) suggest-completions)

@@ -27,7 +27,6 @@
     (add-hook 'before-save-hook #'lsp-organize-imports nil t)
     (add-hook 'before-save-hook #'lsp-format-buffer nil t))
 
-  ;; Dynamically enable LSP for active modes
   (dolist (mode '(c-mode c++-mode c-or-c++-mode go-mode))
     (add-hook (intern (concat (symbol-name (tressit/get-mode mode)) "-hook")) #'lsp-deferred))
 

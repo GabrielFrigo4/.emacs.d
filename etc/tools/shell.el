@@ -8,7 +8,6 @@
   :defer t
   :bind ("C-c v" . vterm))
 
-;; Aweshell config (loaded from usr/local/aweshell/)
 (with-eval-after-load 'aweshell
   (setq-default aweshell/validate-executable nil)
   (setq-default aweshell/auto-suggestion-p t)
@@ -34,6 +33,7 @@
   :ensure nil
   :config
   (setq-default epe-git-enable t)
+  (setq-default eshell-prompt-read-only t)
   (setq-default eshell-bad-command-tolerance (expt 2 64))
 
   (defalias 'eshell/cls   'eshell/clear-scrollback)
