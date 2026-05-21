@@ -642,17 +642,17 @@ Retorna (branch . dirty-p) ou nil se fora de um repositório."
   (concat
    (if (aweshell/theme-remote-p)
        (progn
-	       (concat
-	        (aweshell/theme-colorize-with-face "┌─[" 'aweshell/theme-pipeline-delimiter-face)
-	        (aweshell/theme-colorize-with-face (aweshell/theme-remote-user) 'aweshell/theme-pipeline-user-face)
-	        (aweshell/theme-colorize-with-face "@" 'aweshell/theme-pipeline-delimiter-face)
-	        (aweshell/theme-colorize-with-face (aweshell/theme-remote-host) 'aweshell/theme-pipeline-host-face)))
+         (concat
+          (aweshell/theme-colorize-with-face "┌─[" 'aweshell/theme-pipeline-delimiter-face)
+          (aweshell/theme-colorize-with-face (aweshell/theme-remote-user) 'aweshell/theme-pipeline-user-face)
+          (aweshell/theme-colorize-with-face "@" 'aweshell/theme-pipeline-delimiter-face)
+          (aweshell/theme-colorize-with-face (aweshell/theme-remote-host) 'aweshell/theme-pipeline-host-face)))
      (progn
        (concat
-	      (aweshell/theme-colorize-with-face "┌─[" 'aweshell/theme-pipeline-delimiter-face)
-	      (aweshell/theme-colorize-with-face (user-login-name) 'aweshell/theme-pipeline-user-face)
-	      (aweshell/theme-colorize-with-face "@" 'aweshell/theme-pipeline-delimiter-face)
-	      (aweshell/theme-colorize-with-face (system-name) 'aweshell/theme-pipeline-host-face))))
+        (aweshell/theme-colorize-with-face "┌─[" 'aweshell/theme-pipeline-delimiter-face)
+        (aweshell/theme-colorize-with-face (user-login-name) 'aweshell/theme-pipeline-user-face)
+        (aweshell/theme-colorize-with-face "@" 'aweshell/theme-pipeline-delimiter-face)
+        (aweshell/theme-colorize-with-face (system-name) 'aweshell/theme-pipeline-host-face))))
    (concat
     (aweshell/theme-colorize-with-face "]──[" 'aweshell/theme-pipeline-delimiter-face)
     (when aweshell/theme-pipeline-show-time

@@ -7,8 +7,8 @@
  '(custom-enabled-themes '(doom-dark+))
  '(custom-safe-themes
    '("f33b5dfb5c5fb99b5a90feab9158cadc2588c6840211b995622a35419c450b04"
-	   "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8"
-	   default))
+       "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8"
+       default))
  '(display-battery-mode t)
  '(display-line-numbers-type 'relative)
  '(display-time-mode t)

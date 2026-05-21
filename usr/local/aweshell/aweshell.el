@@ -330,6 +330,11 @@ If this function affects you, disable this option."
   :type 'function
   :group 'aweshell)
 
+(defcustom aweshell/lock-output nil
+  "When non-nil, the output of commands in Eshell automatically becomes read-only."
+  :type 'boolean
+  :group 'aweshell)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Variable ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defvar aweshell/buffer-list nil
@@ -529,14 +534,14 @@ Create new one if no eshell buffer exists."
           (t
            (let* ((completion-extra-properties '(:annotation-function aweshell/switch-buffer--annotate))
                   (buffer-alist (mapcar (lambda (buffer) `(,(buffer-name buffer) . ,buffer))
-					                              live-aweshell/buffer-list))
+                                        live-aweshell/buffer-list))
                   (pwd default-directory)
                   (preselect))
              (dolist (buffer live-aweshell/buffer-list)
                (with-current-buffer buffer
-		             (when (and
-			                  (or (not preselect) (< (length preselect) (length default-directory)))
-			                  (file-in-directory-p pwd default-directory))
+                 (when (and
+                        (or (not preselect) (< (length preselect) (length default-directory)))
+                        (file-in-directory-p pwd default-directory))
                    (setq preselect (propertize default-directory :buffer-name (buffer-name buffer))))))
              (let ((result-buffer (completing-read "Switch to Aweshell buffer: " buffer-alist nil t nil nil
                                                    (get-text-property 0 :buffer-name (or preselect "")))))
@@ -937,10 +942,10 @@ Available themes:
     aweshell/theme-theme-pipeline
     aweshell/theme-theme-zshrc
     aweshell/theme-theme-multiline-with-status)
-  "Lista de temas disponíveis para Aweshell.")
+  "List of available themes for Aweshell.")
 
 (defun aweshell/select-theme ()
-  "Seleciona interativamente um tema para o Aweshell e aplica imediatamente."
+  "Interactively selects a theme for Aweshell and applies it immediately."
   (interactive)
   (let ((selected (completing-read
                    "Selecionar tema: "
@@ -952,8 +957,19 @@ Available themes:
       (message "Tema definido para: %s" aweshell/theme))))
 
 (with-eval-after-load "esh-opt"
-  (setq-default eshell-highlight-prompt nil)
+  (setq-default eshell-highlight-prompt t)
   (setq-default eshell-prompt-function aweshell/theme))
+
+(defun aweshell/lock-output-filter ()
+  "Applies read-only protection to Eshell output if `aweshell-lock-output' is non-nil."
+  (when aweshell/lock-output
+    (add-text-properties eshell-last-output-start
+                         eshell-last-output-end
+                         '(read-only t
+                           front-sticky (read-only)
+                           rear-nonsticky (read-only)))))
+
+(add-hook 'eshell-output-filter-functions #'aweshell/lock-output-filter)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Unix-like Aliases ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1206,8 +1222,6 @@ suppressing minibuffer write messages."
             zsh_history))
       nil))
 
-  
-
   (defun aweshell/autosuggest--prefix ()
     "Get current eshell input.
 
@@ -1247,12 +1261,13 @@ This function only return prefix when current point at eshell prompt line, avoid
           suggest-completions)
         )))
 
-  (defun aweshell/autosuggest (command &optional arg &rest ignored)
+(defun aweshell/autosuggest (command &optional arg &rest ignored)
     "`company-mode' backend to provide eshell history suggestion."
     (interactive (list 'interactive))
     (cl-case command
       (interactive (company-begin-backend 'aweshell/autosuggest))
       (prefix (and (derived-mode-p 'eshell-mode)
+                   (not (get-text-property (point) 'read-only))
                    (aweshell/autosuggest--prefix)))
       (candidates (aweshell/autosuggest-candidates arg))
       (sorted nil)))
