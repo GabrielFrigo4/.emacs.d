@@ -98,6 +98,19 @@
 (setq-default shell-buffers '("*Shell Configuration*"))
 (setq-default org-buffers '())
 
+(dolist (buf '("\\*Async-native-compile-log\\*"
+               "\\*Warnings\\*"
+               "\\*Backtrace\\*"
+               "\\*elpaca-log\\*"
+               "\\*elpaca-info\\*"
+               "\\*Shell Configuration\\*"
+               "\\*Help\\*"
+               "\\*compilation\\*"))
+  (add-to-list 'display-buffer-alist
+               (list buf
+                     '(display-buffer-no-window)
+                     '(allow-no-window . t))))
+
 (defun eaf/buffer-p (buffer)
   "Return t if BUFFER is related to EAF (checks Major Mode or Name Prefix)."
   (let ((name (buffer-name buffer)))
@@ -171,6 +184,14 @@
       (when (and buffer (not (get-buffer-process buffer)))
         (kill-buffer buffer)))))
 
+(defun buffer/kill-log ()
+  "Kill the async native-compilation log buffer if no process is running."
+  (interactive)
+  (async-sleep (expt 2 -8))
+  (let ((buffer (get-buffer "*Async-native-compile-log*")))
+    (when (and buffer (not (get-buffer-process buffer)))
+      (kill-buffer buffer))))
+
 (defun buffer/setup-eol ()
   "Do not show ^M in files containing mixed UNIX and DOS line endings."
   (interactive)
@@ -186,9 +207,12 @@
                            "1.6 sec")))
               (run-at-time delay nil #'buffer/kill-shell)
               (run-at-time delay nil #'buffer/kill-org)
+              (run-at-time delay nil #'buffer/kill-log)
               (run-at-time delay nil #'buffer/kill-eaf))))
 
 (add-hook 'elpaca-after-init-hook #'buffer/kill-pkg)
+(when (boundp 'native-comp-async-all-done-hook)
+  (add-hook 'native-comp-async-all-done-hook #'buffer/kill-log))
 
 ;; ----------------------------------------------------------------------------
 ;;  SERVER CONFIGURATION
