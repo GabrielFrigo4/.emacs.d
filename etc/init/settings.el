@@ -22,6 +22,10 @@
   (setq eshell-login-script (expand-file-name "eshell/login" usr-dir))
   (setq eshell-rc-script (expand-file-name "eshell/rc" usr-dir))
 
+  (with-eval-after-load 'tutorial
+    (defun tutorial--saved-dir ()
+      (expand-file-name "tutorial/" usr-dir)))
+
   (let ((clean-empty-dir (lambda (dir)
                            (when (and (file-directory-p dir)
                                       (null (directory-files dir nil "^[^.]")))
