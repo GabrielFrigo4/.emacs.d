@@ -1,4 +1,6 @@
-;;; indent-all.el --- Batch script to auto-indent config files -*- lexical-binding: t; -*-
+;; ============================================================================
+;;  AUTO INDENT ALL
+;; ============================================================================
 
 (require 'use-package)
 

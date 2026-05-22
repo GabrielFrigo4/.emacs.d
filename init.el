@@ -90,7 +90,6 @@
 ;;  STARTUP SETTINGS
 ;; ============================================================================
 
-
 (setq initial-major-mode 'fundamental-mode)
 (setq initial-scratch-message nil)
 

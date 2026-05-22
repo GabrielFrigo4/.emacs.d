@@ -67,8 +67,6 @@
 ;;  CODE
 ;; ============================================================================
 
-;; User-definable variables
-
 (defvar aweshell/up-ignore-case t "Non-nil if searches must ignore case.")
 
 (defvar aweshell/up-print-parent-dir nil "Non-nil if the parent directory must be printed before ‘aweshell/up’ changes to it.")

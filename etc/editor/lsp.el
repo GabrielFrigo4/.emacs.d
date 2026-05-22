@@ -32,7 +32,6 @@
 
   (add-hook (intern (concat (symbol-name (tressit/get-mode 'go-mode)) "-hook")) #'lsp/go-install-save-hooks))
 
-
 (use-package lsp-ui
   :ensure (:type git :host github :repo "emacs-lsp/lsp-ui" :branch "master")
   :commands lsp-ui-mode)

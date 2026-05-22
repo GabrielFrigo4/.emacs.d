@@ -2,7 +2,6 @@
 ;;  AWESHELL-HISTORY.EL
 ;; ============================================================================
 
-
 (defun aweshell/parse-shell-history ()
   "Parse history from eshell/bash/zsh/ ."
   (delete-dups

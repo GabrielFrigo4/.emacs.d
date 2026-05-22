@@ -83,6 +83,7 @@
 ;; ============================================================================
 ;;  CODE
 ;; ============================================================================
+
 (require 'em-ls)
 (require 'em-dirs)
 (require 'esh-ext)
@@ -281,7 +282,6 @@
   "Trim newline from the end of STRING."
   (replace-regexp-in-string "\n$" "" string))
 
-;; https://www.emacswiki.org/emacs/EshellPrompt
 (defun aweshell/theme-fish-path (path &optional max-len)
   "Return a potentially trimmed-down version of the directory PATH.
 Replacing parent directories with their initial characters to try
@@ -382,7 +382,6 @@ returns a string."
       (add-hook 'eshell-pre-command-hook #'aweshell/theme-status--record)
       "")))
 
-;; tramp info
 (defun aweshell/theme-remote-p ()
   "If you are in a remote machine."
   (tramp-tramp-file-p default-directory))
@@ -393,8 +392,6 @@ returns a string."
 
 (defun aweshell/theme-remote-host ()
   "Return remote host."
-  ;; `tramp-file-name-real-host' is removed and replaced by
-  ;; `tramp-file-name-host' in Emacs 26, see issue #18
   (if (fboundp 'tramp-file-name-real-host)
       (tramp-file-name-real-host (tramp-dissect-file-name default-directory))
     (tramp-file-name-host (tramp-dissect-file-name default-directory))))
@@ -426,7 +423,6 @@ Retorna (branch . dirty-p) ou nil se fora de um repositório."
              (not (aweshell/theme-remote-p))
              (eshell-search-path "git"))
     (with-temp-buffer
-      ;; Verifica se está dentro de um repositório git
       (when (zerop (call-process "git" nil t nil
                                  "rev-parse" "--is-inside-work-tree"))
         (erase-buffer)
@@ -456,7 +452,6 @@ Retorna (branch . dirty-p) ou nil se fora de um repositório."
 (defun aweshell/theme-git-branch ()
   "Return o nome do branch atual (ou SHA curto em detached HEAD)."
   (car (aweshell/theme--git-info)))
-
 
 (defun aweshell/theme-git-short-sha1 ()
   "Return the short sha1 of your git commit."
@@ -871,10 +866,10 @@ Multi-line prompt with OS info, time, date, directory, user, and git."
                                          "")))
                        (concat
                         (aweshell/theme-colorize-with-face "❮" delimiter-face)
-                        (aweshell/theme-colorize-with-face "  " 'aweshell/theme-zshrc-git-icon-face)
+                        (aweshell/theme-colorize-with-face "󰊢 " 'aweshell/theme-zshrc-git-icon-face)
                         (aweshell/theme-colorize-with-face branch 'aweshell/theme-zshrc-git-branch-face)
                         indicator
-                        (aweshell/theme-colorize-with-face " ❯" delimiter-face))))))
+                        (aweshell/theme-colorize-with-face "❯" delimiter-face))))))
     (concat
      "\n"
      (aweshell/theme-colorize-with-face "" delimiter-face)
@@ -899,11 +894,10 @@ Multi-line prompt with OS info, time, date, directory, user, and git."
      (aweshell/theme-colorize-with-face "" 'aweshell/theme-zshrc-user-icon-face)
      (aweshell/theme-colorize-with-face (concat " " user-str) user-face)
      (aweshell/theme-colorize-with-face "❯" delimiter-face)
-     (if git-info (concat "─" git-info) "")
+     (if git-info (concat " " git-info) "")
      "\n"
      (aweshell/theme-colorize-with-face "└─" delimiter-face)
      (aweshell/theme-colorize-with-face "" 'aweshell/theme-zshrc-prompt-delimiter-face)
      " ")))
 
 (provide 'aweshell-theme)
-

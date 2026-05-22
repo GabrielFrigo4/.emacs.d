@@ -85,7 +85,6 @@
   (add-hook (intern (concat (symbol-name (tressit/get-mode 'emacs-lisp-mode)) "-hook"))
             (lambda () (setq-local tab-width 2 indent-tabs-mode -1))))
 
-
 (add-hook 'asm-mode-hook
           (lambda ()
             (setq-local comment-start "; ")

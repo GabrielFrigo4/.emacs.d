@@ -2,7 +2,6 @@
 ;;  ELPACA BOOTSTRAP
 ;; ============================================================================
 
-
 (setq-default elpaca-queue-limit 5)
 (setq-default elpaca-log-level 'error)
 (setq-default elpaca-lock-file (expand-file-name "elpaca.lock" lock-dir))

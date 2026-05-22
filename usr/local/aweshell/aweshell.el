@@ -235,15 +235,11 @@
 (require 'subr-x)
 (require 'seq)
 
-;; Aweshell Modules
 (require 'aweshell-theme)
 (require 'aweshell-history)
 (require 'aweshell-did-you-mean)
 (require 'aweshell-up)
 (require 'aweshell-exec-path)
-;; ============================================================================
-;;  CODE
-;; ============================================================================
 
 ;; ============================================================================
 ;;  OS CONFIG
@@ -961,7 +957,6 @@ Otherwise return nil."
 ;;  ESHELL EXTENSIONS
 ;; ============================================================================
 
-;; aweshell/up.el
 (defalias 'eshell/up 'aweshell/up)
 (defalias 'eshell/up-peek 'aweshell/up-peek)
 
@@ -1097,13 +1092,7 @@ suppressing minibuffer write messages."
 (defun aweshell/emacs (&rest args)
   "Open a file in Emacs with ARGS, Some habits die hard."
   (if (null args)
-      ;; If I just ran "emacs", I probably expect to be launching
-      ;; Emacs, which is rather silly since I'm already in Emacs.
-      ;; So just pretend to do what I ask.
       (bury-buffer)
-    ;; We have to expand the file names or else naming a directory in an
-    ;; argument causes later arguments to be looked for in that directory,
-    ;; not the starting directory
     (mapc #'find-file (mapcar #'expand-file-name (eshell-flatten-list (reverse args))))))
 
 (defalias 'eshell/e 'aweshell/emacs)

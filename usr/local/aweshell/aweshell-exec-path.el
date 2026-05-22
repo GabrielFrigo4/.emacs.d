@@ -10,8 +10,6 @@
 ;; Package-Version: 2.2
 ;; Package-Requires: ((emacs "24.4"))
 
-
-
 ;; This file is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
@@ -291,8 +289,6 @@ variables `exec-path' and `eshell-path-env'."
   (setenv name value)
   (when (string-equal "PATH" name)
     (setq exec-path (append (parse-colon-path value) (list exec-directory)))
-    ;; `eshell-path-env' is a buffer local variable, so change its default
-    ;; value.
     (setq-default eshell-path-env value)))
 
 ;;;###autoload
@@ -328,12 +324,4 @@ values used in the user's shell."
   (interactive)
   (aweshell/exec-path-copy-envs aweshell/exec-path-variables))
 
-
 (provide 'aweshell-exec-path)
-
-;; Local Variables:
-;; coding: utf-8
-;; indent-tabs-mode: nil
-;; require-final-newline: t
-;; checkdoc-minor-mode: t
-;; End:

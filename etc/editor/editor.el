@@ -89,5 +89,4 @@
                      '((tsx-ts-mode . prettier))))
                   apheleia-mode-alist))))
 
-
 (provide 'feature-editor)
