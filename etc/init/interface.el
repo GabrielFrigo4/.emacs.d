@@ -104,7 +104,6 @@
                "\\*elpaca-log\\*"
                "\\*elpaca-info\\*"
                "\\*Shell Configuration\\*"
-               "\\*Help\\*"
                "\\*compilation\\*"))
   (add-to-list 'display-buffer-alist
                (list buf

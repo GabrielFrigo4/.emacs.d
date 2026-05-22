@@ -32,11 +32,11 @@
     :config
     (global-yascroll-bar-mode 1)))
 
-;; O Minimap fica sempre ativo, independente do scroll
-(use-package minimap
-  :ensure t
+(use-package imenu-list
+  :ensure (imenu-list :host github 
+                      :repo "bmag/imenu-list" 
+                      :main "imenu-list.el")
+  :bind ("C-c m" . imenu-list-smart-toggle)
   :config
-  (setq minimap-window-location 'right)
-  (setq minimap-minimum-width 12)
-  (setq minimap-width-fraction 0.1)
-  (minimap-mode 1))
+  (setq imenu-list-position 'right)
+  (setq imenu-list-size (expt 2 5)))

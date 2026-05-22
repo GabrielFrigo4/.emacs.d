@@ -45,7 +45,6 @@
 (unless (file-exists-p (file-name-directory eshell-aliases-file))
   (make-directory (file-name-directory eshell-aliases-file) t))
 
-;; Clear temporary directory on startup
 (when (file-directory-p tmp-dir)
   (dolist (file (directory-files tmp-dir t "^[^.]"))
     (condition-case nil
