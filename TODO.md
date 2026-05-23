@@ -17,5 +17,6 @@
 > Funcionalidades experimentais, atualizações de ecossistema e suporte nativo esperados para o lançamento do Emacs Preview.
 
 - [ ] Add: DirectWrite BackEngine Font on Windows
+- [ ] Add: Email Client (mu4e)
 - [ ] Update: Common Lisp
 - [ ] Update: Emacs Lisp
