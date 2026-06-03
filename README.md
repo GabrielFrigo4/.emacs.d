@@ -205,6 +205,26 @@ chmod +x ./install-eaf.py
 ./install-eaf.py --install "git"
 ```
 
+### 😈 FreeBSD
+
+```zsh
+mkdir -p "${HOME}/.emacs.d/opt/eaf/"
+git clone --depth=1 -b master "https://github.com/emacs-eaf/emacs-application-framework.git" "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
+cd "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
+chmod +x ./install-eaf.py
+./install-eaf.py
+./install-eaf.py --install "browser"
+./install-eaf.py --install "pdf-viewer"
+./install-eaf.py --install "music-player"
+./install-eaf.py --install "video-player"
+./install-eaf.py --install "image-viewer"
+./install-eaf.py --install "file-manager"
+./install-eaf.py --install "pyqterminal"
+./install-eaf.py --install "terminal"
+./install-eaf.py --install "camera"
+./install-eaf.py --install "git"
+```
+
 ### 🪟 Windows
 
 ```pwsh
@@ -248,6 +268,20 @@ fc-cache -fv
 cd -
 ```
 
+### 😈 FreeBSD
+
+On FreeBSD, you can also install the fonts manually to your system:
+
+```bash
+mkdir -p "${HOME}/.local/share/fonts"
+cd "${HOME}/.local/share/fonts"
+fetch "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/NerdFontsSymbolsOnly.zip"
+unzip -o NerdFontsSymbolsOnly.zip
+rm NerdFontsSymbolsOnly.zip
+fc-cache -fv
+cd -
+```
+
 ### 🪟 Windows
 
 On Windows, running the `M-x nerd-icons-install-fonts` function inside Emacs will prompt for a download directory for you to install the fonts manually.
@@ -256,11 +290,11 @@ On Windows, running the `M-x nerd-icons-install-fonts` function inside Emacs wil
 
 ## ⚙️ Emacs Server / Daemon Configuration
 
-When running Emacs as a daemon (`emacs --daemon`) and connecting via `emacsclient`, there is a key difference between Unix-like systems (Linux, FreeBSD, macOS) and Windows.
+When running Emacs as a daemon (`emacs --daemon`) and connecting via `emacsclient`, there is a key difference between Unix-like systems (Linux, macOS), FreeBSD, and Windows.
 
-### 🐧 Unix-like (Linux / FreeBSD / macOS)
+### 🐧 Linux / macOS
 
-On Unix systems, Emacs uses **Unix Domain Sockets** for communication, which are faster and more secure.
+On Linux and macOS, Emacs uses **Unix Domain Sockets** for communication, which are faster and more secure.
 
 - **Variable**: `EMACS_SOCKET_NAME`
 - **Setup**: If you want to use a custom socket directory (e.g., `"${HOME}/.emacs.d/var/server/auth/"`), you must ensure the directory exists and has strict `0700` permissions, otherwise the Emacs server will refuse to start for security reasons.
@@ -274,6 +308,27 @@ chmod 0700 "${HOME}/.emacs.d/var/server/auth/"
 ```
 
 In your terminal configuration (`.bashrc` ou `.zshrc`), export the path using `EMACS_SOCKET_NAME`:
+
+```bash
+export EMACS_SOCKET_NAME="${HOME}/.emacs.d/var/server/auth/server"
+```
+
+### 😈 FreeBSD
+
+On FreeBSD, Emacs uses **Unix Domain Sockets** for communication, which are faster and more secure.
+
+- **Variable**: `EMACS_SOCKET_NAME`
+- **Setup**: If you want to use a custom socket directory (e.g., `"${HOME}/.emacs.d/var/server/auth/"`), you must ensure the directory exists and has strict `0700` permissions, otherwise the Emacs server will refuse to start for security reasons.
+
+```bash
+# Create the Directory
+mkdir -p "${HOME}/.emacs.d/var/server/auth/"
+
+# Restrict Permissions (Crucial for Emacs Server)
+chmod 0700 "${HOME}/.emacs.d/var/server/auth/"
+```
+
+In your terminal configuration (`.cshrc` or `.zshrc`), export the path using `EMACS_SOCKET_NAME` (or `setenv EMACS_SOCKET_NAME` for csh/tcsh):
 
 ```bash
 export EMACS_SOCKET_NAME="${HOME}/.emacs.d/var/server/auth/server"

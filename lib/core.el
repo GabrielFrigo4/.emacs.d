@@ -6,12 +6,17 @@
   "Return true if the system is generic Unix-like (Linux, BSD, Darwin/macOS)."
   (memq system-type '(gnu gnu/linux gnu/kfreebsd berkeley-unix darwin android)))
 
+(defun system-is-freebsd-p ()
+  "Return true if the system is FreeBSD (or any other BSD)."
+  (memq system-type '(berkeley-unix gnu/kfreebsd)))
+
 (defmacro when-system (type &rest body) (declare (indent defun)) `(when (eq system-type ',type) ,@body))
 (defmacro when-gnu      (&rest body) `(when-system gnu ,@body))
 (defmacro when-linux    (&rest body) `(when-system gnu/linux ,@body))
 (defmacro when-kfreebsd (&rest body) `(when-system gnu/kfreebsd ,@body))
 (defmacro when-darwin   (&rest body) `(when-system darwin ,@body))
 (defmacro when-bsd      (&rest body) `(when-system berkeley-unix ,@body))
+(defmacro when-freebsd  (&rest body) `(when (system-is-freebsd-p) ,@body))
 (defmacro when-unix     (&rest body) `(when (system-is-unix-p) ,@body))
 (defmacro when-msdos    (&rest body) `(when-system ms-dos ,@body))
 (defmacro when-windows  (&rest body) `(when-system windows-nt ,@body))
@@ -25,6 +30,7 @@
 (defmacro if-kfreebsd (&rest body) `(if-system gnu/kfreebsd ,@body))
 (defmacro if-darwin   (&rest body) `(if-system darwin ,@body))
 (defmacro if-bsd      (&rest body) `(if-system berkeley-unix ,@body))
+(defmacro if-freebsd  (&rest body) `(if (system-is-freebsd-p) ,@body))
 (defmacro if-unix     (&rest body) `(if (system-is-unix-p) ,@body))
 (defmacro if-msdos    (&rest body) `(if-system ms-dos ,@body))
 (defmacro if-windows  (&rest body) `(if-system windows-nt ,@body))

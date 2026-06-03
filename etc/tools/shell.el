@@ -3,7 +3,7 @@
 ;; ============================================================================
 
 (use-package vterm
-  :when (eq system-type 'gnu/linux)
+  :when (system-is-unix-p)
   :ensure (:type git :host github :repo "emacsmirror/vterm" :branch "master")
   :defer t
   :bind ("C-c v" . vterm))
@@ -17,7 +17,7 @@
 
 ;; Shell Configuration
 (when-unix
- (setq-default explicit-shell-file-name "/bin/zsh")
+ (setq-default explicit-shell-file-name (or (executable-find "zsh") "/bin/sh"))
  (setq-default shell-file-name "zsh")
  (setq-default shell-command-switch "-c"))
 

@@ -16,7 +16,11 @@
    "https://man.dragonflybsd.org/?command=%s&section=%s"]
   "Unix Manual Template List")
 
-(defvar mandoc/active 0
+(defvar mandoc/active
+  (cond
+   ((system-is-freebsd-p) 3)
+   ((eq system-type 'darwin) 2)
+   (t 1))
   "Index of the active manual template in `mandoc/template-list`.")
 
 ;; ----------------------------------------------------------------------------
