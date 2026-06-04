@@ -49,6 +49,8 @@
       ;; JIT
       (c-sharp    . ("https://github.com/tree-sitter/tree-sitter-c-sharp"             "master"        "src"))
       (java       . ("https://github.com/tree-sitter/tree-sitter-java"                "master"        "src"))
+      (scala      . ("https://github.com/tree-sitter/tree-sitter-scala"               "master"        "src"))
+      (clojure    . ("https://github.com/sogaiu/tree-sitter-clojure"                  "master"        "src"))
       (elixir     . ("https://github.com/elixir-lang/tree-sitter-elixir"              "main"          "src"))
       (php        . ("https://github.com/tree-sitter/tree-sitter-php"                 "master"        "php/src"))
       ;; VM
@@ -113,6 +115,8 @@
                   ;; JIT
                   (csharp-mode      . csharp-ts-mode)
                   (java-mode        . java-ts-mode)
+                  (scala-mode       . scala-ts-mode)
+                  (clojure-mode     . clojure-ts-mode)
                   (elixir-mode      . elixir-ts-mode)
                   (php-mode         . php-ts-mode)
                   ;; VM

@@ -25,6 +25,8 @@
 (use-package js2-mode :ensure t)
 (use-package typescript-mode :ensure t)
 (use-package php-mode :ensure t)
+(use-package scala-mode :ensure t)
+(use-package clojure-mode :ensure t)
 (use-package fasm-mode :ensure (:type git :host github :repo "GabrielFrigo4/fasm-mode"))
 (use-package nasm-mode :ensure (:type git :host github :repo "GabrielFrigo4/nasm-mode"))
 (use-package riscv-mode :ensure t)
@@ -46,6 +48,8 @@
   (use-package emacs-lisp-ts-mode :ensure (:type git :host github :repo "GabrielFrigo4/emacs-lisp-ts-mode"))
   (use-package common-lisp-ts-mode :ensure (:type git :host github :repo "GabrielFrigo4/common-lisp-ts-mode"))
   (use-package zig-ts-mode :ensure t)
+  (use-package scala-ts-mode :ensure t)
+  (use-package clojure-ts-mode :ensure t)
   (use-package haskell-ts-mode :ensure t))
 
 (use-package pyvenv

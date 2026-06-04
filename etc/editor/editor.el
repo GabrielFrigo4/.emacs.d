@@ -72,6 +72,8 @@
            (markdown-mode . prettier)
            (graphql-mode . prettier)
            (lua-mode . stylua)
+           (scala-mode . scalafmt)
+           (clojure-mode . cljfmt)
            (c-mode . clang-format)
            (c++-mode . clang-format))))
     (setq apheleia-mode-alist
