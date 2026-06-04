@@ -24,10 +24,10 @@
 
 (use-package doom-modeline
   :ensure (:type git :host github :repo "emacsmirror/doom-modeline" :branch "master")
-  :hook (after-init . doom-modeline-mode)
+  :init (doom-modeline-mode 1)
   :custom
   (doom-modeline-icon t)
-  (doom-modeline-height 32)
+  (doom-modeline-height 26)
   (doom-modeline-bar-width 4)
   (doom-modeline-buffer-file-name-style 'truncate-upto-project)
   (doom-modeline-env-version t)
