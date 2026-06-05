@@ -57,7 +57,10 @@
   :hook (prog-mode . apheleia-mode)
   :config
   (setq apheleia-formatters
-        (append '((stylua . ("stylua" "--indent-type" "Tabs" "--indent-width" "4" "-")))
+        (append `((stylua . ("stylua" "--indent-type" "Tabs" "--indent-width" "4" "-"))
+                  (scalafmt . ,(if (eq system-type 'windows-nt)
+                                   '("scalafmt" (apheleia-formatters-locate-file "--config" ".scalafmt.conf"))
+                                 '("scalafmt" "--stdin" "--assume-filename" filepath))))
                 apheleia-formatters))
   (let ((base-formatters
          '((js-mode . prettier)
