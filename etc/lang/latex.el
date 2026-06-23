@@ -44,8 +44,9 @@
     (setq-local tab-width 4)
     (setq-local tex-indent-basic tab-width)
     (setq-local indent-tabs-mode -1))
-  (add-hook 'tex-mode-hook #'tex/setup-tab-width)
-  (add-hook 'latex-mode-hook #'tex/setup-tab-width)
+  (when latex/enable
+    (add-hook 'tex-mode-hook #'tex/setup-tab-width)
+    (add-hook 'latex-mode-hook #'tex/setup-tab-width))
 
   (defun TeX/setup-tab-width ()
     (setq-local tab-width 4)
@@ -56,8 +57,9 @@
     (setq-local LaTeX-item-indent tab-width)
     (setq-local LaTeX-math-indent tab-width)
     (setq-local indent-tabs-mode -1))
-  (add-hook 'TeX-mode-hook #'TeX/setup-tab-width)
-  (add-hook 'LaTeX-mode-hook #'TeX/setup-tab-width)
+  (when latex/enable
+    (add-hook 'TeX-mode-hook #'TeX/setup-tab-width)
+    (add-hook 'LaTeX-mode-hook #'TeX/setup-tab-width))
 
   ;; LaTeX Compilation & Viewing
   (defun latex/view ()
@@ -94,9 +96,9 @@
       (let ((__latex-buffer__ (current-buffer)))
         (latex/preview)
         (switch-to-buffer __latex-buffer__))))
-
-  (add-hook 'find-file-hook #'latex/preview-setup)
-  (add-hook 'after-save-hook #'latex/preview-setup))
+  (when latex/enable
+    (add-hook 'find-file-hook #'latex/preview-setup)
+    (add-hook 'after-save-hook #'latex/preview-setup)))
 
 ;; ============================================================================
 ;;  PDF FEATURE

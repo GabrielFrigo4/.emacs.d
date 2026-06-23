@@ -81,13 +81,13 @@
            (c++-mode . clang-format))))
     (setq apheleia-mode-alist
           (append base-formatters
-                  (when tressit/enable
+                  (when treesit/enable
                     (append
                      (delq nil
                            (mapcar (lambda (pair)
                                      (let* ((mode (car pair))
                                             (formatter (cdr pair))
-                                            (ts-mode (tressit/get-mode mode)))
+                                            (ts-mode (treesit/get-mode mode)))
                                        (when (not (eq ts-mode mode))
                                          (cons ts-mode formatter))))
                                    base-formatters))

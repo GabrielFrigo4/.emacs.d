@@ -35,7 +35,7 @@
 (use-package glsl-mode
   :ensure t
   :config
-  (when tressit/enable
+  (when treesit/enable
     (require 'treesit)
     (require 'c-ts-mode)))
 (use-package json-mode :ensure t)
@@ -43,7 +43,7 @@
 (use-package dockerfile-mode :ensure t)
 (use-package vimrc-mode :ensure t)
 
-(when tressit/enable
+(when treesit/enable
   (use-package yaml-ts-mode :ensure nil :hook (yaml-ts-mode . apheleia-mode))
   (use-package emacs-lisp-ts-mode :ensure (:type git :host github :repo "GabrielFrigo4/emacs-lisp-ts-mode"))
   (use-package common-lisp-ts-mode :ensure (:type git :host github :repo "GabrielFrigo4/common-lisp-ts-mode"))
@@ -117,7 +117,7 @@
 (add-to-list 'auto-mode-alist '("\\.inc\\'"   . nasm-mode))
 (add-to-list 'auto-mode-alist '("\\.riscv\\'" . riscv-mode))
 
-(when tressit/enable
+(when treesit/enable
   (add-to-list 'auto-mode-alist '("\\go.mod\\'" . go-mod-ts-mode)))
 
 (provide 'feature-lang)

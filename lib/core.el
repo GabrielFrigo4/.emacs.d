@@ -49,10 +49,10 @@
     (while (< (float-time) end-time)
       (accept-process-output nil (expt 10 -3)))))
 
-(defun tressit/get-mode (mode)
-  "Return the tree-sitter equivalent of MODE if `tressit/enable` is non-nil,
+(defun treesit/get-mode (mode)
+  "Return the tree-sitter equivalent of MODE if `treesit/enable` is non-nil,
 otherwise return MODE."
-  (if (and (bound-and-true-p tressit/enable)
+  (if (and (bound-and-true-p treesit/enable)
            (symbolp mode))
       (let* ((mode-name (symbol-name mode))
              ;; Exceptions to the general "-mode" -> "-ts-mode" pattern

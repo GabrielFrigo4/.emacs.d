@@ -69,9 +69,12 @@
 ;; ============================================================================
 
 (setq scroll/enable t)
-(setq tressit/enable nil)
+(setq treesit/enable nil)
 (setq minuet/enable nil)
 (setq ia/enable nil)
+(setq eaf/enable nil)
+(setq lsp/enable t)
+(setq latex/enable t)
 
 ;; ============================================================================
 ;;  CORE LIBRARIES

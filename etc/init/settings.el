@@ -81,8 +81,8 @@
 (add-hook 'prog-mode-hook #'prog-mode/setup)
 
 (add-hook 'emacs-lisp-mode-hook (lambda () (setq-local tab-width 2 indent-tabs-mode -1)))
-(when tressit/enable
-  (add-hook (intern (concat (symbol-name (tressit/get-mode 'emacs-lisp-mode)) "-hook"))
+(when treesit/enable
+  (add-hook (intern (concat (symbol-name (treesit/get-mode 'emacs-lisp-mode)) "-hook"))
             (lambda () (setq-local tab-width 2 indent-tabs-mode -1))))
 
 (add-hook 'asm-mode-hook

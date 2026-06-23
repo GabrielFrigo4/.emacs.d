@@ -10,7 +10,7 @@
   :config
   (setq-default markdown-enable-math t)
   (setq markdown-fontify-code-blocks-natively t)
-  (if tressit/enable
+  (if treesit/enable
       (add-to-list 'markdown-code-lang-modes '("mermaid" . mermaid-ts))
     (add-to-list 'markdown-code-lang-modes '("mermaid" . mermaid))))
 
@@ -24,7 +24,7 @@
   :config
   (setq mermaid-output-format "png"))
 
-(when tressit/enable
+(when treesit/enable
   (use-package markdown-ts-mode
     :ensure t
     :mode ("\\.md\\'" . markdown-ts-mode)

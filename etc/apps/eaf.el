@@ -33,10 +33,11 @@
      (run-at-time "1.6 sec" nil (lambda () (advice-remove 'eaf-start-process #'ignore))))
     (eaf-kill-process)))
 
-(when (display-graphic-p)
-  (eaf-setup))
+(when eaf/enable
+  (when (display-graphic-p)
+    (eaf-setup))
 
-(add-hook 'server-after-make-frame-hook #'eaf-setup)
+  (add-hook 'server-after-make-frame-hook #'eaf-setup))
 
 ;; ============================================================================
 ;;  CONFIGURATION

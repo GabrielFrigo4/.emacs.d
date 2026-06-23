@@ -7,7 +7,8 @@
   :custom
   (yas-snippet-dirs (list (expand-file-name "snippets" usr-dir)))
   :config
-  (yas-global-mode 1))
+  (when lsp/enable
+    (yas-global-mode 1)))
 
 (use-package lsp-mode
   :ensure (:type git :host github :repo "emacs-lsp/lsp-mode" :branch "master")
@@ -27,10 +28,11 @@
     (add-hook 'before-save-hook #'lsp-organize-imports nil t)
     (add-hook 'before-save-hook #'lsp-format-buffer nil t))
 
-  (dolist (mode '(c-mode c++-mode c-or-c++-mode go-mode))
-    (add-hook (intern (concat (symbol-name (tressit/get-mode mode)) "-hook")) #'lsp-deferred))
+  (when lsp/enable
+    (dolist (mode '(c-mode c++-mode c-or-c++-mode go-mode))
+      (add-hook (intern (concat (symbol-name (treesit/get-mode mode)) "-hook")) #'lsp-deferred))
 
-  (add-hook (intern (concat (symbol-name (tressit/get-mode 'go-mode)) "-hook")) #'lsp/go-install-save-hooks))
+    (add-hook (intern (concat (symbol-name (treesit/get-mode 'go-mode)) "-hook")) #'lsp/go-install-save-hooks)))
 
 (use-package lsp-ui
   :ensure (:type git :host github :repo "emacs-lsp/lsp-ui" :branch "master")
