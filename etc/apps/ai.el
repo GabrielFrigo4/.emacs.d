@@ -3,6 +3,7 @@
 ;; ============================================================================
 
 (use-package llm
+  :if ia/enable
   :ensure (:type git :host github :repo "emacsmirror/llm" :branch "master")
   :defer t
   :config
@@ -15,25 +16,14 @@
   (setq-default llm-google-model "gemini-2.5-flash"))
 
 (use-package gptel
+  :if ia/enable
   :ensure (:type git :host github :repo "emacsmirror/gptel" :branch "master")
   :defer t
-  :config
-  (setq-default chatgpt-backend
-                (gptel-make-openai "ChatGPT"  :stream t :key llm-openai-api-key))
-  (setq-default deepseek-backend
-                (gptel-make-deepseek "DeepSeek" :stream t :key llm-deepseek-api-key))
-  (setq-default gemini-backend
-                (gptel-make-gemini "Gemini"   :stream t :key llm-google-api-key))
-
-  (setq-default ollama-backend
-                (gptel-make-ollama "Ollama"
-                                   :host "localhost:11434"
-                                   :stream t
-                                   :models '(llama3.2 mistral qwen2.5-coder gemma3)))
-
-  (setq-default gptel-model   'gemini-2.5-flash)
-  (setq-default gptel-backend gemini-backend)
-
+  :bind
+  (("C-c g"   . gptel)
+   ("C-c RET" . gptel-send)
+   ("C-c m"   . gptel-select-model))
+  :init
   (defvar gptel-models-list
     '("gemini-2.5-pro"
       "gemini-2.5-flash"
@@ -57,11 +47,29 @@
                      (symbol-name gptel-model))))
       (unless (string-empty-p selected)
         (setq gptel-model (intern selected))
-        (message "gptel-model: %s" gptel-model)))))
+        (message "gptel-model: %s" gptel-model))))
+  :config
+  (setq-default chatgpt-backend
+                (gptel-make-openai "ChatGPT"  :stream t :key llm-openai-api-key))
+  (setq-default deepseek-backend
+                (gptel-make-deepseek "DeepSeek" :stream t :key llm-deepseek-api-key))
+  (setq-default gemini-backend
+                (gptel-make-gemini "Gemini"   :stream t :key llm-google-api-key))
+
+  (setq-default ollama-backend
+                (gptel-make-ollama "Ollama"
+                                   :host "localhost:11434"
+                                   :stream t
+                                   :models '(llama3.2 mistral qwen2.5-coder gemma3)))
+
+  (setq-default gptel-model   'gemini-2.5-flash)
+  (setq-default gptel-backend gemini-backend))
 
 (use-package ellama
+  :if ia/enable
   :ensure t
   :defer t
+  :bind-keymap ("C-c e" . ellama-command-map)
   :init
   (setopt ellama-language "Portuguese")
   (setopt ellama-auto-scroll t)
@@ -75,8 +83,10 @@
            :chat-model "gemini-2.5-flash")))
 
 (use-package org-ai
+  :if ia/enable
   :ensure (:type git :host github :repo "rksm/org-ai" :branch "master")
   :after (org llm)
+  :hook (org-mode . org-ai-mode)
   :config
   (setq-default org-ai-default-chat-system-prompt
                 "Act like a wizard that can only generate raw text. Your response should not contain any Markdown formatting. I need to copy and paste your output into a plain text editor without losing any information.")
@@ -84,37 +94,21 @@
   (setq-default org-ai-default-chat-model llm-google-model))
 
 (use-package minuet
+  :if minuet/enable
   :ensure t
+  :defer t
+  :bind
+  (("M-TAB" . minuet-complete-with-minibuffer)
+   ("M-i"   . minuet-show-suggestion)
+   :map minuet-active-mode-map
+   ("M-i" . minuet-accept-suggestion)
+   ("M-n" . minuet-next-suggestion)
+   ("M-p" . minuet-previous-suggestion))
   :config
   (setopt minuet-provider 'gemini)
   (setopt minuet-gemini-model "gemini-2.5-flash")
   (setopt minuet-gemini-api-key
           (auth-source-pick-first-password
            :host "generativelanguage.googleapis.com")))
-
-;; ----------------------------------------------------------------------------
-;;  ACTIVATION (TOGGLES)
-;; ----------------------------------------------------------------------------
-
-(when ia/enable
-  ;; GPTEL bindings
-  (global-set-key (kbd "C-c g") #'gptel)
-  (global-set-key (kbd "C-c RET") #'gptel-send)
-  (global-set-key (kbd "C-c m") #'gptel-select-model)
-  
-  ;; Ellama bindings
-  (with-eval-after-load 'ellama
-    (define-key global-map (kbd "C-c e") ellama-command-map))
-  
-  ;; Org-AI mode hook
-  (add-hook 'org-mode-hook #'org-ai-mode))
-
-(when minuet/enable
-  (global-set-key (kbd "M-TAB") #'minuet-complete-with-minibuffer)
-  (global-set-key (kbd "M-i") #'minuet-show-suggestion)
-  (with-eval-after-load 'minuet
-    (define-key minuet-active-mode-map (kbd "M-i") #'minuet-accept-suggestion)
-    (define-key minuet-active-mode-map (kbd "M-n") #'minuet-next-suggestion)
-    (define-key minuet-active-mode-map (kbd "M-p") #'minuet-previous-suggestion)))
 
 (provide 'feature-ai)
