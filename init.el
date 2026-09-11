@@ -10,6 +10,10 @@
 ;;  DIRECTORY PATH
 ;; ============================================================================
 
+(let ((file (or load-file-name (buffer-file-name))))
+  (when file
+    (setq user-emacs-directory (file-name-as-directory (file-truename (file-name-directory file))))))
+
 (setq home-dir (expand-file-name "~/"))
 (setq emacs-dir (expand-file-name user-emacs-directory))
 

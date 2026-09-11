@@ -2,6 +2,10 @@
 ;;  EARLY INITIALIZATION
 ;; ============================================================================
 
+(let ((file (or load-file-name (buffer-file-name))))
+  (when file
+    (setq user-emacs-directory (file-name-as-directory (file-truename (file-name-directory file))))))
+
 (setq package-enable-at-startup nil)
 
 (let ((eln-cache-dir (expand-file-name "var/cache/eln-cache/" user-emacs-directory)))
