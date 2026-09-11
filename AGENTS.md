@@ -33,6 +33,25 @@ O repositório `.emacs.d` provê um ambiente de desenvolvimento extensível, cen
 
 ---
 
+---
+
+## 🛡️ Regra da Proatividade e Correção Contínua (Boy Scout Rule)
+
+O agente de IA **DEVE SER ATIVAMENTE PROATIVO** na manutenção e aplicação dos padrões canônicos deste repositório.
+
+Se durante a execução de qualquer tarefa (seja criação de novas features, correções pontuais, refatorações ou investigação) o agente identificar qualquer linha de código, script, Makefile ou documentação fora dos padrões estabelecidos, **NÃO DEVE HESITAR NEM IGNORAR**:
+
+1. **Notificar concisamente** o usuário sobre a divergência encontrada.
+2. **Corrigir imediatamente a inconformidade**, aplicando o padrão canônico correspondente:
+    - **Comentários Narrativos:** Eliminar imediatamente comentários óbvios que apenas narram código executável.
+    - **Banners Estruturais:** Ajustar réguas para exatamente 64 hífens no topo ou 32 caracteres com `### ` no corpo.
+    - **Portabilidade POSIX:** Substituir bashismos (`[[ ]]`, `&>`, arrays, `source`) por sintaxe estrita POSIX `/bin/sh`.
+    - **Shebang Universal:** Garantir sempre `#!/usr/bin/env sh` ou `#!/usr/bin/env python3`.
+    - **Sequências ANSI:** Substituir octais crípticos (``) e `printf` desnecessário por `[ -t 1 ] && echo -n $'\e...'`.
+    - **Redirecionamento Seguro:** Envolver destinos em aspas duplas (ex: `> "/dev/null" 2>&1`).
+    - **Makefiles:** Assegurar cabeçalho `.POSIX: .SILENT:`, `MAKEFLAGS += --no-print-directory -s`, alinhamento estético de variáveis e zero `@` redundante.
+    - **Permissões Canônicas:** Aplicar 4 dígitos octais (`chmod 0755`, `chmod 0644`, `chmod 0700`, `chmod 0600`).
+
 ## 📖 Referências Obrigatórias
 
 - **[ENVIRONMENT.md](ENVIRONMENT.md)**: Arquitetura global do ecossistema
