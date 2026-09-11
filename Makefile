@@ -1,7 +1,7 @@
 .POSIX:
 .SILENT:
 
-MAKEFLAGS += --no-print-directory
+MAKEFLAGS += --no-print-directory -s
 
 # ----------------------------------------------------------------
 # Makefile: Emacs Lisp Suite
