@@ -1,384 +1,61 @@
-# 🌟 Gabriel Frigo's Emacs Configuration
+# 🔮 GNU Emacs Configuration
 
-> This repository contains the custom Emacs code editor configuration used by Gabriel Frigo.
+> Configuração modular, declarativa e resiliente do GNU Emacs para desenvolvimento, edição modal, LSP e Org-mode.
 
----
-
-## 🧠 AI Assistance
-
-### 🤖 Eglot (GNU Universal Language Server Protocol Client)
-
-**Eglot** is a lightweight and efficient client for the Language Server Protocol (LSP), developed by the GNU project itself.
-
-- **Status:** ✅ **Active & Recommended** (Primary LSP client)
-- **Documentation:** [GNU Eglot Manual](https://www.gnu.org/software/emacs/manual/eglot.html)
-- **Installation:** `(use-package eglot)`
-
-**Common Configurations:**
-
-```elisp
-;; Enable Eglot globally
-(with-eval-after-load 'eglot
-  (eglot-ensure)
-  (add-hook 'prog-mode-hook #'eglot-ensure))
-
-;; Add keyboard shortcuts
-(with-eval-after-load 'eglot-ui
-  (define-key eglot-mode-map (kbd "M-d") #'eglot-find-definition)
-  (define-key eglot-mode-map (kbd "M-r") #'eglot-find-references)
-  (define-key eglot-mode-map (kbd "M-\\\\") #'eglot-toggle-symbols-same-buffer))
-```
-
-### 🤖 Copilot
-
-**GitHub Copilot** is an AI pair programmer that suggests code and entire functions in real-time.
-
-- **Status:** ✅ **Active**
-- **Configuration:** Managed via `elpaca` (Emacs Package Manager)
-- **Installation:** `(elpaca copilot)`
-- **Documentation:** [GitHub Copilot](https://github.com/features/copilot)
-
-**Common Configurations:**
-
-```elisp
-;; Enable Copilot in relevant modes
-(with-eval-after-load 'copilot
-  (copilot-mode 1))
-
-;; Add keybindings (Tab for accept, Alt+C for inline chat)
-(with-eval-after-load 'copilot-ui
-  (define-key copilot-mode-map (kbd "\C-j") #'copilot-accept)
-  (define-key copilot-mode-map (kbd "\M-c") #'copilot-inline-chat))
-
-;; Configure inline suggestions (alternative to `corfu`)
-(setq copilot-inline-suggestions-enabled t)
-```
+[![Environment](https://img.shields.io/badge/🏛️_Environment-Hub-blue)](https://github.com/GabrielFrigo4/environment)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![POSIX](https://img.shields.io/badge/shell-POSIX-orange)](bin/indent-all.sh)
 
 ---
 
-## 🌳 Treesit
+## 🧭 Visão Geral
 
-### 🔹 Official `*ts-mode*` in Emacs 30.1
+Este repositório contém a configuração pessoal do **GNU Emacs** de Gabriel Frigo, integrando a **Suíte de Editores** do [Universal Environment](https://github.com/GabrielFrigo4/environment). A arquitetura prioriza:
 
-```text
-(ok) => c-ts-mode
-(ok) => go-ts-mode
-(ok) => js-ts-mode
-(ok) => c++-ts-mode
-(ok) => css-ts-mode
-(ok) => lua-ts-mode
-(ok) => php-ts-mode
-(ok) => tsx-ts-mode
-(ok) => bash-ts-mode
-(ok) => heex-ts-mode
-(ok) => html-ts-mode
-(ok) => java-ts-mode
-(ok) => json-ts-mode
-(ok) => ruby-ts-mode
-(ok) => rust-ts-mode
-(ok) => toml-ts-mode
-(ok) => yaml-ts-mode
-(ok) => cmake-ts-mode
-(ok) => csharp-ts-mode
-(ok) => elixir-ts-mode
-(ok) => go-mod-ts-mode
-(ok) => python-ts-mode
-(ok) => c-or-c++-ts-mode
-(ok) => dockerfile-ts-mode
-(ok) => typescript-ts-mode
-```
-
-### 🔸 Unofficial `*ts-mode*` in Emacs 30.1
-
-```text
-(ok) => haskell-ts-mode
-(ok) => zig-ts-mode
-(ok) => glsl-ts-mode
-(ok) => markdown-ts-mode
-(ok) => mermaid-ts-mode
-```
-
-### 🔸 Custom `*ts-mode*` in Emacs 30.1
-
-```text
-(up) => common-lisp-ts-mode
-(up) => emacs-lisp-ts-mode
-```
-
-### 🐞 Debug Grammar / Explore Grammar
-
-```elisp
-(treesit-explore-mode 1)
-```
+- **Startup Instantâneo & Resiliente:** Feature toggles defensivos e isolamento de módulos com `condition-case`.
+- **Controle Dinâmico:** Flags customizáveis via variáveis de ambiente (`EMACS_AI`, `EMACS_LSP`, `EMACS_TREESIT`).
+- **LSP Integrado:** Eglot nativo de alta performance para linguagens compiladas e interpretadas.
+- **Gerenciador Elpaca:** Gestão assíncrona e declarativa de pacotes.
 
 ---
 
-## 🔣 Elisp Symbols
+## 📁 Catálogo da Estrutura
 
-### 🔍 Get Symbols
-
-```elisp
-(setq-local variable-names '())
-(setq-local function-names '())
-(setq-local macro-names '())
-
-(mapatoms (lambda (symbol)
-            (when (boundp symbol)
-              (push (symbol-name symbol) variable-names))
-            (when (functionp symbol)
-              (push (symbol-name symbol) function-names))
-            (when (macrop symbol)
-              (push (symbol-name symbol) macro-names))
-            ))
-
-(setq variable-names (cl-sort variable-names 'string-lessp :key 'downcase))
-(setq function-names (cl-sort function-names 'string-lessp :key 'downcase))
-(setq macro-names (cl-sort macro-names 'string-lessp :key 'downcase))
-```
-
-### 📖 Show Variables
-
-```elisp
-(let ((xbuff (generate-new-buffer "*output-variables*")))
-  (with-output-to-temp-buffer xbuff
-    (dolist (v variable-names)
-      (print v))
-    ))
-```
-
-### 📖 Show Functions
-
-```elisp
-(let ((xbuff (generate-new-buffer "*output-functions*")))
-  (with-output-to-temp-buffer xbuff
-    (dolist (f function-names)
-      (print f))
-    ))
-```
-
-### 📖 Show Macros
-
-```elisp
-(let ((xbuff (generate-new-buffer "*output-macros*")))
-  (with-output-to-temp-buffer xbuff
-    (dolist (m macro-names)
-      (print m))
-    ))
-```
+| Diretório / Arquivo                      | Descrição                                                   |
+| :--------------------------------------- | :---------------------------------------------------------- |
+| [`init.el`](init.el)                     | Ponto de entrada, feature toggles e carregamento central    |
+| [`early-init.el`](early-init.el)         | Otimizações de boot e caminhos do native-comp cache         |
+| [`lib/core.el`](lib/core.el)             | Macros de detecção de SO e rotinas de auto-indentação       |
+| [`etc/init/`](etc/init/)                 | Bootstrap do Elpaca, atalhos globais e interface visual     |
+| [`etc/editor/`](etc/editor/)             | Módulos de LSP, scroll suave, tree-sitter e conclusão       |
+| [`etc/apps/`](etc/apps/)                 | Extensões opcionais: Org-mode, IA (gptel/ellama), EAF       |
+| [`etc/lang/`](etc/lang/)                 | Configurações específicas para LaTeX, Lisp, Markdown        |
+| [`etc/tools/`](etc/tools/)               | Ferramentas de Git, GitHub, manpages e shell interativo     |
+| [`bin/indent-all.sh`](bin/indent-all.sh) | Script POSIX de auto-indentação de arquivos de configuração |
 
 ---
 
-## 🔠 Font
+## 🚀 Instalação e Uso Rápido
 
-### 🖋️ RobotoMono Nerd Font - Italic
+### 1. Clonar ou Vincular via Profile
 
-```elisp
-;; For "RobotoMono Nerd Font", We Need to Separately Specify the Italic Mode to Work
-(set-face-attribute 'italic nil :font "RobotoMono Nerd Font Mono" :foundry "pyrs" :slant 'italic)
+```sh
+# Via Profile do Universal Environment
+make sync
+
+# Ou link direto manual
+ln -sf "$(pwd)" "${HOME}/.emacs.d"
 ```
 
----
+### 2. Executar com Recursos Customizados
 
-## 🚀 Install Emacs Application Framework (EAF)
+```sh
+# Boot padrão (mínimo e ultra-rápido)
+emacs
 
-[**Install Emacs Application Framework**](https://github.com/emacs-eaf/emacs-application-framework) is a free/libre and open-source extensible framework that revolutionizes the graphical capabilities of Emacs.
+# Habilitar IA sob demanda
+EMACS_AI=1 emacs
 
-> The key to ultimately Live in Emacs.
-
-### 🐧 Linux
-
-```zsh
-mkdir -p "${HOME}/.emacs.d/opt/eaf/"
-git clone --depth=1 -b master "https://github.com/emacs-eaf/emacs-application-framework.git" "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
-cd "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
-chmod +x ./install-eaf.py
-./install-eaf.py
-./install-eaf.py --install "browser"
-./install-eaf.py --install "pdf-viewer"
-./install-eaf.py --install "music-player"
-./install-eaf.py --install "video-player"
-./install-eaf.py --install "image-viewer"
-./install-eaf.py --install "file-manager"
-./install-eaf.py --install "pyqterminal"
-./install-eaf.py --install "terminal"
-./install-eaf.py --install "camera"
-./install-eaf.py --install "git"
+# Modo diagnóstico e teste de sintaxe
+emacs -Q --batch -l early-init.el -l init.el --eval '(message "Boot OK")'
 ```
-
-### 😈 FreeBSD
-
-```zsh
-mkdir -p "${HOME}/.emacs.d/opt/eaf/"
-git clone --depth=1 -b master "https://github.com/emacs-eaf/emacs-application-framework.git" "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
-cd "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
-chmod +x ./install-eaf.py
-./install-eaf.py
-./install-eaf.py --install "browser"
-./install-eaf.py --install "pdf-viewer"
-./install-eaf.py --install "music-player"
-./install-eaf.py --install "video-player"
-./install-eaf.py --install "image-viewer"
-./install-eaf.py --install "file-manager"
-./install-eaf.py --install "pyqterminal"
-./install-eaf.py --install "terminal"
-./install-eaf.py --install "camera"
-./install-eaf.py --install "git"
-```
-
-### 🪟 Windows
-
-```pwsh
-mkdir -p "${HOME}/.emacs.d/opt/eaf/"
-git clone --depth=1 -b master "https://github.com/emacs-eaf/emacs-application-framework.git" "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
-cd "${HOME}/.emacs.d/opt/eaf/emacs-application-framework/"
-python install-eaf.py
-python install-eaf.py --install "browser"
-python install-eaf.py --install "pdf-viewer"
-python install-eaf.py --install "music-player"
-python install-eaf.py --install "video-player"
-python install-eaf.py --install "image-viewer"
-python install-eaf.py --install "file-manager"
-python install-eaf.py --install "pyqterminal"
-python install-eaf.py --install "terminal"
-python install-eaf.py --install "camera"
-python install-eaf.py --install "git"
-```
-
----
-
-## 🤓 Nerd-Icons
-
-Install **Nerd-Icons** from within Emacs:
-
-```elisp
-M-x nerd-icons-install-fonts
-```
-
-### 🐧 Linux
-
-On Linux, you can also install the fonts manually to your system:
-
-```bash
-mkdir -p "${HOME}/.local/share/fonts"
-cd "${HOME}/.local/share/fonts"
-wget "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/NerdFontsSymbolsOnly.zip"
-unzip -o NerdFontsSymbolsOnly.zip
-rm NerdFontsSymbolsOnly.zip
-fc-cache -fv
-cd -
-```
-
-### 😈 FreeBSD
-
-On FreeBSD, you can also install the fonts manually to your system:
-
-```bash
-mkdir -p "${HOME}/.local/share/fonts"
-cd "${HOME}/.local/share/fonts"
-fetch "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/NerdFontsSymbolsOnly.zip"
-unzip -o NerdFontsSymbolsOnly.zip
-rm NerdFontsSymbolsOnly.zip
-fc-cache -fv
-cd -
-```
-
-### 🪟 Windows
-
-On Windows, running the `M-x nerd-icons-install-fonts` function inside Emacs will prompt for a download directory for you to install the fonts manually.
-
----
-
-## ⚙️ Emacs Server / Daemon Configuration
-
-When running Emacs as a daemon (`emacs --daemon`) and connecting via `emacsclient`, there is a key difference between Unix-like systems (Linux, macOS), FreeBSD, and Windows.
-
-### 🐧 Linux / macOS
-
-On Linux and macOS, Emacs uses **Unix Domain Sockets** for communication, which are faster and more secure.
-
-- **Variable**: `EMACS_SOCKET_NAME`
-- **Setup**: If you want to use a custom socket directory (e.g., `"${HOME}/.emacs.d/var/server/auth/"`), you must ensure the directory exists and has strict `0700` permissions, otherwise the Emacs server will refuse to start for security reasons.
-
-```bash
-# Create the Directory
-mkdir -p "${HOME}/.emacs.d/var/server/auth/"
-
-# Restrict Permissions (Crucial for Emacs Server)
-chmod 0700 "${HOME}/.emacs.d/var/server/auth/"
-```
-
-In your terminal configuration (`.bashrc` ou `.zshrc`), export the path using `EMACS_SOCKET_NAME`:
-
-```bash
-export EMACS_SOCKET_NAME="${HOME}/.emacs.d/var/server/auth/server"
-```
-
-### 😈 FreeBSD
-
-On FreeBSD, Emacs uses **Unix Domain Sockets** for communication, which are faster and more secure.
-
-- **Variable**: `EMACS_SOCKET_NAME`
-- **Setup**: If you want to use a custom socket directory (e.g., `"${HOME}/.emacs.d/var/server/auth/"`), you must ensure the directory exists and has strict `0700` permissions, otherwise the Emacs server will refuse to start for security reasons.
-
-```bash
-# Create the Directory
-mkdir -p "${HOME}/.emacs.d/var/server/auth/"
-
-# Restrict Permissions (Crucial for Emacs Server)
-chmod 0700 "${HOME}/.emacs.d/var/server/auth/"
-```
-
-In your terminal configuration (`.cshrc` or `.zshrc`), export the path using `EMACS_SOCKET_NAME` (or `setenv EMACS_SOCKET_NAME` for csh/tcsh):
-
-```bash
-export EMACS_SOCKET_NAME="${HOME}/.emacs.d/var/server/auth/server"
-```
-
-### 🪟 Windows
-
-On Windows, Emacs traditionally uses a **TCP Server** instead of local sockets. It writes a plain text file containing the connection credentials (IP, port, and a secure auth key).
-
-- **Variable**: `EMACS_SERVER_FILE`
-- **Setup**: In your terminal configuration, export the path using `EMACS_SERVER_FILE`. The `emacsclient` will read this text file to know how to connect over TCP.
-
-```pwsh
-$env:EMACS_SERVER_FILE = "${HOME}\.emacs.d\var\server\auth\server"
-```
-
----
-
-## ⚠️ Windows Prerequisites
-
-If you are running Emacs on Windows, the following configurations are **mandatory** to avoid installation errors and encoding issues.
-
-### 1️⃣ Enable Developer Mode _(Crucial for Elpaca)_
-
-To allow the package manager (`elpaca`) to create symbolic links and avoid _"Operation not permitted"_ errors:
-
-1. Open **Settings**.
-2. Navigate to:
-    - **Windows 11:** `System > For developers`
-    - **Windows 10:** `Update & Security > For developers`
-3. Switch the **Developer Mode** toggle to **"On"**.
-
-### 2️⃣ Windows Defender Exclusions _(Performance & Stability)_
-
-To prevent Git processes from being blocked (causing _"Too many open files"_ errors) and to speed up package installation:
-
-1. Go to **Settings > Privacy & security > Windows Security**.
-2. Click on **Virus & threat protection**.
-3. Under _Virus & threat protection settings_, click **Manage settings**.
-4. Scroll down to _Exclusions_ and click **Add or remove exclusions**.
-5. Add your Emacs configuration folder: `C:\Users\YOUR_USERNAME\.emacs.d`
-
-### 3️⃣ Enable Global UTF-8 Support
-
-To ensure `emacsclient` functions correctly and to prevent character encoding bugs:
-
-1. Go to **Settings > Time & Language > Language & Region**.
-2. Click on **Administrative language settings** (or related settings).
-3. Click **Change system locale...**
-4. Check the box: **"Beta: Use Unicode UTF-8 for worldwide language support"**.
-5. Restart your computer.
-
-> **Guides:** [Windows 10 Guide](https://scholarslab.lib.virginia.edu/learn-twarc/08-win-region-settings) | [Windows 11 Guide](https://windows.atsit.in/32315/)

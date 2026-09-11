@@ -68,13 +68,22 @@
 ;;  FEATURE TOGGLES
 ;; ============================================================================
 
-(setq scroll/enable t)
-(setq treesit/enable nil)
-(setq minuet/enable nil)
-(setq ia/enable nil)
-(setq eaf/enable nil)
-(setq lsp/enable t)
-(setq latex/enable t)
+(defun getenv-bool (var default)
+  "Return non-nil if VAR is set to truthy string, nil if falsy, else DEFAULT."
+  (let ((val (getenv var)))
+    (cond
+     ((null val) default)
+     ((member (downcase val) '("1" "true" "yes" "t")) t)
+     ((member (downcase val) '("0" "false" "no" "nil")) nil)
+     (t default))))
+
+(setq scroll/enable  (getenv-bool "EMACS_SCROLL" t))
+(setq treesit/enable (getenv-bool "EMACS_TREESIT" nil))
+(setq minuet/enable  (getenv-bool "EMACS_MINUET" nil))
+(setq ia/enable      (getenv-bool "EMACS_AI" nil))
+(setq eaf/enable     (getenv-bool "EMACS_EAF" nil))
+(setq lsp/enable     (getenv-bool "EMACS_LSP" t))
+(setq latex/enable   (getenv-bool "EMACS_LATEX" t))
 
 ;; ============================================================================
 ;;  CORE LIBRARIES

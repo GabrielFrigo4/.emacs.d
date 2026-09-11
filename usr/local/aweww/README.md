@@ -11,14 +11,14 @@
 
 ## ✨ Features
 
-| Feature | Description |
-| :--- | :--- |
-| **Responsive Width** | The text content automatically scales to your frame size for comfortable reading. |
-| **Shrface Integration** | Enjoy enhanced typography, Org-mode-like headings, and polished faces. |
-| **Code Highlighting** | Automatic syntax highlighting for `<pre>` blocks using `shr-tag-pre-highlight`. |
-| **One-Click Readability** | Instantly toggle the `eww-readable` mode to remove web clutter. |
+| Feature                   | Description                                                                        |
+| :------------------------ | :--------------------------------------------------------------------------------- |
+| **Responsive Width**      | The text content automatically scales to your frame size for comfortable reading.  |
+| **Shrface Integration**   | Enjoy enhanced typography, Org-mode-like headings, and polished faces.             |
+| **Code Highlighting**     | Automatic syntax highlighting for `<pre>` blocks using `shr-tag-pre-highlight`.    |
+| **One-Click Readability** | Instantly toggle the `eww-readable` mode to remove web clutter.                    |
 | **Media & Style Toggles** | Swiftly enable or disable images and CSS colors to save bandwidth or reduce glare. |
-| **Smart Cleanup** | Automatically removes excessive whitespace and blank lines post-render. |
+| **Smart Cleanup**         | Automatically removes excessive whitespace and blank lines post-render.            |
 
 ---
 
@@ -26,15 +26,15 @@
 
 Aweww provides a streamlined, modal-like experience when browsing:
 
-| Key | Command | Action |
-| :---: | :--- | :--- |
+| Key | Command                 | Action                                |
+| :-: | :---------------------- | :------------------------------------ |
 | `R` | `aweww/toggle-readable` | Toggle distraction-free readable mode |
-| `I` | `aweww/toggle-images` | Toggle images rendering |
-| `C` | `aweww/toggle-colors` | Toggle CSS colors |
-| `H` | `eww-list-histories` | Open browsing history |
-| `B` | `eww-back-url` | Navigate backward |
-| `F` | `eww-forward-url` | Navigate forward |
-| `q` | `quit-window` | Close the EWW buffer gracefully |
+| `I` | `aweww/toggle-images`   | Toggle images rendering               |
+| `C` | `aweww/toggle-colors`   | Toggle CSS colors                     |
+| `H` | `eww-list-histories`    | Open browsing history                 |
+| `B` | `eww-back-url`          | Navigate backward                     |
+| `F` | `eww-forward-url`       | Navigate forward                      |
+| `q` | `quit-window`           | Close the EWW buffer gracefully       |
 
 ---
 

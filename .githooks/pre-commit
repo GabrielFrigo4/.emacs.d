@@ -1,0 +1,62 @@
+#!/usr/bin/env sh
+
+### ================================
+### EMACS PRE-COMMIT HOOK
+### ================================
+
+set -e
+
+_repo_root="$(git rev-parse --show-toplevel 2> "/dev/null" || pwd)"
+cd "${_repo_root}"
+
+echo "🔍 [pre-commit] Executing Emacs quality & syntax gates..."
+
+### --------------------------------
+### Whitespace & Formatting Check
+### --------------------------------
+echo "  ↳ Checking whitespace and formatting (git diff --check)..."
+if ! git diff --check --cached; then
+	echo "❌ [pre-commit] Whitespace or EOF formatting error detected!" >&2
+	echo "   Run 'git diff --check --cached' to inspect issues." >&2
+	exit 1
+fi
+
+### --------------------------------
+### Shell Scripts Syntax Check
+### --------------------------------
+if [ -d "bin" ]; then
+	echo "  ↳ Validating shell scripts syntax (sh -n)..."
+	find bin -name "*.sh" -not -path "./.git/*" -exec sh -n {} +
+fi
+
+### --------------------------------
+### Emacs Batch Startup Validation
+### --------------------------------
+if command -v emacs > "/dev/null" 2>&1; then
+	echo "  ↳ Validating Emacs batch configuration load..."
+	if ! emacs -Q --batch -l early-init.el -l init.el --eval '(message "Emacs pre-commit batch OK")' > "/dev/null" 2>&1; then
+		echo "❌ [pre-commit] Emacs batch initialization failed!" >&2
+		exit 1
+	fi
+fi
+
+### --------------------------------
+### Markdown Prettier Validation
+### --------------------------------
+if command -v prettier > "/dev/null" 2>&1; then
+	echo "  ↳ Validating staged Markdown files with Prettier..."
+	_unformatted_md=""
+	for _md_file in $(git diff --cached --name-only --diff-filter=d | grep '\.md$' || true); do
+		if [ -f "${_md_file}" ] && ! prettier --check "${_md_file}" > "/dev/null" 2>&1; then
+			_unformatted_md="${_unformatted_md} ${_md_file}"
+		fi
+	done
+	if [ -n "${_unformatted_md}" ]; then
+		echo "❌ [pre-commit] Unformatted Markdown files detected:${_unformatted_md}" >&2
+		echo "   Run 'prettier --write <file>' to format." >&2
+		exit 1
+	fi
+fi
+
+echo "✅ [pre-commit] All Emacs quality gates passed cleanly!"
+exit 0
