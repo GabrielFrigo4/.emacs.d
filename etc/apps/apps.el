@@ -1,6 +1,6 @@
-;; ============================================================================
-;;  APPLICATIONS FEATURE
-;; ============================================================================
+;; ----------------------------------------------------------------
+;; Module: Emacs Applications Feature
+;; ----------------------------------------------------------------
 
 (use-package shr-tag-pre-highlight
   :ensure (:type git :host github :repo "emacsmirror/shr-tag-pre-highlight" :branch "master")

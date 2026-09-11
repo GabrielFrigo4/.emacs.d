@@ -1,6 +1,6 @@
-;; ============================================================================
-;;  LATEX FEATURE
-;; ============================================================================
+;; ----------------------------------------------------------------
+;; Module: Emacs Latex Feature
+;; ----------------------------------------------------------------
 
 (setq-default latex/preview-enable t)
 
@@ -30,7 +30,6 @@
   (setq-default reftex-plug-into-AUCTeX t)
   (setq-default reftex-cite-format 'natbib)
 
-  ;; Preview Configuration
   (setq-default preview-image-type 'dvipng)
   (setq-default preview-auto-cache-preamble t)
   (setq-default preview-pdf-color-adjust-method t)
@@ -39,7 +38,6 @@
                   "graphicx" "fontenc" "mathtools" "mathrsfs" "amssymb" "amsthm"
                   "amsmath"))
 
-  ;; Indentation Hooks
   (defun tex/setup-tab-width ()
     (setq-local tab-width 4)
     (setq-local tex-indent-basic tab-width)
@@ -61,7 +59,6 @@
     (add-hook 'TeX-mode-hook #'TeX/setup-tab-width)
     (add-hook 'LaTeX-mode-hook #'TeX/setup-tab-width))
 
-  ;; LaTeX Compilation & Viewing
   (defun latex/view ()
     "Compile LaTeX with LaTeXMk and Dvipdfmx, then view the PDF in a split window."
     (interactive)
@@ -80,13 +77,11 @@
       (other-window 1)
       (find-file (concat TeX-output-dir "/" (TeX-master-file) ".pdf"))))
 
-  ;; Preview LaTeX
   (defun latex/preview ()
     "Preview Inline LaTeX Without Break Colors"
     (interactive)
     (preview-region (point-min) (point-max)))
 
-  ;; Automatic Preview on Open/Save
   (defun latex/preview-setup ()
     (when (and
            (and
@@ -100,9 +95,9 @@
     (add-hook 'find-file-hook #'latex/preview-setup)
     (add-hook 'after-save-hook #'latex/preview-setup)))
 
-;; ============================================================================
-;;  PDF FEATURE
-;; ============================================================================
+;; ================================
+;; PDF FEATURE
+;; ================================
 
 (use-package pdf-tools
   :ensure (:type git :host github :repo "emacsmirror/pdf-tools" :branch "master")

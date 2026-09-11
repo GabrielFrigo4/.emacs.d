@@ -1,6 +1,6 @@
-;; ============================================================================
-;;  WINDOWS COMPATIBILITY (D-BUS FIX)
-;; ============================================================================
+;; ----------------------------------------------------------------
+;; Module: Emacs Windows Compatibility (d-bus Fix)
+;; ----------------------------------------------------------------
 
 (when-windows
  (advice-add 'dbus-call-method :around
@@ -11,9 +11,9 @@
                    (error result))
                  result))))
 
-;; ============================================================================
-;;  SETUP APPLICATIONS
-;; ============================================================================
+;; ================================
+;; SETUP APPLICATIONS
+;; ================================
 
 (defun eaf-setup ()
   "Setup Emacs Application Framework (EAF)."
@@ -39,18 +39,18 @@
 
   (add-hook 'server-after-make-frame-hook #'eaf-setup))
 
-;; ============================================================================
-;;  CONFIGURATION
-;; ============================================================================
+;; ================================
+;; CONFIGURATION
+;; ================================
 
 (setq eaf-config-location (expand-file-name "eaf/" cache-dir))
 (setq eaf-browser-dark-mode -1)
 (setq eaf-pyqterminal-font-family "JetBrains Mono")
 (setq eaf-pyqterminal-font-size 20)
 
-;; ============================================================================
-;;  CORE COMMANDS
-;; ============================================================================
+;; ================================
+;; CORE COMMANDS
+;; ================================
 
 (defun eaf-start ()
   "Start Emacs Application Framework (EAF)."
@@ -72,9 +72,9 @@
   (interactive)
   (eaf-kill-process))
 
-;; ============================================================================
-;;  APPLICATION LAUNCHERS
-;; ============================================================================
+;; ================================
+;; APPLICATION LAUNCHERS
+;; ================================
 
 (defun eaf-file ()
   "Open EAF File Manager."
@@ -96,9 +96,9 @@
   (interactive "sURL: ")
   (eaf-open-browser URL))
 
-;; ============================================================================
-;;  WEB SEARCH SHORTCUTS
-;; ============================================================================
+;; ================================
+;; WEB SEARCH SHORTCUTS
+;; ================================
 
 (defun eaf-open-google ()
   "Open EAF Browser with Google Search."
@@ -150,9 +150,9 @@
   (interactive)
   (eaf-open-browser "cp-algorithms.com"))
 
-;; ============================================================================
-;;  ALIASES
-;; ============================================================================
+;; ================================
+;; ALIASES
+;; ================================
 
 (defalias 'google        'eaf-open-google        "Open EAF Browser with Google Search")
 (defalias 'duckduckgo    'eaf-open-duckduckgo    "Open EAF Browser with DuckDuckGo Search")

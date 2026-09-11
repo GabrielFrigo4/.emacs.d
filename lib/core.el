@@ -1,6 +1,6 @@
-;; ============================================================================
-;;  SYSTEM MACROS
-;; ============================================================================
+;; ----------------------------------------------------------------
+;; Module: Emacs System Macros
+;; ----------------------------------------------------------------
 
 (defun system-is-unix-p ()
   "Return true if the system is generic Unix-like (Linux, BSD, Darwin/macOS)."
@@ -38,9 +38,9 @@
 (defmacro if-haiku    (&rest body) `(if-system haiku ,@body))
 (defmacro if-android  (&rest body) `(if-system android ,@body))
 
-;; ============================================================================
-;;  UTILITY FUNCTIONS
-;; ============================================================================
+;; ================================
+;; UTILITY FUNCTIONS
+;; ================================
 
 (defun async-sleep (seconds)
   "Sleep for SECONDS without freezing Emacs."
@@ -55,7 +55,6 @@ otherwise return MODE."
   (if (and (bound-and-true-p treesit/enable)
            (symbolp mode))
       (let* ((mode-name (symbol-name mode))
-             ;; Exceptions to the general "-mode" -> "-ts-mode" pattern
              (exception (cdr (assoc mode '((js2-mode . js-ts-mode)
                                            (javascript-mode . js-ts-mode)
                                            (sh-mode . bash-ts-mode)

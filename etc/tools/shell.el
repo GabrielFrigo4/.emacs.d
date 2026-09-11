@@ -1,6 +1,6 @@
-;; ============================================================================
-;;  SHELL FEATURE
-;; ============================================================================
+;; ----------------------------------------------------------------
+;; Module: Emacs Shell Feature
+;; ----------------------------------------------------------------
 
 (use-package vterm
   :when (system-is-unix-p)
@@ -15,7 +15,6 @@
    (setq-default aweshell/validate-delay (expt 2 -0.5))
    (setq-default aweshell/validate-delay (expt 2 -1))))
 
-;; Shell Configuration
 (when-unix
  (setq-default explicit-shell-file-name (or (executable-find "zsh") "/bin/sh"))
  (setq-default shell-file-name "zsh")
@@ -24,11 +23,10 @@
 (when-windows
  (setq-default w32-quote-process-args t))
 
-;; ============================================================================
-;;  TERMINAL FEATURE
-;; ============================================================================
+;; ================================
+;; TERMINAL FEATURE
+;; ================================
 
-;; Eshell Configuration
 (use-package eshell
   :ensure nil
   :config

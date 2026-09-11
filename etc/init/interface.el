@@ -1,18 +1,18 @@
-;; ============================================================================
-;;  USER INTERFACE CONFIGURATION
-;; ============================================================================
+;; ----------------------------------------------------------------
+;; Module: Emacs User Interface Configuration
+;; ----------------------------------------------------------------
 
-;; ----------------------------------------------------------------------------
-;;  ICONS
-;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; ICONS
+;; --------------------------------
 
 (use-package nerd-icons
   :ensure (:type git :host github :repo "emacsmirror/nerd-icons" :branch "master")
   :custom (nerd-icons-scale-factor 1.2))
 
-;; ----------------------------------------------------------------------------
-;;  THEMES
-;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; THEMES
+;; --------------------------------
 
 (use-package doom-themes
   :ensure (:type git :host github :repo "doomemacs/themes" :branch "master")
@@ -55,9 +55,9 @@
               (setq-local display-line-numbers-type nil)
               (display-line-numbers-mode -1))))
 
-;; ----------------------------------------------------------------------------
-;;  FRAME MANAGEMENT
-;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; FRAME MANAGEMENT
+;; --------------------------------
 
 (setq frame-resize-pixelwise t)
 (add-to-list 'default-frame-alist '(width . 100))
@@ -89,9 +89,9 @@
 
 (add-hook 'after-make-frame-functions 'frame/new-setup)
 
-;; ----------------------------------------------------------------------------
-;;  BUFFER MANAGEMENT
-;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; BUFFER MANAGEMENT
+;; --------------------------------
 
 (setq-default standard-buffers '("*scratch*" "*Messages*" "*Warnings*"))
 (setq-default pkg-buffers '("*elpaca-log*" "*elpaca-info*" "*Async-native-compile-log*"))
@@ -213,9 +213,9 @@
 (when (boundp 'native-comp-async-all-done-hook)
   (add-hook 'native-comp-async-all-done-hook #'buffer/kill-log))
 
-;; ----------------------------------------------------------------------------
-;;  SERVER CONFIGURATION
-;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; SERVER CONFIGURATION
+;; --------------------------------
 
 (setq server-socket-dir (expand-file-name "var/server/auth/" emacs-dir))
 (setq server-auth-dir (expand-file-name "var/server/auth/" emacs-dir))

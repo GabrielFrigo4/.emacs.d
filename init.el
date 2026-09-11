@@ -1,15 +1,17 @@
-;; ============================================================================
-;;  GARBAGE COLLECTION
-;; ============================================================================
+;; ----------------------------------------------------------------
+;; Module: GNU Emacs Core Initialization
+;; ----------------------------------------------------------------
 
+;; ================================
+;; GARBAGE COLLECTION
+;; ================================
 (defvar gc-cons-threshold-original gc-cons-threshold)
 (setq gc-cons-threshold most-positive-fixnum)
 (setq read-process-output-max (expt 2 20))
 
-;; ============================================================================
-;;  DIRECTORY PATH
-;; ============================================================================
-
+;; ================================
+;; DIRECTORY PATH
+;; ================================
 (let ((file (or load-file-name (buffer-file-name))))
   (when file
     (setq user-emacs-directory (file-name-as-directory (file-truename (file-name-directory file))))))
@@ -59,19 +61,17 @@
 
 (setq treesit-extra-load-path (list (expand-file-name "lib/tree-sitter/" var-dir)))
 
-;; ============================================================================
-;;  CACHE FILES
-;; ============================================================================
-
+;; ================================
+;; CACHE FILES
+;; ================================
 (setq ido-save-directory-list-file (expand-file-name "ido.last" cache-dir))
 (setq tramp-persistency-file-name (expand-file-name "tramp" cache-dir))
 (setq recentf-save-file (expand-file-name "recentf" cache-dir))
 (setq mc/list-file (expand-file-name "mc-lists.el" cache-dir))
 
-;; ============================================================================
-;;  FEATURE TOGGLES
-;; ============================================================================
-
+;; ================================
+;; FEATURE TOGGLES
+;; ================================
 (defun getenv-bool (var default)
   "Return non-nil if VAR is set to truthy string, nil if falsy, else DEFAULT."
   (let ((val (getenv var)))
@@ -89,23 +89,20 @@
 (setq lsp/enable     (getenv-bool "EMACS_LSP" t))
 (setq latex/enable   (getenv-bool "EMACS_LATEX" t))
 
-;; ============================================================================
-;;  CORE LIBRARIES
-;; ============================================================================
-
+;; ================================
+;; CORE LIBRARIES
+;; ================================
 (add-to-list 'load-path lib-dir)
 (require 'core)
 
-;; ============================================================================
-;;  WARNINGS CONFIGURATION
-;; ============================================================================
-
+;; ================================
+;; WARNINGS CONFIGURATION
+;; ================================
 (setq warning-minimum-level :warning)
 
-;; ============================================================================
-;;  STARTUP SETTINGS
-;; ============================================================================
-
+;; ================================
+;; STARTUP SETTINGS
+;; ================================
 (setq initial-major-mode 'fundamental-mode)
 (setq initial-scratch-message nil)
 
@@ -120,17 +117,15 @@
 
 (setq evil-undo-system 'undo-redo)
 
-;; ============================================================================
-;;  LOAD ELISP FILES
-;; ============================================================================
-
+;; ================================
+;; LOAD ELISP FILES
+;; ================================
 (setq custom-file (expand-file-name "custom.el" etc-dir))
 (add-hook 'elpaca-after-init-hook (lambda () (load custom-file 'noerror)))
 
-;; ============================================================================
-;;  MODULAR CONFIGURATION
-;; ============================================================================
-
+;; ================================
+;; MODULAR CONFIGURATION
+;; ================================
 (defun load-directory-recursive (directory)
   "Load all .el files in DIRECTORY and its sub-directories."
   (when (file-directory-p directory)
@@ -140,33 +135,31 @@
             (load file)
           (error (message "ERROR loading %s: %s" file (error-message-string err))))))))
 
-;; ----------------------------------------------------------------------------
-;;  CORE INITIALIZATION
-;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; Core Initialization
+;; --------------------------------
 (mapc (lambda (file) (load (expand-file-name (format "init/%s" file) etc-dir)))
       '("packages" "interface" "settings" "keybindings"))
 
-;; ----------------------------------------------------------------------------
-;;  FEATURE MODULES
-;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; Feature Modules
+;; --------------------------------
 (dolist (feature '("apps" "editor" "lang" "tools"))
   (load-directory-recursive (expand-file-name feature etc-dir)))
 
-;; ----------------------------------------------------------------------------
-;;  USER / LOCAL CONFIGURATION
-;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; User Configuration
+;; --------------------------------
 (load-directory-recursive usr-dir)
 
-;; ============================================================================
-;;  EMACS SERVER
-;; ============================================================================
-
+;; ================================
+;; EMACS SERVER
+;; ================================
 (require 'server)
 (unless (server-running-p)
   (server-start))
 
-;; ============================================================================
-;;  RESTORE GARBAGE COLLECTION DEFAULTS
-;; ============================================================================
-
+;; ================================
+;; RESTORE GC DEFAULTS
+;; ================================
 (setq gc-cons-threshold gc-cons-threshold-original)

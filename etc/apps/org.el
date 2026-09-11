@@ -1,6 +1,6 @@
-;; ============================================================================
-;;  ORG MODE FEATURE
-;; ============================================================================
+;; ----------------------------------------------------------------
+;; Module: Emacs Org Mode Feature
+;; ----------------------------------------------------------------
 
 (use-package org
   :ensure nil
@@ -15,9 +15,9 @@
   (org-confirm-babel-evaluate nil)
   (org-todo-keywords '((sequence "TODO" "|" "WORK" "|" "DONE")))
   :config
-  ;; ----------------------------------------------------------------------------
-  ;; CHECKBOX FACES
-  ;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; CHECKBOX FACES
+;; --------------------------------
   (set-face-attribute 'org-checkbox nil :weight 'bold)
   (defface org-todo-custom-face '((t (:inherit 'org-todo :weight bold))) "")
   (defface org-work-custom-face '((t (:foreground "goldenrod4" :weight bold))) "")
@@ -46,16 +46,16 @@
 
   (font-lock-add-keywords 'org-mode '(("^ *[-+*] +\\[X\\] \\(.*\\)" (1 'shadow prepend))))
 
-  ;; ----------------------------------------------------------------------------
-  ;; SOURCE FACES
-  ;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; SOURCE FACES
+;; --------------------------------
   (defface org-block-begin-line '((t (:underline "#646260" :foreground "#10CFFC" :background "#41403F" :extend t))) "")
   (defface org-block '((t (:background "#3A3938" :extend t))) "")
   (defface org-block-end-line '((t (:underline "#646260" :foreground "#10CFFC" :background "#41403F" :extend t))) "")
 
-  ;; ----------------------------------------------------------------------------
-  ;; LANGUAGES
-  ;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; LANGUAGES
+;; --------------------------------
   (setq org-babel-C-compiler "clang")
   (setq org-babel-C++-compiler "clang++")
   (when-unix (setq-default org-babel-sh-command "zsh"))

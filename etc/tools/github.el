@@ -1,18 +1,18 @@
-;; ============================================================================
-;;  GITHUB FEATURE
-;; ============================================================================
+;; ----------------------------------------------------------------
+;; Module: Emacs Github Feature
+;; ----------------------------------------------------------------
 
-;; ----------------------------------------------------------------------------
-;;  DEPENDENCIES
-;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; DEPENDENCIES
+;; --------------------------------
 
 (require 'url)
 (require 'json)
 (require 'auth-source)
 
-;; ----------------------------------------------------------------------------
-;;  CORE API FUNCTIONS
-;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; CORE API FUNCTIONS
+;; --------------------------------
 
 (defun github/fetch-latest-release-data (repo-input)
   "Internal helper to fetch the latest release data for a GitHub repo.
@@ -49,9 +49,9 @@ Returns the parsed JSON as an alist on success, or nil on failure."
       (message "Invalid GitHub repository format: %s. Use a full URL or 'owner/repo'." repo-input)
       nil)))
 
-;; ----------------------------------------------------------------------------
-;;  INTERACTIVE UTILITIES
-;; ----------------------------------------------------------------------------
+;; --------------------------------
+;; INTERACTIVE UTILITIES
+;; --------------------------------
 
 (defun github/fetch-latest-release-tag (repo-input)
   "For a GitHub URL or 'owner/repo' string, fetches the latest release tag name.
