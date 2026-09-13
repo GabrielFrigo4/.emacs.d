@@ -14,7 +14,7 @@ Em vez de um monólito caótico de dotfiles e scripts soltos, o ambiente é estr
 flowchart TD
     subgraph QUARTET ["🏛️ O Quarteto de Infraestrutura"]
         SETUP["📦 1. Setup (Público)<br/>• Provisionamento Ativo de SO<br/>• Pacotes de Sistema, Drivers, Kernel<br/>• Jails, Containers (Incus/Podman)<br/>• Cookbook Zero-Clone (GitHub)"]
-        SHELL["🐚 2. Shell (Público)<br/>• Motor Interativo de Terminal<br/>• Prompts Ultra-rápidos (&lt; 50ms)<br/>• Aliases e Funções de Linha de Comando<br/>• Targets de SO e Contextos"]
+        SHELL["🐚 2. Shell (Público)<br/>• Motor Interativo de Terminal<br/>• Prompts Ultra-rápidos (&lt; 64ms)<br/>• Aliases e Funções de Linha de Comando<br/>• Targets de SO e Contextos"]
         VAULT["🔐 3. Vault (Privado)<br/>• Chaves SSH / PuTTY PPK<br/>• Segredos e Variáveis .env<br/>• Senhas Wi-Fi e Mapeamento de Hosts<br/>• Loaders Multi-Shell (sh, ps1, cmd, nu)"]
         PROFILE["🎨 4. Profile (Público)<br/>• Dotfiles Declarativos de Usuário<br/>• Links de Editores e Terminais<br/>• Linters, Formatadores e Skills de IA"]
     end
@@ -92,7 +92,7 @@ sequenceDiagram
     Dev->>Sh: 5. Abre nova aba de terminal interativo
     Sh->>V: Detecta ~/.vault/vault.sh silenciosamente
     V-->>Sh: Injeta variáveis de ambiente e chaves SSH (ssh-agent) em silêncio absoluto
-    Note over Sh: Prompt renderizado em menos de 50ms pronto para produção!
+    Note over Sh: Prompt renderizado em menos de 64ms pronto para produção!
 ```
 
 ---
