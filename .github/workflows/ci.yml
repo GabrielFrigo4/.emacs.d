@@ -1,32 +1,35 @@
 name: Universal Emacs CI
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+env:
+    FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  validate:
-    name: 🔍 Emacs Configuration Validation
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+    validate:
+        name: 🔍 Emacs Configuration Validation
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v7
 
-      - name: Install GNU Emacs
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y emacs-nox
+            - name: Install GNU Emacs
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y emacs-nox
 
-      - name: Validate Shell Scripts
-        run: |
-          find bin -name "*.sh" -exec sh -n {} +
+            - name: Validate Shell Scripts
+              run: |
+                  find bin -name "*.sh" -exec sh -n {} +
 
-      - name: Test Emacs Batch Initialization
-        run: |
-          emacs -Q --batch -l early-init.el -l init.el --eval '(message "Emacs CI load OK")'
+            - name: Test Emacs Batch Initialization
+              run: |
+                  emacs -Q --batch -l early-init.el -l init.el --eval '(message "Emacs CI load OK")'
