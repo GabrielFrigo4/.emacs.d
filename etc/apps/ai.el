@@ -8,11 +8,14 @@
   :defer t
   :config
   (setq-default llm-openai-api-key
-                (auth-source-pick-first-password :host "api.openai.com"))
+                (or (getenv "OPENAI_API_KEY")
+                    (auth-source-pick-first-password :host "api.openai.com")))
   (setq-default llm-deepseek-api-key
-                (auth-source-pick-first-password :host "api.deepseek.com"))
+                (or (getenv "DEEPSEEK_API_KEY")
+                    (auth-source-pick-first-password :host "api.deepseek.com")))
   (setq-default llm-google-api-key
-                (auth-source-pick-first-password :host "generativelanguage.googleapis.com"))
+                (or (getenv "GEMINI_API_KEY")
+                    (auth-source-pick-first-password :host "generativelanguage.googleapis.com")))
   (setq-default llm-google-model "gemini-2.5-flash"))
 
 (use-package gptel
@@ -78,8 +81,9 @@
   (setopt ellama-provider
           (make-llm-openai-compatible
            :url "https://generativelanguage.googleapis.com/v1beta/openai/"
-           :key (auth-source-pick-first-password
-                 :host "generativelanguage.googleapis.com")
+           :key (or (getenv "GEMINI_API_KEY")
+                    (auth-source-pick-first-password
+                     :host "generativelanguage.googleapis.com"))
            :chat-model "gemini-2.5-flash")))
 
 (use-package org-ai
@@ -108,7 +112,8 @@
   (setopt minuet-provider 'gemini)
   (setopt minuet-gemini-model "gemini-2.5-flash")
   (setopt minuet-gemini-api-key
-          (auth-source-pick-first-password
-           :host "generativelanguage.googleapis.com")))
+          (or (getenv "GEMINI_API_KEY")
+              (auth-source-pick-first-password
+               :host "generativelanguage.googleapis.com"))))
 
 (provide 'feature-ai)

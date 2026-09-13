@@ -82,16 +82,35 @@ Remove-Item -Recurse -Force "$HOME\.emacs.d\.git*", "$HOME\.emacs.d\.agents", "$
 
 ---
 
-### ⚙️ Integração com o Universal Environment (Submódulo)
+### ⚙️ Integração com o Universal Environment
 
-Se você já utiliza o orquestrador [Universal Environment](https://github.com/GabrielFrigo4/environment):
+Quando operado a partir do [Universal Environment](https://github.com/GabrielFrigo4/environment):
 
 ```sh
-# Sincronização automática via Profile
-make sync
+# Atualizar a suíte de editores com o upstream
+make uped
 
-# Ou criação direta de link simbólico
-ln -sf "$(pwd)" "${HOME}/.emacs.d"
+# Implantar o repositório no destino canônico (~/.emacs.d)
+make deploy
+```
+
+---
+
+### 🧠 Autodetecção Oportunística & Controle de Recursos
+
+A configuração opera de forma **100% autônoma e reentrante**:
+
+- **EAF (Emacs Application Framework):** Auto-ativado se o Emacs rodar em modo gráfico (`display-graphic-p`), a pasta existir em `opt/` e o `python3` estiver no PATH.
+- **Módulos de IA (gptel, ellama, org-ai) e Minuet:** Auto-ativados se houver credenciais disponíveis em variáveis de ambiente (`GEMINI_API_KEY`, etc.), no Vault local (`~/.vault` / `/usr/local/share/vault`) ou em arquivos `.authinfo.gpg`.
+- **Tree-sitter & LaTeX:** Auto-ativados se o suporte estiver compilado no Emacs (`treesit-available-p`) ou os compiladores (`latex`/`pdflatex`) estiverem no PATH.
+- Em ambientes sem esses recursos, a inicialização ocorre de forma pura e instantânea (&lt; 50ms), sem alertas ou falhas.
+
+Caso deseje forçar ou desativar recursos explicitamente, utilize as variáveis de ambiente:
+
+```sh
+EMACS_AI=1 emacs
+EMACS_EAF=0 emacs
+EMACS_LSP=0 emacs
 ```
 
 ---

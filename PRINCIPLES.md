@@ -5,11 +5,11 @@
 
 O **Quarteto de Produtividade** (`Setup`, `Shell`, `Vault`, `Profile`) é um ecossistema federado de 4 repositórios complementares e desacoplados, orquestrado pelo repositório **[Environment](https://github.com/GabrielFrigo4/environment)**. Cada componente é responsável por um domínio distinto: provisionamento de sistema operacional (_Setup_), motor interativo de terminal (_Shell_), cofre criptográfico de segredos (_Vault_) e dotfiles declarativos e skills de IA (_Profile_).
 
-Para garantir longevidade, idempotência e excelência técnica, toda contribuição a qualquer repositório do ecossistema deve obedecer aos **18 Princípios de Engenharia** (17 Princípios UNIX + Regra da Soberania do Usuário), às práticas de **Clean Code** adaptadas a scripts de infraestrutura, e às diretrizes arquiteturais unificadas.
+Para garantir longevidade, idempotência e excelência técnica, toda contribuição a qualquer repositório do ecossistema deve obedecer aos **19 Princípios de Engenharia** (17 Princípios UNIX + Regra da Soberania do Usuário + Regra da Autonomia Reentrante), às práticas de **Clean Code** adaptadas a scripts de infraestrutura, e às diretrizes arquiteturais unificadas.
 
 ---
 
-## 🏛️ Os 18 Princípios de Design (17 Princípios UNIX + Soberania do Usuário)
+## 🏛️ Os 19 Princípios de Design (17 Princípios UNIX + Soberania do Usuário + Autonomia Reentrante)
 
 ### 1. Regra da Modularidade (_Rule of Modularity_)
 
@@ -125,6 +125,13 @@ Para garantir longevidade, idempotência e excelência técnica, toda contribui�
 
 - **Preferência de Elevação (`doas > sudo`):** Respeitar a preferência explícita do usuário pelo `doas` através da variável `${ELEVATE}`.
 - **Preservação de Escolhas:** Receitas de sistema nunca substituem ou desconfiguram serviços e configurações personalizadas preexistentes do usuário sem aviso explícito.
+
+### 19. Regra da Autonomia Reentrante (_Rule of Reentrant Autonomy & Opportunistic Synergy_)
+
+> _Projete cada módulo para ser 100% autossuficiente e tolerante ao isolamento; conecte-o de forma silenciosa e oportuna quando seus pares estiverem presentes._
+
+- **Cidadão de Primeira Classe Isolado:** Qualquer repositório do ecossistema (`Shell`, `Profile`, `Vault`, `Setup`, `Editor/*`) DEVE poder ser clonado e operado sozinho sem requerer a existência de nenhum outro componente. A ausência de módulos pares NUNCA deve gerar erros, falhas ou avisos ao usuário.
+- **Sinergia Oportunística Silenciosa:** Se um componente detectar a presença de outro no ambiente hospedeiro (`Emacs` detectando `Vault`, `Shell` detectando `Vault`, `Profile` sincronizando `Skills`), ele se conecta e ativa recursos avançados imediatamente e em silêncio absoluto.
 
 ---
 

@@ -8,7 +8,7 @@
 
 O ecossistema foi concebido para resolver de forma definitiva o atrito entre sistemas operacionais heterogêneos (**Linux**, **FreeBSD**, **Windows**), garantindo que qualquer estação de trabalho possa ser provisionada, personalizada e operada em minutos com **simetria perfeita**, **desempenho instantâneo** e **segurança rigorosa**.
 
-Em vez de um monólito caótico de dotfiles e scripts soltos, o ambiente é estruturado como uma federação de **4 repositórios complementares e desacoplados** — **O Quarteto de Produtividade**:
+Em vez de um monólito caótico de dotfiles e scripts soltos, o ambiente é estruturado como uma federação de **4 repositórios complementares e desacoplados** — **O Quarteto de Produtividade** — acompanhados de uma **Suíte de Editores** autônomos:
 
 ```mermaid
 flowchart TD
@@ -16,14 +16,14 @@ flowchart TD
         SETUP["📦 1. Setup (Público)<br/>• Provisionamento Ativo de SO<br/>• Pacotes de Sistema, Drivers, Kernel<br/>• Jails, Containers (Incus/Podman)<br/>• Cookbook Zero-Clone (GitHub)"]
         SHELL["🐚 2. Shell (Público)<br/>• Motor Interativo de Terminal<br/>• Prompts Ultra-rápidos (&lt; 64ms)<br/>• Aliases e Funções de Linha de Comando<br/>• Targets de SO e Contextos"]
         VAULT["🔐 3. Vault (Privado)<br/>• Chaves SSH / PuTTY PPK<br/>• Segredos e Variáveis .env<br/>• Senhas Wi-Fi e Mapeamento de Hosts<br/>• Loaders Multi-Shell (sh, ps1, cmd, nu)"]
-        PROFILE["🎨 4. Profile (Público)<br/>• Dotfiles Declarativos de Usuário<br/>• Links de Editores e Terminais<br/>• Linters, Formatadores e Skills de IA"]
+        PROFILE["🎨 4. Profile (Público)<br/>• Dotfiles Declarativos de Usuário<br/>• IDEs Modernas & Perfis de Terminal<br/>• Linters, Formatadores e Skills de IA"]
     end
 
-    subgraph EDITORS ["📝 A Suíte de Editores"]
-        EMACS["🔮 Emacs (.emacs.d)<br/>• Elisp, Org-mode, Elpaca<br/>• EAF, IA e Cascatas Modulares"]
+    subgraph EDITORS ["📝 A Suíte de Editores (Autônomos & Reentrantes)"]
+        EMACS["🔮 Emacs (emacs)<br/>• Elisp, Org-mode, Elpaca<br/>• EAF, IA e Autodetecção Oportunística"]
         HELIX["🧬 Helix (helix)<br/>• Rust, Modal Pós-Moderno<br/>• Tree-sitter & LSP Nativo"]
-        NVIM["⚡ NeoVim (nvim)<br/>• Lua, Lazy, Mason, LSP<br/>• Kanagawa & FHS Modular"]
-        VIM["📜 Vim (vimfiles)<br/>• Vimscript, Vim-Plug<br/>• CodeDark & Onipresença UNIX"]
+        NVIM["⚡ NeoVim (neovim)<br/>• Lua, Lazy, Mason, LSP<br/>• Kanagawa & FHS Modular"]
+        VIM["📜 Vim (vim)<br/>• Vimscript, Vim-Plug<br/>• CodeDark & Onipresença UNIX"]
     end
 
     subgraph HOST ["💻 Sistema Operacional Host (Clean Host)"]
@@ -38,11 +38,37 @@ flowchart TD
     SHELL -->|2. energiza a sessão do terminal| CLI
     VAULT -->|3. injeta credenciais em silêncio| SHELL
     VAULT -->|3. provê chaves para ssh-agent| APPS
+    VAULT -.->|tokens e chaves de IA| EMACS
     PROFILE -->|4. sincroniza dotfiles ($HOME)| APPS
     PROFILE -->|4. provê inteligência e skills| CLI
-    PROFILE -.->|links simbióticos| EDITORS
-    EDITORS -->|editores residentes de produção| APPS
+    EDITORS -->|editores residentes autônomos| APPS
 ```
+
+---
+
+## 🏛️ O Paradigma da Autonomia Reentrante & Sinergia Oportunística
+
+O ecossistema adota um axioma fundamental que governa a engenharia de todos os repositórios: **todo projeto é um módulo autônomo, reentrante e autocontido**.
+
+### 1. Dois Modos de Uso como Cidadãos de Primeira Classe
+
+1. **Modo Isolado / Standalone (Servidores, Contêineres, Laboratório Acadêmico):**
+    - Você pode clonar **apenas o Shell** em um servidor remoto, ou **apenas o Emacs** em um computador pessoal, ou **Shell + Vim** em uma máquina compartilhada.
+    - **Zero Dependências Obrigatórias:** Nenhum repositório exige que outro esteja clonado para funcionar.
+    - **Zero Ruído:** Não há mensagens de erro, alertas de "módulo ausente" ou telas de aviso se os outros repositórios não existirem. A experiência isolada é tratada como cidadã de primeira classe.
+2. **Modo Federado / Hub Central (Estação de Trabalho Principal):**
+    - O repositório **Environment** centraliza todos os submódulos para **facilitar o aprimoramento contínuo, auditoria e engenharia conjunta**.
+    - Em uma máquina principal, clonar o Environment permite auditar, testar e sincronizar todo o ecossistema com comandos unificados (`make deploy`, `make pull`, `make audit`, `make ci`).
+
+### 2. Sinergia Oportunística e Degradação Graciosa
+
+Quando os repositórios coexistem no mesmo sistema, eles **detectam-se automaticamente e ativam capacidades adicionais em silêncio absoluto**:
+
+- **Emacs ↔ Vault / IA:** Se o Emacs detectar o Vault em `~/.vault` ou `/usr/local/share/vault` (ou credenciais em variáveis de ambiente), ativa automaticamente seus módulos de IA (`gptel`, `ellama`, `minuet`, `org-ai`). Se ausente, inicializa instantaneamente em modo limpo (&lt; 50ms) sem erros.
+- **Emacs ↔ EAF:** Se o Emacs estiver em modo gráfico com a pasta do EAF e `python3` disponíveis, ativa a integração. Caso contrário, opera normalmente em modo texto ou terminal sem falhas de D-Bus.
+- **Shell ↔ Vault:** O Shell detecta silenciosamente o cofre e injeta chaves SSH e variáveis. Se o cofre não for encontrado, roda normalmente em modo anônimo.
+- **Profile ↔ Skills de IA:** O Profile cria um link simbólico unificado de diretório (`~/.gemini/config/skills -> Profile/skills`). Qualquer nova skill adicionada ao repositório fica imediatamente disponível no IDE após um `git pull`, sem necessidade de novos links manuais.
+- **Profile ↔ Editores de Texto:** O Profile **NÃO** gerencia nem cria links para editores de texto modais (`~/.emacs.d`, `~/.config/nvim`, etc.). Esses editores gerenciam-se a si mesmos em seus diretórios canônicos.
 
 ---
 
@@ -59,12 +85,12 @@ flowchart TD
 
 ### 📝 A Suíte de Editores (Tools)
 
-| Repositório                                            | Visibilidade | Papel Central                                                                                                  | Linguagem & Motor       | Integração no Profile                                   | Local Canônico                      |
-| :----------------------------------------------------- | :----------- | :------------------------------------------------------------------------------------------------------------- | :---------------------- | :------------------------------------------------------ | :---------------------------------- |
-| **[Emacs](https://github.com/GabrielFrigo4/.emacs.d)** | Público      | **Ambiente Extensível Lisp**: Org-mode, Elpaca package manager, EAF, árvore sintática e IA.                    | Emacs Lisp (Elisp)      | Sincronizado para `${HOME}/.emacs.d`                    | `Editor/Emacs` ou `~/.emacs.d`      |
-| **[Helix](https://github.com/GabrielFrigo4/helix)**    | Público      | **Editor Modal Pós-Moderno**: Mapeamentos ergonômicos, seleção múltipla nativa, Tree-sitter e zero-plugin LSP. | TOML declarativo / Rust | Sincronizado para `${HOME}/.config/helix`               | `Editor/Helix` ou `~/.config/helix` |
-| **[NeoVim](https://github.com/GabrielFrigo4/nvim)**    | Público      | **Editor Modal Moderno**: Arquitetura modular FHS em Lua, Lazy.nvim, Mason LSP, Telescope e tema Kanagawa.     | Lua / Neovim runtime    | Sincronizado para `${HOME}/.config/nvim`                | `Editor/NeoVim` ou `~/.config/nvim` |
-| **[Vim](https://github.com/GabrielFrigo4/vimfiles)**   | Público      | **Editor Clássico Resiliente**: Onipresença UNIX, Vim-Plug, syntax highlighting, CodeDark e fallback seguro.   | Vimscript puro          | Sincronizado para `${HOME}/.vimrc` e `${HOME}/vimfiles` | `Editor/Vim` ou `~/vimfiles`        |
+| Repositório                                           | Visibilidade | Papel Central                                                                                                  | Linguagem & Motor       | Modelo de Operação / Instalação                          | Local Canônico            |
+| :---------------------------------------------------- | :----------- | :------------------------------------------------------------------------------------------------------------- | :---------------------- | :------------------------------------------------------- | :------------------------ |
+| **[Emacs](https://github.com/GabrielFrigo4/emacs)**   | Público      | **Ambiente Extensível Lisp**: Org-mode, Elpaca package manager, EAF, árvore sintática e IA.                    | Emacs Lisp (Elisp)      | Autônomo reentrante com autodetecção de EAF e Vault      | `~/.emacs.d`              |
+| **[Helix](https://github.com/GabrielFrigo4/helix)**   | Público      | **Editor Modal Pós-Moderno**: Mapeamentos ergonômicos, seleção múltipla nativa, Tree-sitter e zero-plugin LSP. | TOML declarativo / Rust | Autônomo reentrante puro e zero-dependência              | `~/.config/helix`         |
+| **[NeoVim](https://github.com/GabrielFrigo4/neovim)** | Público      | **Editor Modal Moderno**: Arquitetura modular FHS em Lua, Lazy.nvim, Mason LSP, Telescope e tema Kanagawa.     | Lua / Neovim runtime    | Autônomo reentrante com autoinstalação Lazy.nvim         | `~/.config/nvim`          |
+| **[Vim](https://github.com/GabrielFrigo4/vim)**       | Público      | **Editor Clássico Resiliente**: Onipresença UNIX, Vim-Plug, syntax highlighting, CodeDark e fallback seguro.   | Vimscript puro          | Autônomo reentrante com fallback nativo sem dependências | `~/vimfiles` e `~/.vimrc` |
 
 ---
 
@@ -80,6 +106,7 @@ sequenceDiagram
     participant Sh as 🐚 2. Shell (Terminal)
     participant V as 🔐 3. Vault (Segredos)
     participant P as 🎨 4. Profile (Dotfiles / $HOME)
+    participant Ed as 📝 5. Editores (Ferramentas)
 
     Dev->>S: 1. Executa receita de bootstrap da distro (ex: fedora.sh / kde.sh)
     Note over S: Instala pacotes, drivers, ZFS, Wayland e base de containers.
@@ -88,8 +115,10 @@ sequenceDiagram
     Dev->>V: 3. Clona Vault em ~/.vault (se ambiente autorizado)
     Note over V: Aplica vault-perms (0700/0600) e disponibiliza loaders.
     Dev->>P: 4. Clona Profile e executa sincronizador de dotfiles
-    Note over P: Cria symlinks para ~/.config/, editores (Zed, Helix, VSCode, Antigravity) e skills de IA.
-    Dev->>Sh: 5. Abre nova aba de terminal interativo
+    Note over P: Cria symlinks para formatadores, IDEs (Zed, VSCode), terminais e link unificado de skills de IA.
+    Dev->>Ed: 5. Clona editores necessários (~/.emacs.d, ~/.config/nvim, etc.)
+    Note over Ed: Editores operam de imediato e detectam Vault/EAF silenciosamente.
+    Dev->>Sh: 6. Abre nova aba de terminal interativo
     Sh->>V: Detecta ~/.vault/vault.sh silenciosamente
     V-->>Sh: Injeta variáveis de ambiente e chaves SSH (ssh-agent) em silêncio absoluto
     Note over Sh: Prompt renderizado em menos de 64ms pronto para produção!
@@ -97,15 +126,31 @@ sequenceDiagram
 
 ---
 
+## ⚡ Comandos Canônicos de Ciclo de Vida & Atualização
+
+Cada módulo possui seu próprio utilitário de atualização individual, garantindo total desacoplamento:
+
+| Comando | Alias            | Repositório Alvo          | Escopo & Comportamento                                                                                 |
+| :------ | :--------------- | :------------------------ | :----------------------------------------------------------------------------------------------------- |
+| `upsh`  | `update-shell`   | **Shell**                 | Atualiza `/usr/local/share/shell` (global) ou `~/.shell` (local) e recarrega a sessão.                 |
+| `upvt`  | `update-vault`   | **Vault**                 | Atualiza `~/.vault` (local) ou `/usr/local/share/vault` (global) e recarrega chaves SSH.               |
+| `uped`  | `update-editors` | **Editores**              | Inspeciona e atualiza individualmente `~/.emacs.d`, `~/.config/nvim`, `~/.config/helix`, `~/vimfiles`. |
+| `uprc`  | `update-profile` | **Profile**               | Atualiza `~/.config/profile` e reaplica links de dotfiles e skills de IA.                              |
+| `upgit` | `update-git`     | **Todos Git**             | Busca e atualiza recursivamente todos os repositórios Git no diretório corrente.                       |
+| `upall` | `update-all`     | **Sistema + Ecossistema** | Atualiza pacotes do SO (`dnf`, `apt`, `pkg`, `aur`) e, oportunisticamente, os módulos instalados.      |
+
+---
+
 ## 🏛️ Invariantes & Padrões Universais de Engenharia
 
-Todos os 4 repositórios aderem rigorosamente aos mesmos padrões arquiteturais de Clean Code e governança:
+Todos os repositórios do ecossistema aderem rigorosamente aos mesmos padrões arquiteturais de Clean Code e governança:
 
-### 1. Os 18 Princípios de Engenharia
+### 1. Os 19 Princípios de Engenharia
 
-Baseados nos 17 Princípios UNIX (_The Art of UNIX Programming_, Eric S. Raymond, 2003) somados ao 18º Princípio fundamental:
+Baseados nos 17 Princípios UNIX (_The Art of UNIX Programming_, Eric S. Raymond, 2003) somados aos 2 Princípios fundamentais do ecossistema:
 
-- **A Regra da Soberania do Usuário (_Rule of User Sovereignty_):** Nenhuma automação, script ou loader deve sobrescrever variáveis ou configurações pré-existentes do usuário sem consentimento explícito. Ferramentas intencionais do usuário (`doas`, `paru`, `hx`, `eza`, `rg`, `bat`) têm prioridade sobre utilitários genéricos.
+- **18. A Regra da Soberania do Usuário (_Rule of User Sovereignty_):** Nenhuma automação, script ou loader deve sobrescrever variáveis ou configurações pré-existentes do usuário sem consentimento explícito. Ferramentas intencionais do usuário (`doas`, `paru`, `hx`, `eza`, `rg`, `bat`) têm prioridade sobre utilitários genéricos.
+- **19. A Regra da Autonomia Reentrante (_Rule of Reentrant Autonomy & Opportunistic Synergy_):** Todo repositório deve operar com total independência, sem dependências obrigatórias e sem ruído de erro quando isolado. Quando outros componentes são detectados, sinergias são ativadas em silêncio e de forma imediata.
 
 ### 2. Arquitetura de Comentários em Três Camadas (Regra do Não-Vazamento)
 
@@ -144,7 +189,7 @@ Baseados nos 17 Princípios UNIX (_The Art of UNIX Programming_, Eric S. Raymond
 
 ### 5. Permissões Canônicas em 4 Dígitos Octais
 
-- `chmod 0755`: Diretórios e scripts executáveis públicos (`Setup`, `Profile`, `Shell`).
+- `chmod 0755`: Diretórios e scripts executáveis públicos (`Setup`, `Profile`, `Shell`, `Editor/*`).
 - `chmod 0644`: Dotfiles estáticos, documentações e arquivos de configuração públicos.
 - `chmod 0700`: Diretórios privados e scripts executáveis com dados sensíveis (`Vault`).
 - `chmod 0600`: Chaves privadas SSH, PuTTY PPK, tokens e arquivos `.env` (`Vault`).
@@ -170,7 +215,7 @@ Baseados nos 17 Princípios UNIX (_The Art of UNIX Programming_, Eric S. Raymond
 
 ### 📝 A Suíte de Editores
 
-- 🔮 **[Emacs (.emacs.d)](https://github.com/GabrielFrigo4/.emacs.d)**
+- 🔮 **[Emacs (emacs)](https://github.com/GabrielFrigo4/emacs)**
 - 🧬 **[Helix (helix)](https://github.com/GabrielFrigo4/helix)**
-- ⚡ **[NeoVim (nvim)](https://github.com/GabrielFrigo4/nvim)**
-- 📜 **[Vim (vimfiles)](https://github.com/GabrielFrigo4/vimfiles)**
+- ⚡ **[NeoVim (neovim)](https://github.com/GabrielFrigo4/neovim)**
+- 📜 **[Vim (vim)](https://github.com/GabrielFrigo4/vim)**

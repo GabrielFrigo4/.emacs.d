@@ -33,10 +33,22 @@
 (setq package-gnupghome-dir (expand-file-name "lib/elpa/gnupg" var-dir))
 (setq download-directory (expand-file-name "Downloads" home-dir))
 
+(setq vault-dir (or (getenv "VAULT_DIR")
+                    (let ((v-local (expand-file-name ".vault" home-dir))
+                          (v-global "/usr/local/share/vault"))
+                      (cond ((file-directory-p v-local) v-local)
+                            ((file-directory-p v-global) v-global)
+                            (t v-local)))))
+
 (setq auth-sources
-      (list (expand-file-name ".authinfo" home-dir)
-            (expand-file-name ".authinfo.gpg" home-dir)
-            (expand-file-name ".netrc" home-dir)))
+      (delete-dups
+       (delq nil
+             (list (expand-file-name ".authinfo" home-dir)
+                   (expand-file-name ".authinfo.gpg" home-dir)
+                   (expand-file-name "tokens/authinfo" vault-dir)
+                   (expand-file-name "tokens/authinfo.gpg" vault-dir)
+                   (expand-file-name "tokens/.authinfo" vault-dir)
+                   (expand-file-name ".netrc" home-dir)))))
 
 (setq backup-dir (expand-file-name "cache/backup/" var-dir))
 (setq cache-dir  (expand-file-name "cache/" var-dir))
@@ -70,24 +82,60 @@
 (setq mc/list-file (expand-file-name "mc-lists.el" cache-dir))
 
 ;; ================================
-;; FEATURE TOGGLES
+;; FEATURE TOGGLES & AUTO-DETECTION
 ;; ================================
-(defun getenv-bool (var default)
-  "Return non-nil if VAR is set to truthy string, nil if falsy, else DEFAULT."
+(defun getenv-bool (var default-val)
+  "Return non-nil if VAR is truthy string, nil if falsy, else evaluate DEFAULT-VAL."
   (let ((val (getenv var)))
     (cond
-     ((null val) default)
+     ((null val)
+      (if (functionp default-val) (funcall default-val) default-val))
      ((member (downcase val) '("1" "true" "yes" "t")) t)
      ((member (downcase val) '("0" "false" "no" "nil")) nil)
-     (t default))))
+     (t (if (functionp default-val) (funcall default-val) default-val)))))
+
+(defun eaf-detect-p ()
+  "Auto-detect if Emacs Application Framework is available."
+  (and (display-graphic-p)
+       (or (file-directory-p (expand-file-name "eaf/emacs-application-framework" opt-dir))
+           (file-directory-p (expand-file-name "opt/eaf/emacs-application-framework" emacs-dir)))
+       (executable-find "python3")
+       t))
+
+(defun ai-detect-p ()
+  "Auto-detect if AI credentials or tokens are present in system, vault or auth-sources."
+  (and (or (getenv "GEMINI_API_KEY")
+           (getenv "OPENAI_API_KEY")
+           (getenv "DEEPSEEK_API_KEY")
+           (getenv "ANTHROPIC_API_KEY")
+           (file-exists-p (expand-file-name ".authinfo.gpg" home-dir))
+           (file-exists-p (expand-file-name "tokens/authinfo" vault-dir))
+           (file-exists-p (expand-file-name "tokens/authinfo.gpg" vault-dir)))
+       t))
+
+(defun minuet-detect-p ()
+  "Auto-detect if Minuet code completion should be active."
+  (and (or (getenv "GEMINI_API_KEY")
+           (file-exists-p (expand-file-name ".authinfo.gpg" home-dir))
+           (file-exists-p (expand-file-name "tokens/authinfo" vault-dir))
+           (file-exists-p (expand-file-name "tokens/authinfo.gpg" vault-dir)))
+       t))
+
+(defun treesit-detect-p ()
+  "Auto-detect if Tree-sitter is compiled and available in Emacs."
+  (and (fboundp 'treesit-available-p) (treesit-available-p)))
+
+(defun latex-detect-p ()
+  "Auto-detect if LaTeX compiler is present in system."
+  (and (or (executable-find "latex") (executable-find "pdflatex")) t))
 
 (setq scroll/enable  (getenv-bool "EMACS_SCROLL" t))
-(setq treesit/enable (getenv-bool "EMACS_TREESIT" nil))
-(setq minuet/enable  (getenv-bool "EMACS_MINUET" nil))
-(setq ia/enable      (getenv-bool "EMACS_AI" nil))
-(setq eaf/enable     (getenv-bool "EMACS_EAF" nil))
+(setq treesit/enable (getenv-bool "EMACS_TREESIT" #'treesit-detect-p))
+(setq minuet/enable  (getenv-bool "EMACS_MINUET" #'minuet-detect-p))
+(setq ia/enable      (getenv-bool "EMACS_AI" #'ai-detect-p))
+(setq eaf/enable     (getenv-bool "EMACS_EAF" #'eaf-detect-p))
 (setq lsp/enable     (getenv-bool "EMACS_LSP" t))
-(setq latex/enable   (getenv-bool "EMACS_LATEX" t))
+(setq latex/enable   (getenv-bool "EMACS_LATEX" #'latex-detect-p))
 
 ;; ================================
 ;; CORE LIBRARIES
