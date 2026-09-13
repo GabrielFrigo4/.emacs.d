@@ -123,6 +123,13 @@ Para garantir longevidade, idempotência e excelência técnica, toda contribui�
 
 > _Honre a escolha explícita e deliberada do usuário antes de impor padrões genéricos._
 
+- **Precedência Local sobre Global (Local > Global):** Em conformidade com o princípio UNIX da localidade e do menor espanto, **o escopo mais específico, intencional e local sempre prevalece sobre o genérico e global**:
+    1. **Argumentos de Linha de Comando (CLI):** Flags explícitas têm precedência absoluta (`--context`, `--yes`).
+    2. **Variáveis de Ambiente Explícitas:** `$SHELL_REPO_DIR`, `$VAULT_DIR`, `$NVIM_APPNAME`, `$GEMINI_API_KEY`.
+    3. **Contexto Local do Projeto:** `.agents/skills/`, `.agents/rules/`, `.githooks/`, `Makefile` local.
+    4. **Escopo do Usuário (`$HOME` / XDG):** `~/.shell`, `~/.vault`, `~/.config/...`, `~/.gemini/config/skills/`.
+    5. **Escopo Global do Sistema:** `/usr/local/share/shell`, `/usr/local/share/vault`, `/etc/...`.
+- **Precedência em Portable AI Skills:** Runbooks locais de projeto (`.agents/skills/`) sobrescrevem ou estendem runbooks globais do usuário (`~/.gemini/config/skills/`), que por sua vez sobrescrevem habilidades nativas da IDE (`builtin/skills`). O projeto é soberano.
 - **Preferência de Elevação (`doas > sudo`):** Respeitar a preferência explícita do usuário pelo `doas` através da variável `${ELEVATE}`.
 - **Preservação de Escolhas:** Receitas de sistema nunca substituem ou desconfiguram serviços e configurações personalizadas preexistentes do usuário sem aviso explícito.
 

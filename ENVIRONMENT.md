@@ -48,23 +48,60 @@ flowchart TD
 
 ## 🏛️ O Paradigma da Autonomia Reentrante & Sinergia Oportunística
 
-O ecossistema adota um axioma fundamental que governa a engenharia de todos os repositórios: **todo projeto é um módulo autônomo, reentrante e autocontido**.
+O ecossistema adota dois axiomas fundamentais que governam a engenharia de todos os repositórios: **autonomia reentrante** e **precedência local sobre global**.
 
 ### 1. Dois Modos de Uso como Cidadãos de Primeira Classe
 
-1. **Modo Isolado / Standalone (Servidores, Contêineres, Laboratório Acadêmico):**
-    - Você pode clonar **apenas o Shell** em um servidor remoto, ou **apenas o Emacs** em um computador pessoal, ou **Shell + Vim** em uma máquina compartilhada.
-    - **Zero Dependências Obrigatórias:** Nenhum repositório exige que outro esteja clonado para funcionar.
-    - **Zero Ruído:** Não há mensagens de erro, alertas de "módulo ausente" ou telas de aviso se os outros repositórios não existirem. A experiência isolada é tratada como cidadã de primeira classe.
-2. **Modo Federado / Hub Central (Estação de Trabalho Principal):**
-    - O repositório **Environment** centraliza todos os submódulos para **facilitar o aprimoramento contínuo, auditoria e engenharia conjunta**.
-    - Em uma máquina principal, clonar o Environment permite auditar, testar e sincronizar todo o ecossistema com comandos unificados (`make deploy`, `make pull`, `make audit`, `make ci`).
+1. **A Realidade Descentralizada de Produção (Zero-Coupling / Standalone First):**
+    - Em máquinas de produção, servidores remotos, contêineres e instalações limpas, **o repositório Environment NÃO precisa sequer existir clonado**.
+    - Cada ferramenta vive e opera diretamente em seu caminho canônico XDG/Unix:
+        - `~/.shell` (ou `/usr/local/share/shell`)
+        - `~/.emacs.d`
+        - `~/.config/nvim`
+        - `~/.config/helix`
+        - `~/vimfiles`
+        - `~/.vault`
+        - `~/.config/profile`
+    - **Zero Dependências Obrigatórias:** Nenhum repositório exige que outro esteja presente para funcionar com perfeição.
+    - **Zero Ruído:** Não há mensagens de erro, alertas de "módulo ausente" ou avisos se os outros repositórios não existirem. A experiência isolada é cidadã de primeira classe.
+2. **O Papel do Environment (Meta-Repositório de Engenharia & Hub do Arquiteto):**
+    - O **Environment** é um meta-repositório para desenvolvimento, manutenção contínua e governança arquitetural unificada.
+    - Ele centraliza os submódulos para que o desenvolvedor/arquiteto possa abrir todo o ecossistema de uma só vez em seu editor/IDE.
+    - Serve para executar suítes globais de testes (`make test`), auditorias estáticas cruzadas (`make audit`), validação de documentação (`make lint-md`) e sincronização canônica (`make sync-docs`).
+    - O comando `make deploy` é estritamente uma **conveniência opcional de fluxo de desenvolvimento**: em uma estação onde você clonou o hub para trabalhar nele, ele cria symlinks do seu `$HOME` apontando para os submódulos dentro do checkout do Environment, permitindo que alterações nos editores ou no shell tenham efeito imediato sem necessidade de cópia manual de arquivos.
 
-### 2. Sinergia Oportunística e Degradação Graciosa
+### 2. O Axioma da Precedência Local sobre Global (Local > Global)
+
+Inspirado no princípio UNIX da localidade e na 18ª Regra da Soberania do Usuário, **o escopo mais específico, intencional e local sempre tem precedência absoluta sobre o escopo mais genérico e global**:
+
+```mermaid
+flowchart TD
+    CLI["1. Linha de Comando (Flags Explícitas: --context, --yes)"]
+    ENV["2. Variáveis de Ambiente Explícitas ($SHELL_REPO_DIR, $VAULT_DIR, $NVIM_APPNAME)"]
+    PROJ["3. Contexto Local do Projeto (./.agents/skills, ./.git, ./Makefile)"]
+    USER["4. Escopo do Usuário ($HOME / XDG: ~/.shell, ~/.vault, ~/.gemini/config/skills)"]
+    SYS["5. Escopo Global do Sistema (/usr/local/share/shell, /usr/local/share/vault, /etc)"]
+
+    CLI -->|sobrepõe| ENV
+    ENV -->|sobrepõe| PROJ
+    PROJ -->|sobrepõe| USER
+    USER -->|sobrepõe| SYS
+```
+
+- **Resolução em Scripts e Loaders:**
+    1. Variável explícita de ambiente (`$SHELL_REPO_DIR`, `$VAULT_DIR`).
+    2. Diretório local do usuário no `$HOME` (`~/.shell`, `~/.local/share/shell`, `~/.vault`).
+    3. Diretório global do sistema (`/usr/local/share/shell`, `/usr/local/share/vault`).
+- **Resolução em Portable AI Skills & Agentes:**
+    1. **Projeto Local (`<repo>/.agents/skills/`):** Máxima prioridade. Permite que um projeto defina runbooks e regras específicas que sobrescrevem qualquer padrão global sem poluir a máquina do usuário.
+    2. **Usuário Global (`~/.gemini/config/skills/` via `Profile/skills/`):** Habilidades perenes da estação de trabalho, compartilhadas entre projetos.
+    3. **Built-in da IDE (`builtin/skills`):** Habilidades nativas de fábrica como fallback de último nível.
+
+### 3. Sinergia Oportunística e Degradação Graciosa
 
 Quando os repositórios coexistem no mesmo sistema, eles **detectam-se automaticamente e ativam capacidades adicionais em silêncio absoluto**:
 
-- **Emacs ↔ Vault / IA:** Se o Emacs detectar o Vault em `~/.vault` ou `/usr/local/share/vault` (ou credenciais em variáveis de ambiente), ativa automaticamente seus módulos de IA (`gptel`, `ellama`, `minuet`, `org-ai`). Se ausente, inicializa instantaneamente em modo limpo (&lt; 50ms) sem erros.
+- **Emacs ↔ Vault / IA:** Se o Emacs detectar o Vault em `~/.vault` ou `/usr/local/share/vault` (ou credenciais em variáveis de ambiente), ativa automaticamente seus módulos de IA (`gptel`, `ellama`, `minuet`, `org-ai`). Se ausente, inicializa instantaneamente em modo limpo (< 50ms) sem erros.
 - **Emacs ↔ EAF:** Se o Emacs estiver em modo gráfico com a pasta do EAF e `python3` disponíveis, ativa a integração. Caso contrário, opera normalmente em modo texto ou terminal sem falhas de D-Bus.
 - **Shell ↔ Vault:** O Shell detecta silenciosamente o cofre e injeta chaves SSH e variáveis. Se o cofre não for encontrado, roda normalmente em modo anônimo.
 - **Profile ↔ Skills de IA:** O Profile cria um link simbólico unificado de diretório (`~/.gemini/config/skills -> Profile/skills`). Qualquer nova skill adicionada ao repositório fica imediatamente disponível no IDE após um `git pull`, sem necessidade de novos links manuais.
@@ -130,14 +167,14 @@ sequenceDiagram
 
 Cada módulo possui seu próprio utilitário de atualização individual, garantindo total desacoplamento:
 
-| Comando | Alias            | Repositório Alvo          | Escopo & Comportamento                                                                                 |
-| :------ | :--------------- | :------------------------ | :----------------------------------------------------------------------------------------------------- |
-| `upsh`  | `update-shell`   | **Shell**                 | Atualiza `/usr/local/share/shell` (global) ou `~/.shell` (local) e recarrega a sessão.                 |
-| `upvt`  | `update-vault`   | **Vault**                 | Atualiza `~/.vault` (local) ou `/usr/local/share/vault` (global) e recarrega chaves SSH.               |
-| `uped`  | `update-editors` | **Editores**              | Inspeciona e atualiza individualmente `~/.emacs.d`, `~/.config/nvim`, `~/.config/helix`, `~/vimfiles`. |
-| `uprc`  | `update-profile` | **Profile**               | Atualiza `~/.config/profile` e reaplica links de dotfiles e skills de IA.                              |
-| `upgit` | `update-git`     | **Todos Git**             | Busca e atualiza recursivamente todos os repositórios Git no diretório corrente.                       |
-| `upall` | `update-all`     | **Sistema + Ecossistema** | Atualiza pacotes do SO (`dnf`, `apt`, `pkg`, `aur`) e, oportunisticamente, os módulos instalados.      |
+| Comando | Alias            | Repositório Alvo          | Escopo & Comportamento                                                                                             |
+| :------ | :--------------- | :------------------------ | :----------------------------------------------------------------------------------------------------------------- |
+| `upsh`  | `update-shell`   | **Shell**                 | Atualiza o repositório ativo (`$SHELL_REPO_DIR`, `~/.shell` local ou `/usr/local/share/shell` global) e recarrega. |
+| `upvt`  | `update-vault`   | **Vault**                 | Atualiza o cofre (`$VAULT_DIR`, `~/.vault` local ou `/usr/local/share/vault` global) e recarrega chaves SSH.       |
+| `uped`  | `update-editors` | **Editores**              | Inspeciona e atualiza individualmente `~/.emacs.d`, `~/.config/nvim`, `~/.config/helix`, `~/vimfiles`.             |
+| `uprc`  | `update-profile` | **Profile**               | Atualiza `~/.config/profile` e reaplica links de dotfiles e skills de IA.                                          |
+| `upgit` | `update-git`     | **Todos Git**             | Busca e atualiza recursivamente todos os repositórios Git no diretório corrente.                                   |
+| `upall` | `update-all`     | **Sistema + Ecossistema** | Atualiza pacotes do SO (`dnf`, `apt`, `pkg`, `aur`) e, oportunisticamente, os módulos instalados.                  |
 
 ---
 
